@@ -20,6 +20,7 @@
                     <fieldset>
                     <legend><?= __('Adicionar Grupo:') ?></legend>
                     <?php
+                        echo $this->Form->input('name',['label' => 'Nome:']);
                         echo $this->Form->input('description',['label' => 'Descrição:']);
                         echo $this->Form->input('users._ids', ['label' => 'Usuários Relacionados (Opcional):','options' => $users]);
                     ?>

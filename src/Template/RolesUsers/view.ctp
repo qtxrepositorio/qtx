@@ -2,7 +2,8 @@
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('Edit Roles User'), ['action' => 'edit', $rolesUser->role_id]) ?> </li>
-        <li><?= $this->Form->postLink(__('Delete Roles User'), ['action' => 'delete', $rolesUser->role_id], ['confirm' => __('Are you sure you want to delete # {0}?', $rolesUser->role_id)]) ?> </li>
+        <li><?= $this->Form->postLink(__('Delete Roles User'), ['action' => 'delete', $rolesUser->role_id], ['confirm' => __('
+Tem certeza de que deseja excluir # {0}?', $rolesUser->role_id)]) ?> </li>
         <li><?= $this->Html->link(__('List Roles Users'), ['action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New Roles User'), ['action' => 'add']) ?> </li>
         <li><?= $this->Html->link(__('List Roles'), ['controller' => 'Roles', 'action' => 'index']) ?> </li>

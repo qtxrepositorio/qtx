@@ -5,7 +5,6 @@ use Cake\Event\Event;
 use App\Controller\AppController;
 use Cake\Controller\Component\FlashComponent;
 
-
 /**
  * Users Controller
  *
@@ -14,6 +13,8 @@ use Cake\Controller\Component\FlashComponent;
 class UsersController extends AppController
 {
 
+    public $paginate = [
+        'limit' => 6];
     /**
      * Index method
      *
@@ -55,11 +56,11 @@ class UsersController extends AppController
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->data);
             if ($this->Users->save($user)) {
-                $this->Flash->success(__('The user has been saved.'));
+                $this->Flash->success(__('O usuário foi salvo!'));
 
                 return $this->redirect(['action' => 'index']);
             } else {
-                $this->Flash->error(__('The user could not be saved. Please, try again.'));
+                $this->Flash->error(__('O usuário não pôde ser salvo . Por favor, tente novamente.'));
             }
         }
         $roles = $this->Users->Roles->find('list', ['limit' => 200]);
@@ -82,11 +83,11 @@ class UsersController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $user = $this->Users->patchEntity($user, $this->request->data);
             if ($this->Users->save($user)) {
-                $this->Flash->success(__('The user has been saved.'));
+                $this->Flash->success(__('O usuário foi salvo!'));
 
                 return $this->redirect(['action' => 'index']);
             } else {
-                $this->Flash->error(__('The user could not be saved. Please, try again.'));
+                $this->Flash->error(__('O usuário não pôde ser salvo . Por favor, tente novamente.'));
             }
         }
         $roles = $this->Users->Roles->find('list', ['limit' => 200]);
@@ -106,14 +107,14 @@ class UsersController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $user = $this->Users->get($id);
         if ($this->Users->delete($user)) {
-            $this->Flash->success(__('The user has been deleted.'));
+            $this->Flash->success(__('O usuário foi apagado!'));
         } else {
-            $this->Flash->error(__('The user could not be deleted. Please, try again.'));
+            $this->Flash->error(__('O usuário não pôde ser salvo . Por favor, tente novamente.'));
         }
 
         return $this->redirect(['action' => 'index']);
     }
-    
+
     public function beforeFilter(Event $event)
     {
         parent::beforeFilter($event);
@@ -128,35 +129,48 @@ class UsersController extends AppController
 
         $this->loadModel('Roles'); 
         $this->loadModel('RolesUsers'); 
-        $authenticatedUserId = $this->Auth->user('id'); 
-        $query = $this->RolesUsers->find()
+        $authenticatedUserId = $this->Auth->user('id');
+        $query = $this->Users->find()
             ->where([
-                'user_id'=> $authenticatedUserId            
-            ]);    
-        $currentUserGroups = $query->all();    
-        $release = null;    
-        foreach ($currentUserGroups as $key) {
-            $query = $this->Roles->find()
-            ->where([
-                'id'=> $key['role_id']           
-            ]);    
-            $correspondingFunction = $query->all();  
-            foreach ($correspondingFunction as $key) {
-                if(strcmp($key['description'],'Administradores')){
-                    $release = false;        
-                }
-                else{  
-                    $release = true;
+                'id'=> $authenticatedUserId            
+            ]);
+        $statusArray = $query->all();
+        $status = null;
+        foreach ($statusArray as $key) {
+            $status = $key['status'];
+        }
+        if($status == true){
+            $query = $this->RolesUsers->find()
+                ->where([
+                    'user_id'=> $authenticatedUserId            
+                ]);    
+            $currentUserGroups = $query->all();    
+            $release = null;    
+            foreach ($currentUserGroups as $key) {
+                $query = $this->Roles->find()
+                ->where([
+                    'id'=> $key['role_id']           
+                ]);    
+                $correspondingFunction = $query->all();  
+                foreach ($correspondingFunction as $key) {
+                    if($key['id'] == 1){
+                        $release = true;        
+                    }
+                    else{  
+                        $release = false;
+                    }
                 }
             }
-        }
-        if($release == false){
-            $this->redirect($this->Auth->redirectUrl());               
-        }
-        else{
-            //$this->Flash->error(__('VC É ADM')); 
-            if(in_array($this->action, array('index','add','edit','delete','view')))
-                return true;            
+            if($release == false){
+                $this->redirect($this->Auth->redirectUrl());               
+            }
+            else{
+                //$this->Flash->error(__('VC É ADM')); 
+                if(in_array($this->action, array('index','add','edit','delete','view')))
+                    return true;            
+            }
+        }else{
+            $this->redirect($this->Auth->logout());        
         }
         return parent::isAuthorized($user);
     }
@@ -169,13 +183,13 @@ class UsersController extends AppController
                 $this->Auth->setUser($user);
                 return $this->redirect($this->Auth->redirectUrl());
             }
-            $this->Flash->error(__('Invalid username or password, try again'));
+            $this->Flash->error(__('Senha ou usuário inválido, tente novamente...'));
         }
     }
 
     public function logout()
     {
-        $this->Flash->success(__('You are now logged out.'));
+        $this->Flash->success(__('Agora você está desconectado.'));
         return $this->redirect($this->Auth->logout());
     }
 }

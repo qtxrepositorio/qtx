@@ -4,7 +4,8 @@
         <li><?= $this->Form->postLink(
                 __('Delete'),
                 ['action' => 'delete', $rolesUser->role_id],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $rolesUser->role_id)]
+                ['confirm' => __('
+Tem certeza de que deseja excluir # {0}?', $rolesUser->role_id)]
             )
         ?></li>
         <li><?= $this->Html->link(__('List Roles Users'), ['action' => 'index']) ?></li>

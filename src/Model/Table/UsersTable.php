@@ -60,10 +60,21 @@ class UsersTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->allowEmpty('username');
+            ->requirePresence('name', 'create')
+            ->notEmpty('name');
 
         $validator
-            ->allowEmpty('password');
+            ->requirePresence('username', 'create')
+            ->notEmpty('username');
+
+        $validator
+            ->requirePresence('password', 'create')
+            ->notEmpty('password');
+
+        $validator
+            ->boolean('status')
+            ->requirePresence('status', 'create')
+            ->notEmpty('status');
 
         return $validator;
     }

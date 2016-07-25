@@ -21,6 +21,7 @@
                             <thead>
                                 <tr>
                                     <th><?= $this->Paginator->sort('id',['label' => 'Id:']) ?></th>
+                                    <th><?= $this->Paginator->sort('name',['label' => 'Nome:']) ?></th>
                                     <th><?= $this->Paginator->sort('description',['label' => 'Descrição:']) ?></th>
                                     <th class="actions"><?= __('Ações') ?></th>
                                 </tr>
@@ -29,20 +30,22 @@
                                 <?php foreach ($roles as $role): ?>
                                 <tr>               
                                     <td><?= $this->Number->format($role->id) ?></td>
+                                    <td><?= h($role->name) ?></td>
                                     <td><?= h($role->description) ?></td>
                                     <td class="actions">
-                                        <?= $this->Html->link(__('View'), ['action' => 'view', $role->id]) ?> -
-                                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $role->id]) ?> -
-                                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $role->id], ['confirm' => __('Are you sure you want to delete # {0}?', $role->id)]) ?>
+                                        <?= $this->Html->link(__('Ver'), ['action' => 'view', $role->id]) ?> -
+                                        <?= $this->Html->link(__('Editar'), ['action' => 'edit', $role->id]) ?> -
+                                        <?= $this->Form->postLink(__('Apagar'), ['action' => 'delete', $role->id], ['confirm' => __('
+Tem certeza de que deseja excluir # {0}?', $role->id)]) ?>
                                     </td>
                                 </tr>
                                 <?php endforeach; ?>
                         </table>
                         <div class="paginator">
                             <ul class="pagination">
-                                <?= $this->Paginator->prev('< ' . __('previous')) ?>
+                                <?= $this->Paginator->prev('< ' . __('Anterior')) ?>
                                 <?= $this->Paginator->numbers() ?>
-                                <?= $this->Paginator->next(__('next') . ' >') ?>
+                                <?= $this->Paginator->next(__('Próximo') . ' >') ?>
                             </ul>
                             <p><?= $this->Paginator->counter() ?></p>
                         </div>

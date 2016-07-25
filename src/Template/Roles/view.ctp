@@ -3,7 +3,8 @@
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('Edit Role'), ['action' => 'edit', $role->id]) ?> </li>
-        <li><?= $this->Form->postLink(__('Delete Role'), ['action' => 'delete', $role->id], ['confirm' => __('Are you sure you want to delete # {0}?', $role->id)]) ?> </li>
+        <li><?= $this->Form->postLink(__('Delete Role'), ['action' => 'delete', $role->id], ['confirm' => __('
+Tem certeza de que deseja excluir # {0}?', $role->id)]) ?> </li>
         <li><?= $this->Html->link(__('List Roles'), ['action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New Role'), ['action' => 'add']) ?> </li>
         <li><?= $this->Html->link(__('List Users'), ['controller' => 'Users', 'action' => 'index']) ?> </li>
@@ -22,10 +23,12 @@
         </div>
         <div class="box-body">
             <p><b>Id do grupo: </b><?= $this->Number->format($role->id) ?></p> 
+            <p><b>Nome: </b><?= h($role->name) ?></p> 
             <p><b>Descrição: </b><?= h($role->description) ?></p>
 
             <li><?= $this->Html->link(__('Editar Grupo'), ['action'=>'edit', $role->id]) ?> </li>
-            <li><?= $this->Form->postLink(__('Apagar Grupo'), ['action' => 'delete', $role->id], ['confirm' => __('Are you sure you want to delete # {0}?', $role->id)]) ?> </li>                   
+            <li><?= $this->Form->postLink(__('Apagar Grupo'), ['action' => 'delete', $role->id], ['confirm' => __('
+Tem certeza de que deseja excluir # {0}?', $role->id)]) ?> </li>                   
         </div>
     </div>
 </div>
@@ -36,15 +39,16 @@
             <h3 class="box-title"><b>Usuários relacionados:</b></h3>
         </div>
         <div class="box-body">
-             <table id="example2" class="table table-bordered table-hover">
+            <table id="example2" class="table table-bordered table-hover">
                 <thead>
                 <tr>
-                    <th>Id</th>
-                    <th>Usuário</th>
-                    <th>Senha</th>
-                    <th>Criado em</th>
-                    <th>Modificado em</th>
-                    <th>Ações</th>
+                    <th>Id:</th>
+                    <th>Name:</th>
+                    <th>Usuário:</th>
+                    <th>Ativo:</th>
+                    <th>Criado em:</th>
+                    <th>Modificado em:</th>
+                    <th>Ações:</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -54,8 +58,9 @@
                         <?php foreach ($role->users as $users): ?>
                         <tr>
                             <td><?= h($users->id) ?></td>
+                            <td><?= h($users->name) ?></td>
                             <td><?= h($users->username) ?></td>
-                            <td>****</td>
+                            <td><?= $users->status ? __('Sim') : __('Não'); ?></td>
                             <td><?= h($users->created) ?></td>
                             <td><?= h($users->modified) ?></td>
                             <td class="actions">
@@ -68,8 +73,7 @@
                     </table>
                     <?php endif; ?>
                 </tbody>
-              </table>
+            </table>
         </div>
     </div>
 </div>
-

@@ -26,7 +26,8 @@
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $rolesUser->role_id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $rolesUser->role_id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $rolesUser->role_id], ['confirm' => __('Are you sure you want to delete # {0}?', $rolesUser->role_id)]) ?>
+                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $rolesUser->role_id], ['confirm' => __('
+Tem certeza de que deseja excluir # {0}?', $rolesUser->role_id)]) ?>
                 </td>
             </tr>
             <?php endforeach; ?>

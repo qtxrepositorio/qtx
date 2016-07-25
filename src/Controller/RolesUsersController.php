@@ -13,6 +13,8 @@ use Cake\Controller\Component\FlashComponent;
 class RolesUsersController extends AppController
 {
 
+    public $paginate = [
+        'limit' => 6];
     /**
      * Index method
      *
@@ -132,35 +134,48 @@ class RolesUsersController extends AppController
 
         $this->loadModel('Users'); 
         $this->loadModel('Roles'); 
-        $authenticatedUserId = $this->Auth->user('id'); 
-        $query = $this->RolesUsers->find()
+        $authenticatedUserId = $this->Auth->user('id');
+        $query = $this->Users->find()
             ->where([
-                'user_id'=> $authenticatedUserId            
-            ]);    
-        $currentUserGroups = $query->all();    
-        $release = null;    
-        foreach ($currentUserGroups as $key) {
-            $query = $this->Roles->find()
-            ->where([
-                'id'=> $key['role_id']           
-            ]);    
-            $correspondingFunction = $query->all();  
-            foreach ($correspondingFunction as $key) {
-                if(strcmp($key['description'],'Administradores')){
-                    $release = false;        
-                }
-                else{  
-                    $release = true;
+                'id'=> $authenticatedUserId            
+            ]);
+        $statusArray = $query->all();
+        $status = null;
+        foreach ($statusArray as $key) {
+            $status = $key['status'];
+        }
+        if($status == true){
+            $query = $this->RolesUsers->find()
+                ->where([
+                    'user_id'=> $authenticatedUserId            
+                ]);    
+            $currentUserGroups = $query->all();    
+            $release = null;    
+            foreach ($currentUserGroups as $key) {
+                $query = $this->Roles->find()
+                ->where([
+                    'id'=> $key['role_id']           
+                ]);    
+                $correspondingFunction = $query->all();  
+                foreach ($correspondingFunction as $key) {
+                    if($key['id'] == 1){
+                        $release = true;        
+                    }
+                    else{  
+                        $release = false;
+                    }
                 }
             }
-        }
-        if($release == false){
-            $this->redirect($this->Auth->redirectUrl());               
-        }
-        else{
-            //$this->Flash->error(__('VC É ADM')); 
-            if(in_array($this->action, array('index','add','edit','delete','view')))
-                return true;            
+            if($release == false){
+                $this->redirect($this->Auth->redirectUrl());               
+            }
+            else{
+                //$this->Flash->error(__('VC É ADM')); 
+                if(in_array($this->action, array('index','add','edit','delete','view')))
+                    return true;            
+            }
+        }else{
+            $this->redirect($this->Auth->logout());        
         }
         return parent::isAuthorized($user);
     }

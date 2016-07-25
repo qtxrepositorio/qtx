@@ -5,7 +5,8 @@
         <li><?= $this->Form->postLink(
                 __('Delete'),
                 ['action' => 'delete', $role->id],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $role->id)]
+                ['confirm' => __('
+Tem certeza de que deseja excluir # {0}?', $role->id)]
             )
         ?></li>
         <li><?= $this->Html->link(__('List Roles'), ['action' => 'index']) ?></li>
@@ -26,6 +27,7 @@
                 <fieldset>
                 <legend><?= __('Editar Grupo:') ?></legend>
                 <?php
+                    echo $this->Form->input('name',['label' => 'Nome:']);
                     echo $this->Form->input('description',['label' => 'Descrição:']);
                     echo $this->Form->input('users._ids', ['label' => 'Usuários Relacionados (Opcional):','options' => $users]);
                 ?>

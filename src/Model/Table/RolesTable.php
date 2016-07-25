@@ -56,7 +56,12 @@ class RolesTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->allowEmpty('description');
+            ->requirePresence('name', 'create')
+            ->notEmpty('name');
+
+        $validator
+            ->requirePresence('description', 'create')
+            ->notEmpty('description');
 
         return $validator;
     }

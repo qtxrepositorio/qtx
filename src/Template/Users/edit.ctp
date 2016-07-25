@@ -5,7 +5,8 @@
         <li><?= $this->Form->postLink(
                 __('Delete'),
                 ['action' => 'delete', $user->id],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $user->id)]
+                ['confirm' => __('
+Tem certeza de que deseja excluir # {0}?', $user->id)]
             )
         ?></li>
         <li><?= $this->Html->link(__('List Users'), ['action' => 'index']) ?></li>
@@ -17,25 +18,24 @@
 
 <br>
 
-<!-- Form Element sizes -->
 <div class="col-md-7">
     <div class="box box-success">
-        <div class="box-body">
-            <div class="roles form large-9 medium-8 columns content">
-                <?= $this->Form->create($user) ?>
+        <div class="roles form large-9 medium-8 columns content">
+            <?= $this->Form->create($user) ?>
                 <fieldset>
                     <legend><?= __('Editar Usuário') ?></legend>
                     <?php
-                        echo $this->Form->input('username');
-                        echo $this->Form->input('password');
-                        echo $this->Form->input('roles._ids', ['options' => $roles]);
+                        echo $this->Form->input('name', ['label'=>'Nome Completo:']);
+                        echo $this->Form->input('username', ['label'=>'Usuário:']);
+                        echo $this->Form->input('password', ['label'=>'Senha:']);
+                        echo $this->Form->input('status', ['label'=>'Ativo:']);
+                        echo $this->Form->input('roles._ids', ['options' => $roles, 'label'=>'Grupos Relacionados (Opcional):']);
                     ?>
                 </fieldset>
-                <?= $this->Form->button(__('Submit')) ?>
-                <?= $this->Form->end() ?>
-            </div>
+            <?= $this->Form->button(__('Atualizar')) ?>
+            <?= $this->Form->end() ?>
         </div>
-    <!-- /.box-body -->
     </div>
 </div>
-<!-- /.box -->
+
+
