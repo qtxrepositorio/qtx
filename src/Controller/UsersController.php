@@ -22,6 +22,7 @@ class UsersController extends AppController
      */
     public function index()
     {
+         
         $users = $this->paginate($this->Users);
 
         $this->set(compact('users'));
@@ -44,6 +45,8 @@ class UsersController extends AppController
         $this->set('user', $user);
         $this->set('_serialize', ['user']);
     }
+
+
 
     /**
      * Add method
@@ -125,7 +128,8 @@ class UsersController extends AppController
         $this->Auth->allow(['logout','login']);  
     }
 
-    public function isAuthorized($user){
+    public function isAuthorized($user)
+    {
 
         $this->loadModel('Roles'); 
         $this->loadModel('RolesUsers'); 
@@ -136,40 +140,50 @@ class UsersController extends AppController
             ]);
         $statusArray = $query->all();
         $status = null;
-        foreach ($statusArray as $key) {
+        foreach ($statusArray as $key) 
+        {
             $status = $key['status'];
         }
-        if($status == true){
+        if($status == true)
+        {
             $query = $this->RolesUsers->find()
                 ->where([
                     'user_id'=> $authenticatedUserId            
                 ]);    
             $currentUserGroups = $query->all();    
             $release = null;    
-            foreach ($currentUserGroups as $key) {
+            foreach ($currentUserGroups as $key) 
+            {
                 $query = $this->Roles->find()
                 ->where([
                     'id'=> $key['role_id']           
                 ]);    
                 $correspondingFunction = $query->all();  
-                foreach ($correspondingFunction as $key) {
-                    if($key['id'] == 1){
+                foreach ($correspondingFunction as $key) 
+                {
+                    if($key['id'] == 1)
+                    {
                         $release = true;        
                     }
-                    else{  
+                    else
+                    {  
                         $release = false;
                     }
                 }
             }
-            if($release == false){
+            if($release == false)
+            {
                 $this->redirect($this->Auth->redirectUrl());               
             }
-            else{
+            else
+            {
                 //$this->Flash->error(__('VC É ADM')); 
                 if(in_array($this->action, array('index','add','edit','delete','view')))
                     return true;            
             }
-        }else{
+        }
+        else
+        {
             $this->redirect($this->Auth->logout());        
         }
         return parent::isAuthorized($user);
@@ -177,9 +191,11 @@ class UsersController extends AppController
 
     public function login()
     {
-        if ($this->request->is('post')) {
+        if ($this->request->is('post'))
+        {
             $user = $this->Auth->identify();
-            if ($user) {
+            if ($user)
+            {
                 $this->Auth->setUser($user);
                 return $this->redirect($this->Auth->redirectUrl());
             }

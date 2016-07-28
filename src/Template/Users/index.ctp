@@ -15,6 +15,7 @@
     <div class="box box-success">
         <div class="box-body">
             <div class="roles form large-9 medium-8 columns content">
+                <div align='right'> <?= $this->Html->link(__('Adicionar Usuário'), ['controller'=>'Users','action'=>'add'])?> </div>
                 <legend><?= __('Lista dos usuários:') ?></legend>
                 <div class="box-body">
                     <table id="example2" class="table table-bordered table-hover">

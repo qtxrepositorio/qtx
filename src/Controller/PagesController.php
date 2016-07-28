@@ -17,6 +17,11 @@ namespace App\Controller;
 use Cake\Core\Configure;
 use Cake\Network\Exception\NotFoundException;
 use Cake\View\Exception\MissingTemplateException;
+use Cake\Datasource\ConnectionManager;
+use Cake\Event\Event;
+use App\Controller\AppController;
+use Cake\Controller\Component\FlashComponent;
+
 
 /**
  * Static content controller
@@ -27,7 +32,6 @@ use Cake\View\Exception\MissingTemplateException;
  */
 class PagesController extends AppController
 {
-
     /**
      * Displays a view
      *
@@ -61,5 +65,5 @@ class PagesController extends AppController
             }
             throw new NotFoundException();
         }
-    }
+    }    
 }
