@@ -6,15 +6,14 @@ use App\Controller\AppController;
 use Cake\Controller\Component\FlashComponent;
 
 /**
- * Roles Controller
+ * NoticesUsers Controller
  *
- * @property \App\Model\Table\RolesTable $Roles
+ * @property \App\Model\Table\NoticesUsersTable $NoticesUsers
  */
-class RolesController extends AppController
+class NoticesUsersController extends AppController
 {
-
     public $paginate = [
-        'limit' => 5];
+        'limit' => 6];
     /**
      * Index method
      *
@@ -22,27 +21,30 @@ class RolesController extends AppController
      */
     public function index()
     {
-        $roles = $this->paginate($this->Roles);
+        $this->paginate = [
+            'contain' => ['Notices', 'Users']
+        ];
+        $noticesUsers = $this->paginate($this->NoticesUsers);
 
-        $this->set(compact('roles'));
-        $this->set('_serialize', ['roles']);
+        $this->set(compact('noticesUsers'));
+        $this->set('_serialize', ['noticesUsers']);
     }
 
     /**
      * View method
      *
-     * @param string|null $id Role id.
+     * @param string|null $id Notices User id.
      * @return \Cake\Network\Response|null
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function view($id = null)
     {
-        $role = $this->Roles->get($id, [
+        $noticesUser = $this->NoticesUsers->get($id, [
             'contain' => ['Notices', 'Users']
         ]);
 
-        $this->set('role', $role);
-        $this->set('_serialize', ['role']);
+        $this->set('noticesUser', $noticesUser);
+        $this->set('_serialize', ['noticesUser']);
     }
 
     /**
@@ -52,66 +54,66 @@ class RolesController extends AppController
      */
     public function add()
     {
-        $role = $this->Roles->newEntity();
+        $noticesUser = $this->NoticesUsers->newEntity();
         if ($this->request->is('post')) {
-            $role = $this->Roles->patchEntity($role, $this->request->data);
-            if ($this->Roles->save($role)) {
-                $this->Flash->success(__('O grupo foi salvo!'));
+            $noticesUser = $this->NoticesUsers->patchEntity($noticesUser, $this->request->data);
+            if ($this->NoticesUsers->save($noticesUser)) {
+                $this->Flash->success(__('The notices user has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
             } else {
-                $this->Flash->error(__('O grupo não pode ser salvo. Por favor, tente novamente.'));
+                $this->Flash->error(__('The notices user could not be saved. Please, try again.'));
             }
         }
-        $notices = $this->Roles->Notices->find('list', ['limit' => 200]);
-        $users = $this->Roles->Users->find('list', ['limit' => 200]);
-        $this->set(compact('role', 'notices', 'users'));
-        $this->set('_serialize', ['role']);
+        $notices = $this->NoticesUsers->Notices->find('list', ['limit' => 200]);
+        $users = $this->NoticesUsers->Users->find('list', ['limit' => 200]);
+        $this->set(compact('noticesUser', 'notices', 'users'));
+        $this->set('_serialize', ['noticesUser']);
     }
 
     /**
      * Edit method
      *
-     * @param string|null $id Role id.
+     * @param string|null $id Notices User id.
      * @return \Cake\Network\Response|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
     public function edit($id = null)
     {
-        $role = $this->Roles->get($id, [
-            'contain' => ['Notices', 'Users']
+        $noticesUser = $this->NoticesUsers->get($id, [
+            'contain' => []
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $role = $this->Roles->patchEntity($role, $this->request->data);
-            if ($this->Roles->save($role)) {
-                $this->Flash->success(__('O grupo foi salvo!'));
+            $noticesUser = $this->NoticesUsers->patchEntity($noticesUser, $this->request->data);
+            if ($this->NoticesUsers->save($noticesUser)) {
+                $this->Flash->success(__('The notices user has been saved.'));
 
                 return $this->redirect(['action' => 'index']);
             } else {
-                $this->Flash->error(__('O grupo não pode ser salvo. Por favor, tente novamente.'));
+                $this->Flash->error(__('The notices user could not be saved. Please, try again.'));
             }
         }
-        $notices = $this->Roles->Notices->find('list', ['limit' => 200]);
-        $users = $this->Roles->Users->find('list', ['limit' => 200]);
-        $this->set(compact('role', 'notices', 'users'));
-        $this->set('_serialize', ['role']);
+        $notices = $this->NoticesUsers->Notices->find('list', ['limit' => 200]);
+        $users = $this->NoticesUsers->Users->find('list', ['limit' => 200]);
+        $this->set(compact('noticesUser', 'notices', 'users'));
+        $this->set('_serialize', ['noticesUser']);
     }
 
     /**
      * Delete method
      *
-     * @param string|null $id Role id.
+     * @param string|null $id Notices User id.
      * @return \Cake\Network\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
-        $role = $this->Roles->get($id);
-        if ($this->Roles->delete($role)) {
-            $this->Flash->success(__('O grupo foi apagado!'));
+        $noticesUser = $this->NoticesUsers->get($id);
+        if ($this->NoticesUsers->delete($noticesUser)) {
+            $this->Flash->success(__('The notices user has been deleted.'));
         } else {
-            $this->Flash->error(__('O grupo não pode ser apagado. Por favor, tente novamente.'));
+            $this->Flash->error(__('The notices user could not be deleted. Please, try again.'));
         }
 
         return $this->redirect(['action' => 'index']);
@@ -130,6 +132,7 @@ class RolesController extends AppController
     public function isAuthorized($user)
     {
         $this->loadModel('Users'); 
+        $this->loadModel('Roles'); 
         $this->loadModel('RolesUsers'); 
         $authenticatedUserId = $this->Auth->user('id');
         $query = $this->Users->find()
@@ -172,5 +175,5 @@ class RolesController extends AppController
             $this->redirect($this->Auth->logout());        
         }
         return parent::isAuthorized($user);
-    }   
+    }  
 }

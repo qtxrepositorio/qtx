@@ -9,6 +9,7 @@ use Cake\Validation\Validator;
 /**
  * Roles Model
  *
+ * @property \Cake\ORM\Association\BelongsToMany $Notices
  * @property \Cake\ORM\Association\BelongsToMany $Users
  *
  * @method \App\Model\Entity\Role get($primaryKey, $options = [])
@@ -36,6 +37,11 @@ class RolesTable extends Table
         $this->displayField('name');
         $this->primaryKey('id');
 
+        $this->belongsToMany('Notices', [
+            'foreignKey' => 'role_id',
+            'targetForeignKey' => 'notice_id',
+            'joinTable' => 'notices_roles'
+        ]);
         $this->belongsToMany('Users', [
             'foreignKey' => 'role_id',
             'targetForeignKey' => 'user_id',

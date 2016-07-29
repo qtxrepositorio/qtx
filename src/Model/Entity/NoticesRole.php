@@ -4,16 +4,15 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * Role Entity
+ * NoticesRole Entity
  *
- * @property int $id
- * @property string $name
- * @property string $description
+ * @property int $notice_id
+ * @property int $role_id
  *
- * @property \App\Model\Entity\Notice[] $notices
- * @property \App\Model\Entity\User[] $users
+ * @property \App\Model\Entity\Notice $notice
+ * @property \App\Model\Entity\Role $role
  */
-class Role extends Entity
+class NoticesRole extends Entity
 {
 
     /**
@@ -27,6 +26,7 @@ class Role extends Entity
      */
     protected $_accessible = [
         '*' => true,
-        'id' => false
+        'notice_id' => false,
+        'role_id' => false
     ];
 }

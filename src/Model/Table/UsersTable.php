@@ -9,6 +9,8 @@ use Cake\Validation\Validator;
 /**
  * Users Model
  *
+ * @property \Cake\ORM\Association\HasMany $Notices
+ * @property \Cake\ORM\Association\BelongsToMany $Notices
  * @property \Cake\ORM\Association\BelongsToMany $Roles
  *
  * @method \App\Model\Entity\User get($primaryKey, $options = [])
@@ -40,6 +42,14 @@ class UsersTable extends Table
 
         $this->addBehavior('Timestamp');
 
+        $this->hasMany('Notices', [
+            'foreignKey' => 'user_id'
+        ]);
+        $this->belongsToMany('Notices', [
+            'foreignKey' => 'user_id',
+            'targetForeignKey' => 'notice_id',
+            'joinTable' => 'notices_users'
+        ]);
         $this->belongsToMany('Roles', [
             'foreignKey' => 'user_id',
             'targetForeignKey' => 'role_id',
@@ -62,6 +72,10 @@ class UsersTable extends Table
         $validator
             ->requirePresence('name', 'create')
             ->notEmpty('name');
+
+        $validator
+            ->requirePresence('cpf', 'create')
+            ->notEmpty('cpf');
 
         $validator
             ->requirePresence('username', 'create')
@@ -89,7 +103,7 @@ class UsersTable extends Table
     public function buildRules(RulesChecker $rules)
     {
         $rules->add($rules->isUnique(['username']));
-        
+
         return $rules;
     }
 }

@@ -1,22 +1,22 @@
 <?php
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\UsersTable;
+use App\Model\Table\NoticesRolesTable;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Model\Table\UsersTable Test Case
+ * App\Model\Table\NoticesRolesTable Test Case
  */
-class UsersTableTest extends TestCase
+class NoticesRolesTableTest extends TestCase
 {
 
     /**
      * Test subject
      *
-     * @var \App\Model\Table\UsersTable
+     * @var \App\Model\Table\NoticesRolesTable
      */
-    public $Users;
+    public $NoticesRoles;
 
     /**
      * Fixtures
@@ -24,11 +24,11 @@ class UsersTableTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'app.users',
+        'app.notices_roles',
         'app.notices',
+        'app.users',
         'app.notices_users',
         'app.roles',
-        'app.notices_roles',
         'app.roles_users'
     ];
 
@@ -40,8 +40,8 @@ class UsersTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('Users') ? [] : ['className' => 'App\Model\Table\UsersTable'];
-        $this->Users = TableRegistry::get('Users', $config);
+        $config = TableRegistry::exists('NoticesRoles') ? [] : ['className' => 'App\Model\Table\NoticesRolesTable'];
+        $this->NoticesRoles = TableRegistry::get('NoticesRoles', $config);
     }
 
     /**
@@ -51,7 +51,7 @@ class UsersTableTest extends TestCase
      */
     public function tearDown()
     {
-        unset($this->Users);
+        unset($this->NoticesRoles);
 
         parent::tearDown();
     }
@@ -62,16 +62,6 @@ class UsersTableTest extends TestCase
      * @return void
      */
     public function testInitialize()
-    {
-        $this->markTestIncomplete('Not implemented yet.');
-    }
-
-    /**
-     * Test validationDefault method
-     *
-     * @return void
-     */
-    public function testValidationDefault()
     {
         $this->markTestIncomplete('Not implemented yet.');
     }

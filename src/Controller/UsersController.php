@@ -12,9 +12,8 @@ use Cake\Controller\Component\FlashComponent;
  */
 class UsersController extends AppController
 {
-
     public $paginate = [
-        'limit' => 6];
+        'limit' => 5];
     /**
      * Index method
      *
@@ -22,7 +21,6 @@ class UsersController extends AppController
      */
     public function index()
     {
-         
         $users = $this->paginate($this->Users);
 
         $this->set(compact('users'));
@@ -39,14 +37,12 @@ class UsersController extends AppController
     public function view($id = null)
     {
         $user = $this->Users->get($id, [
-            'contain' => ['Roles']
+            'contain' => ['Notices', 'Roles']
         ]);
 
         $this->set('user', $user);
         $this->set('_serialize', ['user']);
     }
-
-
 
     /**
      * Add method
@@ -63,11 +59,12 @@ class UsersController extends AppController
 
                 return $this->redirect(['action' => 'index']);
             } else {
-                $this->Flash->error(__('O usuário não pôde ser salvo . Por favor, tente novamente.'));
+                $this->Flash->error(__('O usuário não pôde ser salvo. Por favor, tente novamente.'));
             }
         }
+        $notices = $this->Users->Notices->find('list', ['limit' => 200]);
         $roles = $this->Users->Roles->find('list', ['limit' => 200]);
-        $this->set(compact('user', 'roles'));
+        $this->set(compact('user', 'notices', 'roles'));
         $this->set('_serialize', ['user']);
     }
 
@@ -81,7 +78,7 @@ class UsersController extends AppController
     public function edit($id = null)
     {
         $user = $this->Users->get($id, [
-            'contain' => ['Roles']
+            'contain' => ['Notices', 'Roles']
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $user = $this->Users->patchEntity($user, $this->request->data);
@@ -90,11 +87,12 @@ class UsersController extends AppController
 
                 return $this->redirect(['action' => 'index']);
             } else {
-                $this->Flash->error(__('O usuário não pôde ser salvo . Por favor, tente novamente.'));
+                $this->Flash->error(__('O usuário não pôde ser salvo. Por favor, tente novamente.'));
             }
         }
+        $notices = $this->Users->Notices->find('list', ['limit' => 200]);
         $roles = $this->Users->Roles->find('list', ['limit' => 200]);
-        $this->set(compact('user', 'roles'));
+        $this->set(compact('user', 'notices', 'roles'));
         $this->set('_serialize', ['user']);
     }
 
@@ -112,7 +110,7 @@ class UsersController extends AppController
         if ($this->Users->delete($user)) {
             $this->Flash->success(__('O usuário foi apagado!'));
         } else {
-            $this->Flash->error(__('O usuário não pôde ser salvo . Por favor, tente novamente.'));
+            $this->Flash->error(__('The user could not be deleted. Please, try again.'));
         }
 
         return $this->redirect(['action' => 'index']);
@@ -125,12 +123,11 @@ class UsersController extends AppController
         // You should not add the "login" action to allow list. Doing so would
         // cause problems with normal functioning of AuthComponent.
 
-        $this->Auth->allow(['logout','login']);  
+        $this->Auth->allow(['logout','login','add','edit']);  
     }
 
     public function isAuthorized($user)
     {
-
         $this->loadModel('Roles'); 
         $this->loadModel('RolesUsers'); 
         $authenticatedUserId = $this->Auth->user('id');

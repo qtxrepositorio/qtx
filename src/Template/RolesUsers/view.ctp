@@ -17,11 +17,11 @@ Tem certeza de que deseja excluir # {0}?', $rolesUser->role_id)]) ?> </li>
     <table class="vertical-table">
         <tr>
             <th><?= __('Role') ?></th>
-            <td><?= $rolesUser->has('role') ? $this->Html->link($rolesUser->role->id, ['controller' => 'Roles', 'action' => 'view', $rolesUser->role->id]) : '' ?></td>
+            <td><?= $rolesUser->has('role') ? $this->Html->link($rolesUser->role->name, ['controller' => 'Roles', 'action' => 'view', $rolesUser->role->id]) : '' ?></td>
         </tr>
         <tr>
             <th><?= __('User') ?></th>
-            <td><?= $rolesUser->has('user') ? $this->Html->link($rolesUser->user->id, ['controller' => 'Users', 'action' => 'view', $rolesUser->user->id]) : '' ?></td>
+            <td><?= $rolesUser->has('user') ? $this->Html->link($rolesUser->user->name, ['controller' => 'Users', 'action' => 'view', $rolesUser->user->id]) : '' ?></td>
         </tr>
     </table>
 </div>

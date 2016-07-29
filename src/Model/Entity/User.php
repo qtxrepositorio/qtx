@@ -4,18 +4,19 @@ namespace App\Model\Entity;
 use Cake\Auth\DefaultPasswordHasher;
 use Cake\ORM\Entity;
 
-
 /**
  * User Entity
  *
  * @property int $id
  * @property string $name
+ * @property string $cpf
  * @property string $username
  * @property string $password
  * @property bool $status
  * @property \Cake\I18n\Time $created
  * @property \Cake\I18n\Time $modified
  *
+ * @property \App\Model\Entity\Notice[] $notices
  * @property \App\Model\Entity\Role[] $roles
  */
 class User extends Entity

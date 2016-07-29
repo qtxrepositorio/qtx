@@ -18,7 +18,9 @@ class NoticesControllerTest extends IntegrationTestCase
     public $fixtures = [
         'app.notices',
         'app.users',
+        'app.notices_users',
         'app.roles',
+        'app.notices_roles',
         'app.roles_users'
     ];
 

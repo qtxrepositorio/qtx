@@ -7,6 +7,8 @@
 Tem certeza de que deseja excluir # {0}?', $role->id)]) ?> </li>
         <li><?= $this->Html->link(__('List Roles'), ['action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New Role'), ['action' => 'add']) ?> </li>
+        <li><?= $this->Html->link(__('List Notices'), ['controller' => 'Notices', 'action' => 'index']) ?> </li>
+        <li><?= $this->Html->link(__('New Notice'), ['controller' => 'Notices', 'action' => 'add']) ?> </li>
         <li><?= $this->Html->link(__('List Users'), ['controller' => 'Users', 'action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New User'), ['controller' => 'Users', 'action' => 'add']) ?> </li>
     </ul>
@@ -14,7 +16,6 @@ Tem certeza de que deseja excluir # {0}?', $role->id)]) ?> </li>
 -->
 
 <br>
-
 
 <div class="col-md-3" align="center">
     <div class="box box-success">
@@ -73,6 +74,44 @@ Tem certeza de que deseja excluir # {0}?', $role->id)]) ?> </li>
                     </table>
                     <?php endif; ?>
                 </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-12">
+    <div class="box box-warning">
+        <div class="box-header with-border">
+            <h3 class="box-title"><b>Notícias relacionadas:</b></h3>
+        </div>
+        <div class="box-body">
+            <table id="example2" class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th><?= __('Id:') ?></th>
+                        <th><?= __('Assunto:') ?></th>
+                        <th><?= __('Conteúdo:') ?></th>
+                        <th><?= __('Criado em:') ?></th>
+                        <th><?= __('Modificado em:') ?></th>
+                        <th><?= __('Criado Por:') ?></th>
+                        <th class="actions"><?= __('Actions') ?></th>
+                    </tr>
+                    <?php foreach ($role->notices as $notices): ?>
+                    <tr>
+                        <td><?= h($notices->id) ?></td>
+                        <td><?= h($notices->subject) ?></td>
+                        <td><?= h($notices->text) ?></td>
+                        <td><?= h($notices->created) ?></td>
+                        <td><?= h($notices->modified) ?></td>
+                        <td><?= h($notices->user_id) ?></td>
+                        <td class="actions">
+                            <?= $this->Html->link(__('Ver'), ['controller' => 'Notices', 'action' => 'view', $notices->id]) ?> -
+                            <?= $this->Html->link(__('Editar'), ['controller' => 'Notices', 'action' => 'edit', $notices->id]) ?> -
+                            <?= $this->Form->postLink(__('Apagar'), ['controller' => 'Notices', 'action' => 'delete', $notices->id], ['confirm' => __('Tem certeza de que deseja excluir # {0}?', $notices->id)]) ?>
+                        </td>
+                    </tr>
+                    <?php endforeach; ?>
+                <thead>
             </table>
         </div>
     </div>

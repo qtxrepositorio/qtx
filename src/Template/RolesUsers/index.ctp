@@ -21,8 +21,8 @@
         <tbody>
             <?php foreach ($rolesUsers as $rolesUser): ?>
             <tr>
-                <td><?= $rolesUser->has('role') ? $this->Html->link($rolesUser->role->id, ['controller' => 'Roles', 'action' => 'view', $rolesUser->role->id]) : '' ?></td>
-                <td><?= $rolesUser->has('user') ? $this->Html->link($rolesUser->user->id, ['controller' => 'Users', 'action' => 'view', $rolesUser->user->id]) : '' ?></td>
+                <td><?= $rolesUser->has('role') ? $this->Html->link($rolesUser->role->name, ['controller' => 'Roles', 'action' => 'view', $rolesUser->role->id]) : '' ?></td>
+                <td><?= $rolesUser->has('user') ? $this->Html->link($rolesUser->user->name, ['controller' => 'Users', 'action' => 'view', $rolesUser->user->id]) : '' ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $rolesUser->role_id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $rolesUser->role_id]) ?>

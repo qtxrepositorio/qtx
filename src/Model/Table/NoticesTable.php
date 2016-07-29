@@ -10,6 +10,8 @@ use Cake\Validation\Validator;
  * Notices Model
  *
  * @property \Cake\ORM\Association\BelongsTo $Users
+ * @property \Cake\ORM\Association\BelongsToMany $Roles
+ * @property \Cake\ORM\Association\BelongsToMany $Users
  *
  * @method \App\Model\Entity\Notice get($primaryKey, $options = [])
  * @method \App\Model\Entity\Notice newEntity($data = null, array $options = [])
@@ -18,6 +20,8 @@ use Cake\Validation\Validator;
  * @method \App\Model\Entity\Notice patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
  * @method \App\Model\Entity\Notice[] patchEntities($entities, array $data, array $options = [])
  * @method \App\Model\Entity\Notice findOrCreate($search, callable $callback = null)
+ *
+ * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */
 class NoticesTable extends Table
 {
@@ -36,9 +40,21 @@ class NoticesTable extends Table
         $this->displayField('id');
         $this->primaryKey('id');
 
+        $this->addBehavior('Timestamp');
+
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id',
             'joinType' => 'INNER'
+        ]);
+        $this->belongsToMany('Roles', [
+            'foreignKey' => 'notice_id',
+            'targetForeignKey' => 'role_id',
+            'joinTable' => 'notices_roles'
+        ]);
+        $this->belongsToMany('Users', [
+            'foreignKey' => 'notice_id',
+            'targetForeignKey' => 'user_id',
+            'joinTable' => 'notices_users'
         ]);
     }
 

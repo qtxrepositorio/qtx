@@ -9,9 +9,12 @@ use Cake\ORM\Entity;
  * @property int $id
  * @property string $subject
  * @property string $text
+ * @property \Cake\I18n\Time $created
+ * @property \Cake\I18n\Time $modified
  * @property int $user_id
  *
- * @property \App\Model\Entity\User $user
+ * @property \App\Model\Entity\User[] $users
+ * @property \App\Model\Entity\Role[] $roles
  */
 class Notice extends Entity
 {

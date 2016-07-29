@@ -130,8 +130,8 @@ class RolesUsersController extends AppController
         //$this->Auth->allow(['logout','login']);  
     }
 
-    public function isAuthorized($user){
-
+    public function isAuthorized($user)
+    {
         $this->loadModel('Users'); 
         $this->loadModel('Roles'); 
         $authenticatedUserId = $this->Auth->user('id');
@@ -160,9 +160,6 @@ class RolesUsersController extends AppController
                 foreach ($correspondingFunction as $key) {
                     if($key['id'] == 1){
                         $release = true;        
-                    }
-                    else{  
-                        $release = false;
                     }
                 }
             }

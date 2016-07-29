@@ -3,6 +3,8 @@
     <ul class="side-nav">
         <li class="heading"><?= __('Actions') ?></li>
         <li><?= $this->Html->link(__('New Role'), ['action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Notices'), ['controller' => 'Notices', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Notice'), ['controller' => 'Notices', 'action' => 'add']) ?></li>
         <li><?= $this->Html->link(__('List Users'), ['controller' => 'Users', 'action' => 'index']) ?></li>
         <li><?= $this->Html->link(__('New User'), ['controller' => 'Users', 'action' => 'add']) ?></li>
     </ul>
@@ -11,13 +13,13 @@
 
 <br>
 
-<div class="col-md-9">
+<div class="col-md-12">
     <div class="box box-success">
             <div class="box-body">
                 <div class="roles form large-9 medium-8 columns content">
                 <div align='right'> <?= $this->Html->link(__('Adicionar Grupo'), ['controller'=>'Roles','action'=>'add'])?> </div>
                     <legend><?= __('Lista dos Grupos de usuários:') ?></legend>
-                    <div class="box-body">
+                    <div class="box-body" align="center">
                         <table id="example2" class="table table-bordered table-hover">
                             <thead>
                                 <tr>
