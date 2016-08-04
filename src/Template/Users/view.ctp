@@ -32,8 +32,7 @@ Tem certeza de que deseja excluir # {0}?', $user->id)]) ?> </li>
             <p><b>Modificado em: </b><?=  h($user->modified)  ?></p> 
             <p><b>Ativado: </b><?= $user->status ? __('Sim') : __('Não'); ?></p> 
             <li><?= $this->Html->link(__('Editar Usuário'), ['action'=>'edit', $user->id]) ?> </li>
-            <li><?= $this->Form->postLink(__('Apagar Usuário'), ['action' => 'delete', $user->id], ['confirm' => __('
-Tem certeza de que deseja excluir # {0}?', $user->id)]) ?> </li>                   
+            <li><?= $this->Form->postLink(__('Apagar Usuário'), ['action' => 'delete', $user->id], ['confirm' => __('Tem certeza de que deseja excluir # {0}?', $user->id)]) ?> </li>                   
         </div>
     </div>
 </div>

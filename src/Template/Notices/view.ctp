@@ -67,10 +67,9 @@ Tem certeza de que deseja excluir # {0}?', $notice->id)]) ?> </li>
                         <td><?= h($users->created) ?></td>
                         <td><?= h($users->modified) ?></td>
                         <td class="actions">
-                            <?= $this->Html->link(__('View'), ['controller' => 'Users', 'action' => 'view', $users->id]) ?>
-                            <?= $this->Html->link(__('Edit'), ['controller' => 'Users', 'action' => 'edit', $users->id]) ?>
-                            <?= $this->Form->postLink(__('Delete'), ['controller' => 'Users', 'action' => 'delete', $users->id], ['confirm' => __('
-        Tem certeza de que deseja excluir # {0}?', $users->id)]) ?>
+                            <?= $this->Html->link(__('Ver'), ['controller' => 'Users', 'action' => 'view', $users->id]) ?> -
+                            <?= $this->Html->link(__('Editar'), ['controller' => 'Users', 'action' => 'edit', $users->id]) ?> -
+                            <?= $this->Form->postLink(__('Apagar'), ['controller' => 'Users', 'action' => 'delete', $users->id], ['confirm' => __('Tem certeza de que deseja excluir # {0}?', $users->id)]) ?>
                         </td>
                     </tr>
                     <?php endforeach; ?>

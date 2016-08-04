@@ -42,5 +42,6 @@ class BirthdaysOfTheMonthController extends AppController
         $this->response->type('pdf');	
 	}
 
+
 }
 ?>

@@ -80,7 +80,7 @@ class PagesController extends AppController
             ->order(['id'=>'DESC']);
 
        
-               
+        /*       
         $rolesUsers = $this->RolesUsers->find()
             ->select('role_id')
             ->where(['user_id' => $authenticatedUserId]);    
@@ -95,9 +95,9 @@ class PagesController extends AppController
         }
 
         $this->set(compact('page', 'subpage','birthdaysOfTheMonth','noticesUsers','noticesRolesArray'));
-        
+        */
 
-        
+        $this->set(compact('page', 'subpage','birthdaysOfTheMonth','noticesUsers'));
 
         try {
             $this->render(implode('/', $path));

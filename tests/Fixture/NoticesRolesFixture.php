@@ -22,7 +22,7 @@ class NoticesRolesFixture extends TestFixture
         '_constraints' => [
             'primary' => ['type' => 'primary', 'columns' => ['notice_id', 'role_id'], 'length' => []],
             'fk_notice_role_key' => ['type' => 'foreign', 'columns' => ['notice_id'], 'references' => ['notices', 'id'], 'update' => 'noAction', 'delete' => 'noAction', 'length' => []],
-            'fk_receiver_role_key' => ['type' => 'foreign', 'columns' => ['role_id'], 'references' => ['users', 'id'], 'update' => 'noAction', 'delete' => 'noAction', 'length' => []],
+            'fk_receiver_role_key' => ['type' => 'foreign', 'columns' => ['role_id'], 'references' => ['roles', 'id'], 'update' => 'noAction', 'delete' => 'noAction', 'length' => []],
         ],
     ];
     // @codingStandardsIgnoreEnd

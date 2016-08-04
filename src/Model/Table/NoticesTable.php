@@ -25,7 +25,7 @@ use Cake\Validation\Validator;
  */
 class NoticesTable extends Table
 {
-
+    
     /**
      * Initialize method
      *

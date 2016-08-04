@@ -25,10 +25,10 @@
                     <thead>
                         <tr>                            
                             <th>Assunto:</th>
-                            <th>ConteÃºdo:</th>
+                            <th>Conteúdo:</th>
                             <th>Criado em:</th>
-                            <th>UsuÃ¡rio criador:</th>
-                            <th class="actions"><?= __('AÃ§Ãµes:') ?></th>
+                            <th>Usuário criador:</th>
+                            <th class="actions"><?= __('Ações:') ?></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -62,10 +62,10 @@
                     <thead>
                         <tr>                            
                             <th>Assunto:</th>
-                            <th>ConteÃºdo:</th>
+                            <th>Conteúdo:</th>
                             <th>Criado em:</th>
-                            <th>UsuÃ¡rio criador:</th>
-                            <th class="actions"><?= __('AÃ§Ãµes:') ?></th>
+                            <th>Usuário criador:</th>
+                            <th class="actions"><?= __('Ações:') ?></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -101,10 +101,10 @@
                                 <tr>
                                     <th><?= $this->Paginator->sort('Id:') ?></th>
                                     <th><?= $this->Paginator->sort('Assunto:') ?></th>
-                                    <th><?= $this->Paginator->sort('ConteÃºdo:') ?></th>
+                                    <th><?= $this->Paginator->sort('Conteúdo:') ?></th>
                                     <th><?= $this->Paginator->sort('Criado em:') ?></th>
                                     <th><?= $this->Paginator->sort('Modificado em:') ?></th>
-                                    <th class="actions"><?= __('AÃ§Ãµes:') ?></th>
+                                    <th class="actions"><?= __('Ações:') ?></th>
                                 </tr>
                             </thead>
                             <tbody>

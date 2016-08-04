@@ -126,6 +126,7 @@ class UsersController extends AppController
         $this->Auth->allow(['logout','login','add','edit']);  
     }
 
+    
     public function isAuthorized($user)
     {
         $this->loadModel('Roles'); 
@@ -162,10 +163,6 @@ class UsersController extends AppController
                     {
                         $release = true;        
                     }
-                    else
-                    {  
-                        $release = false;
-                    }
                 }
             }
             if($release == false)
@@ -185,6 +182,7 @@ class UsersController extends AppController
         }
         return parent::isAuthorized($user);
     }
+    
 
     public function login()
     {

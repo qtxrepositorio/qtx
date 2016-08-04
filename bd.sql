@@ -18,7 +18,7 @@ CREATE TABLE roles(
 CREATE TABLE roles_users(
 	role_id INT NOT NULL CONSTRAINT fk_role_key  FOREIGN KEY (role_id) REFERENCES roles(id),
 	user_id INT NOT NULL CONSTRAINT fk_user_key FOREIGN KEY (user_id) REFERENCES users(id)
-	CONSTRAINT pk_role_idx PRIMARY KEY (role_id, user_id),
+	CONSTRAINT pk_role_idx PRIMARY KEY (role_id, user_id)
 );
 
 CREATE TABLE notices(
@@ -33,13 +33,14 @@ CREATE TABLE notices(
 CREATE TABLE notices_users(
 	notice_id INT NOT NULL CONSTRAINT fk_notice_user_key  FOREIGN KEY (notice_id) REFERENCES notices(id),
 	user_id INT NOT NULL CONSTRAINT fk_receiver_user_key FOREIGN KEY (user_id) REFERENCES users(id),
-	CONSTRAINT pk_notices_users_idx PRIMARY KEY (notice_id, user_id),
+	CONSTRAINT pk_notices_users_idx PRIMARY KEY (notice_id, user_id)
 );
+
 
 CREATE TABLE notices_roles(
 	notice_id INT NOT NULL CONSTRAINT fk_notice_role_key  FOREIGN KEY (notice_id) REFERENCES notices(id),
-	role_id INT NOT NULL CONSTRAINT fk_receiver_role_key FOREIGN KEY (role_id) REFERENCES users(id),
-	CONSTRAINT pk_notices_roles_idx PRIMARY KEY (notice_id, role_id)	
+	role_id INT NOT NULL CONSTRAINT fk_receiver_role_key FOREIGN KEY (role_id) REFERENCES roles(id)
+	CONSTRAINT pk_notices_roles_idx PRIMARY KEY (notice_id, role_id)
 );
 
 

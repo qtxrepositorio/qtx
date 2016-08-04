@@ -28,8 +28,7 @@ Tem certeza de que deseja excluir # {0}?', $role->id)]) ?> </li>
             <p><b>Descrição: </b><?= h($role->description) ?></p>
 
             <li><?= $this->Html->link(__('Editar Grupo'), ['action'=>'edit', $role->id]) ?> </li>
-            <li><?= $this->Form->postLink(__('Apagar Grupo'), ['action' => 'delete', $role->id], ['confirm' => __('
-Tem certeza de que deseja excluir # {0}?', $role->id)]) ?> </li>                   
+            <li><?= $this->Form->postLink(__('Apagar Grupo'), ['action' => 'delete', $role->id], ['confirm' => __('Tem certeza de que deseja excluir # {0}?', $role->id)]) ?> </li>                   
         </div>
     </div>
 </div>
