@@ -74,13 +74,12 @@ class PagesController extends AppController
         $authenticatedUserId = $this->Auth->user('id');
 
         $noticesUsers = $this->Notices->find()
-            ->limit(5)
+            ->limit(3)
             ->innerJoin('notices_users', 'notices.id = notices_users.notice_id')
             ->where(['notices_users.user_id'=> $authenticatedUserId])
-            ->order(['id'=>'DESC']);
-
-       
+            ->order(['id'=>'DESC']);       
                
+        /*
         $rolesUsers = $this->RolesUsers->find()
             ->select('role_id')
             ->where(['user_id' => $authenticatedUserId]);    
@@ -92,9 +91,23 @@ class PagesController extends AppController
                 ->where(['notices_roles.role_id'=> $key['role_id']])
                 ->order(['id'=>'DESC']));  
                 $noticesRolesArray[] = $noticesRoles;         
-        }
+        }*/
 
-        $this->set(compact('page', 'subpage','birthdaysOfTheMonth','noticesUsers','noticesRolesArray'));
+        $connection = ConnectionManager::get('default');
+        $noticesRoles = $connection->execute("
+          SELECT DISTINCT TOP 3 [id]
+            ,[subject]
+            ,[text]
+            ,[created]
+            ,[modified]
+            ,[notices].[user_id]
+          FROM [integratedSystemQualitex].[dbo].[notices]
+          INNER JOIN [integratedSystemQualitex].[dbo].[notices_roles] ON [notices].[id] = [notices_roles].[notice_id]
+          WHERE [notices_roles].[role_id] IN (SELECT [role_id] FROM [integratedSystemQualitex].[dbo].[roles_users] WHERE [user_id] = ".$authenticatedUserId.")
+          ORDER BY [id] DESC
+          ");
+
+        $this->set(compact('page', 'subpage','birthdaysOfTheMonth','noticesUsers','noticesRoles'));
         
 
         
