@@ -56,7 +56,8 @@ class PagesController extends AppController
         }
 
         $connection = ConnectionManager::get('baseProtheus');
-        $birthdaysOfTheMonth = $connection->execute("SELECT [RA_NOME]
+        $birthdaysOfTheMonth = $connection->execute("SELECT 
+          [RA_NOME]
           ,CONVERT(varchar(10),(DAY([RA_NASC])))+'/'+CONVERT(varchar(10),(MONTH([RA_NASC])))+'/'+CONVERT(varchar(10),YEAR([RA_NASC])) 
             as DataDeNascimento
           ,[CTT_DESC01]      
@@ -74,43 +75,29 @@ class PagesController extends AppController
         $authenticatedUserId = $this->Auth->user('id');
 
         $noticesUsers = $this->Notices->find()
-            ->limit(3)
+            ->limit(4)
+            ->select(['notices.id','notices.subject','notices.text','notices.created','users.name'])
             ->innerJoin('notices_users', 'notices.id = notices_users.notice_id')
+            ->innerJoin('users', 'users.id = notices.user_id')
             ->where(['notices_users.user_id'=> $authenticatedUserId])
-            ->order(['id'=>'DESC']);       
-               
-        /*
-        $rolesUsers = $this->RolesUsers->find()
-            ->select('role_id')
-            ->where(['user_id' => $authenticatedUserId]);    
-
-        foreach ($rolesUsers as $key) {
-            $noticesRoles = $this->paginate($this->Notices->find()
-                ->limit(5)
-                ->innerJoin('notices_roles', 'notices.id = notices_roles.notice_id')
-                ->where(['notices_roles.role_id'=> $key['role_id']])
-                ->order(['id'=>'DESC']));  
-                $noticesRolesArray[] = $noticesRoles;         
-        }*/
+            ->order(['notices.id'=>'DESC']);
 
         $connection = ConnectionManager::get('default');
         $noticesRoles = $connection->execute("
-          SELECT DISTINCT TOP 3 [id]
-            ,[subject]
-            ,[text]
-            ,[created]
-            ,[modified]
-            ,[notices].[user_id]
-          FROM [integratedSystemQualitex].[dbo].[notices]
-          INNER JOIN [integratedSystemQualitex].[dbo].[notices_roles] ON [notices].[id] = [notices_roles].[notice_id]
-          WHERE [notices_roles].[role_id] IN (SELECT [role_id] FROM [integratedSystemQualitex].[dbo].[roles_users] WHERE [user_id] = ".$authenticatedUserId.")
-          ORDER BY [id] DESC
-          ");
+        SELECT DISTINCT TOP 4 
+             [notices].[id]
+            ,[notices].[subject]
+            ,[notices].[text]
+            ,[notices].[created]
+            ,[notices].[modified]
+            ,[users].[name]
+        FROM [integratedSystemQualitex].[dbo].[notices]
+        INNER JOIN [integratedSystemQualitex].[dbo].[notices_roles] ON [notices].[id] = [notices_roles].[notice_id]
+        INNER JOIN [integratedSystemQualitex].[dbo].[users] ON [users].[id] = [notices].[user_id]
+        WHERE [notices_roles].[role_id] IN (SELECT [role_id] FROM [integratedSystemQualitex].[dbo].[roles_users] WHERE [user_id] = ".$authenticatedUserId.")
+          ORDER BY [id] DESC");
 
         $this->set(compact('page', 'subpage','birthdaysOfTheMonth','noticesUsers','noticesRoles'));
-        
-
-        
 
         try {
             $this->render(implode('/', $path));

@@ -33,7 +33,7 @@ Tem certeza de que deseja excluir # {0}?', $user->id)]
                     echo $this->Form->input('username', ['label'=>'Usuário']);
                     echo $this->Form->input('password', ['label'=>'Senha:']);
                     echo $this->Form->input('roles._ids', ['options' => $roles, 'label'=>'Grupos Relacionados (Opcional):']);
-                    echo $this->Form->input('notices._ids', ['options' => $notices, 'label'=>'Notícias Relacionadas (Opcional):']);
+                    //echo $this->Form->input('notices._ids', ['options' => $notices, 'label'=>'Notícias Relacionadas (Opcional):']);
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Salvar')) ?>

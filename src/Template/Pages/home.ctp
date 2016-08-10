@@ -1,244 +1,397 @@
 <?php
-/**
- * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
- * Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- *
- * Licensed under The MIT License
- * For full copyright and license information, please see the LICENSE.txt
- * Redistributions of files must retain the above copyright notice.
- *
- * @copyright     Copyright (c) Cake Software Foundation, Inc. (http://cakefoundation.org)
- * @link          http://cakephp.org CakePHP(tm) Project
- * @since         0.10.0
- * @license       http://www.opensource.org/licenses/mit-license.php MIT License
- */
-use Cake\Cache\Cache;
-use Cake\Core\Configure;
-use Cake\Core\Plugin;
-use Cake\Datasource\ConnectionManager;
-use Cake\Error\Debugger;
-use Cake\Network\Exception\NotFoundException;
 
-$this->layout = false;
+$monthForPDF = null;
+$months = array('Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro');
 
-if (!Configure::read('debug')):
-    throw new NotFoundException('Please replace src/Template/Pages/home.ctp with your own version.');
-endif;
-
-$cakeDescription = 'CakePHP: the rapid development PHP framework';
 ?>
-<!DOCTYPE html>
-<html>
-<head>
-    <?= $this->Html->charset() ?>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-        <?= $cakeDescription ?>
-    </title>
-    <?= $this->Html->meta('icon') ?>
-    <?= $this->Html->css('base.css') ?>
-    <?= $this->Html->css('cake.css') ?>
-</head>
-<body class="home">
-    <header>
-        <div class="header-image">
-            <?= $this->Html->image('http://cakephp.org/img/cake-logo.png') ?>
-            <h1>Get the Ovens Ready</h1>
-        </div>
-    </header>
-    <div id="content">
-        <div class="row">
-            <div class="columns large-12 ctp-warning checks">
-                Please be aware that this page will not be shown if you turn off debug mode unless you replace src/Template/Pages/home.ctp with your own version.
-            </div>
-            <?php Debugger::checkSecurityKeys(); ?>
-            <div id="url-rewriting-warning" class="columns large-12 url-rewriting checks">
-                <p class="problem">URL rewriting is not properly configured on your server.</p>
-                <p>
-                    1) <a target="_blank" href="http://book.cakephp.org/3.0/en/installation.html#url-rewriting">Help me configure it</a>
-                </p>
-                <p>
-                    2) <a target="_blank" href="http://book.cakephp.org/3.0/en/development/configuration.html#general-configuration">I don't / can't use URL rewriting</a>
-                </p>
-            </div>
 
-            <div class="columns large-12 checks">
-                <h4>Environment</h4>
-                <?php if (version_compare(PHP_VERSION, '5.5.9', '>=')): ?>
-                    <p class="success">Your version of PHP is 5.5.9 or higher (detected <?= phpversion() ?>).</p>
-                <?php else: ?>
-                    <p class="problem">Your version of PHP is too low. You need PHP 5.5.9 or higher to use CakePHP (detected <?= phpversion() ?>).</p>
-                <?php endif; ?>
+<!-- Main content -->
+<section class="content">
+    
+    <!-- ./Quadro Geral de avisos -->
+    <div class="col-md-6">
+        <div class="box box-success">
+            <div class="box-body">
+                <div class="roles form large-90 medium-8 columns content">
+                    <div align='right'>
+                    <?= $this->Html->link(__('Ir para a central de avisos.'), ['controller'=>'Notices','action'=>'index'])?>
+                    </div>
+                    <legend><?= __('Quadro de avisos:') ?></legend>
+                    <div class="box-body">
+                        <legend><?= __('Últimos aviso(s) recebidos:') ?></legend>  
+                        <table id="example1" class="table table-bordered table-hover">
+                            <thead>
+                                <tr>                                
+                                    <th>Assunto:</th>
+                                    <th>Criado em:</th>
+                                    <th>Usuário criador:</th>
+                                    <th class="actions"><?= __('Ações:') ?></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($noticesUsers as $noticesUser): ?>
+                                <tr> 
+                                    <?php 
+                                        if (strlen($noticesUser->notices['subject']) > 45) 
+                                        {
+                                    ?>        <td><?= h(substr($noticesUser->notices['subject'],0,45).' [...]') ?></td>
+                                    <?php
+                                        }
+                                        else
+                                        {
+                                    ?>        <td><?= h($noticesUser->notices['subject']) ?></td>     
+                                    <?php
+                                        }
+                                    ?>
+                                    <?php
+                                        $dateConvertedForTable = explode("-", $noticesUser->notices['created']);
+                                        $day = substr($dateConvertedForTable[2],0,2);
+                                        $month = $dateConvertedForTable[1];
+                                        $year = $dateConvertedForTable[0];
+                                        $dateConvertedForTable = strval($day) . '/' . strval($month) . '/' . strval($year);
+                                    ?>   
+                                    <td><?= h($dateConvertedForTable) ?></td>
+                                    <td><?= h($noticesUser->users['name']) ?></td>
+                                    <td class="actions">
+                                        <?= $this->Html->link(__('Ver'), ['controller'=> 'Notices','action' => 'view', $noticesUser->notices['id']]) ?>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                        <br>
+                        <legend><?= __('Últimos aviso(s) recebidos em grupo:') ?></legend>
+                        <table id="example1" class="table table-bordered table-hover">
+                            <thead>
+                                <tr>                                
+                                    <th>Assunto:</th>
+                                    <th>Criado em:</th>
+                                    <th>Usuário criador:</th>
+                                    <th class="actions"><?= __('Ações:') ?></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($noticesRoles as $noticesRole): ?>
+                                <tr> 
+                                    <?php 
+                                        if (strlen($noticesRole['subject']) > 45) 
+                                        {
+                                    ?>        <td><?= h(substr($noticesRole['subject'],0,45).' [...]') ?></td>
+                                    <?php
+                                        }
+                                        else
+                                        {
+                                    ?>        <td><?= h($noticesRole['subject']) ?></td>     
+                                    <?php
+                                        }
+                                    ?>
 
-                <?php if (extension_loaded('mbstring')): ?>
-                    <p class="success">Your version of PHP has the mbstring extension loaded.</p>
-                <?php else: ?>
-                    <p class="problem">Your version of PHP does NOT have the mbstring extension loaded.</p>;
-                <?php endif; ?>
-
-                <?php if (extension_loaded('openssl')): ?>
-                    <p class="success">Your version of PHP has the openssl extension loaded.</p>
-                <?php elseif (extension_loaded('mcrypt')): ?>
-                    <p class="success">Your version of PHP has the mcrypt extension loaded.</p>
-                <?php else: ?>
-                    <p class="problem">Your version of PHP does NOT have the openssl or mcrypt extension loaded.</p>
-                <?php endif; ?>
-
-                <?php if (extension_loaded('intl')): ?>
-                    <p class="success">Your version of PHP has the intl extension loaded.</p>
-                <?php else: ?>
-                    <p class="problem">Your version of PHP does NOT have the intl extension loaded.</p>
-                <?php endif; ?>
-                <hr>
-
-                <h4>Filesystem</h4>
-                <?php if (is_writable(TMP)): ?>
-                    <p class="success">Your tmp directory is writable.</p>
-                <?php else: ?>
-                    <p class="problem">Your tmp directory is NOT writable.</p>
-                <?php endif; ?>
-
-                <?php if (is_writable(LOGS)): ?>
-                    <p class="success">Your logs directory is writable.</p>
-                <?php else: ?>
-                    <p class="problem">Your logs directory is NOT writable.</p>
-                <?php endif; ?>
-
-                <?php $settings = Cache::config('_cake_core_'); ?>
-                <?php if (!empty($settings)): ?>
-                    <p class="success">The <em><?= $settings['className'] ?>Engine</em> is being used for core caching. To change the config edit config/app.php</p>
-                <?php else: ?>
-                    <p class="problem">Your cache is NOT working. Please check the settings in config/app.php</p>
-                <?php endif; ?>
-
-                <hr>
-                <h4>Database</h4>
-                <?php
-                    try {
-                        $connection = ConnectionManager::get('default');
-                        $connected = $connection->connect();
-                    } catch (Exception $connectionError) {
-                        $connected = false;
-                        $errorMsg = $connectionError->getMessage();
-                        if (method_exists($connectionError, 'getAttributes')):
-                            $attributes = $connectionError->getAttributes();
-                            if (isset($errorMsg['message'])):
-                                $errorMsg .= '<br />' . $attributes['message'];
-                            endif;
-                        endif;
-                    }
-                ?>
-                <?php if ($connected): ?>
-                    <p class="success">CakePHP is able to connect to the database.</p>
-                <?php else: ?>
-                    <p class="problem">CakePHP is NOT able to connect to the database.<br /><br /><?= $errorMsg ?></p>
-                <?php endif; ?>
-
-                <hr>
-                <h4>DebugKit</h4>
-                <?php if (Plugin::loaded('DebugKit')): ?>
-                    <p class="success">DebugKit is loaded.</p>
-                <?php else: ?>
-                    <p class="problem">DebugKit is NOT loaded. You need to either install pdo_sqlite, or define the "debug_kit" connection name.</p>
-                <?php endif; ?>
+                                    <?php
+                                        $dateConvertedForTable = explode("-", $noticesRole['created']);
+                                        $day = substr($dateConvertedForTable[2],0,2);
+                                        $month = $dateConvertedForTable[1];
+                                        $year = $dateConvertedForTable[0];
+                                       $dateConvertedForTable = strval($day) . '/' . strval($month) . '/' . strval($year);
+                                    ?> 
+                                    <td><?= h($dateConvertedForTable) ?></td>
+                                    <td><?= h($noticesRole['name']) ?></td>
+                                    <td class="actions">
+                                        <?= $this->Html->link(__('Ver'), ['controller'=>'Notices','action' => 'view', $noticesRole['id']]) ?>
+                                    </td>
+                                </tr>                        
+                            <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
+    </div> 
 
-        <div class="row">
-            <div class="columns large-6">
-                <h3>Editing this Page</h3>
-                <ul>
-                    <li>To change the content of this page, edit: src/Template/Pages/home.ctp.</li>
-                    <li>You can also add some CSS styles for your pages at: webroot/css/.</li>
-                </ul>
-            </div>
-            <div class="columns large-6">
-                <h3>Getting Started</h3>
-                <ul>
-                    <li><a target="_blank" href="http://book.cakephp.org/3.0/en/">CakePHP 3.0 Docs</a></li>
-                    <li><a target="_blank" href="http://book.cakephp.org/3.0/en/tutorials-and-examples/bookmarks/intro.html">The 15 min Bookmarker Tutorial</a></li>
-                    <li><a target="_blank" href="http://book.cakephp.org/3.0/en/tutorials-and-examples/blog/blog.html">The 15 min Blog Tutorial</a></li>
-                </ul>
-                <p>
+    <div class="col-md-6">
+        <div class="box box-success">
+            <div class="box-body">
+                <div class="roles form large-9 medium-8 columns content">
+                    <div align='right'> <a id="modal-235086" href="#modal-container-235086" role="button" class="btn" data-toggle="modal">Ver lista completa</a> </div>
+                    <legend><?= __('Aniversários:') ?></legend>
+                    <div class="box-body">
+                        <table id="example2" class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Dia:</th>
+                                    <th>Nome:</th>
+                                    <th>Centro de custo:</th>                                  
+                                </tr>
+                            </thead>
+                            <tbody>
+                                      <?php foreach ($birthdaysOfTheMonth as $key): ?>
+                                      <?php 
+                                        $dateBirthday = explode("/", $key['DataDeNascimento']);
+                                        $dateCurrent = getdate();
+                                        $dayCurrent = $dateCurrent['mday'];
+                                        if($dateBirthday[0] == $dayCurrent)
+                                        {
+                                      ?>
+                                <tr class="success">             
+                                    <td><?= $dateBirthday[0] ?></td>  
+                                    <td><?= $key['RA_NOME'] ?></td>
+                                    <td><?= $key['CTT_DESC01'] ?></td>
+                                </tr>
+                                      <?php
+                                      }
+                                      else
+                                      {                                
+                                      ?>
+                                <tr>               
+                                    <td><?= $dateBirthday[0] ?></td>
+                                    <td><?= $key['RA_NOME'] ?></td>
+                                    <td><?= $key['CTT_DESC01'] ?></td>
+                                </tr>
+                                      <?php 
+                                      } 
+                                      ?>
+                                      <?php endforeach; ?>
+                        </table>
+                        <h5 align="right"><b>* Aniversariantes recentes, margem de 2 dias antes e 2 dias depois da data atual.</b></h5>                              
+                    </div>
+                </div>
             </div>
         </div>
-        <hr/>
+    </div> 
 
+    <!-- modal -->
+    <div class="container-fluid">
         <div class="row">
-            <div class="columns large-12">
-                <h3 class="">More about Cake</h3>
-                <p>
-                    CakePHP is a rapid development framework for PHP which uses commonly known design patterns like Front Controller and MVC.
-                </p>
-                <p>
-                    Our primary goal is to provide a structured framework that enables PHP users at all levels to rapidly develop robust web applications, without any loss to flexibility.
-                </p>
+            <div class="col-md-12">      
+                <div class="modal fade" id="modal-container-235086" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
 
-                <h3>Help and Bug Reports</h3>
-                <ul>
-                    <li>
-                        <a href="irc://irc.freenode.net/cakephp">irc.freenode.net #cakephp</a>
-                        <ul><li>Live chat about CakePHP</li></ul>
-                    </li>
-                    <li>
-                        <a href="https://github.com/cakephp/cakephp/issues">CakePHP Issues</a>
-                        <ul><li>CakePHP issues and pull requests</li></ul>
-                    </li>
-                    <li>
-                        <a href="https://groups.google.com/group/cake-php">CakePHP Google Group</a>
-                        <ul><li>Community mailing list</li></ul>
-                    </li>
-                </ul>
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                    ×
+                                </button>
+                                <h4 class="modal-title" id="myModalLabel">
+                                    Informe o(s) parametro(s) para a busca:
+                                </h4>
+                            </div>
+                            <div class="modal-body" align="center">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                        </div>
+                                        <div class="col-md-4">
+                                        <?php
+                                            echo $this->Form->create($monthForPDF,['url' => ['controller'=>'BirthdaysOfTheMonth','action' => 'view_pdf']]);
+                                            echo $this->Form->input('monthForPDF', ['options' => $months, 'label' => 'Mês desejado:']);
+                                        ?>                                       
 
-                <h3>Docs and Downloads</h3>
-                <ul>
-                    <li>
-                        <a href="http://api.cakephp.org/3.0/">CakePHP API</a>
-                        <ul><li>Quick Reference</li></ul>
-                    </li>
-                    <li>
-                        <a href="http://book.cakephp.org/3.0/en/">CakePHP Documentation</a>
-                        <ul><li>Your Rapid Development Cookbook</li></ul>
-                    </li>
-                    <li>
-                        <a href="http://bakery.cakephp.org">The Bakery</a>
-                        <ul><li>Everything CakePHP</li></ul>
-                    </li>
-                    <li>
-                        <a href="http://plugins.cakephp.org">CakePHP plugins repo</a>
-                        <ul><li>A comprehensive list of all CakePHP plugins created by the community</li></ul>
-                    </li>
-                    <li>
-                        <a href="https://github.com/cakephp/">CakePHP Code</a>
-                        <ul><li>For the Development of CakePHP Git repository, Downloads</li></ul>
-                    </li>
-                    <li>
-                        <a href="https://github.com/FriendsOfCake/awesome-cakephp">CakePHP Awesome List</a>
-                        <ul><li>A curated list of amazingly awesome CakePHP plugins, resources and shiny things.</li></ul>
-                    </li>
-                    <li>
-                        <a href="http://www.cakephp.org">CakePHP</a>
-                        <ul><li>The Rapid Development Framework</li></ul>
-                    </li>
-                </ul>
-
-                <h3>Training and Certification</h3>
-                <ul>
-                    <li>
-                        <a href="http://cakefoundation.org/">Cake Software Foundation</a>
-                        <ul><li>Promoting development related to CakePHP</li></ul>
-                    </li>
-                    <li>
-                        <a href="http://training.cakephp.org/">CakePHP Training</a>
-                        <ul><li>Learn to use the CakePHP framework</li></ul>
-                    </li>
-                    <li>
-                        <a href="http://certification.cakephp.org/">CakePHP Certification</a>
-                        <ul><li>Become a certified CakePHP developer</li></ul>
-                    </li>
-                </ul>
+                                        <button class="btn btn-success" type="submit" formtarget="_blank"><?php echo __('Invite'); ?></button>
+                                            
+                                        <?php echo $this->Form->end();   ?>
+                                        </div>
+                                        <div class="col-md-4">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</body>
-</html>
+
+
+   
+</section>
+<!-- /.content -->
+<?php
+$this->Html->css([
+    'AdminLTE./plugins/iCheck/flat/blue',
+    'AdminLTE./plugins/morris/morris',
+    'AdminLTE./plugins/jvectormap/jquery-jvectormap-1.2.2',
+    'AdminLTE./plugins/datepicker/datepicker3',
+    'AdminLTE./plugins/daterangepicker/daterangepicker-bs3',
+    'AdminLTE./plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min'
+  ],
+  ['block' => 'css']);
+
+$this->Html->script([
+  'https://code.jquery.com/ui/1.11.4/jquery-ui.min.js',
+  'https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js',
+  'AdminLTE./plugins/morris/morris.min',
+  'AdminLTE./plugins/sparkline/jquery.sparkline.min',
+  'AdminLTE./plugins/jvectormap/jquery-jvectormap-1.2.2.min',
+  'AdminLTE./plugins/jvectormap/jquery-jvectormap-world-mill-en',
+  'AdminLTE./plugins/knob/jquery.knob',
+  'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js',
+  'AdminLTE./plugins/datepicker/bootstrap-datepicker',
+  'AdminLTE./plugins/daterangepicker/daterangepicker',
+  'AdminLTE./plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min',
+],
+['block' => 'script']);
+?>
+
+<?php $this->start('scriptBotton'); ?>
+<script type="text/javascript">
+
+    $('#modal-container-235086').on(
+        'submit', function() {
+        $('#modal-container-235086').modal('hide');
+    });
+
+    var area = new Morris.Area({
+        element: 'revenue-chart',
+        resize: true,
+        data: [
+            {y: '2011 Q1', item1: 2666, item2: 2666},
+            {y: '2011 Q2', item1: 2778, item2: 2294},
+            {y: '2011 Q3', item1: 4912, item2: 1969},
+            {y: '2011 Q4', item1: 3767, item2: 3597},
+            {y: '2012 Q1', item1: 6810, item2: 1914},
+            {y: '2012 Q2', item1: 5670, item2: 4293},
+            {y: '2012 Q3', item1: 4820, item2: 3795},
+            {y: '2012 Q4', item1: 15073, item2: 5967},
+            {y: '2013 Q1', item1: 10687, item2: 4460},
+            {y: '2013 Q2', item1: 8432, item2: 5713}
+        ],
+        xkey: 'y',
+        ykeys: ['item1', 'item2'],
+        labels: ['Item 1', 'Item 2'],
+        lineColors: ['#a0d0e0', '#3c8dbc'],
+        hideHover: 'auto'
+    });
+    var line = new Morris.Line({
+        element: 'line-chart',
+        resize: true,
+        data: [
+            {y: '2011 Q1', item1: 2666},
+            {y: '2011 Q2', item1: 2778},
+            {y: '2011 Q3', item1: 4912},
+            {y: '2011 Q4', item1: 3767},
+            {y: '2012 Q1', item1: 6810},
+            {y: '2012 Q2', item1: 5670},
+            {y: '2012 Q3', item1: 4820},
+            {y: '2012 Q4', item1: 15073},
+            {y: '2013 Q1', item1: 10687},
+            {y: '2013 Q2', item1: 8432}
+        ],
+        xkey: 'y',
+        ykeys: ['item1'],
+        labels: ['Item 1'],
+        lineColors: ['#efefef'],
+        lineWidth: 2,
+        hideHover: 'auto',
+        gridTextColor: "#fff",
+        gridStrokeWidth: 0.4,
+        pointSize: 4,
+        pointStrokeColors: ["#efefef"],
+        gridLineColor: "#efefef",
+        gridTextFamily: "Open Sans",
+        gridTextSize: 10
+    });
+
+    //Donut Chart
+    var donut = new Morris.Donut({
+        element: 'sales-chart',
+        resize: true,
+        colors: ["#3c8dbc", "#f56954", "#00a65a"],
+        data: [
+            {label: "Download Sales", value: 12},
+            {label: "In-Store Sales", value: 30},
+            {label: "Mail-Order Sales", value: 20}
+        ],
+        hideHover: 'auto'
+    });
+
+    //Fix for charts under tabs
+    $('.box ul.nav a').on('shown.bs.tab', function () {
+        area.redraw();
+        donut.redraw();
+        line.redraw();
+    });
+
+    //jvectormap data
+    var visitorsData = {
+        "US": 398, //USA
+        "SA": 400, //Saudi Arabia
+        "CA": 1000, //Canada
+        "DE": 500, //Germany
+        "FR": 760, //France
+        "CN": 300, //China
+        "AU": 700, //Australia
+        "BR": 600, //Brazil
+        "IN": 800, //India
+        "GB": 320, //Great Britain
+        "RU": 3000 //Russia
+    };
+    //World map by jvectormap
+    $('#world-map').vectorMap({
+        map: 'world_mill_en',
+        backgroundColor: "transparent",
+        regionStyle: {
+            initial: {
+                fill: '#e4e4e4',
+                "fill-opacity": 1,
+                stroke: 'none',
+                "stroke-width": 0,
+                "stroke-opacity": 1
+            }
+        },
+        series: {
+            regions: [{
+                    values: visitorsData,
+                    scale: ["#92c1dc", "#ebf4f9"],
+                    normalizeFunction: 'polynomial'
+                }]
+        },
+        onRegionLabelShow: function (e, el, code) {
+            if (typeof visitorsData[code] != "undefined")
+                el.html(el.html() + ': ' + visitorsData[code] + ' new visitors');
+        }
+    });
+
+    /* jQueryKnob */
+    $(".knob").knob();
+
+    /* The todo list plugin */
+    $(".todo-list").todolist({
+        onCheck: function (ele) {
+            window.console.log("The element has been checked");
+            return ele;
+        },
+        onUncheck: function (ele) {
+            window.console.log("The element has been unchecked");
+            return ele;
+        }
+    });
+
+    //bootstrap WYSIHTML5 - text editor
+    $(".textarea").wysihtml5();
+
+    $('.daterange').daterangepicker({
+        ranges: {
+            'Today': [moment(), moment()],
+            'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+            'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+            'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+            'This Month': [moment().startOf('month'), moment().endOf('month')],
+            'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+        },
+        startDate: moment().subtract(29, 'days'),
+        endDate: moment()
+    }, function (start, end) {
+        window.alert("You chose: " + start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+    });
+
+    //The Calender
+    $("#calendar").datepicker();
+
+    //SLIMSCROLL FOR CHAT WIDGET
+    $('#chat-box').slimScroll({
+        height: '250px'
+    });
+
+</script>
+<?php  $this->end(); ?>

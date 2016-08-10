@@ -23,7 +23,7 @@
                     <?php
                         echo $this->Form->input('subject', ['label'=>'Assunto']);
                         echo $this->Form->input('text', ['label'=>'Conteúdo']);
-                        echo $this->Form->input('user_id', ['label'=>'Usuário Criador']);
+                        echo $this->Form->input('user_id', ['type'=>'hidden','default' => $authenticatedUser['id'],'label'=>'Usuário Criador']);
                         echo $this->Form->input('users._ids', ['options' => $users, 'label'=>'Usuários de destino (Opcional)']);
                         echo $this->Form->input('roles._ids', ['options' => $roles, 'label'=>'Grupos de destino (Opcional)']);
                     ?>

@@ -4,6 +4,7 @@ namespace App\Controller;
 use Cake\Event\Event;
 use App\Controller\AppController;
 use Cake\Controller\Component\FlashComponent;
+use Cake\Datasource\ConnectionManager;
 
 /**
  * Notices Controller
@@ -23,6 +24,7 @@ class NoticesController extends AppController
     public function index()
     {
 
+        
         $authenticatedUserId = $this->Auth->user('id');
         $notices = $this->paginate($this->Notices->find()
             ->where(['user_id'=> $authenticatedUserId])
@@ -30,27 +32,30 @@ class NoticesController extends AppController
         );
 
         $noticesUsers = $this->Notices->find()
-            ->limit(5)
+            ->limit(4)
+            ->select(['notices.id','notices.subject','notices.text','notices.created','users.name'])
             ->innerJoin('notices_users', 'notices.id = notices_users.notice_id')
+            ->innerJoin('users', 'users.id = notices.user_id')
             ->where(['notices_users.user_id'=> $authenticatedUserId])
-            ->order(['id'=>'DESC']);
+            ->order(['notices.id'=>'DESC']);
 
-        $this->loadModel('RolesUsers'); 
-        $rolesUsers = $this->RolesUsers->find()
-            ->select('role_id')
-            ->where(['user_id' => $authenticatedUserId]);    
+        $connection = ConnectionManager::get('default');
+        $noticesRoles = $connection->execute("
+        SELECT DISTINCT TOP 4
+             [notices].[id]
+            ,[notices].[subject]
+            ,[notices].[text]
+            ,[notices].[created]
+            ,[notices].[modified]
+            ,[users].[name]
+        FROM [integratedSystemQualitex].[dbo].[notices]
+        INNER JOIN [integratedSystemQualitex].[dbo].[notices_roles] ON [notices].[id] = [notices_roles].[notice_id]
+        INNER JOIN [integratedSystemQualitex].[dbo].[users] ON [users].[id] = [notices].[user_id]
+        WHERE [notices_roles].[role_id] IN (SELECT [role_id] FROM [integratedSystemQualitex].[dbo].[roles_users] WHERE [user_id] = ".$authenticatedUserId.")
+          ORDER BY [id] DESC");
 
-        foreach ($rolesUsers as $key) {
-            $noticesRoles = $this->Notices->find()
-                ->limit(5)
-                ->innerJoin('notices_roles', 'notices.id = notices_roles.notice_id')
-                ->where(['notices_roles.role_id'=> $key['role_id']])
-                ->order(['id'=>'DESC']);  
-                $noticesRolesArray[] = $noticesRoles;         
-        }
-
-        $this->set(compact('notices','noticesUsers','noticesRolesArray'));
-        $this->set('_serialize', ['notices','noticesUsers','noticesRolesArray']);
+        $this->set(compact('notices','noticesUsers','noticesRoles'));
+        $this->set('_serialize', ['notices','noticesUsers','noticesRoles']);
     }
 
     /**
@@ -62,12 +67,21 @@ class NoticesController extends AppController
      */
     public function view($id = null)
     {
+        $authenticatedUserId = $this->Auth->user('id');
+
         $notice = $this->Notices->get($id, [
             'contain' => ['Users', 'Roles']
         ]);
 
-        $this->set('notice', $notice);
-        $this->set('_serialize', ['notice']);
+        
+        $creatorName = $this->Notices->find()
+            ->select('users.name')
+            ->innerJoin('users', 'users.id = notices.user_id')
+            ->where(['notices.id'=> $id]);
+
+
+        $this->set(compact('notice','authenticatedUserId','creatorName'));
+        $this->set('_serialize', ['notice', 'authenticatedUserId','creatorName']);
     }
 
     /**
@@ -77,6 +91,8 @@ class NoticesController extends AppController
      */
     public function add()
     {
+        $authenticatedUser = $this->Auth->user();
+        debug($authenticatedUser);
         $notice = $this->Notices->newEntity();
         if ($this->request->is('post')) {
             $notice = $this->Notices->patchEntity($notice, $this->request->data);
@@ -90,8 +106,8 @@ class NoticesController extends AppController
         }
         $users = $this->Notices->Users->find('list', ['limit' => 200]);
         $roles = $this->Notices->Roles->find('list', ['limit' => 200]);
-        $this->set(compact('notice', 'users', 'roles'));
-        $this->set('_serialize', ['notice']);
+        $this->set(compact('notice', 'users', 'roles','authenticatedUser'));
+        $this->set('_serialize', ['notice','authenticatedUser']);
     }
 
     /**
@@ -154,49 +170,6 @@ class NoticesController extends AppController
 
     public function isAuthorized($user)
     {
-        $this->loadModel('Users'); 
-        $this->loadModel('Roles'); 
-        $this->loadModel('RolesUsers'); 
-        $authenticatedUserId = $this->Auth->user('id');
-        $query = $this->Users->find()
-            ->where([
-                'id'=> $authenticatedUserId            
-            ]);
-        $statusArray = $query->all();
-        $status = null;
-        foreach ($statusArray as $key) {
-            $status = $key['status'];
-        }
-        if($status == true){
-            $query = $this->RolesUsers->find()
-                ->where([
-                    'user_id'=> $authenticatedUserId            
-                ]);    
-            $currentUserGroups = $query->all();    
-            $release = null;    
-            foreach ($currentUserGroups as $key) {
-                $query = $this->Roles->find()
-                ->where([
-                    'id'=> $key['role_id']           
-                ]);    
-                $correspondingFunction = $query->all();  
-                foreach ($correspondingFunction as $key) {
-                    if($key['id'] == 1){
-                        $release = true;        
-                    }
-                }
-            }
-            if($release == false){
-                $this->redirect($this->Auth->redirectUrl());               
-            }
-            else{
-                //$this->Flash->error(__('VC É ADM')); 
-                if(in_array($this->action, array('index','add','edit','delete','view')))
-                    return true;            
-            }
-        }else{
-            $this->redirect($this->Auth->logout());        
-        }
         return parent::isAuthorized($user);
     }
 }
