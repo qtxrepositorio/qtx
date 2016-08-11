@@ -13,7 +13,6 @@ use Cake\Datasource\ConnectionManager;
  */
 class NoticesController extends AppController
 {
-
     public $paginate = [
         'limit' => 5];
     /**
@@ -22,15 +21,12 @@ class NoticesController extends AppController
      * @return \Cake\Network\Response|null
      */
     public function index()
-    {
-
-        
+    {        
         $authenticatedUserId = $this->Auth->user('id');
         $notices = $this->paginate($this->Notices->find()
             ->where(['user_id'=> $authenticatedUserId])
             ->order(['id'=>'DESC'])
         );
-
         $noticesUsers = $this->Notices->find()
             ->limit(4)
             ->select(['notices.id','notices.subject','notices.text','notices.created','users.name'])
@@ -38,7 +34,6 @@ class NoticesController extends AppController
             ->innerJoin('users', 'users.id = notices.user_id')
             ->where(['notices_users.user_id'=> $authenticatedUserId])
             ->order(['notices.id'=>'DESC']);
-
         $connection = ConnectionManager::get('default');
         $noticesRoles = $connection->execute("
         SELECT DISTINCT TOP 4
@@ -53,7 +48,6 @@ class NoticesController extends AppController
         INNER JOIN [integratedSystemQualitex].[dbo].[users] ON [users].[id] = [notices].[user_id]
         WHERE [notices_roles].[role_id] IN (SELECT [role_id] FROM [integratedSystemQualitex].[dbo].[roles_users] WHERE [user_id] = ".$authenticatedUserId.")
           ORDER BY [id] DESC");
-
         $this->set(compact('notices','noticesUsers','noticesRoles'));
         $this->set('_serialize', ['notices','noticesUsers','noticesRoles']);
     }
@@ -68,18 +62,13 @@ class NoticesController extends AppController
     public function view($id = null)
     {
         $authenticatedUserId = $this->Auth->user('id');
-
         $notice = $this->Notices->get($id, [
             'contain' => ['Users', 'Roles']
-        ]);
-
-        
+        ]);        
         $creatorName = $this->Notices->find()
             ->select('users.name')
             ->innerJoin('users', 'users.id = notices.user_id')
             ->where(['notices.id'=> $id]);
-
-
         $this->set(compact('notice','authenticatedUserId','creatorName'));
         $this->set('_serialize', ['notice', 'authenticatedUserId','creatorName']);
     }
@@ -126,7 +115,6 @@ class NoticesController extends AppController
             $notice = $this->Notices->patchEntity($notice, $this->request->data);
             if ($this->Notices->save($notice)) {
                 $this->Flash->success(__('A notícia foi salva!'));
-
                 return $this->redirect(['action' => 'index']);
             } else {
                 $this->Flash->error(__('A notícia não pôde ser salva. Por Favor, tente novamente.'));
@@ -154,7 +142,6 @@ class NoticesController extends AppController
         } else {
             $this->Flash->error(__('A notícia não pôde ser apagada. Por Favor, tente novamente.'));
         }
-
         return $this->redirect(['action' => 'index']);
     }
 
@@ -170,6 +157,6 @@ class NoticesController extends AppController
 
     public function isAuthorized($user)
     {
-        return parent::isAuthorized($user);
+      return parent::isAuthorized($user);
     }
 }

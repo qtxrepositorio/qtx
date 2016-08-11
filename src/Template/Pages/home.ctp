@@ -25,7 +25,7 @@ $months = array('Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','A
                                     <th>Assunto:</th>
                                     <th>Criado em:</th>
                                     <th>Usuário criador:</th>
-                                    <th class="actions"><?= __('Ações:') ?></th>
+                                    <th align="center"  class="actions"><?= __('Ações:') ?></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -52,8 +52,8 @@ $months = array('Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','A
                                     ?>   
                                     <td><?= h($dateConvertedForTable) ?></td>
                                     <td><?= h($noticesUser->users['name']) ?></td>
-                                    <td class="actions">
-                                        <?= $this->Html->link(__('Ver'), ['controller'=> 'Notices','action' => 'view', $noticesUser->notices['id']]) ?>
+                                    <td align="center" class="actions">
+                                        <?php echo $this->Html->link(__('<i class="glyphicon glyphicon-eye-open"></i>'), array('controller'=> 'Notices','action' => 'view', $noticesUser->notices['id']), array('class' => 'btn btn-primary btn-xs', 'escape' => false, 'data-toggle'=>'tooltip', 'title' => 'Visualizar')); ?>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
@@ -95,8 +95,8 @@ $months = array('Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','A
                                     ?> 
                                     <td><?= h($dateConvertedForTable) ?></td>
                                     <td><?= h($noticesRole['name']) ?></td>
-                                    <td class="actions">
-                                        <?= $this->Html->link(__('Ver'), ['controller'=>'Notices','action' => 'view', $noticesRole['id']]) ?>
+                                    <td align="center" class="actions">
+                                        <?php echo $this->Html->link(__('<i class="glyphicon glyphicon-eye-open"></i>'), array('controller'=> 'Notices','action' => 'view', $noticesRole['id']), array('class' => 'btn btn-primary btn-xs', 'escape' => false, 'data-toggle'=>'tooltip', 'title' => 'Visualizar')); ?>
                                     </td>
                                 </tr>                        
                             <?php endforeach; ?>

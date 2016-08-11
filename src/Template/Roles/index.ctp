@@ -1,15 +1,4 @@
-<!--
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New Role'), ['action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Notices'), ['controller' => 'Notices', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Notice'), ['controller' => 'Notices', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Users'), ['controller' => 'Users', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New User'), ['controller' => 'Users', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
--->
+<?php ?>
 
 <br>
 
@@ -26,7 +15,7 @@
                                     <th><?= $this->Paginator->sort('id',['label' => 'Id:']) ?></th>
                                     <th><?= $this->Paginator->sort('name',['label' => 'Nome:']) ?></th>
                                     <th><?= $this->Paginator->sort('description',['label' => 'Descrição:']) ?></th>
-                                    <th class="actions"><?= __('Ações') ?></th>
+                                    <th align="center" class="actions"><?= __('Ações:') ?></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -35,10 +24,15 @@
                                     <td><?= $this->Number->format($role->id) ?></td>
                                     <td><?= h($role->name) ?></td>
                                     <td><?= h($role->description) ?></td>
-                                    <td class="actions">
-                                        <?= $this->Html->link(__('Ver'), ['action' => 'view', $role->id]) ?> -
-                                        <?= $this->Html->link(__('Editar'), ['action' => 'edit', $role->id]) ?> -
-                                        <?= $this->Form->postLink(__('Apagar'), ['action' => 'delete', $role->id], ['confirm' => __('Tem certeza de que deseja excluir # {0}?', $role->id)]) ?>
+                                    <td align="center" class="actions">
+
+                                        <?php echo $this->Html->link(__('<i class="glyphicon glyphicon-eye-open"></i>'), array('action' => 'view', $role->id), array('class' => 'btn btn-primary btn-xs', 'escape' => false, 'data-toggle'=>'tooltip', 'title' => 'Visualizar')); ?>
+
+                                        <?php echo $this->Html->link(__('<i class="glyphicon glyphicon-pencil"></i>'), array('action' => 'edit', $role->id), array('class' => 'btn btn-warning btn-xs', 'escape' => false, 'data-toggle'=>'tooltip', 'title' => 'Editar')); ?>
+
+                                        <?php echo $this->Form->postLink(__('<i class="glyphicon glyphicon-trash"></i>'), array('action' => 'delete', $role->id), array('class' => 'btn btn-danger btn-xs', 'escape' => false, 'data-toggle'=>'tooltip', 'title' => 'Deletar', 'confirm' => __('Tem certeza de que deseja excluir # {0}?', $role->id))); ?>
+
+                                           
                                     </td>
                                 </tr>
                                 <?php endforeach; ?>

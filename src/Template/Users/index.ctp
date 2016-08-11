@@ -1,15 +1,4 @@
-<!--<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New User'), ['action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Notices'), ['controller' => 'Notices', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Notice'), ['controller' => 'Notices', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Roles'), ['controller' => 'Roles', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Role'), ['controller' => 'Roles', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
--->
-
+<?php ?>
 <br>
 
 <div class="col-md-12">
@@ -29,7 +18,7 @@
                                 <th><?= $this->Paginator->sort('status', ['label'=>'Ativo:']) ?></th>                                
                                 <th><?= $this->Paginator->sort('created', ['label'=>'Criado em:']) ?></th>
                                 <th><?= $this->Paginator->sort('modified', ['label'=>'Modificado em:']) ?></th>
-                                <th class="actions"><?= __('Ações') ?></th>
+                                <th class="actions"><?= __('Ações:') ?></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -42,10 +31,10 @@
                                 <td><?= $user->status ? __('Sim') : __('Não'); ?></td>
                                 <td><?= h($user->created) ?></td>
                                 <td><?= h($user->modified) ?></td>
-                                <td class="actions">
-                                    <?= $this->Html->link(__('Ver'), ['action' => 'view', $user->id]) ?> -
-                                    <?= $this->Html->link(__('Editar'), ['action' => 'edit', $user->id]) ?> -
-                                    <?= $this->Form->postLink(__('Apagar'), ['action' => 'delete', $user->id], ['confirm' => __('Tem certeza de que deseja excluir # {0}?', $user->id)]) ?>
+                                <td align="center" class="actions">
+                                    <?php echo $this->Html->link(__('<i class="glyphicon glyphicon-eye-open"></i>'), array('action' => 'view', $user->id), array('class' => 'btn btn-primary btn-xs', 'escape' => false, 'data-toggle'=>'tooltip', 'title' => 'Visualizar')); ?>
+                                    <?php echo $this->Html->link(__('<i class="glyphicon glyphicon-pencil"></i>'), array('action' => 'edit', $user->id), array('class' => 'btn btn-warning btn-xs', 'escape' => false, 'data-toggle'=>'tooltip', 'title' => 'Editar')); ?>
+                                    <?php echo $this->Form->postLink(__('<i class="glyphicon glyphicon-trash"></i>'), array('action' => 'delete', $user->id), array('class' => 'btn btn-danger btn-xs', 'escape' => false, 'data-toggle'=>'tooltip', 'title' => 'Deletar', 'confirm' => __('Tem certeza de que deseja excluir # {0}?',$user->id))); ?>
                                 </td>
                             </tr>
                             <?php endforeach; ?>

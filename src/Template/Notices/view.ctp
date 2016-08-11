@@ -1,33 +1,12 @@
-<?php ?>
-
-<!--
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('Edit Notice'), ['action' => 'edit', $notice->id]) ?> </li>
-        <li><?= $this->Form->postLink(__('Delete Notice'), ['action' => 'delete', $notice->id], ['confirm' => __('
-Tem certeza de que deseja excluir # {0}?', $notice->id)]) ?> </li>
-        <li><?= $this->Html->link(__('List Notices'), ['action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Notice'), ['action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Users'), ['controller' => 'Users', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New User'), ['controller' => 'Users', 'action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Roles'), ['controller' => 'Roles', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Role'), ['controller' => 'Roles', 'action' => 'add']) ?> </li>
-    </ul>
-</nav>
--->
-
-<br>
-
 <?php 
-    
     $creatorNamePRINT = '';
     foreach ($creatorName as $key) {
         # code...
         $creatorNamePRINT = $key->users['name'];
     }
+?>
 
- ?>
+<br>
 
 <div class="col-md-4" align="center">
     <div class="box box-success">
@@ -45,8 +24,11 @@ Tem certeza de que deseja excluir # {0}?', $notice->id)]) ?> </li>
             if($authenticatedUserId == $notice->user_id)
             {
             ?>
-            <li><?= $this->Html->link(__('Editar Notícia'), ['action'=>'edit', $notice->id]) ?> </li>
-            <li><?= $this->Form->postLink(__('Apagar Notícia'), ['action' => 'delete', $notice->id], ['confirm' => __('Tem certeza de que deseja excluir # {0}?', $notice->id)]) ?> </li>   
+
+            <?php echo $this->Html->link(__('<i class="glyphicon glyphicon-pencil"></i>'), array('action' => 'edit', $notice->id), array('class' => 'btn btn-warning btn-xs', 'escape' => false, 'data-toggle'=>'tooltip', 'title' => 'Editar')); ?>
+
+            <?php echo $this->Form->postLink(__('<i class="glyphicon glyphicon-trash"></i>'), array('action' => 'delete', $notice->id), array('class' => 'btn btn-danger btn-xs', 'escape' => false, 'data-toggle'=>'tooltip', 'title' => 'Deletar', 'confirm' => __('Tem certeza de que deseja excluir # {0}?', $notice->id))); ?>
+
             <?php } ?>                
         </div>
     </div>

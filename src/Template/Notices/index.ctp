@@ -14,7 +14,7 @@
                                 <th>Assunto:</th>
                                 <th>Criado em:</th>
                                 <th>Usuário criador:</th>
-                                <th class="actions"><?= __('Ações:') ?></th>
+                                <th align="center" class="actions"><?= __('Ações:') ?></th>
                                 </tr>
                         </thead>
                         <tbody>
@@ -41,8 +41,8 @@
                                     ?>   
                                     <td><?= h($dateConvertedForTable) ?></td>
                                     <td><?= h($noticesUser->users['name']) ?></td>
-                                    <td class="actions">
-                                        <?= $this->Html->link(__('Ver'), ['action' => 'view', $noticesUser->notices['id']]) ?>
+                                    <td align="center" class="actions">
+                                        <?php echo $this->Html->link(__('<i class="glyphicon glyphicon-eye-open"></i>'), array('action' => 'view', $noticesUser->notices['id']), array('class' => 'btn btn-primary btn-xs', 'escape' => false, 'data-toggle'=>'tooltip', 'title' => 'Visualizar')); ?>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
@@ -67,7 +67,7 @@
                                 <th>Assunto:</th>
                                 <th>Criado em:</th>
                                 <th>Usuário criador:</th>
-                                <th class="actions"><?= __('Ações:') ?></th>
+                                <th align="center" class="actions"><?= __('Ações:') ?></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -94,8 +94,8 @@
                                     ?> 
                                     <td><?= h($dateConvertedForTable) ?></td>
                                     <td><?= h($noticesRole['name']) ?></td>
-                                    <td class="actions">
-                                        <?= $this->Html->link(__('Ver'), ['controller'=>'Notices','action' => 'view', $noticesRole['id']]) ?>
+                                    <td align="center" class="actions">
+                                        <?php echo $this->Html->link(__('<i class="glyphicon glyphicon-eye-open"></i>'), array('action' => 'view', $noticesRole['id']), array('class' => 'btn btn-primary btn-xs', 'escape' => false, 'data-toggle'=>'tooltip', 'title' => 'Visualizar')); ?>
                                     </td>
                                 </tr>                        
                             <?php endforeach; ?>
@@ -120,7 +120,7 @@
                                         <th><?= $this->Paginator->sort('Assunto:') ?></th>
                                         <th><?= $this->Paginator->sort('Conteúdo:') ?></th>
                                         <th><?= $this->Paginator->sort('Criado em:') ?></th>
-                                        <th class="actions"><?= __('Ações:') ?></th>
+                                        <th align="center" class="actions"><?= __('Ações:') ?></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -154,10 +154,10 @@
                                         ?>
                                         
                                         <td><?= h($notice->created) ?></td>
-                                        <td class="actions">
-                                            <?= $this->Html->link(__('Ver'), ['action' => 'view', $notice->id]) ?> -
-                                            <?= $this->Html->link(__('Editar'), ['action' => 'edit', $notice->id]) ?> -
-                                            <?= $this->Form->postLink(__('Apagar'), ['action' => 'delete', $notice->id], ['confirm' => __('Tem certeza de que deseja excluir # {0}?', $notice->id)]) ?>
+                                        <td align="center" class="actions">
+                                            <?php echo $this->Html->link(__('<i class="glyphicon glyphicon-eye-open"></i>'), array('action' => 'view', $notice->id), array('class' => 'btn btn-primary btn-xs', 'escape' => false, 'data-toggle'=>'tooltip', 'title' => 'Visualizar')); ?>
+                                            <?php echo $this->Html->link(__('<i class="glyphicon glyphicon-pencil"></i>'), array('action' => 'edit', $notice->id), array('class' => 'btn btn-warning btn-xs', 'escape' => false, 'data-toggle'=>'tooltip', 'title' => 'Editar')); ?>
+                                            <?php echo $this->Form->postLink(__('<i class="glyphicon glyphicon-trash"></i>'), array('action' => 'delete', $notice->id), array('class' => 'btn btn-danger btn-xs', 'escape' => false, 'data-toggle'=>'tooltip', 'title' => 'Deletar', 'confirm' => __('Tem certeza de que deseja excluir # {0}?',$notice->id))); ?>
                                         </td>
                                     </tr>
                                     <?php endforeach; ?>

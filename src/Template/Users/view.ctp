@@ -1,19 +1,4 @@
-<!--
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('Edit User'), ['action' => 'edit', $user->id]) ?> </li>
-        <li><?= $this->Form->postLink(__('Delete User'), ['action' => 'delete', $user->id], ['confirm' => __('
-Tem certeza de que deseja excluir # {0}?', $user->id)]) ?> </li>
-        <li><?= $this->Html->link(__('List Users'), ['action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New User'), ['action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Notices'), ['controller' => 'Notices', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Notice'), ['controller' => 'Notices', 'action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Roles'), ['controller' => 'Roles', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Role'), ['controller' => 'Roles', 'action' => 'add']) ?> </li>
-    </ul>
-</nav>
--->
+<?php ?>
 
 <br>
 
@@ -30,9 +15,9 @@ Tem certeza de que deseja excluir # {0}?', $user->id)]) ?> </li>
             <p><b>Id: </b><?= $this->Number->format($user->id) ?></p> 
             <p><b>Criado em: </b><?= h($user->created) ?></p> 
             <p><b>Modificado em: </b><?=  h($user->modified)  ?></p> 
-            <p><b>Ativado: </b><?= $user->status ? __('Sim') : __('Não'); ?></p> 
-            <li><?= $this->Html->link(__('Editar Usuário'), ['action'=>'edit', $user->id]) ?> </li>
-            <li><?= $this->Form->postLink(__('Apagar Usuário'), ['action' => 'delete', $user->id], ['confirm' => __('Tem certeza de que deseja excluir # {0}?', $user->id)]) ?> </li>                   
+            <p><b>Ativado: </b><?= $user->status ? __('Sim') : __('Não'); ?></p>            
+            <?php echo $this->Html->link(__('<i class="glyphicon glyphicon-pencil"></i>'), array('action' => 'edit', $user->id), array('class' => 'btn btn-warning btn-xs', 'escape' => false, 'data-toggle'=>'tooltip', 'title' => 'Editar')); ?>
+            <?php echo $this->Form->postLink(__('<i class="glyphicon glyphicon-trash"></i>'), array('action' => 'delete', $user->id),array('class' => 'btn btn-danger btn-xs', 'escape' => false, 'data-toggle'=>'tooltip', 'title' => 'Deletar', 'confirm' => __('Tem certeza de que deseja excluir # {0}?',$user->id))); ?> 
         </div>
     </div>
 </div>
@@ -49,7 +34,7 @@ Tem certeza de que deseja excluir # {0}?', $user->id)]) ?> </li>
                         <th><?= __('Id:') ?></th>
                         <th><?= __('Nome:') ?></th>
                         <th><?= __('Descrição:') ?></th>
-                        <th class="actions"><?= __('Ações:') ?></th>
+                        <th align="center" class="actions"><?= __('Ações:') ?></th>
                     </tr>
                 </thead>    
                 <tbody>
@@ -58,11 +43,10 @@ Tem certeza de que deseja excluir # {0}?', $user->id)]) ?> </li>
                             <td><?= h($roles->id) ?></td>
                             <td><?= h($roles->name) ?></td>
                             <td><?= h($roles->description) ?></td>
-                            <td class="actions">
-                                <?= $this->Html->link(__('Ver'), ['controller' => 'Roles', 'action' => 'view', $roles->id]) ?> -
-                                <?= $this->Html->link(__('Editar'), ['controller' => 'Roles', 'action' => 'edit', $roles->id]) ?> -
-                                <?= $this->Form->postLink(__('Apagar'), ['controller' => 'Roles', 'action' => 'delete', $roles->id], ['confirm' => __('
-Tem certeza de que deseja excluir # {0}?', $roles->id)]) ?>
+                            <td align="center" class="actions">
+                                <?php echo $this->Html->link(__('<i class="glyphicon glyphicon-eye-open"></i>'), array('controller' => 'Roles','action' => 'view', $roles->id), array('class' => 'btn btn-primary btn-xs', 'escape' => false, 'data-toggle'=>'tooltip', 'title' => 'Visualizar')); ?>
+                                <?php echo $this->Html->link(__('<i class="glyphicon glyphicon-pencil"></i>'), array('controller' => 'Roles','action' => 'edit', $roles->id), array('class' => 'btn btn-warning btn-xs', 'escape' => false, 'data-toggle'=>'tooltip', 'title' => 'Editar')); ?>
+                                <?php echo $this->Form->postLink(__('<i class="glyphicon glyphicon-trash"></i>'), array('controller' => 'Roles', 'action' => 'delete', $roles->id), array('class' => 'btn btn-danger btn-xs', 'escape' => false, 'data-toggle'=>'tooltip', 'title' => 'Deletar', 'confirm' => __('Tem certeza de que deseja excluir # {0}?', $roles->id))); ?>
                             </td>
                         </tr>
                     <?php endforeach; ?>
@@ -83,26 +67,20 @@ Tem certeza de que deseja excluir # {0}?', $roles->id)]) ?>
             <table id="example2" class="table table-bordered table-hover">
                 <thead>
                     <tr>
-                        <th><?= __('Id:') ?></th>
                         <th><?= __('Assunto:') ?></th>
                         <th><?= __('Conteúdo:') ?></th>
                         <th><?= __('Criado em:') ?></th>
-                        <th><?= __('Modificado em:') ?></th>
-                        <th><?= __('Criado Por:') ?></th>
-                        <th class="actions"><?= __('Actions') ?></th>
+                        <th class="actions"><?= __('Ações:') ?></th>
                     </tr>
                     <?php foreach ($user->notices as $notices): ?>
                     <tr>
-                        <td><?= h($notices->id) ?></td>
                         <td><?= h($notices->subject) ?></td>
                         <td><?= h($notices->text) ?></td>
                         <td><?= h($notices->created) ?></td>
-                        <td><?= h($notices->modified) ?></td>
-                        <td><?= h($notices->user_id) ?></td>
-                        <td class="actions">
-                            <?= $this->Html->link(__('Ver'), ['controller' => 'Notices', 'action' => 'view', $notices->id]) ?> -
-                            <?= $this->Html->link(__('Editar'), ['controller' => 'Notices', 'action' => 'edit', $notices->id]) ?> -
-                            <?= $this->Form->postLink(__('Apagar'), ['controller' => 'Notices', 'action' => 'delete', $notices->id], ['confirm' => __('Tem certeza de que deseja excluir # {0}?', $notices->id)]) ?>
+                        <td align="center" class="actions">
+                            <?php echo $this->Html->link(__('<i class="glyphicon glyphicon-eye-open"></i>'), array('controller' => 'Notices', 'action' => 'view', $notices->id), array('class' => 'btn btn-primary btn-xs', 'escape' => false, 'data-toggle'=>'tooltip', 'title' => 'Visualizar')); ?>
+                            <?php echo $this->Html->link(__('<i class="glyphicon glyphicon-pencil"></i>'), array('controller' => 'Notices', 'action' => 'edit', $notices->id), array('class' => 'btn btn-warning btn-xs', 'escape' => false, 'data-toggle'=>'tooltip', 'title' => 'Editar')); ?>
+                            <?php echo $this->Form->postLink(__('<i class="glyphicon glyphicon-trash"></i>'), array('controller' => 'Notices', 'action' => 'delete', $notices->id), array('class' => 'btn btn-danger btn-xs', 'escape' => false, 'data-toggle'=>'tooltip', 'title' => 'Deletar', 'confirm' => __('Tem certeza de que deseja excluir # {0}?', $notices->id))); ?>
                         </td>
                     </tr>
                     <?php endforeach; ?>
