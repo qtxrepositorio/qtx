@@ -114,23 +114,31 @@ class NoticesController extends AppController
         $notice = $this->Notices->get($id, [
             'contain' => ['Users', 'Roles']
         ]);
-        if ($this->request->is(['patch', 'post', 'put'])) 
+        if($notice['user_id'] == $authenticatedUserId = $this->Auth->user('id'))
         {
-            $notice = $this->Notices->patchEntity($notice, $this->request->data);
-            if ($this->Notices->save($notice)) 
+            if ($this->request->is(['patch', 'post', 'put'])) 
             {
-                $this->Flash->success(__('A notícia foi salva!'));
-                return $this->redirect(['action' => 'index']);
-            } 
-            else 
-            {
-                $this->Flash->error(__('A notícia não pôde ser salva. Por Favor, tente novamente.'));
+                $notice = $this->Notices->patchEntity($notice, $this->request->data);
+                if ($this->Notices->save($notice)) 
+                {
+                    $this->Flash->success(__('A notícia foi salva!'));
+                    return $this->redirect(['action' => 'index']);
+                } 
+                else 
+                {
+                    $this->Flash->error(__('A notícia não pôde ser salva. Por Favor, tente novamente.'));
+                }
             }
+            $users = $this->Notices->Users->find('list', ['limit' => 200]);
+            $roles = $this->Notices->Roles->find('list', ['limit' => 200]);
+            $this->set(compact('notice', 'users', 'roles'));
+            $this->set('_serialize', ['notice']);
         }
-        $users = $this->Notices->Users->find('list', ['limit' => 200]);
-        $roles = $this->Notices->Roles->find('list', ['limit' => 200]);
-        $this->set(compact('notice', 'users', 'roles'));
-        $this->set('_serialize', ['notice']);
+        else
+        {
+            $this->Flash->success(__('Você não tem autorização para editar essa notícia!'));
+            return $this->redirect(['action' => 'index']);
+        }
     }
 
     /**

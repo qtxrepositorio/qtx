@@ -18,7 +18,8 @@ $months = array('Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','A
                     </div>
                     <legend><?= __('Quadro de avisos:') ?></legend>
                     <div class="box-body">
-                        <legend><?= __('Últimos aviso(s) recebidos:') ?></legend>  
+                        <div align='right'> <?= $this->Html->link(__('Ver Todos'), ['controller'=>'NoticesUsers','action'=>'index'])?> </div>
+                        <legend><?= __('Últimos aviso(s) recebidos:') ?></legend>
                         <table id="example1" class="table table-bordered table-hover">
                             <thead>
                                 <tr>                                
@@ -34,12 +35,12 @@ $months = array('Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','A
                                     <?php 
                                         if (strlen($noticesUser->notices['subject']) > 45) 
                                         {
-                                    ?>        <td><?= h(substr($noticesUser->notices['subject'],0,45).' [...]') ?></td>
+                                    ?>      <td><?= h(substr($noticesUser->notices['subject'],0,45).' [...]') ?></td>
                                     <?php
                                         }
                                         else
                                         {
-                                    ?>        <td><?= h($noticesUser->notices['subject']) ?></td>     
+                                    ?>      <td><?= h($noticesUser->notices['subject']) ?></td>     
                                     <?php
                                         }
                                     ?>
@@ -60,6 +61,8 @@ $months = array('Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','A
                             </tbody>
                         </table>
                         <br>
+                        <hr>
+                        <div align='right'> <?= $this->Html->link(__('Ver Todos'), ['controller'=>'NoticesRoles','action'=>'index'])?> </div>
                         <legend><?= __('Últimos aviso(s) recebidos em grupo:') ?></legend>
                         <table id="example1" class="table table-bordered table-hover">
                             <thead>

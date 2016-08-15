@@ -6,7 +6,7 @@
         <div class="box box-success">
             <div class="box-body">
                 <div class="roles form large-9 medium-8 columns content">
-                    <div align='right'> <?= $this->Html->link(__('Ver Todos'), ['controller'=>'Notices','action'=>'add'])?> </div>
+                    <div align='right'> <?= $this->Html->link(__('Ver Todos'), ['controller'=>'NoticesUsers','action'=>'index'])?> </div>
                     <legend><?= __('Últimos aviso(s) recebidos:') ?></legend>  
                     <table id="example2" class="table table-bordered table-hover">
                         <thead>
@@ -90,7 +90,7 @@
                                         $day = substr($dateConvertedForTable[2],0,2);
                                         $month = $dateConvertedForTable[1];
                                         $year = $dateConvertedForTable[0];
-                                       $dateConvertedForTable = strval($day) . '/' . strval($month) . '/' . strval($year);
+                                        $dateConvertedForTable = strval($day) . '/' . strval($month) . '/' . strval($year);
                                     ?> 
                                     <td><?= h($dateConvertedForTable) ?></td>
                                     <td><?= h($noticesRole['name']) ?></td>

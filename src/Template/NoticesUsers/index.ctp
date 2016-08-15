@@ -1,45 +1,75 @@
 <?php ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New Notices User'), ['action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Notices'), ['controller' => 'Notices', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Notice'), ['controller' => 'Notices', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Users'), ['controller' => 'Users', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New User'), ['controller' => 'Users', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
-<div class="noticesUsers index large-9 medium-8 columns content">
-    <h3><?= __('Notices Users') ?></h3>
-    <table cellpadding="0" cellspacing="0">
-        <thead>
-            <tr>
-                <th><?= $this->Paginator->sort('notice_id') ?></th>
-                <th><?= $this->Paginator->sort('user_id') ?></th>
-                <th class="actions"><?= __('Actions') ?></th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($noticesUsers as $noticesUser): ?>
-            <tr>
-                <td><?= $noticesUser->has('notice') ? $this->Html->link($noticesUser->notice->id, ['controller' => 'Notices', 'action' => 'view', $noticesUser->notice->id]) : '' ?></td>
-                <td><?= $noticesUser->has('user') ? $this->Html->link($noticesUser->user->name, ['controller' => 'Users', 'action' => 'view', $noticesUser->user->id]) : '' ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['action' => 'view', $noticesUser->notice_id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $noticesUser->notice_id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $noticesUser->notice_id], ['confirm' => __('
-Tem certeza de que deseja excluir # {0}?', $noticesUser->notice_id)]) ?>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
-    <div class="paginator">
-        <ul class="pagination">
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
-            <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-        </ul>
-        <p><?= $this->Paginator->counter() ?></p>
+<section class="content">
+  
+      <div class="col-md-12">
+        <div class="box box-success">
+            <div class="box-body">
+                <div class="roles form large-9 medium-8 columns content">
+                    <div align='right'> <?= $this->Html->link(__('Ver Todos'), ['controller'=>'NoticesRoles','action'=>'index'])?> </div>
+                    <legend><?= __('Últimos aviso(s) recebidos:') ?></legend>  
+                    <table id="example2" class="table table-bordered table-hover">
+                        <thead>
+                            <tr>                            
+                                <th>Assunto:</th>
+                                <th>Conteúdo:</th>
+                                <th>Criado em:</th>
+                                <th>Usuário criador:</th>
+                                <th align="center" class="actions"><?= __('Ações:') ?></th>
+                                </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($noticesUsers as $noticesUser): ?>
+                                <tr> 
+                                    <?php 
+                                        if (strlen($noticesUser->notices['subject']) > 45) 
+                                        {
+                                    ?>        <td><?= h(substr($noticesUser->notices['subject'],0,45).' [...]') ?></td>
+                                    <?php
+                                        }
+                                        else
+                                        {
+                                    ?>        <td><?= h($noticesUser->notices['subject']) ?></td>     
+                                    <?php
+                                        }
+                                    ?>
+                                    <?php 
+                                        if (strlen($noticesUser->notices['text']) > 45) 
+                                        {
+                                    ?>        <td><?= h(substr($noticesUser->notices['text'],0,45).' [...]') ?></td>
+                                    <?php
+                                        }
+                                        else
+                                        {
+                                    ?>        <td><?= h($noticesUser->notices['text']) ?></td>     
+                                    <?php
+                                        }
+                                    ?>
+                                    <?php
+                                        $dateConvertedForTable = explode("-", $noticesUser->notices['created']);
+                                        $day = substr($dateConvertedForTable[2],0,2);
+                                        $month = $dateConvertedForTable[1];
+                                        $year = $dateConvertedForTable[0];
+                                        $dateConvertedForTable = strval($day) . '/' . strval($month) . '/' . strval($year);
+                                    ?>   
+                                    <td><?= h($dateConvertedForTable) ?></td>
+                                    <td><?= h($noticesUser->users['name']) ?></td>
+                                    <td align="center" class="actions">
+                                        <?php echo $this->Html->link(__('<i class="glyphicon glyphicon-eye-open"></i>'), array('controller' => 'Notices','action' => 'view', $noticesUser->notices['id']), array('class' => 'btn btn-primary btn-xs', 'escape' => false, 'data-toggle'=>'tooltip', 'title' => 'Visualizar')); ?>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                    <div class="paginator">
+                        <ul class="pagination">
+                            <?= $this->Paginator->prev('< ' . __('Anterior')) ?>
+                            <?= $this->Paginator->numbers() ?>
+                            <?= $this->Paginator->next(__('Próximo') . ' >') ?>
+                        </ul>
+                        <p><?= $this->Paginator->counter() ?></p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-</div>
+</section>

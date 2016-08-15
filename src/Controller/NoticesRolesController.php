@@ -13,6 +13,8 @@ use Cake\Controller\Component\FlashComponent;
 class NoticesRolesController extends AppController
 {
 
+    public $paginate = [
+        'limit' => 5];
     /**
      * Index method
      *
@@ -20,10 +22,21 @@ class NoticesRolesController extends AppController
      */
     public function index()
     {
-        $this->paginate = [
-            'contain' => ['Notices', 'Roles']
-        ];
-        $noticesRoles = $this->paginate($this->NoticesRoles);
+        $this->loadModel('Notices');  
+        $this->loadModel('RolesUsers');
+
+        $authenticatedUserId = $this->Auth->user('id');
+
+        $rolesUsers = $this->RolesUsers->find()
+            ->select('user_id')
+            ->where(['user_id' => $authenticatedUserId]);
+
+        $noticesRoles = $this->paginate($this->Notices->find('all',['notices_roles.role_id' => $rolesUsers])
+            ->select(['notices.id', 'notices.subject', 'notices.text', 'notices.created', 'users.name'])
+            ->distinct(['notices.id'])
+            ->innerJoin('notices_roles', 'notices.id = notices_roles.notice_id')
+            ->innerJoin('users', 'users.id = notices.user_id')
+            ->order(['notices.id' => 'DESC']));
 
         $this->set(compact('noticesRoles'));
         $this->set('_serialize', ['noticesRoles']);

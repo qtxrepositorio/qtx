@@ -23,7 +23,6 @@ class RolesController extends AppController
     public function index()
     {
         $roles = $this->paginate($this->Roles);
-
         $this->set(compact('roles'));
         $this->set('_serialize', ['roles']);
     }
@@ -138,37 +137,46 @@ class RolesController extends AppController
             ]);
         $statusArray = $query->all();
         $status = null;
-        foreach ($statusArray as $key) {
+        foreach ($statusArray as $key)
+        {
             $status = $key['status'];
         }
-        if($status == true){
+        if($status == true)
+        {
             $query = $this->RolesUsers->find()
                 ->where([
                     'user_id'=> $authenticatedUserId            
                 ]);    
             $currentUserGroups = $query->all();    
             $release = null;    
-            foreach ($currentUserGroups as $key) {
+            foreach ($currentUserGroups as $key)
+            {
                 $query = $this->Roles->find()
                 ->where([
                     'id'=> $key['role_id']           
                 ]);    
                 $correspondingFunction = $query->all();  
-                foreach ($correspondingFunction as $key) {
-                    if($key['id'] == 1){
+                foreach ($correspondingFunction as $key)
+                {
+                    if($key['id'] == 1)
+                    {
                         $release = true;        
                     }
                 }
             }
-            if($release == false){
+            if($release == false)
+            {
                 $this->redirect($this->Auth->redirectUrl());               
             }
-            else{
+            else
+            {
                 //$this->Flash->error(__('VC É ADM')); 
                 if(in_array($this->action, array('index','add','edit','delete','view')))
-                    return true;            
+                return true;            
             }
-        }else{
+        }
+        else
+        {
             $this->redirect($this->Auth->logout());        
         }
         return parent::isAuthorized($user);
