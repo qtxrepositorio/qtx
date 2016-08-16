@@ -175,7 +175,7 @@ $months = array('Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','A
                                     ×
                                 </button>
                                 <h4 class="modal-title" id="myModalLabel">
-                                    Informe o(s) parametro(s) para a busca:
+                                    Informe o(s) parâmetro(s) para a busca:
                                 </h4>
                             </div>
                             <div class="modal-body" align="center">
@@ -185,11 +185,11 @@ $months = array('Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','A
                                         </div>
                                         <div class="col-md-4">
                                         <?php
-                                            echo $this->Form->create($monthForPDF,['url' => ['controller'=>'BirthdaysOfTheMonth','action' => 'view_pdf']]);
+                                            echo $this->Form->create($monthForPDF,['url' => ['controller'=>'HumanResources','action' => 'BirthdaysOfTheMonth']]);
                                             echo $this->Form->input('monthForPDF', ['options' => $months, 'label' => 'Mês desejado:']);
                                         ?>                                       
 
-                                        <button class="btn btn-success" type="submit" formtarget="_blank"><?php echo __('Invite'); ?></button>
+                                        <button class="btn btn-success" type="submit" formtarget="_blank"><?php echo __('Buscar'); ?></button>
                                             
                                         <?php echo $this->Form->end();   ?>
                                         </div>
