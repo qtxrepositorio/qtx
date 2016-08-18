@@ -54,13 +54,13 @@
     <!-- small box -->
     <div class="small-box bg-yellow">
         <div class="inner">
-          <h3>01</h3>
-            <p>Autorização para desconto em folha</p>
+          <h3>04</h3>
+            <p>Assinatura CTPS</p>
         </div>
         <div class="icon">
-            <i class="ion ion-ios-pricetags"></i>
+            <i class="ion ion-compose"></i>
         </div>
-        <a href="#" class="small-box-footer">
+        <a id="modal-235086" href="#modal-container-04" role="button" data-toggle="modal" class="small-box-footer">
             Gerar relatório <i class="fa fa-arrow-circle-right"></i>
         </a>
     </div>
@@ -70,13 +70,13 @@
     <!-- small box -->
     <div class="small-box bg-red">
         <div class="inner">
-          <h3>02</h3>
-            <p>Autorização para desconto em folha</p>
+          <h3>05</h3>
+            <p>Cartão de Assinatura</p>
         </div>
         <div class="icon">
-            <i class="ion ion-ios-pricetags"></i>
+            <i class="ion ion-compose"></i>
         </div>
-        <a href="#" class="small-box-footer">
+        <a id="modal-235086" href="#modal-container-05" role="button" data-toggle="modal" class="small-box-footer">
             Gerar relatório <i class="fa fa-arrow-circle-right"></i>
         </a>
     </div>
@@ -373,7 +373,7 @@ $months = array('Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','A
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">      
-            <div class="modal fade" id="modal-container-03" href="#modal-container-01" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal fade" id="modal-container-03" href="#modal-container-03" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -415,6 +415,98 @@ $months = array('Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','A
     </div>
 </div>
 
+<!-- modal 04-->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">      
+            <div class="modal fade" id="modal-container-04" href="#modal-container-04" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                ×
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel">
+                                Informe o(s) parâmetro(s):
+                            </h4>
+                        </div>
+                        <div class="modal-body" align="center">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                    </div>
+                                    <div class="col-md-6">
+                                    <?php
+
+                                        $signatureCTPS = null;
+
+                                        echo $this->Form->create($signatureCTPS,['url' => ['controller'=>'HumanResources','action' => 'SignatureCTPS']]);
+
+                                        echo $this->Form->input('signatureCTPS', ['options' => $listOfEmployeesNames, 'label' => 'Selecione o funcionário:']);                                      
+                                    ?>
+                                  
+                                    <button class="btn btn-success" type="submit" formtarget="_blank"><?php echo __('Gerar Relatório'); ?></button>
+                                            
+                                    <?php echo $this->Form->end();   ?>
+                                    </div>
+                                    <div class="col-md-3">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- modal 05-->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">      
+            <div class="modal fade" id="modal-container-05" href="#modal-container-05" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                ×
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel">
+                                Informe o(s) parâmetro(s):
+                            </h4>
+                        </div>
+                        <div class="modal-body" align="center">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                    </div>
+                                    <div class="col-md-6">
+                                    <?php
+
+                                        $autographCard = null;
+
+                                        echo $this->Form->create($autographCard,['url' => ['controller'=>'HumanResources','action' => 'AutographCard']]);
+
+                                        echo $this->Form->input('autographCard', ['options' => $listOfEmployeesNames, 'label' => 'Selecione o funcionário:']);                                      
+                                    ?>
+                                  
+                                    <button class="btn btn-success" type="submit" formtarget="_blank"><?php echo __('Gerar Relatório'); ?></button>
+                                            
+                                    <?php echo $this->Form->end();   ?>
+                                    </div>
+                                    <div class="col-md-3">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <?php $this->start('scriptBotton'); ?>
 <script type="text/javascript">
 
@@ -431,6 +523,16 @@ $months = array('Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','A
     $('#modal-container-03').on(
         'submit', function() {
         $('#modal-container-03').modal('hide');
+    });
+
+    $('#modal-container-04').on(
+        'submit', function() {
+        $('#modal-container-04').modal('hide');
+    });
+
+    $('#modal-container-05').on(
+        'submit', function() {
+        $('#modal-container-05').modal('hide');
     });
 
 </script>

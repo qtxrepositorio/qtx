@@ -3,7 +3,7 @@ class MYPDF extends TCPDF {
 
     //Page header
     public function Header() {
-
+    	/*
         // Logo
         $image_file = K_PATH_IMAGES.'logo.jpg';
 
@@ -14,11 +14,12 @@ class MYPDF extends TCPDF {
 
         // Title
         $this->Cell(0, 15, '', 0, false, 'C', 0, '', 0, false, 'M', 'M');
+        */
     }
 
     // Page footer
     public function Footer() {
-
+		/*
         // Position at 15 mm from bottom
         $this->SetY(-15);
 
@@ -27,6 +28,7 @@ class MYPDF extends TCPDF {
 
         // Page number
         $this->Cell(0, 10, '', 0, false, 'C', 0, '', 0, false, 'T', 'M');
+        */
     }
 }
 
@@ -36,9 +38,9 @@ $pdf = new MYPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, PDO::SQL
 // set document information
 $pdf->SetCreator(PDF_CREATOR);
 $pdf->SetAuthor('Qualitex Engenharia e Serviços');
-$pdf->SetTitle('Declaração de confidencialidade, integridade e imparcialidade');
-$pdf->SetSubject('Declaração de confidencialidade, integridade e imparcialidade');
-$pdf->SetKeywords('Declaração de confidencialidade, integridade e imparcialidade');
+$pdf->SetTitle('Cartão de Autógrafo');
+$pdf->SetSubject('Cartão de Autógrafo');
+$pdf->SetKeywords('Cartão de Autógrafo');
 
 // set default header data
 $pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE.' ', PDF_HEADER_STRING, array(0,64,255), array(0,64,128));
@@ -52,15 +54,15 @@ $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
 $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
 
 // set margins
-$pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
-$pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-$pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+//$pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+//$pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+//$pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
 
 // set auto page breaks
 $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
 
 // set image scale factor
-$pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+//$pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
 
 // set some language-dependent strings (optional)
 if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
@@ -86,63 +88,83 @@ $pdf->AddPage();
 // set text shadow effect
 //$pdf->setTextShadow(array('enabled'=>true, 'depth_w'=>0.2, 'depth_h'=>0.2, 'color'=>array(196,196,196), 'opacity'=>1, 'blend_mode'=>'Normal'));
 
-$css = '
+$html = '
 <style>
 
+th{
+    margin-top: 15px;
+    margin-right: 15px;
+    margin-left: 15px;
+   
+}
+
+
 </style>
+
 ';
 
-$html = '';
 
-$html .= $css;
+$html .= '<table cellpadding="10">			
+			<tr>
+				<td border="1" width="380">					
+					
+					<img src="http://qualitex.com.br/images/logo.jpg" height="30" width="90">					
+				
+					<h2 align="center"> Cartão de Autógrafo </h2>
 
-$html = '<br/>';
-$html .= '<h2 align="center"> Declaração de confidencialidade, integridade e imparcialidade: </h2>'
-    .'<p></p>'
-    .'<p></p>'
-    .'<p></p>'
-    .'<p></p>'
-    .'<p></p>'
-    .'<p></p>'
-    .'<p></p>';
-$html .= '<font size="12">'
-            .'<p align="center">'
-                .'<b>Eu: </b>'. $officialconfidential 
-            .'</p>'
-        .'</font>';
+					<b>Matrícula: </b>'.$registry.'  <b>Nome: </b>'.$name.'<br/><br/>
 
-$html .= '<p></p>';
-$html .= '<font size="12">'
-            .'<p align="justify">'
-            	.'Declaro observar o sigilo profissional sobre todos os atos por mim praticados ou sobre informações e dados que tenha conhecimento, em resultado do exercício do meu contrato de prestação de serviços para a Qualitex Engenharia e Serviços.'
-			.'</p>'
-			.'<p align="justify">'
-				.'Comprometo-me a cumprir fielmente as diretrizes da empresa, estabelecidas em norma sobre confidencialidade, integridade e imparcialidade como também a política de segurança da informação na qual sou treinado e tenho acesso para.'
-			.'</p>'
-			.'<p align="justify">'
-				.'Estou ciente de que devo me manter atento para não cometer falha e por conseguinte, ser penalizado por infringência da ética profissional.'
-			.'</p>'
-        .'<font/>';
+					<b>Empresa: </b> QUALITEX ENGENHARIA E SERVIÇOS LTDA
 
-$html .= '<p></p>'
-        .'<p></p>'
-        .'<p></p>'
-        .'<p></p>'
-        .'<p></p>'
-        .'<p></p>'
-        .'<p></p>'
-        .'<p></p>';
+					<br/><br/><b>Cargo: </b>'.$role.'
 
-$html .= '<p align="center">Marechal Deodoro - AL, '.$dateConverted.'</p>'
-        .'<p></p>'
-        .'<p align="center"> _____________________________________________ <br/> Assinatura do funcionário. </p>'
-        .'<p align="center">CPF: '. $cpf .'</p>';
+					<br/><br/><b>Departamento: </b>'.$department.'
 
+					<br/><br/>
+					<table align="center">
+						<tr>
+							<th border="1">	
+								ASSINATURA
+							</th>	
+							<th border="1">	
+								RUBRICA
+							</th>
+							<th border="1">	
+								RUBRICA
+							</th>  
+						</tr>
+						<br/><br/><br/>
+						<tr>
+							<td>	
+								<hr>
+							</td>	
+							<td>	
+								<hr>
+							</td>
+							<td>	
+								<hr>
+							</td> 
+						</tr>
+					</table>
 
-
-
+				</td>	  
+			</tr>
+		</table>';
 
 
+
+/*$html .= '<table>
+			<tr>
+				<th border="1" width="380">
+					<font size="8">'
+						.'<b>Matrícula: </b>'.$registry.'  <b>Nome: </b>'.$name.'<br/>'
+					
+						.'<br/><b>Cargo: </b>'.$role	
+						.'<br/><b>Data Admissão: </b>'.$department									
+			  		.'</font>
+				</th>			  
+			</tr>
+		</table>';*/
 
 
 
@@ -154,9 +176,9 @@ $pdf->writeHTML($html, true, false, true, false, '');
 
 // Close and output PDF document
 // This method has several options, check the source code documentation for more information.
-$pdf->Output('DeclaracaoDeConfidencialidadeIntegridadeEImparcialidade.pdf', 'I');
+$pdf->Output('Cartão de Autógrafo.pdf', 'I');
 
 //============================================================+
 // END OF FILE
 //============================================================+
-?>   
+?>     

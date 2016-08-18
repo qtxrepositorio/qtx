@@ -12,6 +12,64 @@ class HumanResourcesController extends AppController
     {
     }
 
+    public function AutographCard()
+    {
+        $autographCard = $this->request->data['autographCard'];
+
+        $connection = ConnectionManager::get('baseProtheus');
+        $signatureCTPSEmployee = $connection->execute("SELECT 
+                [RA_MAT]
+                ,[RA_NOME]
+                ,[Q3_DESCSUM]
+                ,[QB_DESCRIC]
+            FROM [SRA010]
+            INNER JOIN [SQB010] ON [RA_DEPTO] = [QB_DEPTO]
+            INNER JOIN [SQ3010] ON [Q3_CARGO] = [RA_CARGO]
+            WHERE [RA_NOME] = '". $autographCard ."'")
+            ->fetchAll('assoc');
+
+        foreach ($signatureCTPSEmployee as $key)
+        {
+           $registry = $key['RA_MAT'];
+           $name = $key['RA_NOME'];
+           $role = $key['Q3_DESCSUM'];
+           $department = $key['QB_DESCRIC'];
+        }
+
+        $this->set(compact('registry','name','department','role'));
+        $this->set('_serialize', ['registry','name','department','role']);
+        $this->viewBuilder()->layout('ajax');
+        $this->response->type('pdf');
+    }    
+
+    public function SignatureCTPS()
+    {
+        $signatureCTPS = $this->request->data['signatureCTPS'];
+
+        $connection = ConnectionManager::get('baseProtheus');
+        $signatureCTPSEmployee = $connection->execute("SELECT [RA_MAT]
+                ,[RA_NOME]      
+                ,[RA_ADMISSA]    
+                ,[RJ_DESC]
+            FROM [HOMOLOGACAO].[dbo].[SRA010]
+            INNER JOIN [HOMOLOGACAO].[dbo].[SRJ010] ON [RJ_FUNCAO] = [RA_CARGO]
+            WHERE [RA_NOME] = '". $signatureCTPS ."'")
+            ->fetchAll('assoc');
+
+        foreach ($signatureCTPSEmployee as $key)
+        {
+           $registry = $key['RA_MAT'];
+           $name = $key['RA_NOME'];
+           $admissionDate = $key['RA_ADMISSA'];
+           $role = $key['RJ_DESC'];
+        }
+
+        $this->set(compact('registry','name','admissionDate','role'));
+        $this->set('_serialize', ['registry','name','admissionDate','role']);
+        $this->viewBuilder()->layout('ajax');
+        $this->response->type('pdf');
+    }
+
     public function DeclarationOfConfidentiality(){
 
         $officialconfidential = $this->request->data['officialconfidential'];
