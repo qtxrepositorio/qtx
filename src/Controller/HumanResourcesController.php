@@ -12,31 +12,40 @@ class HumanResourcesController extends AppController
     {
     }
 
-    public function Reports()
-    {
+    public function DeclarationOfConfidentiality(){
+
+        $officialconfidential = $this->request->data['officialconfidential'];
+        $date = getdate();
+        $day = (string) $date['mday'];
+        $mont = $date['mon'];
+        $year = (string) $date['year'];
+        $dateConverted = $day.'/'.$mont.'/'.$year;
+
         $connection = ConnectionManager::get('baseProtheus');
-        $listOfEmployees = $connection->execute("SELECT [RA_NOME]
+        $cpfRs = $connection->execute("SELECT [RA_CIC]
             FROM [SRA010]
-            WHERE [RA_DEMISSA] = ''
-            ORDER BY [RA_NOME]")
+            WHERE [RA_NOME] = '". $officialconfidential ."'")
             ->fetchAll('assoc');
 
-        $listOfEmployeesNames;
-        foreach ($listOfEmployees as $key)
+        $cpf;
+        foreach ($cpfRs as $key)
         {
-            # code...
-            $listOfEmployeesNames[$key['RA_NOME']] = $key['RA_NOME'];
+            $cpf = $key['RA_CIC'];
         }
 
-        $this->set(compact('listOfEmployeesNames'));
-        $this->set(['listOfEmployeesNames']);
-    }
+        $cpf = substr($cpf, 0,3).'.'.substr($cpf, 3,3).'.'.substr($cpf,6,3).'-'.substr($cpf,9,3);
+
+        $this->set(compact('officialconfidential', 'dateConverted','cpf'));
+        $this->set('_serialize', ['officialconfidential', 'dateConverted','cpf']);
+        $this->viewBuilder()->layout('ajax');
+        $this->response->type('pdf');
+
+    }    
 
     public function DebitAuthorizationSheet()
     {
         $officialAuthorizedDebit = null;
-        //debug($this->request->data);
-        
+                
         $officialAuthorizedDebit = $this->request->data['officialAuthorizedDebit'];
         $feeding = $this->request->data['feeding'];
         $transport = $this->request->data['transport'];
@@ -83,17 +92,38 @@ class HumanResourcesController extends AppController
         $connection = ConnectionManager::get('baseProtheus');
         $birthdaysOfTheMonth = null;
         $birthdaysOfTheMonth = $connection->execute("SELECT [RA_NOME]
-			,CONVERT(varchar(10),(DAY([RA_NASC])))+'/'+CONVERT(varchar(10),(MONTH([RA_NASC])))+'/'+CONVERT(varchar(10),YEAR([RA_NASC])) 
-			    AS DataDeNascimento
-			,[CTT_DESC01]      
-			FROM [HOMOLOGACAO].[dbo].[SRA010]
-			INNER JOIN [CTT010] ON [CTT_CUSTO] = [RA_CC]
-			WHERE MONTH([RA_NASC]) = '$birthdaysOfTheMonthForm'
-			AND [RA_SITFOLH] != 'D'
-			ORDER BY DAY([RA_NASC]), [RA_NOME]");
+            ,CONVERT(varchar(10),(DAY([RA_NASC])))+'/'+CONVERT(varchar(10),(MONTH([RA_NASC])))+'/'+CONVERT(varchar(10),YEAR([RA_NASC])) 
+                AS DataDeNascimento
+            ,[CTT_DESC01]      
+            FROM [HOMOLOGACAO].[dbo].[SRA010]
+            INNER JOIN [CTT010] ON [CTT_CUSTO] = [RA_CC]
+            WHERE MONTH([RA_NASC]) = '$birthdaysOfTheMonthForm'
+            AND [RA_SITFOLH] != 'D'
+            ORDER BY DAY([RA_NASC]), [RA_NOME]");
         $this->set(compact('birthdaysOfTheMonth', 'birthdaysOfTheMonthForm'));
         $this->set('_serialize', ['birthdaysOfTheMonth', 'birthdaysOfTheMonthForm']);
         $this->viewBuilder()->layout('ajax');
         $this->response->type('pdf');
     }
+
+    public function Reports()
+    {
+        $connection = ConnectionManager::get('baseProtheus');
+        $listOfEmployees = $connection->execute("SELECT [RA_NOME]
+            FROM [SRA010]
+            WHERE [RA_DEMISSA] = ''
+            ORDER BY [RA_NOME]")
+            ->fetchAll('assoc');
+
+        $listOfEmployeesNames;
+        foreach ($listOfEmployees as $key)
+        {
+            # code...
+            $listOfEmployeesNames[$key['RA_NOME']] = $key['RA_NOME'];
+        }
+
+        $this->set(compact('listOfEmployeesNames'));
+        $this->set(['listOfEmployeesNames']);
+    }
+
 }

@@ -36,9 +36,9 @@ $pdf = new MYPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, PDO::SQL
 // set document information
 $pdf->SetCreator(PDF_CREATOR);
 $pdf->SetAuthor('Qualitex Engenharia e Serviços');
-$pdf->SetTitle('Autorização para desconto em folha de pagamanto');
-$pdf->SetSubject('Autorização para desconto em folha de pagamanto');
-$pdf->SetKeywords('Autorização para desconto em folha de pagamanto');
+$pdf->SetTitle('Declaração de confidencialidade, integridade e imparcialidade');
+$pdf->SetSubject('Declaração de confidencialidade, integridade e imparcialidade');
+$pdf->SetKeywords('Declaração de confidencialidade, integridade e imparcialidade');
 
 // set default header data
 $pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE.' ', PDF_HEADER_STRING, array(0,64,255), array(0,64,128));
@@ -97,8 +97,7 @@ $html = '';
 $html .= $css;
 
 $html = '<br/>';
-$html .= '<h2 align="center"> Autorização para descontos em folha de pagamanto: </h2>'
-    .'<p></p>'
+$html .= '<h2 align="center"> Declaração de confidencialidade, integridade e imparcialidade: </h2>'
     .'<p></p>'
     .'<p></p>'
     .'<p></p>'
@@ -108,29 +107,28 @@ $html .= '<h2 align="center"> Autorização para descontos em folha de pagamanto
     .'<p></p>';
 $html .= '<font size="12">'
             .'<p align="center">'
-                .'<b>Eu: </b>'. $officialAuthorizedDebit 
+                .'<b>Eu: </b>'. $officialconfidential 
             .'</p>'
         .'</font>';
 
 $html .= '<p></p>';
 $html .= '<font size="12">'
-            .'<p align="justify">Autorizo descontar dos meus redimentos mensais os itens abaixo e valores conforme descriminados no contra-cheque.</p>'
+            .'<p align="justify">'
+            	.'Declaro observar o sigilo profissional sobre todos os atos por mim praticados ou sobre informações e dados que tenha conhecimento, em resultado do exercício do meu contrato de prestação de serviços para a Qualitex Engenharia e Serviços.'
+			.'</p>'
+			.'<p align="justify">'
+				.'Comprometo-me a cumprir fielmente as diretrizes da empresa, estabelecidas em norma sobre confidencialidade, integridade e imparcialidade como também a política de segurança da informação na qual sou treinado e tenho acesso para.'
+			.'</p>'
+			.'<p align="justify">'
+				.'Estou ciente de que devo me manter atento para não cometer falha e por conseguinte, ser penalizado por infringência da ética profissional.'
+			.'</p>'
         .'<font/>';
 
-$html .= '<ul align="center">';
-        if ($transport == 1) 
-            $html .='<li><h3>Transporte.</h3></li>';
-        if($feeding == 1)   
-            $html .='<li><h3>Alimentação.</h3></li>';
-        if ($lifeInsurance == 1)
-            $html .='<li><h3>Seguro de vida.</h3></li>';
-        if ($healthCare == 1)
-            $html .='<li><h3>Assistência Médica.</h3></li>';
-        if ($dentalCare == 1)
-            $html .='<li><h3>Assistência Odôntologica.</h3></li>';
-$html .= '</ul>';
-
 $html .= '<p></p>'
+        .'<p></p>'
+        .'<p></p>'
+        .'<p></p>'
+        .'<p></p>'
         .'<p></p>'
         .'<p></p>'
         .'<p></p>';
@@ -156,9 +154,9 @@ $pdf->writeHTML($html, true, false, true, false, '');
 
 // Close and output PDF document
 // This method has several options, check the source code documentation for more information.
-$pdf->Output('Autorização para descontos em folha de pagamanto.pdf', 'I');
+$pdf->Output('DeclaracaoDeConfidencialidadeIntegridadeEImparcialidade.pdf', 'I');
 
 //============================================================+
 // END OF FILE
 //============================================================+
-?>  
+?>   

@@ -18,15 +18,14 @@ $months = array('Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','A
                     </div>
                     <legend><?= __('Quadro de avisos:') ?></legend>
                     <div class="box-body">
-                        <div align='right'> <?= $this->Html->link(__('Ver Todos'), ['controller'=>'NoticesUsers','action'=>'index'])?> </div>
-                        <legend><?= __('Últimos aviso(s) recebidos:') ?></legend>
+                        <legend><?= __('Últimos aviso(s) recebidos:') ?></legend>  
                         <table id="example1" class="table table-bordered table-hover">
                             <thead>
                                 <tr>                                
                                     <th>Assunto:</th>
                                     <th>Criado em:</th>
                                     <th>Usuário criador:</th>
-                                    <th align="center"  class="actions"><?= __('Ações:') ?></th>
+                                    <th class="actions"><?= __('Ações:') ?></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -35,12 +34,12 @@ $months = array('Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','A
                                     <?php 
                                         if (strlen($noticesUser->notices['subject']) > 45) 
                                         {
-                                    ?>      <td><?= h(substr($noticesUser->notices['subject'],0,45).' [...]') ?></td>
+                                    ?>        <td><?= h(substr($noticesUser->notices['subject'],0,45).' [...]') ?></td>
                                     <?php
                                         }
                                         else
                                         {
-                                    ?>      <td><?= h($noticesUser->notices['subject']) ?></td>     
+                                    ?>        <td><?= h($noticesUser->notices['subject']) ?></td>     
                                     <?php
                                         }
                                     ?>
@@ -53,16 +52,14 @@ $months = array('Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','A
                                     ?>   
                                     <td><?= h($dateConvertedForTable) ?></td>
                                     <td><?= h($noticesUser->users['name']) ?></td>
-                                    <td align="center" class="actions">
-                                        <?php echo $this->Html->link(__('<i class="glyphicon glyphicon-eye-open"></i>'), array('controller'=> 'Notices','action' => 'view', $noticesUser->notices['id']), array('class' => 'btn btn-primary btn-xs', 'escape' => false, 'data-toggle'=>'tooltip', 'title' => 'Visualizar')); ?>
+                                    <td class="actions">
+                                        <?= $this->Html->link(__('Ver'), ['controller'=> 'Notices','action' => 'view', $noticesUser->notices['id']]) ?>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
                             </tbody>
                         </table>
                         <br>
-                        <hr>
-                        <div align='right'> <?= $this->Html->link(__('Ver Todos'), ['controller'=>'NoticesRoles','action'=>'index'])?> </div>
                         <legend><?= __('Últimos aviso(s) recebidos em grupo:') ?></legend>
                         <table id="example1" class="table table-bordered table-hover">
                             <thead>
@@ -98,8 +95,8 @@ $months = array('Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','A
                                     ?> 
                                     <td><?= h($dateConvertedForTable) ?></td>
                                     <td><?= h($noticesRole['name']) ?></td>
-                                    <td align="center" class="actions">
-                                        <?php echo $this->Html->link(__('<i class="glyphicon glyphicon-eye-open"></i>'), array('controller'=> 'Notices','action' => 'view', $noticesRole['id']), array('class' => 'btn btn-primary btn-xs', 'escape' => false, 'data-toggle'=>'tooltip', 'title' => 'Visualizar')); ?>
+                                    <td class="actions">
+                                        <?= $this->Html->link(__('Ver'), ['controller'=>'Notices','action' => 'view', $noticesRole['id']]) ?>
                                     </td>
                                 </tr>                        
                             <?php endforeach; ?>
@@ -175,7 +172,7 @@ $months = array('Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','A
                                     ×
                                 </button>
                                 <h4 class="modal-title" id="myModalLabel">
-                                    Informe o(s) parâmetro(s) para a busca:
+                                    Informe o(s) parametro(s) para a busca:
                                 </h4>
                             </div>
                             <div class="modal-body" align="center">
