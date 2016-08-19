@@ -12,6 +12,30 @@ class HumanResourcesController extends AppController
     {
     }
 
+    public function FolderIdentification()
+    {
+        $folderIdentification = $this->request->data['folderIdentification'];
+        $connection = ConnectionManager::get('baseProtheus');
+        $folderIdentificationEmployee = $connection->execute("SELECT
+                [RA_MAT]
+                ,[RA_NOME]
+            FROM [SRA010]
+            WHERE [RA_NOME] = '". $folderIdentification ."'")
+            ->fetchAll('assoc');
+
+        foreach ($folderIdentificationEmployee as $key)
+        {
+            $registry = $key['RA_MAT'];
+            $name = $key['RA_NOME'];
+
+            $this->set(compact('registry','name'));
+            $this->set('_serialize', ['registry','name']);
+            $this->viewBuilder()->layout('ajax');
+            $this->response->type('pdf');
+            
+        }
+    }
+
     public function AutographCard()
     {
         $autographCard = $this->request->data['autographCard'];

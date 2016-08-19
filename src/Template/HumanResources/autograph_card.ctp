@@ -136,13 +136,13 @@ $html .= '<table cellpadding="10">
 						<br/><br/><br/>
 						<tr>
 							<td>	
-								<hr>
+								<hr  width="117">
 							</td>	
 							<td>	
-								<hr>
+								<hr  width="117">
 							</td>
 							<td>	
-								<hr>
+								<hr  width="117"> 
 							</td> 
 						</tr>
 					</table>
