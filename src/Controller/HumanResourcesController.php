@@ -12,6 +12,174 @@ class HumanResourcesController extends AppController
     {
     }
 
+    public function AdressesPool()
+    {
+        $lines = $this->request->data['line']; 
+        $locales = $this->request->data['locale']; 
+        $status = $this->request->data['status']; 
+
+        $connection = ConnectionManager::get('baseProtheus');
+
+        foreach ($lines as $keyLine) 
+        {
+            foreach ($locales as $keyLocale) 
+            {
+                foreach ($status as $keyStatus) 
+                {
+                    $adressesPoolRs[] = $connection->execute("SELECT 
+                         [RA_MAT]
+                        ,[RA_NOME]
+                        ,[RA_BAIRRO]
+                        ,[RA_MUNICIP]
+                        ,[RA_ESTADO]
+                        ,[RA_XLINHA]
+                        ,[RA_XPTAPAN]
+                        ,[RA_XLOCAL]
+                        ,[RA_XSTATUS]
+                        FROM [SRA010]
+                        WHERE [RA_XLINHA] = $keyLine AND [RA_XLOCAL] = '".$keyLocale."' AND [RA_XSTATUS] = '".$keyStatus."'")
+                        ->fetchAll('assoc');
+                }
+            }
+                
+        }
+
+        $this->set(compact('adressesPoolRs'));
+        $this->set('_serialize', ['adressesPoolRs']);
+        $this->viewBuilder()->layout('ajax');
+        $this->response->type('pdf');
+
+    }
+
+    public function ComponentsForTimeAndUnion()
+    {
+        $union = $this->request->data['unionName']; 
+
+        $connection = ConnectionManager::get('baseProtheus');
+
+        foreach ($union as $key) {
+            # code...
+            if($key == 'TODOS')
+            {
+                $unionsRs[] = $connection->execute("SELECT 
+                     [RA_MAT]
+                    ,[RA_NOME]
+                    ,[RA_ADMISSA]
+                    ,[RCE_DESCRI]
+                    ,DATEDIFF(MONTH, [RA_ADMISSA], GETDATE()) as [QUANT_MONTHS]
+                    FROM [SRA010]
+                    INNER JOIN [RCE010] ON [RCE_CODIGO] = [RA_SINDICA]
+                    WHERE [RA_DEMISSA] = ''
+                    ORDER BY [RCE_DESCRI], [QUANT_MONTHS] DESC")
+                    ->fetchAll('assoc');
+            }
+            else
+            {
+                $unionsRs[] = $connection->execute("SELECT 
+                     [RA_MAT]
+                    ,[RA_NOME]
+                    ,[RA_ADMISSA]
+                    ,[RCE_DESCRI]
+                    ,DATEDIFF(MONTH, [RA_ADMISSA], GETDATE()) as [QUANT_MONTHS]
+                    FROM [SRA010]
+                    INNER JOIN [RCE010] ON [RCE_CODIGO] = [RA_SINDICA]
+                    WHERE [RA_DEMISSA] = '' AND [RCE_DESCRI] = '$key'
+                    ORDER BY [RCE_DESCRI], [QUANT_MONTHS] DESC")
+                    ->fetchAll('assoc');
+            }
+        }  
+
+        $this->set(compact('unionsRs'));
+        $this->set('_serialize', ['unionsRs']);
+        $this->viewBuilder()->layout('ajax');
+        $this->response->type('pdf');
+    }    
+
+    public function TimeCardDepartament()
+    {
+
+        $timecardDepartament = $this->request->data['timecardDepartament'];        
+        $timelunch = $this->request->data['timelunch'];
+        $month = $this->request->data['month'];
+        $year = $this->request->data['year'];
+
+        $connection = ConnectionManager::get('baseProtheus');       
+
+        foreach ($timecardDepartament as $key) {
+            # code...
+            if($key == 'TODOS')
+            {
+                $timecardDepartamentRs[] = $connection->execute("SELECT 
+                    [RA_MAT]
+                    ,[RA_NOME]
+                    ,[Q3_DESCSUM]
+                    ,[QB_DESCRIC]
+                FROM [SRA010]
+                INNER JOIN [SQB010] ON [RA_DEPTO] = [QB_DEPTO]
+                INNER JOIN [SQ3010] ON [Q3_CARGO] = [RA_CARGO]")
+                ->fetchAll('assoc');
+            }
+            else
+            {
+                $timecardDepartamentRs[] = $connection->execute("SELECT 
+                    [RA_MAT]
+                    ,[RA_NOME]
+                    ,[Q3_DESCSUM]
+                    ,[QB_DESCRIC]
+                FROM [SRA010]
+                INNER JOIN [SQB010] ON [RA_DEPTO] = [QB_DEPTO]
+                INNER JOIN [SQ3010] ON [Q3_CARGO] = [RA_CARGO]
+                WHERE [Q3_DESCSUM] = '". $key ."'")
+                ->fetchAll('assoc');  
+            }
+        }        
+
+        $this->set(compact('timecardDepartamentRs','timecardEmployee','timelunch','month','year'));
+        $this->set('_serialize', ['timecardEmployeeRs','timecardEmployee','timelunch','month','year']);
+        $this->viewBuilder()->layout('ajax');
+        $this->response->type('pdf');
+    }
+
+    public function TimeCardEmployee()
+    {
+        $timecardEmployee = $this->request->data['timecardEmployee'];        
+        $timelunch = $this->request->data['timelunch'];
+        $month = $this->request->data['month'];
+        $year = $this->request->data['year'];
+
+        $connection = ConnectionManager::get('baseProtheus');
+
+        foreach ($timecardEmployee as $key) {
+            # code...
+            if($key == 'TODOS')
+            {
+                $timecardEmployeeRs[] = $connection->execute("SELECT 
+                    [RA_MAT]
+                    ,[RA_NOME]
+                    ,[Q3_DESCSUM]
+                FROM [SRA010]
+                INNER JOIN [SQ3010] ON [Q3_CARGO] = [RA_CARGO]")
+                ->fetchAll('assoc');
+            }
+            else
+            {
+                $timecardEmployeeRs[] = $connection->execute("SELECT 
+                    [RA_MAT]
+                    ,[RA_NOME]
+                    ,[Q3_DESCSUM]
+                FROM [SRA010]
+                INNER JOIN [SQ3010] ON [Q3_CARGO] = [RA_CARGO]
+                WHERE [RA_NOME] = '". $key ."'")
+                ->fetchAll('assoc');  
+            }
+        }
+        
+        $this->set(compact('timecardEmployeeRs','timecardEmployee','timelunch','month','year'));
+        $this->set('_serialize', ['timecardEmployeeRs','timecardEmployee','timelunch','month','year']);
+        $this->viewBuilder()->layout('ajax');
+        $this->response->type('pdf');
+    }
+
     public function FolderIdentification()
     {
         $folderIdentification = $this->request->data['folderIdentification'];
@@ -26,14 +194,12 @@ class HumanResourcesController extends AppController
         foreach ($folderIdentificationEmployee as $key)
         {
             $registry = $key['RA_MAT'];
-            $name = $key['RA_NOME'];
-
-            $this->set(compact('registry','name'));
-            $this->set('_serialize', ['registry','name']);
-            $this->viewBuilder()->layout('ajax');
-            $this->response->type('pdf');
-            
+            $name = $key['RA_NOME'];            
         }
+        $this->set(compact('registry','name'));
+        $this->set('_serialize', ['registry','name']);
+        $this->viewBuilder()->layout('ajax');
+        $this->response->type('pdf');
     }
 
     public function AutographCard()
@@ -66,7 +232,7 @@ class HumanResourcesController extends AppController
         $this->response->type('pdf');
     }    
 
-    public function SignatureCTPS()
+    public function SignatureCtps()
     {
         $signatureCTPS = $this->request->data['signatureCTPS'];
 
@@ -190,22 +356,62 @@ class HumanResourcesController extends AppController
 
     public function Reports()
     {
+        
+        for ($i=1; $i < 16; $i++) { 
+            # code...
+            $lines[$i] = $i; 
+        }
+
+       
+        $locales['POLO'] = 'POLO';
+        $locales['UCS'] = 'UCS';
+
+        
+        $status['ATIVO'] = 'ATIVO';
+        $status['INATIVO'] = 'INATIVO';
+        
         $connection = ConnectionManager::get('baseProtheus');
+
+        $listUnions = $connection->execute("SELECT 
+            [RCE_DESCRI]
+            FROM [RCE010] 
+            ")
+            ->fetchAll('assoc');
+
+        $listOfUnionsNames['TODOS'] = 'TODOS'; 
+        foreach ($listUnions as $key) {
+            # code...
+            $listOfUnionsNames[$key['RCE_DESCRI']] = $key['RCE_DESCRI'];
+        }
+
         $listOfEmployees = $connection->execute("SELECT [RA_NOME]
             FROM [SRA010]
             WHERE [RA_DEMISSA] = ''
             ORDER BY [RA_NOME]")
             ->fetchAll('assoc');
 
-        $listOfEmployeesNames;
+        $listOfEmployeesNames['TODOS'] = 'TODOS';
         foreach ($listOfEmployees as $key)
         {
             # code...
             $listOfEmployeesNames[$key['RA_NOME']] = $key['RA_NOME'];
         }
 
-        $this->set(compact('listOfEmployeesNames'));
-        $this->set(['listOfEmployeesNames']);
+        $listOfDepartaments = $connection->execute("SELECT 
+                [QB_DESCRIC]
+            FROM [SQB010]")
+            ->fetchAll('assoc');
+
+        $listOfDepartamentsNames['TODOS'] = 'TODOS';
+
+        foreach ($listOfDepartaments as $key)
+        {
+            # code...
+            $listOfDepartamentsNames[$key['QB_DESCRIC']] = $key['QB_DESCRIC'];
+        }
+
+        $this->set(compact('listOfEmployeesNames','listOfDepartamentsNames','listOfUnionsNames','lines','locales','status'));
+        $this->set(['listOfEmployeesNames','listOfDepartamentsNames','listOfUnionsNames','lines','locales','status']);
     }
 
 }
