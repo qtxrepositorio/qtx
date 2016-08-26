@@ -17,11 +17,21 @@ class HumanResourcesController extends AppController
             COUNT([RA_MAT]) as COUNT_PEOPLE_BY_GROUPS
             , [RA_XLINHA] as RA_XLINHA
             FROM [HOMOLOGACAO].[DBO].[SRA010]
+            WHERE [RA_DEMISSA] = ''
             GROUP BY [RA_XLINHA]")
             ->fetchAll('assoc');
 
-        $this->set(compact('peopleQquantityByLines'));
-        $this->set('_serialize', ['peopleQquantityByLines']);
+        $employeesBySexAndCC = $connection->execute("SELECT 
+            COUNT([RA_MAT]) as COUNT_RA_MAT
+            ,[CTT_DESC01] 
+            ,[RA_SEXO]  
+            FROM [HOMOLOGACAO].[dbo].[SRA010]
+            INNER JOIN [HOMOLOGACAO].[dbo].[CTT010] ON [CTT_CUSTO] = [RA_CC] 
+            GROUP BY [RA_SEXO],[CTT_DESC01] ")
+            ->fetchAll('assoc');
+
+        $this->set(compact('peopleQquantityByLines','employeesBySexAndCC'));
+        $this->set('_serialize', ['peopleQquantityByLines','employeesBySexAndCC']);
 
     }
 
@@ -393,7 +403,6 @@ class HumanResourcesController extends AppController
 
         $listOfUnionsNames['TODOS'] = 'TODOS'; 
         foreach ($listUnions as $key) {
-            # code...
             $listOfUnionsNames[$key['RCE_DESCRI']] = $key['RCE_DESCRI'];
         }
 
@@ -406,7 +415,6 @@ class HumanResourcesController extends AppController
         $listOfEmployeesNames['TODOS'] = 'TODOS';
         foreach ($listOfEmployees as $key)
         {
-            # code...
             $listOfEmployeesNames[$key['RA_NOME']] = $key['RA_NOME'];
         }
 
@@ -419,7 +427,6 @@ class HumanResourcesController extends AppController
 
         foreach ($listOfDepartaments as $key)
         {
-            # code...
             $listOfDepartamentsNames[$key['QB_DESCRIC']] = $key['QB_DESCRIC'];
         }
 
