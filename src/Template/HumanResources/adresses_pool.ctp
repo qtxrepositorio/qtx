@@ -53,7 +53,7 @@ $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
 $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
 
 // set margins
-$pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
+$pdf->SetMargins(3, PDF_MARGIN_TOP, 3);
 $pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
 $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
 
@@ -115,11 +115,11 @@ $html .= '<table class="table" align="center">'
         . '<thead>'
             . '<tr>'
                 . '<th style="width: 50px">MAT.:</th>'
-                . '<th style="width: 150px">NOME:</th>'
+                . '<th style="width: 200px">NOME:</th>'
                 . '<th style="width: 100px">BAIRRO:</th>'
-                . '<th style="width: 100px">MUNICÍPIO:</th>'
-                . '<th style="width: 30px">UF:</th>'
-                . '<th style="width: 200px">PONTO:</th>'
+                . '<th style="width: 100px">MUNICÍPIO-UF:</th>'
+                . '<th style="width: 50px">LINHA:</th>'
+                . '<th style="width: 215px">PONTO:</th>'
             . '</tr>'
         . '</thead>'
         . '<tbody>';
@@ -132,11 +132,11 @@ foreach ($adressesPoolRs  as $key) {
 
         $html .=  '<tr>'
                 . '<td style="width: 50px">'.$value['RA_MAT'].'</td>'
-                . '<td style="width: 150px">'.$value['RA_NOME'].'</td>'
+                . '<td style="width: 200px">'.$value['RA_NOME'].'</td>'
                 . '<td style="width: 100px">'.$value['RA_BAIRRO'].'</td>'
-                . '<td style="width: 100px">'.$value['RA_MUNICIP'].'</td>'
-                . '<td style="width: 30px">'.$value['RA_ESTADO'].'</td>'
-                . '<td style="width: 200px">'.$value['RA_XPTAPAN'].'</td>'
+                . '<td style="width: 100px">'.$value['RA_MUNICIP'].' - '.$value['RA_ESTADO'].'</td>'
+                . '<td style="width: 50px">'.$value['RA_XLINHA'].'</td>'
+                . '<td style="width: 215px">'.$value['RA_XPTAPAN'].'</td>'
             . '</tr>';
 
     }

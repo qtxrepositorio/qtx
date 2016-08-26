@@ -1,262 +1,165 @@
 <?php ?>
 
-<br>
+<section class="content-header">
 
-<div class="col-lg-3 col-xs-6">
-    <!-- small box -->
-    <div class="small-box bg-yellow">
-        <div class="inner">
-          <h3>01</h3>
-            <p>Autorização para desconto em folha</p>
-        </div>
-        <div class="icon">
-            <i class="ion ion-ios-pricetags"></i>
-        </div>
-          <a id="modal-235086" href="#modal-container-01" role="button" data-toggle="modal" class="small-box-footer">
-            Gerar relatório <i class="fa fa-arrow-circle-right"></i>
-        </a>
-    </div>
-</div>
+    <h1>
+        Relatórios
+        <small> - Recursos Humanos</small>
+    </h1>
 
-<div class="col-lg-3 col-xs-6">
-    <!-- small box -->
-    <div class="small-box bg-yellow">
-        <div class="inner">
-          <h3>02</h3>
-            <p>Aniversariantes do mês</p>
-        </div>
-        <div class="icon">
-            <i class="fa fa-gift"></i>
-        </div>
-        <a id="modal-235086" href="#modal-container-02" role="button" data-toggle="modal" class="small-box-footer">
-            Gerar relatório <i class="fa fa-arrow-circle-right"></i>
-        </a>
-    </div>
-</div>
+    <br>
 
-<div class="col-lg-3 col-xs-6">
-    <!-- small box -->
-    <div class="small-box bg-yellow">
-        <div class="inner">
-          <h3>03</h3>
-            <p>Declaração de confidencialidade</p>
-        </div>
-        <div class="icon">
-            <i class="ion ion-locked"></i>
-        </div>
-        <a id="modal-235086" href="#modal-container-03" role="button" data-toggle="modal" class="small-box-footer">
-            Gerar relatório <i class="fa fa-arrow-circle-right"></i>
-        </a>
-    </div>
-</div>
+    <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box">
+            <span class="info-box-icon bg-green">
+                <a style="color:#FFFFFF" id="modal-235086" href="#modal-container-01" role="button" data-toggle="modal">
+                    <i class="ion-printer"></i>
+                </a>
+            </span>
+            <div class="info-box-content">               
+                <span class="info-box-number">01</span>
+                <span >Autorização para desconto em folha</span>
 
-<div class="col-lg-3 col-xs-6">
-    <!-- small box -->
-    <div class="small-box bg-yellow">
-        <div class="inner">
-          <h3>04</h3>
-            <p>Assinatura CTPS</p>
+            </div>
         </div>
-        <div class="icon">
-            <i class="fa fa-pencil-square-o"></i>
-        </div>
-        <a id="modal-235086" href="#modal-container-04" role="button" data-toggle="modal" class="small-box-footer">
-            Gerar relatório <i class="fa fa-arrow-circle-right"></i>
-        </a>
     </div>
-</div>
 
-<div class="col-lg-3 col-xs-6">
-    <!-- small box -->
-    <div class="small-box bg-red">
-        <div class="inner">
-          <h3>05</h3>
-            <p>Cartão de Assinatura</p>
-        </div>
-        <div class="icon">
-            <i class="fa fa-pencil-square-o"></i>
-        </div>
-        <a id="modal-235086" href="#modal-container-05" role="button" data-toggle="modal" class="small-box-footer">
-            Gerar relatório <i class="fa fa-arrow-circle-right"></i>
-        </a>
-    </div>
-</div>
+    <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box">
+            <span class="info-box-icon bg-green">
+                <a style="color:#FFFFFF" id="modal-235086" href="#modal-container-02" role="button" data-toggle="modal" class="small-box-footer">
+                    <i class="ion-printer"></i>
+                </a>
+            </span>
+            <div class="info-box-content">               
+                <span class="info-box-number">02</span>
+                <span >Aniversariantes do mês</span>
 
-<div class="col-lg-3 col-xs-6">
-    <!-- small box -->
-    <div class="small-box bg-red">
-        <div class="inner">
-          <h3>06</h3>
-            <p>Identificação da pasta</p>
+            </div>
         </div>
-        <div class="icon">
-            <i class="ion-android-folder-open"></i>
-        </div>
-        <a id="modal-235086" href="#modal-container-06" role="button" data-toggle="modal" class="small-box-footer">
-            Gerar relatório <i class="fa fa-arrow-circle-right"></i>
-        </a>
     </div>
-</div>
 
-<div class="col-lg-3 col-xs-6">
-    <!-- small box -->
-    <div class="small-box bg-red">
-        <div class="inner">
-          <h3>07</h3>
-            <p>Cartão de ponto por Funcionário</p>
-        </div>
-        <div class="icon">
-            <i class="ion-android-document"></i>
-        </div>
-        <a id="modal-235086" href="#modal-container-07" role="button" data-toggle="modal" class="small-box-footer">
-            Gerar relatório <i class="fa fa-arrow-circle-right"></i>
-        </a>
-    </div>
-</div>
+    <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box">
+            <span class="info-box-icon bg-green">
+                <a style="color:#FFFFFF" id="modal-235086" href="#modal-container-03" role="button" data-toggle="modal" class="small-box-footer">
+                    <i class="ion-printer"></i>
+                </a>
+            </span>
+            <div class="info-box-content">               
+                <span class="info-box-number">03</span>
+                <span >Declaração de confidencialidade</span>
 
-<div class="col-lg-3 col-xs-6">
-    <!-- small box -->
-    <div class="small-box bg-red">
-        <div class="inner">
-          <h3>08</h3>
-            <p>Cartão de ponto por Departamento</p>
+            </div>
         </div>
-        <div class="icon">
-            <i class="ion-android-document"></i>
-        </div>
-        <a id="modal-235086" href="#modal-container-08" role="button" data-toggle="modal" class="small-box-footer">
-            Gerar relatório <i class="fa fa-arrow-circle-right"></i>
-        </a>
     </div>
-</div>
 
-<div class="col-lg-3 col-xs-6">
-    <!-- small box -->
-    <div class="small-box bg-green">
-        <div class="inner">
-          <h3>09</h3>
-            <p>Comp. por tempo de serv. e sindi.</p>
-        </div>
-        <div class="icon">
-            <i class="ion-person-stalker"></i>
-        </div>
-        <a id="modal-235086" href="#modal-container-09" role="button" data-toggle="modal" class="small-box-footer">
-            Gerar relatório <i class="fa fa-arrow-circle-right"></i>
-        </a>
-    </div>
-</div>
+    <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box">
+            <span class="info-box-icon bg-green">
+                <a style="color:#FFFFFF" id="modal-235086" href="#modal-container-04" role="button" data-toggle="modal" class="small-box-footer">
+                    <i class="ion-printer"></i>
+                </a>
+            </span>
+            <div class="info-box-content">               
+                <span class="info-box-number">04</span>
+                <span >Assinatura CTPS</span>
 
-<div class="col-lg-3 col-xs-6">
-    <!-- small box -->
-    <div class="small-box bg-green">
-        <div class="inner">
-          <h3>10</h3>
-            <p>Endereços do POOL</p>
+            </div>
         </div>
-        <div class="icon">
-            <i class="ion ion-location"></i>
-        </div>
-        <a id="modal-235086" href="#modal-container-10" role="button" data-toggle="modal" class="small-box-footer">
-            Gerar relatório <i class="fa fa-arrow-circle-right"></i>
-        </a>
     </div>
-</div>
 
-<div class="col-lg-3 col-xs-6">
-    <!-- small box -->
-    <div class="small-box bg-green">
-        <div class="inner">
-          <h3>03</h3>
-            <p>Autorização para desconto em folha</p>
-        </div>
-        <div class="icon">
-            <i class="ion ion-ios-pricetags"></i>
-        </div>
-        <a href="#" class="small-box-footer">
-            Gerar relatório <i class="fa fa-arrow-circle-right"></i>
-        </a>
-    </div>
-</div>
+    <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box">
+            <span class="info-box-icon bg-green">
+                <a style="color:#FFFFFF" id="modal-235086" href="#modal-container-05" role="button" data-toggle="modal" class="small-box-footer">
+                    <i class="ion-printer"></i>
+                </a>
+            </span>
+            <div class="info-box-content">               
+                <span class="info-box-number">05</span>
+                <span >Cartão de Assinatura</span>
 
-<div class="col-lg-3 col-xs-6">
-    <!-- small box -->
-    <div class="small-box bg-green">
-        <div class="inner">
-          <h3>03</h3>
-            <p>Autorização para desconto em folha</p>
+            </div>
         </div>
-        <div class="icon">
-            <i class="ion ion-ios-pricetags"></i>
-        </div>
-        <a href="#" class="small-box-footer">
-            Gerar relatório <i class="fa fa-arrow-circle-right"></i>
-        </a>
     </div>
-</div>
 
-<div class="col-lg-3 col-xs-6">
-    <!-- small box -->
-    <div class="small-box bg-blue">
-        <div class="inner">
-          <h3>04</h3>
-            <p>Autorização para desconto em folha</p>
-        </div>
-        <div class="icon">
-            <i class="ion ion-ios-pricetags"></i>
-        </div>
-        <a href="#" class="small-box-footer">
-            Gerar relatório <i class="fa fa-arrow-circle-right"></i>
-        </a>
-    </div>
-</div>
+    <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box">
+            <span class="info-box-icon bg-green">
+                <a style="color:#FFFFFF" id="modal-235086" href="#modal-container-06" role="button" data-toggle="modal" class="small-box-footer">
+                    <i class="ion-printer"></i>
+                </a>
+            </span>
+            <div class="info-box-content">               
+                <span class="info-box-number">06</span>
+                <span >Identificação da pasta</span>
 
-<div class="col-lg-3 col-xs-6">
-    <!-- small box -->
-    <div class="small-box bg-blue">
-        <div class="inner">
-          <h3>04</h3>
-            <p>Autorização para desconto em folha</p>
+            </div>
         </div>
-        <div class="icon">
-            <i class="ion ion-ios-pricetags"></i>
-        </div>
-        <a href="#" class="small-box-footer">
-            Gerar relatório <i class="fa fa-arrow-circle-right"></i>
-        </a>
     </div>
-</div>
 
-<div class="col-lg-3 col-xs-6">
-    <!-- small box -->
-    <div class="small-box bg-blue">
-        <div class="inner">
-          <h3>04</h3>
-            <p>Autorização para desconto em folha</p>
-        </div>
-        <div class="icon">
-            <i class="ion ion-ios-pricetags"></i>
-        </div>
-        <a href="#" class="small-box-footer">
-            Gerar relatório <i class="fa fa-arrow-circle-right"></i>
-        </a>
-    </div>
-</div>
+    <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box">
+            <span class="info-box-icon bg-green">
+                <a style="color:#FFFFFF" id="modal-235086" href="#modal-container-07" role="button" data-toggle="modal" class="small-box-footer">
+                    <i class="ion-printer"></i>
+                </a>
+            </span>
+            <div class="info-box-content">               
+                <span class="info-box-number">07</span>
+                <span >Cartão de ponto por Funcionário</span>
 
-<div class="col-lg-3 col-xs-6">
-    <!-- small box -->
-    <div class="small-box bg-blue">
-        <div class="inner">
-          <h3>04</h3>
-            <p>Autorização para desconto em folha</p>
+            </div>
         </div>
-        <div class="icon">
-            <i class="ion ion-ios-pricetags"></i>
-        </div>
-        <a href="#" class="small-box-footer">
-            Gerar relatório <i class="fa fa-arrow-circle-right"></i>
-        </a>
     </div>
-</div>
+
+    <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box">
+            <span class="info-box-icon bg-green">
+                <a style="color:#FFFFFF" id="modal-235086" href="#modal-container-08" role="button" data-toggle="modal" class="small-box-footer">
+                    <i class="ion-printer"></i>
+                </a>
+            </span>
+            <div class="info-box-content">               
+                <span class="info-box-number">08</span>
+                <span >Cartão de ponto por Departamento</span>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box">
+            <span class="info-box-icon bg-green">
+                <a style="color:#FFFFFF" id="modal-235086" href="#modal-container-09" role="button" data-toggle="modal" class="small-box-footer">
+                    <i class="ion-printer"></i>
+                </a>
+            </span>
+            <div class="info-box-content">               
+                <span class="info-box-number">09</span>
+                <span >Componentes por tempo de serv. e sindi.</span>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3 col-sm-6 col-xs-12">
+        <div class="info-box">
+            <span class="info-box-icon bg-green">
+                <a style="color:#FFFFFF" id="modal-235086" href="#modal-container-10" role="button" data-toggle="modal" class="small-box-footer">
+                    <i class="ion-printer"></i>
+                </a>
+            </span>
+            <div class="info-box-content">               
+                <span class="info-box-number">10</span>
+                <span >Endereços do POOL</span>
+
+            </div>
+        </div>
+    </div>
+
+</section>
 
 <!-- modal 01 -->
 <div class="container-fluid">

@@ -10,6 +10,19 @@ class HumanResourcesController extends AppController
 {
 	public function index()
     {
+
+        $connection = ConnectionManager::get('baseProtheus');
+
+        $peopleQquantityByLines = $connection->execute("SELECT 
+            COUNT([RA_MAT]) as COUNT_PEOPLE_BY_GROUPS
+            , [RA_XLINHA] as RA_XLINHA
+            FROM [HOMOLOGACAO].[DBO].[SRA010]
+            GROUP BY [RA_XLINHA]")
+            ->fetchAll('assoc');
+
+        $this->set(compact('peopleQquantityByLines'));
+        $this->set('_serialize', ['peopleQquantityByLines']);
+
     }
 
     public function AdressesPool()

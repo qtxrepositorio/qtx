@@ -223,9 +223,9 @@ Type::build('datetime')
 Plugin::load('AdminLTE', ['bootstrap' => true, 'routes' => true]);
 
 Configure::write('Theme', [
-    'title' => 'AdminLTE',
+    'title' => 'Sistema Integrado Qualitex',
     'logo' => [
         'mini' => '<b>QTX</b>',
-        'large' => '<b>Qualitex</b>'
+        'large' => '<img src="http://qualitex.com.br/images/logob3.png">'
     ]
 ]);
