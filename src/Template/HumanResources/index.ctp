@@ -172,14 +172,15 @@ $this->Html->script([
             labels.push(employeesBySexAndCC[i].CTT_DESC01);
         }else if(employeesBySexAndCC[i].CTT_DESC01 != employeesBySexAndCC[i-1].CTT_DESC01){
             labels.push(employeesBySexAndCC[i].CTT_DESC01);
-        }; 
+        };
+        window.alert(employeesBySexAndCC[i].CTT_DESC01); 
     };
 
 
     var areaChartData = {
       labels: labels};
 
-      areaChartData.push({
+      areaChartData.push(
           datasets: [
             {
               label: "Electronics",
@@ -191,8 +192,9 @@ $this->Html->script([
               pointHighlightStroke: "rgba(220,220,220,1)",
               data: [65, 59, 80, 81, 56, 55, 40]
             }
+
             ]
-        });
+        );
     
 
     //-------------
