@@ -1,11 +1,8 @@
 <?php ?>
 <section class="content">
-  
-      <div class="col-md-12">
-        <div class="box box-success">
-            <div class="box-body">
-                <div class="roles form large-9 medium-8 columns content">
-                    <div align='right'> <?= $this->Html->link(__('Ver Todos'), ['controller'=>'NoticesRoles','action'=>'index'])?> </div>
+    <div class="box box-success">
+        <div class="box-body">
+            <div class="roles form large-9 medium-8 columns content">
                     <legend><?= __('Últimos aviso(s) recebidos:') ?></legend>  
                     <table id="example2" class="table table-bordered table-hover">
                         <thead>
@@ -60,14 +57,13 @@
                             <?php endforeach; ?>
                         </tbody>
                     </table>
-                    <div class="paginator">
-                        <ul class="pagination">
-                            <?= $this->Paginator->prev('< ' . __('Anterior')) ?>
-                            <?= $this->Paginator->numbers() ?>
-                            <?= $this->Paginator->next(__('Próximo') . ' >') ?>
-                        </ul>
-                        <p><?= $this->Paginator->counter() ?></p>
-                    </div>
+                <div class="paginator">
+                    <ul class="pagination">
+                        <?= $this->Paginator->prev('< ' . __('Anterior')) ?>
+                        <?= $this->Paginator->numbers() ?>
+                        <?= $this->Paginator->next(__('Próximo') . ' >') ?>
+                    </ul>
+                    <p><?= $this->Paginator->counter() ?></p>
                 </div>
             </div>
         </div>

@@ -16,7 +16,7 @@ class HumanResourcesController extends AppController
         $peopleQquantityByLines = $connection->execute("SELECT 
             COUNT([RA_MAT]) as COUNT_PEOPLE_BY_GROUPS
             , [RA_XLINHA] as RA_XLINHA
-            FROM [HOMOLOGACAO].[DBO].[SRA010]
+            FROM [SRA010]
             WHERE [RA_DEMISSA] = ''
             GROUP BY [RA_XLINHA]")
             ->fetchAll('assoc');
@@ -25,8 +25,8 @@ class HumanResourcesController extends AppController
             COUNT([RA_MAT]) as COUNT_RA_MAT
             ,[CTT_DESC01] 
             ,[RA_SEXO]  
-            FROM [HOMOLOGACAO].[dbo].[SRA010]
-            INNER JOIN [HOMOLOGACAO].[dbo].[CTT010] ON [CTT_CUSTO] = [RA_CC] 
+            FROM [SRA010]
+            INNER JOIN [CTT010] ON [CTT_CUSTO] = [RA_CC] 
             GROUP BY [RA_SEXO],[CTT_DESC01] ")
             ->fetchAll('assoc');
 
@@ -264,8 +264,8 @@ class HumanResourcesController extends AppController
                 ,[RA_NOME]      
                 ,[RA_ADMISSA]    
                 ,[RJ_DESC]
-            FROM [HOMOLOGACAO].[dbo].[SRA010]
-            INNER JOIN [HOMOLOGACAO].[dbo].[SRJ010] ON [RJ_FUNCAO] = [RA_CARGO]
+            FROM [SRA010]
+            INNER JOIN [SRJ010] ON [RJ_FUNCAO] = [RA_CARGO]
             WHERE [RA_NOME] = '". $signatureCTPS ."'")
             ->fetchAll('assoc');
 
@@ -366,7 +366,7 @@ class HumanResourcesController extends AppController
             ,CONVERT(varchar(10),(DAY([RA_NASC])))+'/'+CONVERT(varchar(10),(MONTH([RA_NASC])))+'/'+CONVERT(varchar(10),YEAR([RA_NASC])) 
                 AS DataDeNascimento
             ,[CTT_DESC01]      
-            FROM [HOMOLOGACAO].[dbo].[SRA010]
+            FROM [SRA010]
             INNER JOIN [CTT010] ON [CTT_CUSTO] = [RA_CC]
             WHERE MONTH([RA_NASC]) = '$birthdaysOfTheMonthForm'
             AND [RA_SITFOLH] != 'D'

@@ -61,7 +61,7 @@ class PagesController extends AppController
           ,CONVERT(varchar(10),(DAY([RA_NASC])))+'/'+CONVERT(varchar(10),(MONTH([RA_NASC])))+'/'+CONVERT(varchar(10),YEAR([RA_NASC])) 
             as DataDeNascimento
           ,[CTT_DESC01]      
-          FROM [HOMOLOGACAO].[dbo].[SRA010]
+          FROM [SRA010]
           INNER JOIN [CTT010] ON [CTT_CUSTO] = [RA_CC]
           WHERE MONTH([RA_NASC]) = MONTH(GETDATE())
           AND DAY([RA_NASC]) >= (DAY(GETDATE())-3)

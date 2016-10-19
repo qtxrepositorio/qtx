@@ -18,27 +18,30 @@ Tem certeza de que deseja excluir # {0}?', $user->id)]
 </nav>
 -->
 
-<br>
-
-<div class="col-md-7">
-    <div class="box box-success">
-        <div class="roles form large-9 medium-8 columns content">
-            <?= $this->Form->create($user) ?>
-            <fieldset>
-                <legend><?= __('Editar Usuário') ?></legend>
-                <?php
-                    echo $this->Form->input('name', ['label'=>'Nome:']);
-                    echo $this->Form->input('cpf', ['label'=>'CPF:']);
-                    echo $this->Form->input('status', ['label'=>'Ativo']);
-                    echo $this->Form->input('username', ['label'=>'Usuário']);
-                    echo $this->Form->input('password', ['label'=>'Senha:']);
-                    echo $this->Form->input('roles._ids', ['options' => $roles, 'label'=>'Grupos Relacionados (Opcional):']);
-                    //echo $this->Form->input('notices._ids', ['options' => $notices, 'label'=>'Notícias Relacionadas (Opcional):']);
-                ?>
-            </fieldset>
-            <?= $this->Form->button(__('Salvar')) ?>
-            <?= $this->Form->end() ?>
+<section class="content">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="box box-success">
+                <div class="roles form large-9 medium-8 columns content">
+                    <?= $this->Form->create($user) ?>
+                    <fieldset>
+                        <legend><?= __('Editar Usuário') ?></legend>
+                        <?php
+                            echo $this->Form->input('name', ['label'=>'Nome:']);
+                            echo $this->Form->input('cpf', ['label'=>'CPF:']);
+                            echo $this->Form->input('status', ['label'=>'Ativo']);
+                            echo $this->Form->input('username', ['label'=>'Usuário']);
+                            echo $this->Form->input('password', ['label'=>'Senha:']);
+                            echo $this->Form->input('roles._ids', ['options' => $roles, 'label'=>'Grupos Relacionados (Opcional):']);
+                            //echo $this->Form->input('notices._ids', ['options' => $notices, 'label'=>'Notícias Relacionadas (Opcional):']);
+                        ?>
+                    </fieldset>
+                    <?= $this->Form->button(__('Salvar')) ?>
+                    <?= $this->Form->end() ?>
+                </div>
+            </div>
         </div>
     </div>
-</div>
+</section>
+
 

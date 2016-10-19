@@ -52,8 +52,8 @@ $months = array('Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','A
                                     ?>   
                                     <td><?= h($dateConvertedForTable) ?></td>
                                     <td><?= h($noticesUser->users['name']) ?></td>
-                                    <td class="actions">
-                                        <?= $this->Html->link(__('Ver'), ['controller'=> 'Notices','action' => 'view', $noticesUser->notices['id']]) ?>
+                                    <td class="actions"  align="center">
+                                        <?php echo $this->Html->link(__('<i class="glyphicon glyphicon-eye-open"></i>'), array('controller'=> 'Notices','action' => 'view', $noticesUser->notices['id']), array('class' => 'btn btn-primary btn-xs', 'escape' => false, 'data-toggle'=>'tooltip', 'title' => 'Visualizar')); ?>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
@@ -95,9 +95,9 @@ $months = array('Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','A
                                     ?> 
                                     <td><?= h($dateConvertedForTable) ?></td>
                                     <td><?= h($noticesRole['name']) ?></td>
-                                    <td class="actions">
-                                        <?= $this->Html->link(__('Ver'), ['controller'=>'Notices','action' => 'view', $noticesRole['id']]) ?>
-                                    </td>
+
+                                    <td class="actions"  align="center">
+                                        <?php echo $this->Html->link(__('<i class="glyphicon glyphicon-eye-open"></i>'), array('controller'=>'Notices','action' => 'view', $noticesRole['id']), array('class' => 'btn btn-primary btn-xs', 'escape' => false, 'data-toggle'=>'tooltip', 'title' => 'Visualizar')); ?>
                                 </tr>                        
                             <?php endforeach; ?>
                             </tbody>
