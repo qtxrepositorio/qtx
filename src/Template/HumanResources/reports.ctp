@@ -8,7 +8,7 @@
     </h1>
 
     <br>
-
+    <div>
     <div class="col-md-3 col-sm-6 col-xs-12">
         <div class="info-box">
             <span class="info-box-icon bg-green">
@@ -158,7 +158,7 @@
             </div>
         </div>
     </div>
-
+    </div>
 </section>
 
 <!-- modal 01 -->
@@ -256,7 +256,7 @@ $months = array('Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','A
                                         echo $this->Form->input('monthForPDF', ['options' => $months, 'label' => 'Mês desejado:']);
                                     ?>                                       
 
-                                    <button class="btn btn-success" type="submit" formtarget="_blank"><?php echo __('Invite'); ?></button>
+                                    <button class="btn btn-success" type="submit" formtarget="_blank"><?php echo __('Gerar Relatório'); ?></button>
                                             
                                     <?php echo $this->Form->end();   ?>
                                     </div>

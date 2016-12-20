@@ -22,14 +22,15 @@ class NoticesController extends AppController
      *
      * @return \Cake\Network\Response|null
      */
-    public function index() {
+    public function index() 
+    {
         $authenticatedUserId = $this->Auth->user('id');
         $notices = $this->paginate($this->Notices->find()
                         ->where(['user_id' => $authenticatedUserId])
                         ->order(['id' => 'DESC'])
         );
         $noticesUsers = $this->Notices->find()
-                ->limit(4)
+                
                 ->select(['notices.id', 'notices.subject', 'notices.text', 'notices.created', 'users.name'])
                 ->innerJoin('notices_users', 'notices.id = notices_users.notice_id')
                 ->innerJoin('users', 'users.id = notices.user_id')
@@ -37,7 +38,7 @@ class NoticesController extends AppController
                 ->order(['notices.id' => 'DESC']);
         $connection = ConnectionManager::get('default');
         $noticesRoles = $connection->execute("
-        SELECT DISTINCT TOP 4
+        SELECT DISTINCT
              [notices].[id]
             ,[notices].[subject]
             ,[notices].[text]

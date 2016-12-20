@@ -166,7 +166,8 @@ class RolesController extends AppController
             }
             if($release == false)
             {
-                $this->redirect($this->Auth->redirectUrl());               
+                $this->Flash->error(__('Você não tem autorização para acessar esta área do sistema. Caso necessário, favor entrar em contato com o setor TI.'));
+                $this->redirect($this->Auth->redirectUrl());              
             }
             else
             {

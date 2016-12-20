@@ -220,6 +220,9 @@ Type::build('date')
 Type::build('datetime')
     ->useImmutable();
 
+//Plugin::load('FileSaver');
+//Plugin::load('CanvasToBlob');
+
 Plugin::load('AdminLTE', ['bootstrap' => true, 'routes' => true]);
 
 Configure::write('Theme', [

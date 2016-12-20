@@ -10,29 +10,28 @@ class HumanResourcesController extends AppController
 {
 	public function index()
     {
-
         $connection = ConnectionManager::get('baseProtheus');
 
         $peopleQquantityByLines = $connection->execute("SELECT 
-            COUNT([RA_MAT]) as COUNT_PEOPLE_BY_GROUPS
-            , [RA_XLINHA] as RA_XLINHA
+                COUNT([RA_MAT]) as COUNT_PEOPLE_BY_GROUPS
+                , [RA_XLINHA] as RA_XLINHA
             FROM [SRA010]
-            WHERE [RA_DEMISSA] = ''
-            GROUP BY [RA_XLINHA]")
+                WHERE [RA_DEMISSA] = ''
+                GROUP BY [RA_XLINHA]")
             ->fetchAll('assoc');
 
         $employeesBySexAndCC = $connection->execute("SELECT 
-            COUNT([RA_MAT]) as COUNT_RA_MAT
-            ,[CTT_DESC01] 
-            ,[RA_SEXO]  
+                COUNT([RA_MAT]) as COUNT_RA_MAT
+                ,[CTT_DESC01] 
+                ,[RA_SEXO]  
             FROM [SRA010]
-            INNER JOIN [CTT010] ON [CTT_CUSTO] = [RA_CC] 
-            GROUP BY [RA_SEXO],[CTT_DESC01] ")
+                INNER JOIN [CTT010] ON [CTT_CUSTO] = [RA_CC]  
+                WHERE [RA_DEMISSA] = ''
+                GROUP BY [RA_SEXO],[CTT_DESC01] ")
             ->fetchAll('assoc');
 
-        $this->set(compact('peopleQquantityByLines','employeesBySexAndCC'));
+        $this->set(compact('peopleQquantityByLines','employeesBySexAndCC'));        
         $this->set('_serialize', ['peopleQquantityByLines','employeesBySexAndCC']);
-
     }
 
     public function AdressesPool()
@@ -50,17 +49,17 @@ class HumanResourcesController extends AppController
                 foreach ($status as $keyStatus) 
                 {
                     $adressesPoolRs[] = $connection->execute("SELECT 
-                         [RA_MAT]
-                        ,[RA_NOME]
-                        ,[RA_BAIRRO]
-                        ,[RA_MUNICIP]
-                        ,[RA_ESTADO]
-                        ,[RA_XLINHA]
-                        ,[RA_XPTAPAN]
-                        ,[RA_XLOCAL]
-                        ,[RA_XSTATUS]
+                            [RA_MAT]
+                            ,[RA_NOME]
+                            ,[RA_BAIRRO]
+                            ,[RA_MUNICIP]
+                            ,[RA_ESTADO]
+                            ,[RA_XLINHA]
+                            ,[RA_XPTAPAN]
+                            ,[RA_XLOCAL]
+                            ,[RA_XSTATUS]
                         FROM [SRA010]
-                        WHERE [RA_XLINHA] = $keyLine AND [RA_XLOCAL] = '".$keyLocale."' AND [RA_XSTATUS] = '".$keyStatus."'")
+                            WHERE [RA_XLINHA] = $keyLine AND [RA_XLOCAL] = '".$keyLocale."' AND [RA_XSTATUS] = '".$keyStatus."'")
                         ->fetchAll('assoc');
                 }
             }
@@ -71,7 +70,6 @@ class HumanResourcesController extends AppController
         $this->set('_serialize', ['adressesPoolRs']);
         $this->viewBuilder()->layout('ajax');
         $this->response->type('pdf');
-
     }
 
     public function ComponentsForTimeAndUnion()
@@ -85,29 +83,29 @@ class HumanResourcesController extends AppController
             if($key == 'TODOS')
             {
                 $unionsRs[] = $connection->execute("SELECT 
-                     [RA_MAT]
-                    ,[RA_NOME]
-                    ,[RA_ADMISSA]
-                    ,[RCE_DESCRI]
-                    ,DATEDIFF(MONTH, [RA_ADMISSA], GETDATE()) as [QUANT_MONTHS]
+                        [RA_MAT]
+                        ,[RA_NOME]
+                        ,[RA_ADMISSA]
+                        ,[RCE_DESCRI]
+                        ,DATEDIFF(MONTH, [RA_ADMISSA], GETDATE()) as [QUANT_MONTHS]
                     FROM [SRA010]
-                    INNER JOIN [RCE010] ON [RCE_CODIGO] = [RA_SINDICA]
-                    WHERE [RA_DEMISSA] = ''
-                    ORDER BY [RCE_DESCRI], [QUANT_MONTHS] DESC")
+                        INNER JOIN [RCE010] ON [RCE_CODIGO] = [RA_SINDICA]
+                        WHERE [RA_DEMISSA] = ''
+                        ORDER BY [RCE_DESCRI], [QUANT_MONTHS] DESC")
                     ->fetchAll('assoc');
             }
             else
             {
                 $unionsRs[] = $connection->execute("SELECT 
-                     [RA_MAT]
-                    ,[RA_NOME]
-                    ,[RA_ADMISSA]
-                    ,[RCE_DESCRI]
-                    ,DATEDIFF(MONTH, [RA_ADMISSA], GETDATE()) as [QUANT_MONTHS]
+                        [RA_MAT]
+                        ,[RA_NOME]
+                        ,[RA_ADMISSA]
+                        ,[RCE_DESCRI]
+                        ,DATEDIFF(MONTH, [RA_ADMISSA], GETDATE()) as [QUANT_MONTHS]
                     FROM [SRA010]
-                    INNER JOIN [RCE010] ON [RCE_CODIGO] = [RA_SINDICA]
-                    WHERE [RA_DEMISSA] = '' AND [RCE_DESCRI] = '$key'
-                    ORDER BY [RCE_DESCRI], [QUANT_MONTHS] DESC")
+                        INNER JOIN [RCE010] ON [RCE_CODIGO] = [RA_SINDICA]
+                        WHERE [RA_DEMISSA] = '' AND [RCE_DESCRI] = '$key'
+                        ORDER BY [RCE_DESCRI], [QUANT_MONTHS] DESC")
                     ->fetchAll('assoc');
             }
         }  
@@ -120,7 +118,6 @@ class HumanResourcesController extends AppController
 
     public function TimeCardDepartament()
     {
-
         $timecardDepartament = $this->request->data['timecardDepartament'];        
         $timelunch = $this->request->data['timelunch'];
         $month = $this->request->data['month'];
@@ -133,17 +130,19 @@ class HumanResourcesController extends AppController
             if($key == 'TODOS')
             {
                 $timecardDepartamentRs[] = $connection->execute("SELECT 
-                    [RA_MAT]
-                    ,[RA_NOME]
-                    ,[Q3_DESCSUM]
-                    ,[QB_DESCRIC]
-                FROM [SRA010]
-                INNER JOIN [SQB010] ON [RA_DEPTO] = [QB_DEPTO]
-                INNER JOIN [SQ3010] ON [Q3_CARGO] = [RA_CARGO]")
+                        [RA_MAT]
+                        ,[RA_NOME]
+                        ,[Q3_DESCSUM]
+                        ,[QB_DESCRIC]
+                    FROM [SRA010]
+                        INNER JOIN [SQB010] ON [RA_DEPTO] = [QB_DEPTO]
+                        INNER JOIN [SQ3010] ON [Q3_CARGO] = [RA_CARGO]
+                        WHERE [RA_DEMISSA] = ''")
                 ->fetchAll('assoc');
             }
             else
             {
+                
                 $timecardDepartamentRs[] = $connection->execute("SELECT 
                     [RA_MAT]
                     ,[RA_NOME]
@@ -152,10 +151,13 @@ class HumanResourcesController extends AppController
                 FROM [SRA010]
                 INNER JOIN [SQB010] ON [RA_DEPTO] = [QB_DEPTO]
                 INNER JOIN [SQ3010] ON [Q3_CARGO] = [RA_CARGO]
-                WHERE [Q3_DESCSUM] = '". $key ."'")
+                WHERE [QB_DESCRIC] = '". $key ."' 
+                AND [RA_DEMISSA] = ''")
                 ->fetchAll('assoc');  
             }
-        }        
+        }    
+        
+        //debug($timecardDepartament);
 
         $this->set(compact('timecardDepartamentRs','timecardEmployee','timelunch','month','year'));
         $this->set('_serialize', ['timecardEmployeeRs','timecardEmployee','timelunch','month','year']);
@@ -181,7 +183,8 @@ class HumanResourcesController extends AppController
                     ,[RA_NOME]
                     ,[Q3_DESCSUM]
                 FROM [SRA010]
-                INNER JOIN [SQ3010] ON [Q3_CARGO] = [RA_CARGO]")
+                INNER JOIN [SQ3010] ON [Q3_CARGO] = [RA_CARGO]
+                WHERE [RA_DEMISSA] = ''")
                 ->fetchAll('assoc');
             }
             else
@@ -192,7 +195,8 @@ class HumanResourcesController extends AppController
                     ,[Q3_DESCSUM]
                 FROM [SRA010]
                 INNER JOIN [SQ3010] ON [Q3_CARGO] = [RA_CARGO]
-                WHERE [RA_NOME] = '". $key ."'")
+                WHERE [RA_NOME] = '". $key ."'
+                    AND [RA_DEMISSA] = ''")
                 ->fetchAll('assoc');  
             }
         }
@@ -260,12 +264,13 @@ class HumanResourcesController extends AppController
         $signatureCTPS = $this->request->data['signatureCTPS'];
 
         $connection = ConnectionManager::get('baseProtheus');
-        $signatureCTPSEmployee = $connection->execute("SELECT [RA_MAT]
+        $signatureCTPSEmployee = $connection->execute("SELECT 
+                [RA_MAT]
                 ,[RA_NOME]      
                 ,[RA_ADMISSA]    
-                ,[RJ_DESC]
+                ,[Q3_DESCSUM]
             FROM [SRA010]
-            INNER JOIN [SRJ010] ON [RJ_FUNCAO] = [RA_CARGO]
+            INNER JOIN [SQ3010] ON [Q3_CARGO] = [RA_CARGO]
             WHERE [RA_NOME] = '". $signatureCTPS ."'")
             ->fetchAll('assoc');
 
@@ -273,8 +278,13 @@ class HumanResourcesController extends AppController
         {
            $registry = $key['RA_MAT'];
            $name = $key['RA_NOME'];
-           $admissionDate = $key['RA_ADMISSA'];
-           $role = $key['RJ_DESC'];
+
+           $day = substr($key['RA_ADMISSA'], 6,8);
+           $month = substr($key['RA_ADMISSA'], 4,2);
+           $year = substr($key['RA_ADMISSA'], 0,4);
+
+           $admissionDate = $day . '/' . $month . '/' . $year  ;
+           $role = $key['Q3_DESCSUM'];
         }
 
         $this->set(compact('registry','name','admissionDate','role'));
@@ -283,8 +293,8 @@ class HumanResourcesController extends AppController
         $this->response->type('pdf');
     }
 
-    public function DeclarationOfConfidentiality(){
-
+    public function DeclarationOfConfidentiality()
+    {
         $officialconfidential = $this->request->data['officialconfidential'];
         $date = getdate();
         $day = (string) $date['mday'];
@@ -310,7 +320,6 @@ class HumanResourcesController extends AppController
         $this->set('_serialize', ['officialconfidential', 'dateConverted','cpf']);
         $this->viewBuilder()->layout('ajax');
         $this->response->type('pdf');
-
     }    
 
     public function DebitAuthorizationSheet()
@@ -333,7 +342,8 @@ class HumanResourcesController extends AppController
         $dateConverted = $day.'/'.$mont.'/'.$year;
 
         $connection = ConnectionManager::get('baseProtheus');
-        $cpfRs = $connection->execute("SELECT [RA_CIC]
+        $cpfRs = $connection->execute("SELECT 
+                [RA_CIC]
             FROM [SRA010]
             WHERE [RA_NOME] = '". $officialAuthorizedDebit ."'")
             ->fetchAll('assoc');
@@ -362,10 +372,11 @@ class HumanResourcesController extends AppController
         $birthdaysOfTheMonthForm = (string) $birthdaysOfTheMonthForm;
         $connection = ConnectionManager::get('baseProtheus');
         $birthdaysOfTheMonth = null;
-        $birthdaysOfTheMonth = $connection->execute("SELECT [RA_NOME]
-            ,CONVERT(varchar(10),(DAY([RA_NASC])))+'/'+CONVERT(varchar(10),(MONTH([RA_NASC])))+'/'+CONVERT(varchar(10),YEAR([RA_NASC])) 
+        $birthdaysOfTheMonth = $connection->execute("SELECT 
+                [RA_NOME]
+                ,CONVERT(varchar(10),(DAY([RA_NASC])))+'/'+CONVERT(varchar(10),(MONTH([RA_NASC])))+'/'+CONVERT(varchar(10),YEAR([RA_NASC])) 
                 AS DataDeNascimento
-            ,[CTT_DESC01]      
+                ,[CTT_DESC01]      
             FROM [SRA010]
             INNER JOIN [CTT010] ON [CTT_CUSTO] = [RA_CC]
             WHERE MONTH([RA_NASC]) = '$birthdaysOfTheMonthForm'
@@ -384,11 +395,9 @@ class HumanResourcesController extends AppController
             # code...
             $lines[$i] = $i; 
         }
-
        
         $locales['POLO'] = 'POLO';
         $locales['UCS'] = 'UCS';
-
         
         $status['ATIVO'] = 'ATIVO';
         $status['INATIVO'] = 'INATIVO';
@@ -396,9 +405,8 @@ class HumanResourcesController extends AppController
         $connection = ConnectionManager::get('baseProtheus');
 
         $listUnions = $connection->execute("SELECT 
-            [RCE_DESCRI]
-            FROM [RCE010] 
-            ")
+                [RCE_DESCRI]
+            FROM [RCE010]")
             ->fetchAll('assoc');
 
         $listOfUnionsNames['TODOS'] = 'TODOS'; 
@@ -406,7 +414,8 @@ class HumanResourcesController extends AppController
             $listOfUnionsNames[$key['RCE_DESCRI']] = $key['RCE_DESCRI'];
         }
 
-        $listOfEmployees = $connection->execute("SELECT [RA_NOME]
+        $listOfEmployees = $connection->execute("SELECT 
+                [RA_NOME]
             FROM [SRA010]
             WHERE [RA_DEMISSA] = ''
             ORDER BY [RA_NOME]")
@@ -433,5 +442,73 @@ class HumanResourcesController extends AppController
         $this->set(compact('listOfEmployeesNames','listOfDepartamentsNames','listOfUnionsNames','lines','locales','status'));
         $this->set(['listOfEmployeesNames','listOfDepartamentsNames','listOfUnionsNames','lines','locales','status']);
     }
+
+    public function beforeFilter(Event $event)
+    {
+        parent::beforeFilter($event);
+        // Allow users to register and logout.
+        // You should not add the "login" action to allow list. Doing so would
+        // cause problems with normal functioning of AuthComponent.
+
+        //$this->Auth->allow(['logout','login']);  
+    }
+
+    public function isAuthorized($user)
+    {
+        $this->loadModel('Users'); 
+        $this->loadModel('Roles');
+        $this->loadModel('RolesUsers'); 
+        $authenticatedUserId = $this->Auth->user('id');
+        $query = $this->Users->find()
+            ->where([
+                'id'=> $authenticatedUserId            
+            ]);
+        $statusArray = $query->all();
+        $status = null;
+        foreach ($statusArray as $key)
+        {            
+            $status = $key['status'];
+        }
+        if($status == true)
+        {
+            $query = $this->RolesUsers->find()
+                ->where([
+                    'user_id'=> $authenticatedUserId            
+                ]);    
+            $currentUserGroups = $query->all();    
+            $release = null;    
+            foreach ($currentUserGroups as $key)
+            {
+                $query = $this->Roles->find()
+                ->where([
+                    'id'=> $key['role_id']           
+                ]);    
+                $correspondingFunction = $query->all();  
+                foreach ($correspondingFunction as $key)
+                {
+                    if($key['id'] == 22 or $key['id'] == 1) 
+                    {
+                        $release = true;        
+                    }
+                }
+            }
+            if($release == false)
+            {
+                $this->Flash->error(__('Você não tem autorização para acessar esta área do sistema. Caso necessário, favor entrar em contato com o setor TI.'));
+                $this->redirect($this->Auth->redirectUrl());              
+            }
+            else
+            {
+                //$this->Flash->error(__('VC É ADM')); 
+                if(in_array($this->action, array('index','add','edit','delete','view')))
+                return true;            
+            }
+        }
+        else
+        {
+            $this->redirect($this->Auth->logout());        
+        }
+        return parent::isAuthorized($user);
+    }   
 
 }

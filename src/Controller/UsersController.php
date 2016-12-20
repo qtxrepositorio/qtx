@@ -22,9 +22,8 @@ class UsersController extends AppController
     public function index()
     {
         $users = $this->paginate($this->Users);
-
         $this->set(compact('users'));
-        $this->set('_serialize', ['users']);
+        $this->set('_serialize', ['users']);        
     }
 
     /**
@@ -39,7 +38,6 @@ class UsersController extends AppController
         $user = $this->Users->get($id, [
             'contain' => ['Notices', 'Roles']
         ]);
-
         $this->set('user', $user);
         $this->set('_serialize', ['user']);
     }
@@ -84,7 +82,6 @@ class UsersController extends AppController
             $user = $this->Users->patchEntity($user, $this->request->data);
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('O usuário foi salvo!'));
-
                 return $this->redirect(['action' => 'index']);
             } else {
                 $this->Flash->error(__('O usuário não pôde ser salvo. Por favor, tente novamente.'));
@@ -110,9 +107,8 @@ class UsersController extends AppController
         if ($this->Users->delete($user)) {
             $this->Flash->success(__('O usuário foi apagado!'));
         } else {
-            $this->Flash->error(__('The user could not be deleted. Please, try again.'));
+            $this->Flash->error(__('O usuário não pode ser apagado.'));
         }
-
         return $this->redirect(['action' => 'index']);
     }
 
@@ -123,7 +119,7 @@ class UsersController extends AppController
         // You should not add the "login" action to allow list. Doing so would
         // cause problems with normal functioning of AuthComponent.
 
-        $this->Auth->allow(['logout','login','add','edit']);  
+        $this->Auth->allow(['logout','login','changePassword']);  
     }
 
     
@@ -167,6 +163,7 @@ class UsersController extends AppController
             }
             if($release == false)
             {
+                $this->Flash->error(__('Você não tem autorização para acessar esta área do sistema. Caso necessário, favor entrar em contato com o setor TI.'));
                 $this->redirect($this->Auth->redirectUrl());               
             }
             else
@@ -203,4 +200,44 @@ class UsersController extends AppController
         $this->Flash->success(__('Agora você está desconectado.'));
         return $this->redirect($this->Auth->logout());
     }
+    
+    public function changePassword($id = null)
+    {
+
+        $user = $this->Users->get($id, [
+            'contain' => ['Notices', 'Roles']
+        ]);
+        
+        $owneruser = $this->Users->patchEntity($user, $this->request->data);
+        
+        if ($owneruser['id'] == $this->Auth->user('id'))
+        {
+            if ($this->request->is(['patch', 'post', 'put'])) 
+            {
+                $user = $this->Users->patchEntity($user, $this->request->data);
+                if ($this->Users->save($user)) 
+                {
+                    $this->Flash->success(__('O usuário foi salvo!'));
+                    return $this->redirect(['action' => '../']);
+                } 
+                else 
+                {
+                    $this->Flash->error(__('O usuário não pôde ser salvo. Por favor, tente novamente.'));
+                }
+            }
+            $notices = $this->Users->Notices->find('list', ['limit' => 200]);
+            $roles = $this->Users->Roles->find('list', ['limit' => 200]);
+            $this->set(compact('user', 'notices', 'roles'));
+            $this->set('_serialize', ['user']);
+        }
+        else
+        {
+            $this->Flash->error(__('Você só pode alterar o seu usuário! Por favor, não tente burlar o sistema! Beijos de luz! kkk'));
+            return $this->redirect(['action' => '../']);
+        }
+      
+       
+        
+    }
+
 }

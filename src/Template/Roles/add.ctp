@@ -15,7 +15,7 @@
                             echo $this->Form->input('users._ids', ['label' => 'Usuários Relacionados (Opcional):','options' => $users]);
                         ?>
                     </fieldset>
-                    <?= $this->Form->button(__('Submit')) ?>
+                    <?= $this->Form->button(__('Salvar')) ?>
                     <?= $this->Form->end() ?>
                 </div>
             </div>

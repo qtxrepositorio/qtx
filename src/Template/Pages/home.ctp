@@ -10,7 +10,7 @@ $months = array('Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','A
     
     <!-- ./Quadro Geral de avisos -->
     <div class="col-md-6">
-        <div class="box box-success">
+        <div class="box box-warning">
             <div class="box-body">
                 <div class="roles form large-90 medium-8 columns content">
                     <div align='right'>
@@ -56,7 +56,7 @@ $months = array('Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','A
                                         <?php echo $this->Html->link(__('<i class="glyphicon glyphicon-eye-open"></i>'), array('controller'=> 'Notices','action' => 'view', $noticesUser->notices['id']), array('class' => 'btn btn-primary btn-xs', 'escape' => false, 'data-toggle'=>'tooltip', 'title' => 'Visualizar')); ?>
                                     </td>
                                 </tr>
-                            <?php endforeach; ?>
+                                <?php endforeach; ?>
                             </tbody>
                         </table>
                         <br>
@@ -109,7 +109,7 @@ $months = array('Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','A
     </div> 
 
     <div class="col-md-6">
-        <div class="box box-success">
+        <div class="box box-info">
             <div class="box-body">
                 <div class="roles form large-9 medium-8 columns content">
                     <div align='right'> <a id="modal-235086" href="#modal-container-235086" role="button" class="btn" data-toggle="modal">Ver lista completa</a> </div>
