@@ -14,8 +14,7 @@ use Cake\Datasource\ConnectionManager;
  */
 class NoticesController extends AppController 
 {
-    public $paginate = [
-        'limit' => 5];
+   
 
     /**
      * Index method

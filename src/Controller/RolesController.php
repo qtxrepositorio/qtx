@@ -13,8 +13,7 @@ use Cake\Controller\Component\FlashComponent;
 class RolesController extends AppController
 {
 
-    public $paginate = [
-        'limit' => 5];
+    
     /**
      * Index method
      *

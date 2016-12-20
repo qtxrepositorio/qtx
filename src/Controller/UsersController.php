@@ -12,8 +12,7 @@ use Cake\Controller\Component\FlashComponent;
  */
 class UsersController extends AppController
 {
-    public $paginate = [
-        'limit' => 5];
+    
     /**
      * Index method
      *
