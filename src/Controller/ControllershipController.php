@@ -95,7 +95,7 @@ class ControllershipController extends AppController {
                                         WHERE ANO = '$yearOne'
                                             AND [centroDeCusto] = '$value'
                                             AND LEN([codigo]) = 2")
-                                    ->fetchAll('assoc');
+                                ->fetchAll('assoc');
 
                     if ($expensesOne != []) {
 
