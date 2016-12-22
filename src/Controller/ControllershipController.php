@@ -12,7 +12,8 @@ class ControllershipController extends AppController {
     
 
     public function index() {}
-
+    
+    
     public function expensesVersusRecipesFilter() {
 
         $connection = ConnectionManager::get('auxiliar');

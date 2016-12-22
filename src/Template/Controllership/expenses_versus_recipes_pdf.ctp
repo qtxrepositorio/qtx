@@ -200,10 +200,20 @@ td, th {
 
 </style>';
 
+$date = getdate();
+
 $html .= '<h2 align="center"> Despesas Vs Receita:</h2>';
 
 $html .= '<p align="center"> Centro de custo: ' . $cc . '</p>';
 $html .= '<p align="center"> Ano: ' . $year . '</p>';
+
+$mes ='';
+if($date['mon'] <= 9){
+    $mes = '0'.$date['mon'];
+}else{
+    $mes = $date['mon'];
+    }
+$html .= '<p align="center"> Gerado em: ' . $date['mday'] . '/'.$mes.'/'.$date['year'].'</p>';
 
 $html .= '<table class="table" align="center">'
         . '<thead>'

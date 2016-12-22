@@ -209,7 +209,15 @@ $allMonthsOne = [$month01One, $month02One, $month03One, $month04One,
                         <div class="box-body">
 
                             <div class="col-md-12">
+                                
+                                <div class="box-body">
+                                    <div align="right">
+                                        <h5 id="title-02"></h5>
+                                        <button class="btn btn-success" id="save-btn-pdf">Gerar pdf</button>
+                                    </div>
 
+                                </div>
+                                
                                 <table id="example1" class="table table-bordered table-hover">
                                     <thead>
                                         <tr>                                
