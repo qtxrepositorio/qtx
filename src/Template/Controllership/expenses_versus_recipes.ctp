@@ -440,7 +440,9 @@ $this->Html->script(['//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js',
         $("#barChart").get(0).toBlob(function(blob) {
                     
             newurl = window.URL.createObjectURL(blob);  
-            
+
+            //saveAs(blob, "receitasVersusDespesas.png");
+
             window.open('expenses-versus-recipes-pdf' +
                                         '?blob=' + newurl +
                                         '&year=' + year   +

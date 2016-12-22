@@ -6,10 +6,10 @@ class MYPDF extends TCPDF {
     public function Header() {
 
         // Logo
-        $image_file = K_PATH_IMAGES.'logo.jpg';
+        $image_file = K_PATH_IMAGES . 'logo.jpg';
 
         $this->Image($image_file, 15, 10, 50, '', 'JPG', '', 'T', false, 300, '', false, false, 0, false, false, false);
-       
+
         // Set font
         $this->SetFont('times', 'B', 10);
 
@@ -27,8 +27,9 @@ class MYPDF extends TCPDF {
         $this->SetFont('times', 'B', 10);
 
         // Page number
-        $this->Cell(0, 10, 'Página '.$this->getAliasNumPage().' de '.$this->getAliasNbPages(), 0, false, 'C', 0, '', 0, false, 'T', 'M');
+        $this->Cell(0, 10, 'Página ' . $this->getAliasNumPage() . ' de ' . $this->getAliasNbPages(), 0, false, 'C', 0, '', 0, false, 'T', 'M');
     }
+
 }
 
 // create new PDF document
@@ -42,8 +43,8 @@ $pdf->SetSubject('Despesas vs Receita');
 $pdf->SetKeywords('Despesas vs Receita');
 
 // set default header data
-$pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE.' ', PDF_HEADER_STRING, array(0,64,255), array(0,64,128));
-$pdf->setFooterData(array(0,64,0), array(0,64,128));
+$pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE . ' ', PDF_HEADER_STRING, array(0, 64, 255), array(0, 64, 128));
+$pdf->setFooterData(array(0, 64, 0), array(0, 64, 128));
 
 // set header and footer fonts
 $pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
@@ -64,13 +65,12 @@ $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
 $pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
 
 // set some language-dependent strings (optional)
-if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
-    require_once(dirname(__FILE__).'/lang/eng.php');
+if (@file_exists(dirname(__FILE__) . '/lang/eng.php')) {
+    require_once(dirname(__FILE__) . '/lang/eng.php');
     $pdf->setLanguageArray($l);
 }
 
 // ---------------------------------------------------------
-
 // set default font subsetting mode
 $pdf->setFontSubsetting(true);
 
@@ -85,11 +85,10 @@ $pdf->SetFont('helvetica', '', 10, '', true);
 $pdf->AddPage();
 
 // set text shadow effect
-$pdf->setTextShadow(array('enabled'=>true, 'depth_w'=>0.2, 'depth_h'=>0.2, 'color'=>array(196,196,196), 'opacity'=>1, 'blend_mode'=>'Normal'));
+$pdf->setTextShadow(array('enabled' => true, 'depth_w' => 0.2, 'depth_h' => 0.2, 'color' => array(196, 196, 196), 'opacity' => 1, 'blend_mode' => 'Normal'));
 
-// Set some content to print
-$html = '<img src="$blob"/>';
 
+$html = '<img src="'. $blob .'"/>';
 
 
 
@@ -97,15 +96,14 @@ $html = '<img src="$blob"/>';
 $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 2, 0, true, '', true);
 
 // ---------------------------------------------------------
-
 // Close and output PDF document
 // This method has several options, check the source code documentation for more information.
 
 if ($cc == '') {
-    $cc = 'Todos';    
+    $cc = 'Todos';
 }
 
-$pdf->Output('DespesasVsReceita_centro'.$cc.'_ano'.$year.'.pdf', 'I');
+$pdf->Output('DespesasVsReceita_centro' . $cc . '_ano' . $year . '.pdf', 'I');
 
 //============================================================+
 // END OF FILE
