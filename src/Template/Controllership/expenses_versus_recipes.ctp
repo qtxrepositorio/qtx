@@ -441,8 +441,9 @@ $this->Html->script(['//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js',
                     
             newurl = window.URL.createObjectURL(blob);  
 
-            //saveAs(blob, "receitasVersusDespesas.png");
-
+            //teste = saveAs(blob, "receitasVersusDespesas.png");
+            //console.log(teste);
+            
             window.open('expenses-versus-recipes-pdf' +
                                         '?blob=' + newurl +
                                         '&year=' + year   +
