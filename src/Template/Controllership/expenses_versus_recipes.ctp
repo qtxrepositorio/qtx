@@ -179,7 +179,7 @@ $allMonthsOne = [$month01One, $month02One, $month03One, $month04One,
                     <div class="row">
 
                         <div class="box-body">
-                            
+
                             <div class="col-md-12">
 
                                 <div class="box-body">
@@ -195,8 +195,16 @@ $allMonthsOne = [$month01One, $month02One, $month03One, $month04One,
                             </div>
 
                             <br><br><br>
-                            
+
                             <div class="col-md-12">
+
+                                <div class="box-body">
+                                    <div align="right">
+                                        <h5 id="title-02"></h5>
+                                        <button class="btn btn-success" id="save-btn-pdf">Gerar pdf</button>
+                                    </div>
+
+                                </div>
 
                                 <table id="example1" class="table table-bordered table-hover">
                                     <thead>
@@ -213,7 +221,7 @@ $allMonthsOne = [$month01One, $month02One, $month03One, $month04One,
                                         <?php
                                         $totalExpenses = 0;
                                         $totalRecipes = 0;
-                                        $diferenca=[];
+                                        $diferenca = [];
                                         for ($i = 0; $i < 12; $i++) {
                                             ?>
                                             <tr>
@@ -222,8 +230,8 @@ $allMonthsOne = [$month01One, $month02One, $month03One, $month04One,
                                                 $date = getdate();
 
                                                 $yearOne = $date['year'];
-                                                
-                                                
+
+
 
                                                 if ($yearOne == $date['year'] and $i + 1 == $date['mon']) {
                                                     ?>
@@ -251,7 +259,6 @@ $allMonthsOne = [$month01One, $month02One, $month03One, $month04One,
                                                         ?>
                                                         <td class="success"><?php echo number_format($allMonths[$i] - $allMonthsOne[$i], 2, ',', '.'); ?></td>
                                                         <?php
-                                                        
                                                     }
                                                 }
                                                 ?>
@@ -280,7 +287,7 @@ $allMonthsOne = [$month01One, $month02One, $month03One, $month04One,
 
                             </div>
 
-                            
+
 
                         </div>
 
@@ -418,7 +425,9 @@ $this->Html->script(['//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js',
 
     $("#save-btn-02").click(function() {
         $("#barChart").get(0).toBlob(function(blob) {
-            saveAs(blob, "receitasVersusDespesas.png");
+            
+            saveAs(blob, "receitasVersusDespesas.png");            
+            
         });
     });
 
@@ -427,6 +436,25 @@ $this->Html->script(['//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js',
     //         ----------------------------------------------------------- //
 
 
+   $("#save-btn-pdf").click(function() {
+        $("#barChart").get(0).toBlob(function(blob) {
+                    
+            newurl = window.URL.createObjectURL(blob);  
+            
+            window.open('expenses-versus-recipes-pdf' +
+                                        '?blob=' + newurl +
+                                        '&year=' + year   +
+                                        '&cc=' + '01');
+                                              
+        });
+    });
+
+    
+
 </script>
-<?php $this->end(); ?>
+<?php
+
+$this->end();
+?>
+
 

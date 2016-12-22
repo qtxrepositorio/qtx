@@ -8,10 +8,10 @@ use Cake\Controller\Component\FlashComponent;
 use Cake\Datasource\ConnectionManager;
 
 class ControllershipController extends AppController {
+    
+    
 
-    public function index() {
-        
-    }
+    public function index() {}
 
     public function expensesVersusRecipesFilter() {
 
@@ -312,6 +312,44 @@ class ControllershipController extends AppController {
 
         $this->set(compact('expensesOne', 'revenueYearCurrent', 'cc', 'yearOne'));
         $this->set('_serialize', ['expensesOne', 'revenueYearCurrent', 'cc', 'yearOne']);
+    }
+    
+    public function expensesVersusRecipesPdf() {
+        
+        $blob = $_GET['blob'];
+        $year = $_GET['year'];
+        $cc = $_GET['cc'];
+        
+        $connection = ConnectionManager::get('auxiliar');
+        
+        $expensesOne = $connection->execute("SELECT * FROM 
+                [Auxiliar].[dbo].[LISTA_DESPESAS_COM_NATUREZA_MENSAIS] 
+                WHERE ANO = '$year'
+                AND [centroDeCusto] = '$cc'
+                AND LEN([codigo]) = 2")
+                    ->fetchAll('assoc');
+
+            ///// -------- fin despesas
+            ///// -------- ini receitras
+
+            $revenueYearCurrent = $connection->execute("SELECT 
+                [COD_CENTRO_DE_CUSTO]
+                ,[CENTRO_DE_CUSTO]
+                ,[MES]
+                ,[ANO]
+                ,[VALOR]
+                FROM [VW_RECEITAS]
+                    WHERE [ANO] = '$year'
+                    AND [COD_CENTRO_DE_CUSTO] = '$cc'
+                ORDER BY [COD_CENTRO_DE_CUSTO]")
+                    ->fetchAll('assoc');
+
+        $this->set(compact('expensesOne', 'revenueYearCurrent', 'cc', 'year','blob'));
+        $this->set('_serialize', ['expensesOne', 'revenueYearCurrent', 'cc', 'year','blob']);
+        
+        $this->viewBuilder()->layout('ajax');
+        $this->response->type('pdf');
+        
     }
 
     public function expensesVersusRecipes() {

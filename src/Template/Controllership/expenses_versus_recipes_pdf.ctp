@@ -1,9 +1,10 @@
 <?php
+
 class MYPDF extends TCPDF {
 
     //Page header
     public function Header() {
-    	/*
+
         // Logo
         $image_file = K_PATH_IMAGES.'logo.jpg';
 
@@ -14,12 +15,11 @@ class MYPDF extends TCPDF {
 
         // Title
         $this->Cell(0, 15, '', 0, false, 'C', 0, '', 0, false, 'M', 'M');
-        */
     }
 
     // Page footer
     public function Footer() {
-		/*
+
         // Position at 15 mm from bottom
         $this->SetY(-15);
 
@@ -27,8 +27,7 @@ class MYPDF extends TCPDF {
         $this->SetFont('times', 'B', 10);
 
         // Page number
-        $this->Cell(0, 10, '', 0, false, 'C', 0, '', 0, false, 'T', 'M');
-        */
+        $this->Cell(0, 10, 'Página '.$this->getAliasNumPage().' de '.$this->getAliasNbPages(), 0, false, 'C', 0, '', 0, false, 'T', 'M');
     }
 }
 
@@ -38,9 +37,9 @@ $pdf = new MYPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, PDO::SQL
 // set document information
 $pdf->SetCreator(PDF_CREATOR);
 $pdf->SetAuthor('Qualitex Engenharia e Serviços');
-$pdf->SetTitle('Cartão de Autógrafo');
-$pdf->SetSubject('Cartão de Autógrafo');
-$pdf->SetKeywords('Cartão de Autógrafo');
+$pdf->SetTitle('Despesas vs Receita');
+$pdf->SetSubject('Despesas vs Receita');
+$pdf->SetKeywords('Despesas vs Receita');
 
 // set default header data
 $pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE.' ', PDF_HEADER_STRING, array(0,64,255), array(0,64,128));
@@ -54,15 +53,15 @@ $pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
 $pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
 
 // set margins
-//$pdf->SetMargins(PDF_MARGIN_LEFT, PDF_MARGIN_TOP, PDF_MARGIN_RIGHT);
-//$pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
-//$pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+$pdf->SetMargins(3, PDF_MARGIN_TOP, 3);
+$pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+$pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
 
 // set auto page breaks
 $pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
 
 // set image scale factor
-//$pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+$pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
 
 // set some language-dependent strings (optional)
 if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
@@ -79,107 +78,36 @@ $pdf->setFontSubsetting(true);
 // dejavusans is a UTF-8 Unicode font, if you only need to
 // print standard ASCII chars, you can use core fonts like
 // helvetica or times to reduce file size.
-$pdf->SetFont('helvetica', '', 10, '', false);
+$pdf->SetFont('helvetica', '', 10, '', true);
 
 // Add a page
 // This method has several options, check the source code documentation for more information.
 $pdf->AddPage();
 
 // set text shadow effect
-//$pdf->setTextShadow(array('enabled'=>true, 'depth_w'=>0.2, 'depth_h'=>0.2, 'color'=>array(196,196,196), 'opacity'=>1, 'blend_mode'=>'Normal'));
+$pdf->setTextShadow(array('enabled'=>true, 'depth_w'=>0.2, 'depth_h'=>0.2, 'color'=>array(196,196,196), 'opacity'=>1, 'blend_mode'=>'Normal'));
 
-$html = '
-<style>
-
-th{
-    margin-top: 15px;
-    margin-right: 15px;
-    margin-left: 15px;
-   
-}
-
-
-</style>
-
-';
-
-$image_file = K_PATH_IMAGES.'logo.jpg';
-
-$html .= '<table cellpadding="10">			
-			<tr>
-				<td border="1" width="380">					
-					
-					<img src="'.$image_file.'" height="30" width="90">					
-				
-					<h2 align="center"> Cartão de Autógrafo </h2>
-
-					<b>Matrícula: </b>'.$registry.'  <b>Nome: </b>'.$name.'<br/><br/>
-
-					<b>Empresa: </b> QUALITEX ENGENHARIA E SERVIÇOS LTDA
-
-					<br/><br/><b>Cargo: </b>'.$role.'
-
-					<br/><br/><b>Departamento: </b>'.$department.'
-
-					<br/><br/>
-					<table align="center">
-						<tr>
-							<th border="1">	
-								ASSINATURA
-							</th>	
-							<th border="1">	
-								RUBRICA
-							</th>
-							<th border="1">	
-								RUBRICA
-							</th>  
-						</tr>
-						<br/><br/><br/>
-						<tr>
-							<td>	
-								<hr  width="117">
-							</td>	
-							<td>	
-								<hr  width="117">
-							</td>
-							<td>	
-								<hr  width="117"> 
-							</td> 
-						</tr>
-					</table>
-
-				</td>	  
-			</tr>
-		</table>';
+// Set some content to print
+$html = '<img src="$blob"/>';
 
 
 
-/*$html .= '<table>
-			<tr>
-				<th border="1" width="380">
-					<font size="8">'
-						.'<b>Matrícula: </b>'.$registry.'  <b>Nome: </b>'.$name.'<br/>'
-					
-						.'<br/><b>Cargo: </b>'.$role	
-						.'<br/><b>Data Admissão: </b>'.$department									
-			  		.'</font>
-				</th>			  
-			</tr>
-		</table>';*/
 
-
-
-//$pdf->writeHTML($html, true, 0, true, true);
-$pdf->writeHTML($html, true, false, true, false, '');
-
+// Print text using writeHTMLCell()
+$pdf->writeHTMLCell(0, 0, '', '', $html, 0, 2, 0, true, '', true);
 
 // ---------------------------------------------------------
 
 // Close and output PDF document
 // This method has several options, check the source code documentation for more information.
-$pdf->Output('Cartão de Autógrafo.pdf', 'I');
+
+if ($cc == '') {
+    $cc = 'Todos';    
+}
+
+$pdf->Output('DespesasVsReceita_centro'.$cc.'_ano'.$year.'.pdf', 'I');
 
 //============================================================+
 // END OF FILE
 //============================================================+
-?>     
+?>  
