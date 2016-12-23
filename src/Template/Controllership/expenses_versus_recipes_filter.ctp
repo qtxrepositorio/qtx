@@ -449,6 +449,29 @@ $this->Html->script(['//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js',
     //         ----------------------------------------------------------- //
 
 
-</script>
-<?php $this->end(); ?>
+   $("#save-btn-pdf").click(function() {
+        $("#barChart").get(0).toBlob(function(blob) {
+                    
+            newurl = window.URL.createObjectURL(blob);  
 
+            //teste = saveAs(blob, "receitasVersusDespesas.png");
+            //console.log(teste);
+            
+            window.open('expenses-versus-recipes-pdf' +
+                                        '?blob=' + newurl +
+                                        '&year=' + year   +
+                                        '&cc=' + '01');
+                                              
+        });
+    });
+
+    
+
+</script>
+<?php
+
+$this->end();
+?>
+
+
+s
