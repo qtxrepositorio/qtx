@@ -720,7 +720,11 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
         //alert(aux);
     }
 
+    //alert(costLastSixMonths);
+
     costLastSixMonths /= 6;
+    
+    //alert(costLastSixMonths);
     
     costLastSixMonths = costLastSixMonths - (costLastSixMonths * 0.05)
 
@@ -758,11 +762,11 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
     allMonthsFinish = [];
     for (var i = 0; i < labels.length; i++) {
         allMonthsFinish.push(allMonths[i].toFixed(2));
-    }
+     }
 
     averageCostLastSixMonths = [];
     for (var i = 0; i < labels.length; i++) {
-        averageCostLastSixMonths[i] = costLastSixMonths;          
+        averageCostLastSixMonths[i] = costLastSixMonths;   
     };
 
     ctx02 = document.getElementById("barChart02");
@@ -2292,14 +2296,15 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
         for (var x = 0; x < extraHourLastSixMonths.length; x++) {
             if (cc == 'TODOS') {
                 var aux = parseFloat(extraHourLastSixMonths[x].SOMA);
-                costLastSixMonths += aux;
-        
+                costLastSixMonths += aux; 
             }else if (extraHourLastSixMonths[x].CTT_DESC01 == cc){
                 var aux = parseFloat(extraHourLastSixMonths[x].SOMA);
                 costLastSixMonths += aux;
-            }
-        
+                //alert(cc);
+            }        
         }
+        
+        //alert(costLastSixMonths);
 
         costLastSixMonths /= 6;
 
