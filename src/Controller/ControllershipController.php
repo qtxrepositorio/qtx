@@ -9,7 +9,40 @@ use Cake\Datasource\ConnectionManager;
 
 class ControllershipController extends AppController {
 
-    public function index() {}
+    public function ExpensesAndRevenues() {
+        
+        $connection = ConnectionManager::get('baseProtheus');
+        
+        $revenuesCountCredit = $connection->execute("
+            SELECT 
+                SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCC]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                    WHERE 
+                       SUBSTRING([CT2_DATA],1,4) = YEAR(GETDATE())
+                       AND [CT2_CREDIT] in ('31101001','31101002','31102001','31102002') 
+                       AND D_E_L_E_T_ != '*'
+                    GROUP BY [CT2_CCC], SUBSTRING([CT2_DATA],5,2)
+                   ")->fetchAll('assoc');
+        
+        $revenuesCountDebit = $connection->execute("
+            SELECT 
+                SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                    WHERE 
+                        SUBSTRING([CT2_DATA],1,4) = YEAR(GETDATE())
+                        AND [CT2_DEBITO] in ('11204005','11204007','11204008','11204009','11204010','11204011') 
+                        AND D_E_L_E_T_ != '*'
+                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)
+                ")->fetchAll('assoc');
+        
+        $this->set(compact('revenuesCountCredit', 'revenuesCountDebit'));
+        $this->set('_serialize', ['revenuesCountCredit', 'revenuesCountDebit']);
+        
+    }
 
     public function PerCapitaExtraHoursCost() {
 
@@ -23,7 +56,12 @@ class ControllershipController extends AppController {
 			FROM [SRD010] 
 			INNER JOIN [CTT010] ON [CTT_CUSTO] = [RD_CC]
 				WHERE [SRD010].[D_E_L_E_T_] <> '*' 
-				AND SUBSTRING([RD_DATARQ],1,4) = YEAR(GETDATE()) 
+				AND [RD_DATARQ] 
+						BETWEEN 
+							( substring(convert(varchar(10),DATEADD(m, -12, current_timestamp), 103),7,5) 
+							+ substring(convert(varchar(10),DATEADD(m, -12, current_timestamp), 103),4,2) )
+							AND 
+							( select max([RD_DATARQ]) FROM [SRD010] )
 				AND [RD_PD] IN('109','117','118','123','157','229')
 			GROUP BY [RD_DATARQ],[CTT_DESC01],[RD_CC]
 			ORDER BY [RD_DATARQ] ASC")
@@ -37,7 +75,6 @@ class ControllershipController extends AppController {
 			FROM [SRD010] 
 			INNER JOIN [CTT010] ON [CTT_CUSTO] = [RD_CC]
 				WHERE [SRD010].[D_E_L_E_T_] <> '*'
-					AND SUBSTRING([RD_DATARQ],1,4) = YEAR(GETDATE())
 					AND [RD_PD] = '101'
 					AND [RD_DATARQ] 
 						BETWEEN 
@@ -149,20 +186,20 @@ class ControllershipController extends AppController {
                 ->fetchAll('assoc');
 
         /*
-        $extraHourLastYear = $connection->execute("SELECT 
-			SUM([RD_VALOR]) AS SOMA
-			,[RD_CC]
-			,[RD_PD]
-			,[RD_DATARQ] 
-			,[CTT_DESC01] 
-			FROM [SRD010] 
-			INNER JOIN [CTT010] ON [CTT_CUSTO] = [RD_CC]
-				WHERE [SRD010].[D_E_L_E_T_] <> '*' 
-					AND SUBSTRING([RD_DATARQ],1,4) = YEAR(GETDATE()) -1
-					AND [RD_PD] IN('109','117','118','123','157','229') 
-				GROUP BY [RD_DATARQ],[RD_CC],[RD_PD],[CTT_DESC01]
-				ORDER BY [RD_CC],[RD_DATARQ],[RD_PD] ")
-                ->fetchAll('assoc');
+          $extraHourLastYear = $connection->execute("SELECT
+          SUM([RD_VALOR]) AS SOMA
+          ,[RD_CC]
+          ,[RD_PD]
+          ,[RD_DATARQ]
+          ,[CTT_DESC01]
+          FROM [SRD010]
+          INNER JOIN [CTT010] ON [CTT_CUSTO] = [RD_CC]
+          WHERE [SRD010].[D_E_L_E_T_] <> '*'
+          AND SUBSTRING([RD_DATARQ],1,4) = YEAR(GETDATE()) -1
+          AND [RD_PD] IN('109','117','118','123','157','229')
+          GROUP BY [RD_DATARQ],[RD_CC],[RD_PD],[CTT_DESC01]
+          ORDER BY [RD_CC],[RD_DATARQ],[RD_PD] ")
+          ->fetchAll('assoc');
          * 
          */
 

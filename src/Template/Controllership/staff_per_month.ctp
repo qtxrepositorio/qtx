@@ -80,6 +80,7 @@ foreach ($staffPerMonth as $key => $value) {
                     <div class="chart">          
                         <div class="box-body">                          
                             <table id="example1" class="table table-bordered table-hover">
+                                
                                 <thead>
                                     <tr>                                
                                         <th>Mês/Ano </th>
@@ -95,8 +96,8 @@ foreach ($staffPerMonth as $key => $value) {
                                         <th class="active info">Total</th>
                                     </tr>
                                 </thead>
-                                <tbody> 
-
+                                
+                                <tbody>
                                     <?php
                                     foreach ($months as $month) {
                                         $cc01 = 0;
