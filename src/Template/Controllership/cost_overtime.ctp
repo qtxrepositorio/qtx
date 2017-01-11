@@ -186,8 +186,9 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
     //buscando os meses que já tem contabilizado a hora extra
     var labels =[];
     for (var i = 0; i < extraHourYearCurrent.length; i++) {
-        if (labels.indexOf(extraHourYearCurrent[i].RD_DATARQ) == -1 )  {
+        if (labels.indexOf(extraHourYearCurrent[i].RD_DATARQ) == -1 && labels.length < 12)  { //&& labels.length < 12
             labels.push(extraHourYearCurrent[i].RD_DATARQ);
+            //alert(extraHourYearCurrent[i].RD_DATARQ);
         }
     }
     
@@ -720,11 +721,11 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
         //alert(aux);
     }
 
-    //alert(costLastSixMonths);
+    alert(costLastSixMonths);
 
     costLastSixMonths /= 6;
     
-    //alert(costLastSixMonths);
+    alert(costLastSixMonths);
     
     costLastSixMonths = costLastSixMonths - (costLastSixMonths * 0.05)
 

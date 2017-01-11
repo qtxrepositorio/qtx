@@ -1,3 +1,4 @@
+<?php ?>
 
 <section class="content">
     <div class="row">

@@ -8,8 +8,8 @@ use Cake\Controller\Component\FlashComponent;
 use Cake\Datasource\ConnectionManager;
 
 class ControllershipController extends AppController {
-
-    public function ExpensesAndRevenues() {
+    
+    public function RevenuesPerCapita() {
         
         $connection = ConnectionManager::get('baseProtheus');
         
@@ -39,8 +39,157 @@ class ControllershipController extends AppController {
                     GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)
                 ")->fetchAll('assoc');
         
-        $this->set(compact('revenuesCountCredit', 'revenuesCountDebit'));
-        $this->set('_serialize', ['revenuesCountCredit', 'revenuesCountDebit']);
+        $staffPerMonth = $connection->execute("
+            SELECT  
+                COUNT([RD_PD]) as CONT      
+                ,[RD_DATARQ]
+                ,[RD_CC]			
+                FROM [SRD010]
+                    WHERE [SRD010].[D_E_L_E_T_] <> '*'
+                        AND [RD_PD] = '101'
+                        AND SUBSTRING([RD_DATARQ],0,5) = '2016' --YEAR(GETDATE())					
+                    GROUP BY [RD_CC],[RD_DATARQ]
+                    ORDER BY [RD_CC],[RD_DATARQ]")
+                ->fetchAll('assoc');
+
+        $this->set(compact('staffPerMonth','revenuesCountCredit', 'revenuesCountDebit','revenuesCountCreditByCount', 'revenuesCountDebitByCount'));
+        $this->set('_serialize', ['staffPerMonth','revenuesCountCredit', 'revenuesCountDebit','revenuesCountCreditByCount', 'revenuesCountDebitByCount']);
+            
+    }
+
+    public function Revenues() {
+        
+        $connection = ConnectionManager::get('baseProtheus');
+        
+        $revenuesCountCreditByCount = $connection->execute("
+            SELECT 
+                SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCC]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                , [CT2_CREDIT]
+                FROM [CT2010] 
+                    WHERE 
+                       SUBSTRING([CT2_DATA],1,4) = YEAR(GETDATE())
+                       AND [CT2_CREDIT] in ('31101001','31101002','31102001','31102002') 
+                       AND D_E_L_E_T_ != '*'
+                    GROUP BY [CT2_CCC], SUBSTRING([CT2_DATA],5,2), [CT2_CREDIT]
+                   ")->fetchAll('assoc');
+        
+        $revenuesCountDebitByCount = $connection->execute("
+            SELECT 
+                SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                , [CT2_DEBITO]
+                FROM [CT2010] 
+                    WHERE 
+                        SUBSTRING([CT2_DATA],1,4) = YEAR(GETDATE())
+                        AND [CT2_DEBITO] in ('11204005','11204007','11204008','11204009','11204010','11204011') 
+                        AND D_E_L_E_T_ != '*'
+                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2), [CT2_DEBITO]
+                ")->fetchAll('assoc');       
+        
+        
+        ////////////////////////////////////
+        ////////////////////////////////////
+        ////////////////////////////////////
+        
+        $revenuesCountCredit = $connection->execute("
+            SELECT 
+                SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCC]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                    WHERE 
+                       SUBSTRING([CT2_DATA],1,4) = YEAR(GETDATE())
+                       AND [CT2_CREDIT] in ('31101001','31101002','31102001','31102002') 
+                       AND D_E_L_E_T_ != '*'
+                    GROUP BY [CT2_CCC], SUBSTRING([CT2_DATA],5,2)
+                   ")->fetchAll('assoc');
+        
+        $revenuesCountDebit = $connection->execute("
+            SELECT 
+                SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                    WHERE 
+                        SUBSTRING([CT2_DATA],1,4) = YEAR(GETDATE())
+                        AND [CT2_DEBITO] in ('11204005','11204007','11204008','11204009','11204010','11204011') 
+                        AND D_E_L_E_T_ != '*'
+                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)
+                ")->fetchAll('assoc');
+        
+        $this->set(compact('revenuesCountCredit', 'revenuesCountDebit','revenuesCountCreditByCount', 'revenuesCountDebitByCount'));
+        $this->set('_serialize', ['revenuesCountCredit', 'revenuesCountDebit','revenuesCountCreditByCount', 'revenuesCountDebitByCount']);
+        
+    }
+    
+    public function RevenuesMonthByCc() {
+        
+        $connection = ConnectionManager::get('baseProtheus');
+        
+        $revenuesCountCreditByCount = $connection->execute("
+            SELECT 
+                SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCC]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                , [CT2_CREDIT]
+                FROM [CT2010] 
+                    WHERE 
+                       SUBSTRING([CT2_DATA],1,4) = YEAR(GETDATE())
+                       AND [CT2_CREDIT] in ('31101001','31101002','31102001','31102002') 
+                       AND D_E_L_E_T_ != '*'
+                    GROUP BY [CT2_CCC], SUBSTRING([CT2_DATA],5,2), [CT2_CREDIT]
+                   ")->fetchAll('assoc');
+        
+        $revenuesCountDebitByCount = $connection->execute("
+            SELECT 
+                SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                , [CT2_DEBITO]
+                FROM [CT2010] 
+                    WHERE 
+                        SUBSTRING([CT2_DATA],1,4) = YEAR(GETDATE())
+                        AND [CT2_DEBITO] in ('11204005','11204007','11204008','11204009','11204010','11204011') 
+                        AND D_E_L_E_T_ != '*'
+                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2), [CT2_DEBITO]
+                ")->fetchAll('assoc');       
+        
+        
+        ////////////////////////////////////
+        ////////////////////////////////////
+        ////////////////////////////////////
+        
+        $revenuesCountCredit = $connection->execute("
+            SELECT 
+                SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCC]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                    WHERE 
+                       SUBSTRING([CT2_DATA],1,4) = YEAR(GETDATE())
+                       AND [CT2_CREDIT] in ('31101001','31101002','31102001','31102002') 
+                       AND D_E_L_E_T_ != '*'
+                    GROUP BY [CT2_CCC], SUBSTRING([CT2_DATA],5,2)
+                   ")->fetchAll('assoc');
+        
+        $revenuesCountDebit = $connection->execute("
+            SELECT 
+                SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                    WHERE 
+                        SUBSTRING([CT2_DATA],1,4) = YEAR(GETDATE())
+                        AND [CT2_DEBITO] in ('11204005','11204007','11204008','11204009','11204010','11204011') 
+                        AND D_E_L_E_T_ != '*'
+                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)
+                ")->fetchAll('assoc');
+        
+        $this->set(compact('revenuesCountCredit', 'revenuesCountDebit','revenuesCountCreditByCount', 'revenuesCountDebitByCount'));
+        $this->set('_serialize', ['revenuesCountCredit', 'revenuesCountDebit','revenuesCountCreditByCount', 'revenuesCountDebitByCount']);
         
     }
 
