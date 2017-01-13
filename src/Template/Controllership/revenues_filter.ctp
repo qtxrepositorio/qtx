@@ -1,5 +1,5 @@
 <?php
-$date = getdate();
+//$date = getdate();
 
 $totalyear = 0;
 
@@ -74,6 +74,7 @@ $percentualRetido  = ($totalRetido * 100) / $totalBruto;
                                         <?php
                                             $x = 0;
                                             echo $this->Form->create($x,['url' => ['controller'=>'Controllership','action' => 'RevenuesFilter']]);
+                                            
                                             echo $this->Form->input('year', ['default' => '2017' ,'disabled' => FALSE,'label'=>' ']);
                                         ?>
                                     </div> 
@@ -82,7 +83,7 @@ $percentualRetido  = ($totalRetido * 100) / $totalBruto;
                                 <div align="center">
                                     <?= $this->Form->button(__('Carregar')) ?>
                                 </div>
-                                <?php echo $this->Form->end();   ?>
+                                 <?php echo $this->Form->end();   ?>
                             </div>
                         </div>
                     </div>
@@ -92,7 +93,7 @@ $percentualRetido  = ($totalRetido * 100) / $totalBruto;
         <div class="col-md-6">
             <div class="box box-success">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Relação de retenção e valor bruto. <b> Ano: <?php echo $date['year']?></b></h3>
+                    <h3 class="box-title">Relação de retenção e valor bruto. <b> Ano: <?php echo $year?></b></h3>
                     <div class="box-tools pull-right">
                         <button type="button" class="btn btn-box-tool" data-widget="collapse">
                             <i class="fa fa-minus"></i>
@@ -121,7 +122,7 @@ $percentualRetido  = ($totalRetido * 100) / $totalBruto;
         <div class="col-md-6">
             <div class="box box-success">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Tabela de receitas - Receita bruta/Conta . <b> Ano: <?php echo $date['year']?></b></h3>
+                    <h3 class="box-title">Tabela de receitas - Receita bruta/Conta . <b> Ano: <?php echo $year?></b></h3>
                     <div class="box-tools pull-right">
                         <button type="button" class="btn btn-box-tool" data-widget="collapse">
                             <i class="fa fa-minus"></i>
@@ -183,7 +184,7 @@ $percentualRetido  = ($totalRetido * 100) / $totalBruto;
         <div class="col-md-6">
             <div class="box box-success">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Tabela de receitas - Retenção na fonte. <b> Ano: <?php echo $date['year']?></b></h3>
+                    <h3 class="box-title">Tabela de receitas - Retenção na fonte. <b> Ano: <?php echo $year?></b></h3>
                     <div class="box-tools pull-right">
                         <button type="button" class="btn btn-box-tool" data-widget="collapse">
                             <i class="fa fa-minus"></i>

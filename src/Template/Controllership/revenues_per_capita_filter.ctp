@@ -1,6 +1,5 @@
 <?php
 
-$date = getdate();
 $exist = false;
 $totalyear = 0;
 
@@ -395,7 +394,7 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
         <div class="col-md-12">
             <div class="box box-success">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Tabela de receitas - <b> Bruta </b> - Per Capita. <b> Ano: <?php echo $date['year']?></b></h3>
+                    <h3 class="box-title">Tabela de receitas - <b> Bruta </b> - Per Capita. <b> Ano: <?php echo $year?></b></h3>
                     <div class="box-tools pull-right">
                         <button type="button" class="btn btn-box-tool" data-widget="collapse">
                             <i class="fa fa-minus"></i>
@@ -858,7 +857,7 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
         <div class="col-md-12">
             <div class="box box-success">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Tabela de receitas - <b> Líquida </b> - Per Capita. <b> Ano: <?php echo $date['year']?></b></h3>
+                    <h3 class="box-title">Tabela de receitas - <b> Líquida </b> - Per Capita. <b> Ano: <?php echo $year?></b></h3>
                     <div class="box-tools pull-right">
                         <button type="button" class="btn btn-box-tool" data-widget="collapse">
                             <i class="fa fa-minus"></i>

@@ -17,7 +17,6 @@ for ($i = 0; $i < count($extraHourYearCurrent); $i++) {
     </h1>      
 </section> 
 
-
 <!----------- INICIO DO GRAFICO Custo de horas extra por verba -------------------->
 <section class="content">
     <div class="row">
@@ -44,24 +43,7 @@ for ($i = 0; $i < count($extraHourYearCurrent); $i++) {
                         <canvas id="barChart" height="100"></canvas>    
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-    
-    <div class="row">
-        <div class="col-md-12">
-            <div class="box box-success">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Custo de horas extra X Meta</h3>
-                    <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                            <i class="fa fa-minus"></i>
-                        </button>
-                        <button type="button" class="btn btn-box-tool" data-widget="remove">
-                            <i class="fa fa-times"></i>
-                        </button>
-                    </div>
-                </div>
+                <br>
                 <div class="box-body">
 
                     <div align="right">
@@ -76,6 +58,25 @@ for ($i = 0; $i < count($extraHourYearCurrent); $i++) {
             </div>
         </div>
     </div>
+    
+    <!-- <div class="row">
+        <div class="col-md-12">
+            <div class="box box-success">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Custo de horas extra X Meta</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-box-tool" data-widget="remove">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div> -->
 </section>    
 <div class="container-fluid">
     <div class="row">
@@ -186,7 +187,7 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
     //buscando os meses que já tem contabilizado a hora extra
     var labels =[];
     for (var i = 0; i < extraHourYearCurrent.length; i++) {
-        if (labels.indexOf(extraHourYearCurrent[i].RD_DATARQ) == -1 && labels.length < 12)  { //&& labels.length < 12
+        if (labels.indexOf(extraHourYearCurrent[i].RD_DATARQ) == -1)  { //&& labels.length < 12
             labels.push(extraHourYearCurrent[i].RD_DATARQ);
             //alert(extraHourYearCurrent[i].RD_DATARQ);
         }
@@ -211,6 +212,7 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
     month10109 = 0;
     month11109 = 0;
     month12109 = 0;
+    month13109 = 0;
 
     month01117 = 0;
     month02117 = 0;
@@ -224,6 +226,7 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
     month10117 = 0;
     month11117 = 0;
     month12117 = 0;
+    month13117 = 0;
 
     month01118 = 0;
     month02118 = 0;
@@ -237,6 +240,7 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
     month10118 = 0;
     month11118 = 0;
     month12118 = 0;
+    month13118 = 0;
 
     month01123 = 0;
     month02123 = 0;
@@ -250,6 +254,7 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
     month10123 = 0;
     month11123 = 0;
     month12123 = 0;
+    month13123 = 0;
 
     month01157 = 0;
     month02157 = 0;
@@ -263,6 +268,7 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
     month10157 = 0;
     month11157 = 0;
     month12157 = 0;
+    month13157 = 0;
 
     month01229 = 0;
     month02229 = 0;
@@ -276,6 +282,7 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
     month10229 = 0;
     month11229 = 0;
     month12229 = 0;
+    month13229 = 0;
 
     //populando o grafico
     for (var i = 0; i < labels.length; i++) {
@@ -317,7 +324,10 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
                 }else if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '12') {
                     var aux = parseFloat(extraHourYearCurrent[x].SOMA);
                     month12109 += aux;
-                }                       
+                }else if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '13') {
+                    var aux = parseFloat(extraHourYearCurrent[x].SOMA);
+                    month13109 += aux;
+                }                      
             }else if (extraHourYearCurrent[x].RD_PD === '117' && extraHourYearCurrent[x].RD_DATARQ === labels[i]) {
                 if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '01') {
                     var aux = parseFloat(extraHourYearCurrent[x].SOMA);
@@ -355,7 +365,10 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
                 }else if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '12') {
                     var aux = parseFloat(extraHourYearCurrent[x].SOMA);
                     month12117 += aux;
-                }                       
+                }else if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '13') {
+                    var aux = parseFloat(extraHourYearCurrent[x].SOMA);
+                    month13117 += aux;
+                }                        
             }else if (extraHourYearCurrent[x].RD_PD === '118' && extraHourYearCurrent[x].RD_DATARQ === labels[i]) {
                 if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '01') {
                     var aux = parseFloat(extraHourYearCurrent[x].SOMA);
@@ -393,6 +406,9 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
                 }else if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '12') {
                     var aux = parseFloat(extraHourYearCurrent[x].SOMA);
                     month12118 += aux;
+                }else if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '13') {
+                    var aux = parseFloat(extraHourYearCurrent[x].SOMA);
+                    month13118 += aux;
                 }                       
             }else if (extraHourYearCurrent[x].RD_PD === '123' && extraHourYearCurrent[x].RD_DATARQ === labels[i]) {
                 if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '01') {
@@ -431,7 +447,10 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
                 }else if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '12') {
                     var aux = parseFloat(extraHourYearCurrent[x].SOMA);
                     month12123 += aux;
-                }                       
+                }else if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '13') {
+                    var aux = parseFloat(extraHourYearCurrent[x].SOMA);
+                    month13123 += aux;
+                }                      
             }else if (extraHourYearCurrent[x].RD_PD === '157' && extraHourYearCurrent[x].RD_DATARQ === labels[i]) {
                 if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '01') {
                     var aux = parseFloat(extraHourYearCurrent[x].SOMA);
@@ -469,7 +488,10 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
                 }else if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '12') {
                     var aux = parseFloat(extraHourYearCurrent[x].SOMA);
                     month12157 += aux;
-                }                       
+                }else if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '13') {
+                    var aux = parseFloat(extraHourYearCurrent[x].SOMA);
+                    month13157 += aux;
+                }                        
             }else if (extraHourYearCurrent[x].RD_PD === '229' && extraHourYearCurrent[x].RD_DATARQ === labels[i]) {
                 if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '01') {
                     var aux = parseFloat(extraHourYearCurrent[x].SOMA);
@@ -507,6 +529,9 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
                 }else if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '12') {
                     var aux = parseFloat(extraHourYearCurrent[x].SOMA);
                     month12229 += aux;
+                }else if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '13') {
+                    var aux = parseFloat(extraHourYearCurrent[x].SOMA);
+                    month13229 += aux;
                 }                       
             }
         }
@@ -515,7 +540,7 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
     var months109 = [ month01109.toFixed(2), month02109.toFixed(2), month03109.toFixed(2)
         , month04109.toFixed(2), month05109.toFixed(2), month06109.toFixed(2)
         , month07109.toFixed(2), month08109.toFixed(2), month09109.toFixed(2)
-        , month10109.toFixed(2), month11109.toFixed(2), month12109.toFixed(2) ];
+        , month10109.toFixed(2), month11109.toFixed(2), month12109.toFixed(2), month13109.toFixed(2) ];
 
     for (var i = 0; i < labels.length; i++) {
         values109.push(months109[i]);
@@ -524,7 +549,7 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
     var months117 = [ month01117.toFixed(2), month02117.toFixed(2), month03117.toFixed(2)
         , month04117.toFixed(2), month05117.toFixed(2), month06117.toFixed(2)
         , month07117.toFixed(2), month08117.toFixed(2), month09117.toFixed(2)
-        , month10117.toFixed(2), month11117.toFixed(2), month12117.toFixed(2) ];
+        , month10117.toFixed(2), month11117.toFixed(2), month12117.toFixed(2), month13117.toFixed(2) ];
 
     for (var i = 0; i < labels.length; i++) {
         values117.push(months117[i]);
@@ -533,7 +558,7 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
     var months118 = [ month01118.toFixed(2), month02118.toFixed(2), month03118.toFixed(2)
         , month04118.toFixed(2), month05118.toFixed(2), month06118.toFixed(2)
         , month07118.toFixed(2), month08118.toFixed(2), month09118.toFixed(2)
-        , month10118.toFixed(2), month11118.toFixed(2), month12118.toFixed(2) ];
+        , month10118.toFixed(2), month11118.toFixed(2), month12118.toFixed(2), month13118.toFixed(2) ];
 
     for (var i = 0; i < labels.length; i++) {
         values118.push(months118[i]);
@@ -542,7 +567,7 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
     var months123 = [ month01123.toFixed(2), month02123.toFixed(2), month03123.toFixed(2)
         , month04123.toFixed(2), month05123.toFixed(2), month06123.toFixed(2)
         , month07123.toFixed(2), month08123.toFixed(2), month09123.toFixed(2)
-        , month10123.toFixed(2), month11123.toFixed(2), month12123.toFixed(2) ];
+        , month10123.toFixed(2), month11123.toFixed(2), month12123.toFixed(2), month13123.toFixed(2) ];
 
     for (var i = 0; i < labels.length; i++) {
         values123.push(months123[i]);
@@ -551,7 +576,7 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
     var months157 = [ month01157.toFixed(2), month02157.toFixed(2), month03157.toFixed(2)
         , month04157.toFixed(2), month05157.toFixed(2), month06157.toFixed(2)
         , month07157.toFixed(2), month08157.toFixed(2), month09157.toFixed(2)
-        , month10157.toFixed(2), month11157.toFixed(2), month12157.toFixed(2) ];
+        , month10157.toFixed(2), month11157.toFixed(2), month12157.toFixed(2), month13157.toFixed(2) ];
 
     for (var i = 0; i < labels.length; i++) {
         values157.push(months157[i]);
@@ -560,7 +585,7 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
     var months229 = [ month01229.toFixed(2), month02229.toFixed(2), month03229.toFixed(2)
         , month04229.toFixed(2), month05229.toFixed(2), month06229.toFixed(2)
         , month07229.toFixed(2), month08229.toFixed(2), month09229.toFixed(2)
-        , month10229.toFixed(2), month11229.toFixed(2), month12229.toFixed(2) ];
+        , month10229.toFixed(2), month11229.toFixed(2), month12229.toFixed(2), month13229.toFixed(2) ];
 
     for (var i = 0; i < labels.length; i++) {
         values229.push(months229[i]);
@@ -580,13 +605,15 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
                         'rgba(255, 99, 132, 1)', 'rgba(255, 99, 132, 1)',  'rgba(255, 99, 132, 1)',
                         'rgba(255, 99, 132, 1)', 'rgba(255, 99, 132, 1)',  'rgba(255, 99, 132, 1)',
                         'rgba(255, 99, 132, 1)', 'rgba(255, 99, 132, 1)',  'rgba(255, 99, 132, 1)',
-                        'rgba(255, 99, 132, 1)', 'rgba(255, 99, 132, 1)',  'rgba(255, 99, 132, 1)'
+                        'rgba(255, 99, 132, 1)', 'rgba(255, 99, 132, 1)',  'rgba(255, 99, 132, 1)',
+                        'rgba(255, 99, 132, 1)'
                     ],
                     borderColor: [
                         'rgba(255, 99, 132, 1)', 'rgba(255, 99, 132, 1)',  'rgba(255, 99, 132, 1)',
                         'rgba(255, 99, 132, 1)', 'rgba(255, 99, 132, 1)',  'rgba(255, 99, 132, 1)',
                         'rgba(255, 99, 132, 1)', 'rgba(255, 99, 132, 1)',  'rgba(255, 99, 132, 1)',
-                        'rgba(255, 99, 132, 1)', 'rgba(255, 99, 132, 1)',  'rgba(255, 99, 132, 1)'
+                        'rgba(255, 99, 132, 1)', 'rgba(255, 99, 132, 1)',  'rgba(255, 99, 132, 1)',  
+                        'rgba(255, 99, 132, 1)'
                     ],
                     borderWidth: 1
                 },
@@ -597,13 +624,15 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
                         'rgba(54, 162, 235, 1)', 'rgba(54, 162, 235, 1)', 'rgba(54, 162, 235, 1)',
                         'rgba(54, 162, 235, 1)', 'rgba(54, 162, 235, 1)', 'rgba(54, 162, 235, 1)',
                         'rgba(54, 162, 235, 1)', 'rgba(54, 162, 235, 1)', 'rgba(54, 162, 235, 1)',
-                        'rgba(54, 162, 235, 1)', 'rgba(54, 162, 235, 1)', 'rgba(54, 162, 235, 1)'
+                        'rgba(54, 162, 235, 1)', 'rgba(54, 162, 235, 1)', 'rgba(54, 162, 235, 1)', 
+                        'rgba(54, 162, 235, 1)'
                     ],
                     borderColor: [
                         'rgba(54, 162, 235, 1)', 'rgba(54, 162, 235, 1)', 'rgba(54, 162, 235, 1)',
                         'rgba(54, 162, 235, 1)', 'rgba(54, 162, 235, 1)', 'rgba(54, 162, 235, 1)',
                         'rgba(54, 162, 235, 1)', 'rgba(54, 162, 235, 1)', 'rgba(54, 162, 235, 1)',
-                        'rgba(54, 162, 235, 1)', 'rgba(54, 162, 235, 1)', 'rgba(54, 162, 235, 1)'
+                        'rgba(54, 162, 235, 1)', 'rgba(54, 162, 235, 1)', 'rgba(54, 162, 235, 1)', 
+                        'rgba(54, 162, 235, 1)'
                     ],
                     borderWidth: 1
                 },{
@@ -613,13 +642,15 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
                         'rgba(255, 206, 86, 1)', 'rgba(255, 206, 86, 1)', 'rgba(255, 206, 86, 1)',
                         'rgba(255, 206, 86, 1)', 'rgba(255, 206, 86, 1)', 'rgba(255, 206, 86, 1)',
                         'rgba(255, 206, 86, 1)', 'rgba(255, 206, 86, 1)', 'rgba(255, 206, 86, 1)',
-                        'rgba(255, 206, 86, 1)', 'rgba(255, 206, 86, 1)', 'rgba(255, 206, 86, 1)'                        
+                        'rgba(255, 206, 86, 1)', 'rgba(255, 206, 86, 1)', 'rgba(255, 206, 86, 1)', 
+                        'rgba(255, 206, 86, 1)'                        
                     ],
                     borderColor: [
                         'rgba(255, 206, 86, 1)', 'rgba(255, 206, 86, 1)', 'rgba(255, 206, 86, 1)',
                         'rgba(255, 206, 86, 1)', 'rgba(255, 206, 86, 1)', 'rgba(255, 206, 86, 1)',
                         'rgba(255, 206, 86, 1)', 'rgba(255, 206, 86, 1)', 'rgba(255, 206, 86, 1)',
-                        'rgba(255, 206, 86, 1)', 'rgba(255, 206, 86, 1)', 'rgba(255, 206, 86, 1)' 
+                        'rgba(255, 206, 86, 1)', 'rgba(255, 206, 86, 1)', 'rgba(255, 206, 86, 1)', 
+                        'rgba(255, 206, 86, 1)' 
                     ],
                     borderWidth: 1
                 },{
@@ -629,13 +660,15 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
                         'rgba(175, 192, 192, 0.6)', 'rgba(175, 192, 192, 0.6)', 'rgba(175, 192, 192, 0.6)',
                         'rgba(175, 192, 192, 0.6)', 'rgba(175, 192, 192, 0.6)', 'rgba(175, 192, 192, 0.6)',
                         'rgba(175, 192, 192, 0.6)', 'rgba(175, 192, 192, 0.6)', 'rgba(175, 192, 192, 0.6)',
-                        'rgba(175, 192, 192, 0.6)', 'rgba(175, 192, 192, 0.6)', 'rgba(175, 192, 192, 0.6)'
+                        'rgba(175, 192, 192, 0.6)', 'rgba(175, 192, 192, 0.6)', 'rgba(175, 192, 192, 0.6)', 
+                        'rgba(175, 192, 192, 0.6)'
                     ],
                     borderColor: [
                         'rgba(175, 192, 192, 0.6)', 'rgba(175, 192, 192, 0.6)', 'rgba(175, 192, 192, 0.6)',
                         'rgba(175, 192, 192, 0.6)', 'rgba(175, 192, 192, 0.6)', 'rgba(175, 192, 192, 0.6)',
                         'rgba(175, 192, 192, 0.6)', 'rgba(175, 192, 192, 0.6)', 'rgba(175, 192, 192, 0.6)',
-                        'rgba(175, 192, 192, 0.6)', 'rgba(175, 192, 192, 0.6)', 'rgba(175, 192, 192, 0.6)'
+                        'rgba(175, 192, 192, 0.6)', 'rgba(175, 192, 192, 0.6)', 'rgba(175, 192, 192, 0.6)', 
+                        'rgba(175, 192, 192, 0.6)'
                     ],
                     borderWidth: 1
                 },{
@@ -645,14 +678,16 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
                         'rgba(153, 102, 255, 1)', 'rgba(153, 102, 255, 1)', 'rgba(153, 102, 255, 1)',
                         'rgba(153, 102, 255, 1)', 'rgba(153, 102, 255, 1)', 'rgba(153, 102, 255, 1)',
                         'rgba(153, 102, 255, 1)', 'rgba(153, 102, 255, 1)', 'rgba(153, 102, 255, 1)',
-                        'rgba(153, 102, 255, 1)', 'rgba(153, 102, 255, 1)', 'rgba(153, 102, 255, 1)'
+                        'rgba(153, 102, 255, 1)', 'rgba(153, 102, 255, 1)', 'rgba(153, 102, 255, 1)', 
+                        'rgba(153, 102, 255, 1)'
                         
                     ],
                     borderColor: [
                         'rgba(153, 102, 255, 1)', 'rgba(153, 102, 255, 1)', 'rgba(153, 102, 255, 1)',
                         'rgba(153, 102, 255, 1)', 'rgba(153, 102, 255, 1)', 'rgba(153, 102, 255, 1)',
                         'rgba(153, 102, 255, 1)', 'rgba(153, 102, 255, 1)', 'rgba(153, 102, 255, 1)',
-                        'rgba(153, 102, 255, 1)', 'rgba(153, 102, 255, 1)', 'rgba(153, 102, 255, 1)'
+                        'rgba(153, 102, 255, 1)', 'rgba(153, 102, 255, 1)', 'rgba(153, 102, 255, 1)', 
+                        'rgba(153, 102, 255, 1)'
                     ],
                     borderWidth: 1
                 },{
@@ -662,13 +697,15 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
                         'rgba(255, 0, 255, 1)', 'rgba(255, 0, 255, 1)', 'rgba(255, 0, 255, 1)',
                         'rgba(255, 0, 255, 1)', 'rgba(255, 0, 255, 1)', 'rgba(255, 0, 255, 1)',
                         'rgba(255, 0, 255, 1)', 'rgba(255, 0, 255, 1)', 'rgba(255, 0, 255, 1)',
-                        'rgba(255, 0, 255, 1)', 'rgba(255, 0, 255, 1)', 'rgba(255, 0, 255, 1)'
+                        'rgba(255, 0, 255, 1)', 'rgba(255, 0, 255, 1)', 'rgba(255, 0, 255, 1)', 
+                        'rgba(255, 0, 255, 1)'
                     ],
                     borderColor: [
                         'rgba(255, 0, 255, 1)', 'rgba(255, 0, 255, 1)', 'rgba(255, 0, 255, 1)',
                         'rgba(255, 0, 255, 1)', 'rgba(255, 0, 255, 1)', 'rgba(255, 0, 255, 1)',
                         'rgba(255, 0, 255, 1)', 'rgba(255, 0, 255, 1)', 'rgba(255, 0, 255, 1)',
-                        'rgba(255, 0, 255, 1)', 'rgba(255, 0, 255, 1)', 'rgba(255, 0, 255, 1)'
+                        'rgba(255, 0, 255, 1)', 'rgba(255, 0, 255, 1)', 'rgba(255, 0, 255, 1)', 
+                        'rgba(255, 0, 255, 1)'
                     ],
                     borderWidth: 1
                 }
@@ -721,11 +758,11 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
         //alert(aux);
     }
 
-    alert(costLastSixMonths);
+    //alert(costLastSixMonths);
 
     costLastSixMonths /= 6;
     
-    alert(costLastSixMonths);
+    //alert(costLastSixMonths);
     
     costLastSixMonths = costLastSixMonths - (costLastSixMonths * 0.05)
 
@@ -743,6 +780,7 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
     allMonths10 = 0;
     allMonths11 = 0;
     allMonths12 = 0;
+    allMonths13 = 0;
 
     allMonths01 = month01109 + month01117 + month01118 + month01123 + month01157 + month01229;
     allMonths02 = month02109 + month02117 + month02118 + month02123 + month02157 + month02229;
@@ -756,9 +794,10 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
     allMonths10 = month10109 + month10117 + month10118 + month10123 + month10157 + month10229;
     allMonths11 = month11109 + month11117 + month11118 + month11123 + month11157 + month11229;
     allMonths12 = month12109 + month12117 + month12118 + month12123 + month12157 + month12229;
+    allMonths13 = month13109 + month13117 + month13118 + month13123 + month13157 + month13229;
 
     allMonths = [allMonths01, allMonths02, allMonths03, allMonths04, allMonths05, allMonths06,
-        allMonths07, allMonths08, allMonths09, allMonths10, allMonths11, allMonths12];
+        allMonths07, allMonths08, allMonths09, allMonths10, allMonths11, allMonths12, allMonths13];
 
     allMonthsFinish = [];
     for (var i = 0; i < labels.length; i++) {
@@ -790,9 +829,11 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
                         'rgba(92, 159, 255, 0.9)','rgba(92, 159, 255, 0.9)','rgba(92, 159, 255, 0.9)',
                         'rgba(92, 159, 255, 0.9)','rgba(92, 159, 255, 0.9)','rgba(92, 159, 255, 0.9)',
                         'rgba(92, 159, 255, 0.9)','rgba(92, 159, 255, 0.9)','rgba(92, 159, 255, 0.9)',
+                        'rgba(92, 159, 255, 0.9)','rgba(92, 159, 255, 0.9)','rgba(92, 159, 255, 0.9)',
                         'rgba(92, 159, 255, 0.9)','rgba(92, 159, 255, 0.9)','rgba(92, 159, 255, 0.9)'
                     ],
                     borderColor: [
+                        'rgba(92, 159, 255, 0.9)','rgba(92, 159, 255, 0.9)','rgba(92, 159, 255, 0.9)',
                         'rgba(92, 159, 255, 0.9)','rgba(92, 159, 255, 0.9)','rgba(92, 159, 255, 0.9)',
                         'rgba(92, 159, 255, 0.9)','rgba(92, 159, 255, 0.9)','rgba(92, 159, 255, 0.9)',
                         'rgba(92, 159, 255, 0.9)','rgba(92, 159, 255, 0.9)','rgba(92, 159, 255, 0.9)',
@@ -853,6 +894,8 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
 
     $("#CustoDeHorasExtraPorCentroDeCusto").click(function() {    
 
+        //alert('wow');
+        
         var cc = document.getElementById('CustoDeHorasExtraPorCentroDeCustoCCS').value; 
 
         $('#modal-container-01').modal('hide');
@@ -876,6 +919,7 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
         var month10109 = 0;
         var month11109 = 0;
         var month12109 = 0;
+        var month13109 = 0;
 
         var month01117 = 0;
         var month02117 = 0;
@@ -889,6 +933,7 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
         var month10117 = 0;
         var month11117 = 0;
         var month12117 = 0;
+        var month13117 = 0;
 
         var month01118 = 0;
         var month02118 = 0;
@@ -902,6 +947,7 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
         var month10118 = 0;
         var month11118 = 0;
         var month12118 = 0;
+        var month13118 = 0;
 
         var month01123 = 0;
         var month02123 = 0;
@@ -915,6 +961,7 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
         var month10123 = 0;
         var month11123 = 0;
         var month12123 = 0;
+        var month13123 = 0;
 
         var month01157 = 0;
         var month02157 = 0;
@@ -928,6 +975,7 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
         var month10157 = 0;
         var month11157 = 0;
         var month12157 = 0;
+        var month13157 = 0;
 
         var month01229 = 0;
         var month02229 = 0;
@@ -941,6 +989,7 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
         var month10229 = 0;
         var month11229 = 0;
         var month12229 = 0;
+        var month13229 = 0;
 
 
         //populando o grafico
@@ -984,6 +1033,9 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
                         }else if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '12') {
                             var aux = parseFloat(extraHourYearCurrent[x].SOMA);
                             month12109 += aux;
+                        }else if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '13') {
+                            var aux = parseFloat(extraHourYearCurrent[x].SOMA);
+                            month13109 += aux;
                         }                       
                     }else if (extraHourYearCurrent[x].RD_PD === '117' && extraHourYearCurrent[x].RD_DATARQ === labels[i]) {
                         if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '01') {
@@ -1022,6 +1074,9 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
                         }else if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '12') {
                             var aux = parseFloat(extraHourYearCurrent[x].SOMA);
                             month12117 += aux;
+                        }else if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '13') {
+                            var aux = parseFloat(extraHourYearCurrent[x].SOMA);
+                            month13117 += aux;
                         }                       
                     }else if (extraHourYearCurrent[x].RD_PD === '118' && extraHourYearCurrent[x].RD_DATARQ === labels[i]) {
                         if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '01') {
@@ -1060,6 +1115,9 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
                         }else if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '12') {
                             var aux = parseFloat(extraHourYearCurrent[x].SOMA);
                             month12118 += aux;
+                        }else if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '13') {
+                            var aux = parseFloat(extraHourYearCurrent[x].SOMA);
+                            month13118 += aux;
                         }                       
                     }else if (extraHourYearCurrent[x].RD_PD === '123' && extraHourYearCurrent[x].RD_DATARQ === labels[i]) {
                         if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '01') {
@@ -1098,6 +1156,9 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
                         }else if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '12') {
                             var aux = parseFloat(extraHourYearCurrent[x].SOMA);
                             month12123 += aux;
+                        }else if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '13') {
+                            var aux = parseFloat(extraHourYearCurrent[x].SOMA);
+                            month13123 += aux;
                         }                       
                     }else if (extraHourYearCurrent[x].RD_PD === '157' && extraHourYearCurrent[x].RD_DATARQ === labels[i]) {
                         if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '01') {
@@ -1136,6 +1197,9 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
                         }else if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '12') {
                             var aux = parseFloat(extraHourYearCurrent[x].SOMA);
                             month12157 += aux;
+                        }else if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '13') {
+                            var aux = parseFloat(extraHourYearCurrent[x].SOMA);
+                            month13157 += aux;
                         }                       
                     }else if (extraHourYearCurrent[x].RD_PD === '229' && extraHourYearCurrent[x].RD_DATARQ === labels[i]) {
                         if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '01') {
@@ -1174,6 +1238,9 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
                         }else if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '12') {
                             var aux = parseFloat(extraHourYearCurrent[x].SOMA);
                             month12229 += aux;
+                        }else if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '13') {
+                            var aux = parseFloat(extraHourYearCurrent[x].SOMA);
+                            month13229 += aux;
                         }                       
                     }
                 }else{
@@ -1215,7 +1282,10 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
                             }else if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '12') {
                                 var aux = parseFloat(extraHourYearCurrent[x].SOMA);
                                 month12109 += aux;
-                            }                       
+                            }else if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '13') {
+                                var aux = parseFloat(extraHourYearCurrent[x].SOMA);
+                                month13109 += aux;
+                            }                        
                         }else if (extraHourYearCurrent[x].RD_PD === '117' && extraHourYearCurrent[x].RD_DATARQ === labels[i]) {
                             if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '01') {
                                 var aux = parseFloat(extraHourYearCurrent[x].SOMA);
@@ -1253,6 +1323,9 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
                             }else if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '12') {
                                 var aux = parseFloat(extraHourYearCurrent[x].SOMA);
                                 month12117 += aux;
+                            }else if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '13') {
+                                var aux = parseFloat(extraHourYearCurrent[x].SOMA);
+                                month13117 += aux;
                             }                       
                         }else if (extraHourYearCurrent[x].RD_PD === '118' && extraHourYearCurrent[x].RD_DATARQ === labels[i]) {
                             if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '01') {
@@ -1291,7 +1364,10 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
                             }else if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '12') {
                                 var aux = parseFloat(extraHourYearCurrent[x].SOMA);
                                 month12118 += aux;
-                            }                       
+                            }else if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '13') {
+                                var aux = parseFloat(extraHourYearCurrent[x].SOMA);
+                                month13118 += aux;
+                            }                        
                         }else if (extraHourYearCurrent[x].RD_PD === '123' && extraHourYearCurrent[x].RD_DATARQ === labels[i]) {
                             if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '01') {
                                 var aux = parseFloat(extraHourYearCurrent[x].SOMA);
@@ -1329,6 +1405,9 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
                             }else if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '12') {
                                 var aux = parseFloat(extraHourYearCurrent[x].SOMA);
                                 month12123 += aux;
+                            }else if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '13') {
+                                var aux = parseFloat(extraHourYearCurrent[x].SOMA);
+                                month13123 += aux;
                             }                       
                         }else if (extraHourYearCurrent[x].RD_PD === '157' && extraHourYearCurrent[x].RD_DATARQ === labels[i]) {
                             if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '01') {
@@ -1367,7 +1446,10 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
                             }else if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '12') {
                                 var aux = parseFloat(extraHourYearCurrent[x].SOMA);
                                 month12157 += aux;
-                            }                       
+                            }else if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '13') {
+                                var aux = parseFloat(extraHourYearCurrent[x].SOMA);
+                                month13157 += aux;
+                            }                        
                         }else if (extraHourYearCurrent[x].RD_PD === '229' && extraHourYearCurrent[x].RD_DATARQ === labels[i]) {
                             if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '01') {
                                 var aux = parseFloat(extraHourYearCurrent[x].SOMA);
@@ -1405,6 +1487,9 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
                             }else if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '12') {
                                 var aux = parseFloat(extraHourYearCurrent[x].SOMA);
                                 month12229 += aux;
+                            }else if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '13') {
+                                var aux = parseFloat(extraHourYearCurrent[x].SOMA);
+                                month13229 += aux;
                             }                       
                         }
                     }
@@ -1415,7 +1500,7 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
         var months109 = [ month01109.toFixed(2), month02109.toFixed(2), month03109.toFixed(2)
             , month04109.toFixed(2), month05109.toFixed(2), month06109.toFixed(2)
             , month07109.toFixed(2), month08109.toFixed(2), month09109.toFixed(2)
-            , month10109.toFixed(2), month11109.toFixed(2), month12109.toFixed(2) ];
+            , month10109.toFixed(2), month11109.toFixed(2), month12109.toFixed(2), month13109.toFixed(2) ];
 
         for (var i = 0; i < labels.length; i++) {
             values109.push(months109[i]);
@@ -1424,7 +1509,7 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
         var months117 = [ month01117.toFixed(2), month02117.toFixed(2), month03117.toFixed(2)
             , month04117.toFixed(2), month05117.toFixed(2), month06117.toFixed(2)
             , month07117.toFixed(2), month08117.toFixed(2), month09117.toFixed(2)
-            , month10117.toFixed(2), month11117.toFixed(2), month12117.toFixed(2) ];
+            , month10117.toFixed(2), month11117.toFixed(2), month12117.toFixed(2), month13117.toFixed(2) ];
 
         for (var i = 0; i < labels.length; i++) {
             values117.push(months117[i]);
@@ -1433,7 +1518,7 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
         var months118 = [ month01118.toFixed(2), month02118.toFixed(2), month03118.toFixed(2)
             , month04118.toFixed(2), month05118.toFixed(2), month06118.toFixed(2)
             , month07118.toFixed(2), month08118.toFixed(2), month09118.toFixed(2)
-            , month10118.toFixed(2), month11118.toFixed(2), month12118.toFixed(2) ];
+            , month10118.toFixed(2), month11118.toFixed(2), month12118.toFixed(2), month13118.toFixed(2) ];
 
         for (var i = 0; i < labels.length; i++) {
             values118.push(months118[i]);
@@ -1442,7 +1527,7 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
         var months123 = [ month01123.toFixed(2), month02123.toFixed(2), month03123.toFixed(2)
             , month04123.toFixed(2), month05123.toFixed(2), month06123.toFixed(2)
             , month07123.toFixed(2), month08123.toFixed(2), month09123.toFixed(2)
-            , month10123.toFixed(2), month11123.toFixed(2), month12123.toFixed(2) ];
+            , month10123.toFixed(2), month11123.toFixed(2), month12123.toFixed(2), month13123.toFixed(2) ];
 
         for (var i = 0; i < labels.length; i++) {
             values123.push(months123[i]);
@@ -1451,7 +1536,7 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
         var months157 = [ month01157.toFixed(2), month02157.toFixed(2), month03157.toFixed(2)
             , month04157.toFixed(2), month05157.toFixed(2), month06157.toFixed(2)
             , month07157.toFixed(2), month08157.toFixed(2), month09157.toFixed(2)
-            , month10157.toFixed(2), month11157.toFixed(2), month12157.toFixed(2) ];
+            , month10157.toFixed(2), month11157.toFixed(2), month12157.toFixed(2), month13157.toFixed(2) ];
 
         for (var i = 0; i < labels.length; i++) {
             values157.push(months157[i]);
@@ -1460,7 +1545,7 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
         var months229 = [ month01229.toFixed(2), month02229.toFixed(2), month03229.toFixed(2)
             , month04229.toFixed(2), month05229.toFixed(2), month06229.toFixed(2)
             , month07229.toFixed(2), month08229.toFixed(2), month09229.toFixed(2)
-            , month10229.toFixed(2), month11229.toFixed(2), month12229.toFixed(2) ];
+            , month10229.toFixed(2), month11229.toFixed(2), month12229.toFixed(2), month13229.toFixed(2) ];
 
         for (var i = 0; i < labels.length; i++) {
             values229.push(months229[i]);
@@ -1490,9 +1575,11 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
                             'rgba(255, 99, 132, 1)',
                             'rgba(255, 99, 132, 1)',
                             'rgba(255, 99, 132, 1)',
+                            'rgba(255, 99, 132, 1)',
                             'rgba(255, 99, 132, 1)'
                         ],
                         borderColor: [
+                            'rgba(255, 99, 132, 1)',
                             'rgba(255, 99, 132, 1)',
                             'rgba(255, 99, 132, 1)',
                             'rgba(255, 99, 132, 1)',
@@ -1523,9 +1610,11 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
                             'rgba(54, 162, 235, 1)',
                             'rgba(54, 162, 235, 1)',
                             'rgba(54, 162, 235, 1)',
+                            'rgba(54, 162, 235, 1)',
                             'rgba(54, 162, 235, 1)'
                         ],
                         borderColor: [
+                            'rgba(54, 162, 235, 1)',
                             'rgba(54, 162, 235, 1)',
                             'rgba(54, 162, 235, 1)',
                             'rgba(54, 162, 235, 1)',
@@ -1555,9 +1644,11 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
                             'rgba(255, 206, 86, 1)',
                             'rgba(255, 206, 86, 1)',
                             'rgba(255, 206, 86, 1)',
+                            'rgba(255, 206, 86, 1)',
                             'rgba(255, 206, 86, 1)'
                         ],
                         borderColor: [
+                            'rgba(255, 206, 86, 1)',
                             'rgba(255, 206, 86, 1)',
                             'rgba(255, 206, 86, 1)',
                             'rgba(255, 206, 86, 1)',
@@ -1587,9 +1678,11 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
                             'rgba(175, 192, 192, 0.6)',
                             'rgba(175, 192, 192, 0.6)',
                             'rgba(175, 192, 192, 0.6)',
+                            'rgba(175, 192, 192, 0.6)',
                             'rgba(175, 192, 192, 0.6)'
                         ],
                         borderColor: [
+                            'rgba(175, 192, 192, 0.6)',
                             'rgba(175, 192, 192, 0.6)',
                             'rgba(175, 192, 192, 0.6)',
                             'rgba(175, 192, 192, 0.6)',
@@ -1611,10 +1704,12 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
                             'rgba(153, 102, 255, 1)', 'rgba(153, 102, 255, 1)', 'rgba(153, 102, 255, 1)',
                             'rgba(153, 102, 255, 1)', 'rgba(153, 102, 255, 1)', 'rgba(153, 102, 255, 1)',
                             'rgba(153, 102, 255, 1)', 'rgba(153, 102, 255, 1)', 'rgba(153, 102, 255, 1)',
+                            'rgba(153, 102, 255, 1)', 'rgba(153, 102, 255, 1)', 'rgba(153, 102, 255, 1)',
                             'rgba(153, 102, 255, 1)', 'rgba(153, 102, 255, 1)', 'rgba(153, 102, 255, 1)'
                         
                         ],
                         borderColor: [
+                            'rgba(153, 102, 255, 1)', 'rgba(153, 102, 255, 1)', 'rgba(153, 102, 255, 1)',
                             'rgba(153, 102, 255, 1)', 'rgba(153, 102, 255, 1)', 'rgba(153, 102, 255, 1)',
                             'rgba(153, 102, 255, 1)', 'rgba(153, 102, 255, 1)', 'rgba(153, 102, 255, 1)',
                             'rgba(153, 102, 255, 1)', 'rgba(153, 102, 255, 1)', 'rgba(153, 102, 255, 1)',
@@ -1628,9 +1723,11 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
                             'rgba(255, 0, 255, 1)', 'rgba(255, 0, 255, 1)', 'rgba(255, 0, 255, 1)',
                             'rgba(255, 0, 255, 1)', 'rgba(255, 0, 255, 1)', 'rgba(255, 0, 255, 1)',
                             'rgba(255, 0, 255, 1)', 'rgba(255, 0, 255, 1)', 'rgba(255, 0, 255, 1)',
+                            'rgba(255, 0, 255, 1)', 'rgba(255, 0, 255, 1)', 'rgba(255, 0, 255, 1)',
                             'rgba(255, 0, 255, 1)', 'rgba(255, 0, 255, 1)', 'rgba(255, 0, 255, 1)'
                         ],
                         borderColor: [
+                            'rgba(255, 0, 255, 1)', 'rgba(255, 0, 255, 1)', 'rgba(255, 0, 255, 1)',
                             'rgba(255, 0, 255, 1)', 'rgba(255, 0, 255, 1)', 'rgba(255, 0, 255, 1)',
                             'rgba(255, 0, 255, 1)', 'rgba(255, 0, 255, 1)', 'rgba(255, 0, 255, 1)',
                             'rgba(255, 0, 255, 1)', 'rgba(255, 0, 255, 1)', 'rgba(255, 0, 255, 1)',
@@ -1702,6 +1799,7 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
         var month10109 = 0;
         var month11109 = 0;
         var month12109 = 0;
+        var month13109 = 0;
 
         var month01117 = 0;
         var month02117 = 0;
@@ -1715,6 +1813,7 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
         var month10117 = 0;
         var month11117 = 0;
         var month12117 = 0;
+        var month13117 = 0;
 
         var month01118 = 0;
         var month02118 = 0;
@@ -1728,6 +1827,7 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
         var month10118 = 0;
         var month11118 = 0;
         var month12118 = 0;
+        var month13118 = 0;
 
         var month01123 = 0;
         var month02123 = 0;
@@ -1741,6 +1841,7 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
         var month10123 = 0;
         var month11123 = 0;
         var month12123 = 0;
+        var month13123 = 0;
 
         var month01157 = 0;
         var month02157 = 0;
@@ -1754,6 +1855,7 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
         var month10157 = 0;
         var month11157 = 0;
         var month12157 = 0;
+        var month13157 = 0;
 
         var month01229 = 0;
         var month02229 = 0;
@@ -1767,6 +1869,7 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
         var month10229 = 0;
         var month11229 = 0;
         var month12229 = 0;
+        var month13229 = 0;
 
         //populando o grafico
         for (var i = 0; i < labels.length; i++) {
@@ -1809,7 +1912,10 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
                         }else if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '12') {
                             var aux = parseFloat(extraHourYearCurrent[x].SOMA);
                             month12109 += aux;
-                        }                       
+                        }else if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '13') {
+                            var aux = parseFloat(extraHourYearCurrent[x].SOMA);
+                            month13109 += aux;
+                        }                         
                     }else if (extraHourYearCurrent[x].RD_PD === '117' && extraHourYearCurrent[x].RD_DATARQ === labels[i]) {
                         if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '01') {
                             var aux = parseFloat(extraHourYearCurrent[x].SOMA);
@@ -1847,7 +1953,10 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
                         }else if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '12') {
                             var aux = parseFloat(extraHourYearCurrent[x].SOMA);
                             month12117 += aux;
-                        }                       
+                        }else if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '13') {
+                            var aux = parseFloat(extraHourYearCurrent[x].SOMA);
+                            month13117 += aux;
+                        }                     
                     }else if (extraHourYearCurrent[x].RD_PD === '118' && extraHourYearCurrent[x].RD_DATARQ === labels[i]) {
                         if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '01') {
                             var aux = parseFloat(extraHourYearCurrent[x].SOMA);
@@ -1885,6 +1994,9 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
                         }else if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '12') {
                             var aux = parseFloat(extraHourYearCurrent[x].SOMA);
                             month12118 += aux;
+                        }else if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '13') {
+                            var aux = parseFloat(extraHourYearCurrent[x].SOMA);
+                            month13118 += aux;
                         }                       
                     }else if (extraHourYearCurrent[x].RD_PD === '123' && extraHourYearCurrent[x].RD_DATARQ === labels[i]) {
                         if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '01') {
@@ -1923,7 +2035,10 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
                         }else if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '12') {
                             var aux = parseFloat(extraHourYearCurrent[x].SOMA);
                             month12123 += aux;
-                        }                       
+                        }else if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '13') {
+                            var aux = parseFloat(extraHourYearCurrent[x].SOMA);
+                            month13123 += aux;
+                        }                        
                     }else if (extraHourYearCurrent[x].RD_PD === '157' && extraHourYearCurrent[x].RD_DATARQ === labels[i]) {
                         if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '01') {
                             var aux = parseFloat(extraHourYearCurrent[x].SOMA);
@@ -1961,7 +2076,10 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
                         }else if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '12') {
                             var aux = parseFloat(extraHourYearCurrent[x].SOMA);
                             month12157 += aux;
-                        }                       
+                        }else if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '13') {
+                            var aux = parseFloat(extraHourYearCurrent[x].SOMA);
+                            month13157 += aux;
+                        }                        
                     }else if (extraHourYearCurrent[x].RD_PD === '229' && extraHourYearCurrent[x].RD_DATARQ === labels[i]) {
                         if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '01') {
                             var aux = parseFloat(extraHourYearCurrent[x].SOMA);
@@ -1999,6 +2117,9 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
                         }else if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '12') {
                             var aux = parseFloat(extraHourYearCurrent[x].SOMA);
                             month12229 += aux;
+                        }else if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '13') {
+                            var aux = parseFloat(extraHourYearCurrent[x].SOMA);
+                            month13229 += aux;
                         }                       
                     }
                 }else{
@@ -2040,7 +2161,10 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
                             }else if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '12') {
                                 var aux = parseFloat(extraHourYearCurrent[x].SOMA);
                                 month12109 += aux;
-                            }                       
+                            }else if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '13') {
+                                var aux = parseFloat(extraHourYearCurrent[x].SOMA);
+                                month13109 += aux;
+                            }                        
                         }else if (extraHourYearCurrent[x].RD_PD === '117' && extraHourYearCurrent[x].RD_DATARQ === labels[i]) {
                             if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '01') {
                                 var aux = parseFloat(extraHourYearCurrent[x].SOMA);
@@ -2078,7 +2202,10 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
                             }else if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '12') {
                                 var aux = parseFloat(extraHourYearCurrent[x].SOMA);
                                 month12117 += aux;
-                            }                       
+                            }else if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '13') {
+                                var aux = parseFloat(extraHourYearCurrent[x].SOMA);
+                                month13117 += aux;
+                            }                        
                         }else if (extraHourYearCurrent[x].RD_PD === '118' && extraHourYearCurrent[x].RD_DATARQ === labels[i]) {
                             if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '01') {
                                 var aux = parseFloat(extraHourYearCurrent[x].SOMA);
@@ -2116,7 +2243,10 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
                             }else if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '12') {
                                 var aux = parseFloat(extraHourYearCurrent[x].SOMA);
                                 month12118 += aux;
-                            }                       
+                            }else if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '13') {
+                                var aux = parseFloat(extraHourYearCurrent[x].SOMA);
+                                month13118 += aux;
+                            }                        
                         }else if (extraHourYearCurrent[x].RD_PD === '123' && extraHourYearCurrent[x].RD_DATARQ === labels[i]) {
                             if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '01') {
                                 var aux = parseFloat(extraHourYearCurrent[x].SOMA);
@@ -2154,7 +2284,10 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
                             }else if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '12') {
                                 var aux = parseFloat(extraHourYearCurrent[x].SOMA);
                                 month12123 += aux;
-                            }                       
+                            }else if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '13') {
+                                var aux = parseFloat(extraHourYearCurrent[x].SOMA);
+                                month13123 += aux;
+                            }                        
                         }else if (extraHourYearCurrent[x].RD_PD === '157' && extraHourYearCurrent[x].RD_DATARQ === labels[i]) {
                             if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '01') {
                                 var aux = parseFloat(extraHourYearCurrent[x].SOMA);
@@ -2192,7 +2325,10 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
                             }else if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '12') {
                                 var aux = parseFloat(extraHourYearCurrent[x].SOMA);
                                 month12157 += aux;
-                            }                       
+                            }else if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '13') {
+                                var aux = parseFloat(extraHourYearCurrent[x].SOMA);
+                                month13157 += aux;
+                            }                        
                         }else if (extraHourYearCurrent[x].RD_PD === '229' && extraHourYearCurrent[x].RD_DATARQ === labels[i]) {
                             if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '01') {
                                 var aux = parseFloat(extraHourYearCurrent[x].SOMA);
@@ -2230,7 +2366,10 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
                             }else if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '12') {
                                 var aux = parseFloat(extraHourYearCurrent[x].SOMA);
                                 month12229 += aux;
-                            }                       
+                            }else if (extraHourYearCurrent[x].RD_DATARQ.substring(4,6) == '13') {
+                                var aux = parseFloat(extraHourYearCurrent[x].SOMA);
+                                month13229 += aux;
+                            }                        
                         }
                     }
                 }
@@ -2240,7 +2379,7 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
         var months109 = [ month01109.toFixed(2), month02109.toFixed(2), month03109.toFixed(2)
             , month04109.toFixed(2), month05109.toFixed(2), month06109.toFixed(2)
             , month07109.toFixed(2), month08109.toFixed(2), month09109.toFixed(2)
-            , month10109.toFixed(2), month11109.toFixed(2), month12109.toFixed(2) ];
+            , month10109.toFixed(2), month11109.toFixed(2), month12109.toFixed(2), month13109.toFixed(2) ];
 
         for (var i = 0; i < labels.length; i++) {
             values109.push(months109[i]);
@@ -2249,7 +2388,7 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
         var months117 = [ month01117.toFixed(2), month02117.toFixed(2), month03117.toFixed(2)
             , month04117.toFixed(2), month05117.toFixed(2), month06117.toFixed(2)
             , month07117.toFixed(2), month08117.toFixed(2), month09117.toFixed(2)
-            , month10117.toFixed(2), month11117.toFixed(2), month12117.toFixed(2) ];
+            , month10117.toFixed(2), month11117.toFixed(2), month12117.toFixed(2), month13117.toFixed(2) ];
 
         for (var i = 0; i < labels.length; i++) {
             values117.push(months117[i]);
@@ -2258,7 +2397,7 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
         var months118 = [ month01118.toFixed(2), month02118.toFixed(2), month03118.toFixed(2)
             , month04118.toFixed(2), month05118.toFixed(2), month06118.toFixed(2)
             , month07118.toFixed(2), month08118.toFixed(2), month09118.toFixed(2)
-            , month10118.toFixed(2), month11118.toFixed(2), month12118.toFixed(2) ];
+            , month10118.toFixed(2), month11118.toFixed(2), month12118.toFixed(2), month13118.toFixed(2) ];
 
         for (var i = 0; i < labels.length; i++) {
             values118.push(months118[i]);
@@ -2267,7 +2406,7 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
         var months123 = [ month01123.toFixed(2), month02123.toFixed(2), month03123.toFixed(2)
             , month04123.toFixed(2), month05123.toFixed(2), month06123.toFixed(2)
             , month07123.toFixed(2), month08123.toFixed(2), month09123.toFixed(2)
-            , month10123.toFixed(2), month11123.toFixed(2), month12123.toFixed(2) ];
+            , month10123.toFixed(2), month11123.toFixed(2), month12123.toFixed(2), month13123.toFixed(2) ];
 
         for (var i = 0; i < labels.length; i++) {
             values123.push(months123[i]);
@@ -2276,7 +2415,7 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
         var months157 = [ month01157.toFixed(2), month02157.toFixed(2), month03157.toFixed(2)
             , month04157.toFixed(2), month05157.toFixed(2), month06157.toFixed(2)
             , month07157.toFixed(2), month08157.toFixed(2), month09157.toFixed(2)
-            , month10157.toFixed(2), month11157.toFixed(2), month12157.toFixed(2) ];
+            , month10157.toFixed(2), month11157.toFixed(2), month12157.toFixed(2), month13157.toFixed(2) ];
 
         for (var i = 0; i < labels.length; i++) {
             values157.push(months157[i]);
@@ -2285,7 +2424,7 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
         var months229 = [ month01229.toFixed(2), month02229.toFixed(2), month03229.toFixed(2)
             , month04229.toFixed(2), month05229.toFixed(2), month06229.toFixed(2)
             , month07229.toFixed(2), month08229.toFixed(2), month09229.toFixed(2)
-            , month10229.toFixed(2), month11229.toFixed(2), month12229.toFixed(2) ];
+            , month10229.toFixed(2), month11229.toFixed(2), month12229.toFixed(2), month13229.toFixed(2) ];
 
         for (var i = 0; i < labels.length; i++) {
             values229.push(months229[i]);
@@ -2329,6 +2468,7 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
         var allMonths10 = 0;
         var allMonths11 = 0;
         var allMonths12 = 0;
+        var allMonths13 = 0;
 
         allMonths01 = month01109 + month01117 + month01118 + month01123 + month01157 + month01229;
         allMonths02 = month02109 + month02117 + month02118 + month02123 + month02157 + month02229;
@@ -2342,9 +2482,10 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
         allMonths10 = month10109 + month10117 + month10118 + month10123 + month10157 + month10229;
         allMonths11 = month11109 + month11117 + month11118 + month11123 + month11157 + month11229;
         allMonths12 = month12109 + month12117 + month12118 + month12123 + month12157 + month12229;
+        allMonths13 = month13109 + month13117 + month13118 + month13123 + month13157 + month13229;
 
         var allMonths = [allMonths01, allMonths02, allMonths03, allMonths04, allMonths05, allMonths06,
-            allMonths07, allMonths08, allMonths09, allMonths10, allMonths11, allMonths12]
+            allMonths07, allMonths08, allMonths09, allMonths10, allMonths11, allMonths12, allMonths13]
 
         var allMonthsFinish = [];
         for (var i = 0; i < labels.length; i++) {
@@ -2376,9 +2517,11 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
                             'rgba(92, 159, 255, 0.9)','rgba(92, 159, 255, 0.9)','rgba(92, 159, 255, 0.9)',
                             'rgba(92, 159, 255, 0.9)','rgba(92, 159, 255, 0.9)','rgba(92, 159, 255, 0.9)',
                             'rgba(92, 159, 255, 0.9)','rgba(92, 159, 255, 0.9)','rgba(92, 159, 255, 0.9)',
+                            'rgba(92, 159, 255, 0.9)','rgba(92, 159, 255, 0.9)','rgba(92, 159, 255, 0.9)',
                             'rgba(92, 159, 255, 0.9)','rgba(92, 159, 255, 0.9)','rgba(92, 159, 255, 0.9)'
                         ],
                         borderColor: [
+                            'rgba(92, 159, 255, 0.9)','rgba(92, 159, 255, 0.9)','rgba(92, 159, 255, 0.9)',
                             'rgba(92, 159, 255, 0.9)','rgba(92, 159, 255, 0.9)','rgba(92, 159, 255, 0.9)',
                             'rgba(92, 159, 255, 0.9)','rgba(92, 159, 255, 0.9)','rgba(92, 159, 255, 0.9)',
                             'rgba(92, 159, 255, 0.9)','rgba(92, 159, 255, 0.9)','rgba(92, 159, 255, 0.9)',
