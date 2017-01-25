@@ -1,4 +1,5 @@
 <?php
+
 $date = getdate();
 $exist = false;
 $totalyear = 0;
@@ -312,6 +313,10 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                         <div class="box-body">                 
                             <table id="example1" class="table table-bordered table-hover">
                                 
+                                <div align="right">
+                                    <a id="btnExport" onclick="fnExcelReport()" class="btn btn-primary" type=""><?php echo __('Gerar Excel'); ?></a>
+                                </div>
+                                
                                 <thead>                                    
                                     <tr>           
                                         <th>Centro de custo</th>
@@ -554,7 +559,11 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                 <div class="box-body">
                     <div class="chart">          
                         <div class="box-body">                 
-                            <table id="example1" class="table table-bordered table-hover">
+                            <table id="example2" class="table table-bordered table-hover">
+                                
+                                <div align="right">
+                                    <a id="btnExport" onclick="fnExcelReport2()" class="btn btn-primary" type=""><?php echo __('Gerar Excel'); ?></a>
+                                </div>
                                 
                                 <thead>                                    
                                     <tr>           
@@ -780,3 +789,19 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
     
 </section>
 
+<script type="text/javascript">
+    
+function fnExcelReport(){
+       var htmltable= document.getElementById('example1');
+       var html = htmltable.outerHTML;
+       window.open('data:application/vnd.ms-excel,' + encodeURIComponent(html));
+}
+
+function fnExcelReport2(){
+       var htmltable= document.getElementById('example2');
+       var html = htmltable.outerHTML;
+       window.open('data:application/vnd.ms-excel,' + encodeURIComponent(html));
+}
+
+
+</script>

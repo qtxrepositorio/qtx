@@ -325,7 +325,7 @@ $html .= '<table class="table" align="center">'
         . '</thead>'
        . '<tbody>'
                         
-            . '<tr bgcolor="#FFFAFA">';
+            . '<tr bgcolor="#F5F5F5">';
                 $total = 0;
                 $html .= '<th>'.substr($cc01arryCCC[0],0,2).'</th>';
                  for ($i = 1; $i <= 12; $i++) {
@@ -345,7 +345,7 @@ $html .= '<table class="table" align="center">'
                  $totalyear += $total;
             $html .= '</tr>'
                  
-            . '<tr bgcolor="#FFFAFA">';
+            . '<tr bgcolor="#F5F5F5">';
                 $total = 0;
                 $html .= '<th>'.substr($cc06arryCCC[0],0,2).'</th>';
                  for ($i = 1; $i <= 12; $i++) {
@@ -365,7 +365,7 @@ $html .= '<table class="table" align="center">'
                  $totalyear += $total;
             $html .= '</tr>'
                  
-            . '<tr bgcolor="#FFFAFA">';
+            . '<tr bgcolor="#F5F5F5">';
                 $total = 0;
                 $html .= '<th>'.substr($cc08arryCCC[0],0,2).'</th>';
                  for ($i = 1; $i <= 12; $i++) {
@@ -385,7 +385,7 @@ $html .= '<table class="table" align="center">'
                  $totalyear += $total;
             $html .= '</tr>'
                  
-            . '<tr bgcolor="#FFFAFA">';
+            . '<tr bgcolor="#F5F5F5">';
                 $total = 0;
                 $html .= '<th>'.substr($cc12arryCCC[0],0,2).'</th>';
                  for ($i = 1; $i <= 12; $i++) {
@@ -405,7 +405,7 @@ $html .= '<table class="table" align="center">'
                  $totalyear += $total;
             $html .= '</tr>'
             
-            . '<tr bgcolor="#FFFAFA">';
+            . '<tr bgcolor="#F5F5F5">';
                 $total = 0;
                 $html .= '<th>'.substr($cc14arryCCC[0],0,2).'</th>';
                  for ($i = 1; $i <= 12; $i++) {
@@ -425,7 +425,7 @@ $html .= '<table class="table" align="center">'
                  $totalyear += $total;
             $html .= '</tr>'
             
-            . '<tr bgcolor="#FFFAFA">';
+            . '<tr bgcolor="#F5F5F5">';
                 $total = 0;
                 $html .= '<th>'.substr($cc16arryCCC[0],0,2).'</th>';
                  for ($i = 1; $i <= 12; $i++) {
@@ -445,7 +445,7 @@ $html .= '<table class="table" align="center">'
                  $totalyear += $total;
             $html .= '</tr>'
             
-            . '<tr bgcolor="#FFFAFA">';
+            . '<tr bgcolor="#F5F5F5">';
                 $total = 0;
                 $html .= '<th>'.substr($cc20arryCCC[0],0,2).'</th>';
                  for ($i = 1; $i <= 12; $i++) {
@@ -465,7 +465,7 @@ $html .= '<table class="table" align="center">'
                  $totalyear += $total;
             $html .= '</tr>'
                  
-            . '<tr bgcolor="#FFFAFA">';
+            . '<tr bgcolor="#F5F5F5">';
                 $total = 0;
                 $html .= '<th>'.substr($cc23arryCCC[0],0,2).'</th>';
                  for ($i = 1; $i <= 12; $i++) {
@@ -485,7 +485,7 @@ $html .= '<table class="table" align="center">'
                  $totalyear += $total;
             $html .= '</tr>'
                  
-            . '<tr bgcolor="#FFFAFA">';
+            . '<tr bgcolor="#F5F5F5">';
                 $total = 0;
                 $html .= '<th>'.substr($cc32arryCCC[0],0,2).'</th>';
                  for ($i = 1; $i <= 12; $i++) {
@@ -496,7 +496,7 @@ $html .= '<table class="table" align="center">'
             $html .= '</tr>'
                  
             /* LINHA PARA VALORES SEM CENTRO DE CUSTO
-             * . '<tr bgcolor="#FFFAFA">';
+             * . '<tr bgcolor="#F5F5F5">';
                 $total = 0;
                 $html .= '<th>'.substr($semCCarryCCC[0],0,2).'</th>';
                  for ($i = 1; $i <= 12; $i++) {
@@ -538,7 +538,7 @@ $html .= '<table class="table" align="center">'
         . '</thead>'
        . '<tbody>'
                         
-            . '<tr bgcolor="#FFFAFA">';
+            . '<tr bgcolor="#F5F5F5">';
                 $total = 0;
                 $html .= '<th>'.substr($cc01arryCCC[0],0,2).'</th>';
                  for ($i = 1; $i <= 12; $i++) {
@@ -558,7 +558,7 @@ $html .= '<table class="table" align="center">'
                  $totalyear += $total;
             $html .= '</tr>'
                  
-            . '<tr bgcolor="#FFFAFA">';
+            . '<tr bgcolor="#F5F5F5">';
                 $total = 0;
                 $html .= '<th>'.substr($cc06arryCCC[0],0,2).'</th>';
                  for ($i = 1; $i <= 12; $i++) {
@@ -578,7 +578,7 @@ $html .= '<table class="table" align="center">'
                  $totalyear += $total;
             $html .= '</tr>'
                  
-            . '<tr bgcolor="#FFFAFA">';
+            . '<tr bgcolor="#F5F5F5">';
                 $total = 0;
                 $html .= '<th>'.substr($cc08arryCCC[0],0,2).'</th>';
                  for ($i = 1; $i <= 12; $i++) {
@@ -598,7 +598,7 @@ $html .= '<table class="table" align="center">'
                  $totalyear += $total;
             $html .= '</tr>'
                  
-            . '<tr bgcolor="#FFFAFA">';
+            . '<tr bgcolor="#F5F5F5">';
                 $total = 0;
                 $html .= '<th>'.substr($cc12arryCCC[0],0,2).'</th>';
                  for ($i = 1; $i <= 12; $i++) {
@@ -618,7 +618,7 @@ $html .= '<table class="table" align="center">'
                  $totalyear += $total;
             $html .= '</tr>'
             
-            . '<tr bgcolor="#FFFAFA">';
+            . '<tr bgcolor="#F5F5F5">';
                 $total = 0;
                 $html .= '<th>'.substr($cc14arryCCC[0],0,2).'</th>';
                  for ($i = 1; $i <= 12; $i++) {
@@ -638,7 +638,7 @@ $html .= '<table class="table" align="center">'
                  $totalyear += $total;
             $html .= '</tr>'
             
-            . '<tr bgcolor="#FFFAFA">';
+            . '<tr bgcolor="#F5F5F5">';
                 $total = 0;
                 $html .= '<th>'.substr($cc16arryCCC[0],0,2).'</th>';
                  for ($i = 1; $i <= 12; $i++) {
@@ -658,7 +658,7 @@ $html .= '<table class="table" align="center">'
                  $totalyear += $total;
             $html .= '</tr>'
             
-            . '<tr bgcolor="#FFFAFA">';
+            . '<tr bgcolor="#F5F5F5">';
                 $total = 0;
                 $html .= '<th>'.substr($cc20arryCCC[0],0,2).'</th>';
                  for ($i = 1; $i <= 12; $i++) {
@@ -678,7 +678,7 @@ $html .= '<table class="table" align="center">'
                  $totalyear += $total;
             $html .= '</tr>'
                  
-            . '<tr bgcolor="#FFFAFA">';
+            . '<tr bgcolor="#F5F5F5">';
                 $total = 0;
                 $html .= '<th>'.substr($cc23arryCCC[0],0,2).'</th>';
                  for ($i = 1; $i <= 12; $i++) {
@@ -698,7 +698,7 @@ $html .= '<table class="table" align="center">'
                  $totalyear += $total;
             $html .= '</tr>'
                  
-            . '<tr bgcolor="#FFFAFA">';
+            . '<tr bgcolor="#F5F5F5">';
                 $total = 0;
                 $html .= '<th>'.substr($cc32arryCCC[0],0,2).'</th>';
                  for ($i = 1; $i <= 12; $i++) {
@@ -709,7 +709,7 @@ $html .= '<table class="table" align="center">'
             $html .= '</tr>'
                  
             /* LINHA PARA VALORES SEM CENTRO DE CUSTO
-             * . '<tr bgcolor="#FFFAFA">';
+             * . '<tr bgcolor="#F5F5F5">';
                 $total = 0;
                 $html .= '<th>'.substr($semCCarryCCC[0],0,2).'</th>';
                  for ($i = 1; $i <= 12; $i++) {

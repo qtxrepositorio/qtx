@@ -196,7 +196,6 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
 <?php $this->start('scriptBotton'); ?>
 <script>
 
-
     //---------------      Gráfico de horas extras x salário    ---------//
     //------------------------------INICIO INICIO INICIO---------------------------------//
     //------------------------------------------------------------------------------//

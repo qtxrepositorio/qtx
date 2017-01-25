@@ -107,8 +107,8 @@ class ControllershipController extends AppController {
                     ORDER BY [RD_CC],[RD_DATARQ]")
                 ->fetchAll('assoc');
 
-        $this->set(compact('staffPerMonth','revenuesCountCredit', 'revenuesCountDebit'));
-        $this->set('_serialize', ['staffPerMonth','revenuesCountCredit', 'revenuesCountDebit']);
+        $this->set(compact('staffPerMonth','revenuesCountCredit', 'revenuesCountDebit','year'));
+        $this->set('_serialize', ['staffPerMonth','revenuesCountCredit', 'revenuesCountDebit','year']);
             
     }
     
@@ -309,44 +309,6 @@ class ControllershipController extends AppController {
         
         $this->set(compact('revenuesCountCreditByCount', 'revenuesCountDebitByCount','year'));
         $this->set('_serialize', ['revenuesCountCreditByCount', 'revenuesCountDebitByCount','year']);
-        
-    }
-    
-    public function Revenues() {
-        
-        $connection = ConnectionManager::get('baseProtheus');
-        
-        $revenuesCountCreditByCount = $connection->execute("
-            SELECT 
-                SUM([CT2_VALOR]) AS [CT2_VALOR]
-                , [CT2_CCC]
-                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                , [CT2_CREDIT]
-                FROM [CT2010] 
-                    WHERE 
-                       SUBSTRING([CT2_DATA],1,4) = YEAR(GETDATE())
-                       AND [CT2_CREDIT] in ('31101001','31101002','31102001','31102002') 
-                       AND D_E_L_E_T_ != '*'
-                    GROUP BY [CT2_CCC], SUBSTRING([CT2_DATA],5,2), [CT2_CREDIT]
-                   ")->fetchAll('assoc');
-        
-        $revenuesCountDebitByCount = $connection->execute("
-            SELECT 
-                SUM([CT2_VALOR]) AS [CT2_VALOR]
-                , [CT2_CCD]
-                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                , [CT2_DEBITO]
-                FROM [CT2010] 
-                    WHERE 
-                        SUBSTRING([CT2_DATA],1,4) = YEAR(GETDATE())
-                        AND [CT2_DEBITO] in ('11204005','11204007','11204008','11204009','11204010','11204011') 
-                        AND D_E_L_E_T_ != '*'
-                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2), [CT2_DEBITO]
-                ")->fetchAll('assoc');       
-        
-        
-        $this->set(compact('revenuesCountCreditByCount', 'revenuesCountDebitByCount'));
-        $this->set('_serialize', ['revenuesCountCreditByCount', 'revenuesCountDebitByCount']);
         
     }
 

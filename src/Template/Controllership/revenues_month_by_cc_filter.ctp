@@ -275,7 +275,7 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <?php
                                             $x = null;
                                             echo $this->Form->create($x,['url' => ['controller'=>'Controllership','action' => 'RevenuesMonthByCcPdf']]);
-                                            echo $this->Form->input('yearPdf', ['default' => '2017' ,'disabled' => FALSE,'label'=>'Informe o ano desejado:']);
+                                            echo $this->Form->input('yearPdf', ['id' => 'yearPdf','default' => '2017' ,'disabled' => FALSE,'label'=>'Informe o ano desejado:']);
                                         ?>
                                     </div> 
                                     <div class="col-md-3"></div>                                    
@@ -311,6 +311,10 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                     <div class="chart">          
                         <div class="box-body">                 
                             <table id="example1" class="table table-bordered table-hover">
+                                
+                                <div align="right">
+                                    <a id="btnExport" onclick="fnExcelReport()" class="btn btn-primary" type=""><?php echo __('Gerar Excel'); ?></a>
+                                </div>
                                 
                                 <thead>                                    
                                     <tr>           
@@ -554,7 +558,11 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                 <div class="box-body">
                     <div class="chart">          
                         <div class="box-body">                 
-                            <table id="example1" class="table table-bordered table-hover">
+                            <table id="example2" class="table table-bordered table-hover">
+                                
+                                <div align="right">
+                                    <a id="btnExport" onclick="fnExcelReport2()" class="btn btn-primary" type=""><?php echo __('Gerar Excel'); ?></a>
+                                </div>
                                 
                                 <thead>                                    
                                     <tr>           
@@ -780,3 +788,23 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
     
 </section>
 
+
+<script type="text/javascript">
+    
+var yearPdf = JSON.parse( '<?php echo json_encode($year) ?>' );
+document.getElementById("yearPdf").value = yearPdf;
+    
+function fnExcelReport(){
+       var htmltable= document.getElementById('example1');
+       var html = htmltable.outerHTML;
+       window.open('data:application/vnd.ms-excel,' + encodeURIComponent(html));
+}
+
+function fnExcelReport2(){
+       var htmltable= document.getElementById('example2');
+       var html = htmltable.outerHTML;
+       window.open('data:application/vnd.ms-excel,' + encodeURIComponent(html));
+}
+
+
+</script>

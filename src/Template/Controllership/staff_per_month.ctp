@@ -81,6 +81,12 @@ foreach ($staffPerMonth as $key => $value) {
                         <div class="box-body">                          
                             <table id="example1" class="table table-bordered table-hover">
                                 
+                                <div align="right">
+                                    <a id="btnExport" onclick="fnExcelReport()" class="btn btn-primary" type=""><?php echo __('Gerar Excel'); ?></a>
+                                </div>
+                                
+                                <br>
+                                
                                 <thead>
                                     <tr>                                
                                         <th>Mês/Ano </th>
@@ -577,6 +583,16 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
     //         ----------------------------------------------------------- //
     // --------------------FIM FIM FIM de botões de gerar imagens------------------------ //
     //         ----------------------------------------------------------- //
+
+</script>
+
+<script type="text/javascript">
+    
+function fnExcelReport(){
+       var htmltable= document.getElementById('example1');
+       var html = htmltable.outerHTML;
+       window.open('data:application/vnd.ms-excel,' + encodeURIComponent(html));
+}
 
 </script>
 <?php $this->end(); ?>
