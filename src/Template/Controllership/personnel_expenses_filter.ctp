@@ -257,7 +257,7 @@ $outehsMonths[] = $valorTotal;
             </div>
         </div>
         <div class="col-md-6">
-            <div class="box box-success">
+            <div class="box box-warning">
                 <div class="box-header with-border">
                     <h3 class="box-title">Ações relacionadas:</b></h3>
                     <div class="box-tools pull-right">
@@ -280,7 +280,7 @@ $outehsMonths[] = $valorTotal;
                                             $x = null;
                                             echo $this->Form->create($x,['url' => ['controller'=>'Controllership','action' => 'PersonnelExpensesPdf']]);
                                             echo $this->Form->input('yearPdf', ['default' => $year ,'disabled' => FALSE,'label'=>'Informe o ano desejado:']);
-                                            echo $this->Form->input('cc', ['id' => 'cc', 'options' => $costCenters, 'label' => 'Selecione o centro de custo:']); 
+                                            echo $this->Form->input('cc', ['id' => 'ccPdf', 'options' => $costCenters, 'label' => 'Selecione o centro de custo:']); 
                                         ?>
                                     </div> 
                                     <div class="col-md-3"></div>                                    
@@ -301,9 +301,9 @@ $outehsMonths[] = $valorTotal;
     <div class="row">
         
         <div class="col-md-12">
-            <div class="box box-success">
+            <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Despesas com pessoal</h3>
+                    <h3 class="box-title">Despesas com pessoal:</h3>
                     <div class="box-tools pull-right">
                         <button type="button" class="btn btn-box-tool" data-widget="collapse">
                             <i class="fa fa-minus"></i>
@@ -463,7 +463,9 @@ Number.prototype.formatMoney = function(c, d, t){
    return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
  };
     
-    $("#cc").change(function() {        
+    $("#cc").change(function() {  
+        
+        document.getElementById('ccPdf').value = document.getElementById('cc').value; 
           
         var outehs = JSON.parse( '<?php echo json_encode($outehs) ?>' );
         var coursesAndTraining = JSON.parse( '<?php echo json_encode($coursesAndTraining) ?>' );

@@ -350,7 +350,7 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
             </div>
         </div>
         <div class="col-md-6">
-            <div class="box box-success">
+            <div class="box box-warning">
                 <div class="box-header with-border">
                     <h3 class="box-title">Ações relacionadas:</b></h3>
                     <div class="box-tools pull-right">
@@ -396,7 +396,7 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
         
     <div class="row">
         <div class="col-md-12">
-            <div class="box box-success">
+            <div class="box box-primary">
                 <div class="box-header with-border">
                     <h3 class="box-title">Tabela de receitas - <b> Bruta </b> - Per Capita. <b> Ano: <?php echo $date['year']?></b></h3>
                     <div class="box-tools pull-right">

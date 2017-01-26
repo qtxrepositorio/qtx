@@ -13,7 +13,10 @@ class ControllershipController extends AppController {
         
         $connection = ConnectionManager::get('baseProtheus');
         
+        debug($this->request->data);
+        
         $year = $this->request->data['yearPdf']; 
+        $cc = $this->request->data['ccPdf']; 
         
         $outehs = $connection->execute("
             SELECT 
@@ -178,8 +181,8 @@ class ControllershipController extends AppController {
                     GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)
                     ")->fetchAll('assoc'); 
        
-        $this->set(compact('year','outehs','coursesAndTraining','safetyEquipment','medical','transport','feeding','socialCharges','prizesAndGratuities','internshipBag','extraHour','prolabore','earnings'));
-        $this->set('_serialize', ['year','outehs','coursesAndTraining','safetyEquipment','medical','transport','feeding','socialCharges','prizesAndGratuities','internshipBag','extraHour','prolabore','earnings']);
+        $this->set(compact('cc','year','outehs','coursesAndTraining','safetyEquipment','medical','transport','feeding','socialCharges','prizesAndGratuities','internshipBag','extraHour','prolabore','earnings'));
+        $this->set('_serialize', ['cc','year','outehs','coursesAndTraining','safetyEquipment','medical','transport','feeding','socialCharges','prizesAndGratuities','internshipBag','extraHour','prolabore','earnings']);
         $this->viewBuilder()->layout('ajax');
         $this->response->type('pdf');
         
