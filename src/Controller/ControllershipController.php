@@ -9,6 +9,528 @@ use Cake\Datasource\ConnectionManager;
 
 class ControllershipController extends AppController {
     
+    public function PersonnelExpensesPdf() {
+        
+        $connection = ConnectionManager::get('baseProtheus');
+        
+        $year = $this->request->data['yearPdf']; 
+        
+        $outehs = $connection->execute("
+            SELECT 
+                SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                    WHERE 
+                        SUBSTRING([CT2_DATA],1,4) = '$year'
+                        AND [CT2_DEBITO] in ('41101018','41101022','41101023') 
+                        AND D_E_L_E_T_ != '*'
+                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")->fetchAll('assoc');  
+                
+        
+        $coursesAndTraining = $connection->execute("
+            SELECT 
+                SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                    WHERE 
+                        SUBSTRING([CT2_DATA],1,4) = '$year'
+                        AND [CT2_DEBITO] in ('41103036','42103036') 
+                        AND D_E_L_E_T_ != '*'
+                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")->fetchAll('assoc');
+
+        
+        //meteriais de segurança
+        $safetyEquipment = $connection->execute("
+            SELECT 
+                SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                    WHERE 
+                        SUBSTRING([CT2_DATA],1,4) = '$year'
+                        AND [CT2_DEBITO] in ('41101019','41101020') 
+                        AND D_E_L_E_T_ != '*'
+                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")->fetchAll('assoc');   
+        
+        //assistencia medica
+        $medical = $connection->execute("
+            SELECT 
+                SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                    WHERE 
+                        SUBSTRING([CT2_DATA],1,4) = '$year'
+                        AND [CT2_DEBITO] in ('41101016','42101016','41101017','42101017') 
+                        AND D_E_L_E_T_ != '*'
+                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")->fetchAll('assoc');     
+        
+        //tanstporte
+        $transport = $connection->execute("
+            SELECT 
+                SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                    WHERE 
+                        SUBSTRING([CT2_DATA],1,4) = '$year'
+                        AND [CT2_DEBITO] in ('41101014','42101014','41101021','42101021') 
+                        AND D_E_L_E_T_ != '*'
+                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")->fetchAll('assoc');         
+        
+        // alimentação
+        $feeding = $connection->execute("
+            SELECT 
+                SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                    WHERE 
+                        SUBSTRING([CT2_DATA],1,4) = '$year'
+                        AND [CT2_DEBITO] in ('41101015','42101015') 
+                        AND D_E_L_E_T_ != '*'
+                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")->fetchAll('assoc'); 
+        
+        //encargos sociais
+        $socialCharges = $connection->execute("
+            SELECT 
+                SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                    WHERE 
+                        SUBSTRING([CT2_DATA],1,4) = '$year'
+                        AND [CT2_DEBITO] in ('41101012','41101013','42101012','42101013') 
+                        AND D_E_L_E_T_ != '*'
+                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")->fetchAll('assoc'); 
+        
+        //premios e gratificações
+        $prizesAndGratuities = $connection->execute("
+            SELECT 
+                SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                    WHERE 
+                        SUBSTRING([CT2_DATA],1,4) = '$year'
+                        AND [CT2_DEBITO] in ('41101007','41101024','42101007','42101024') 
+                        AND D_E_L_E_T_ != '*'
+                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")->fetchAll('assoc'); 
+        
+        //hora extra
+        $internshipBag = $connection->execute("
+            SELECT 
+                SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                    WHERE 
+                        SUBSTRING([CT2_DATA],1,4) = '$year'
+                        AND [CT2_DEBITO] in ('41101006','42101006') 
+                        AND D_E_L_E_T_ != '*'
+                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)
+            ")->fetchAll('assoc'); 
+        
+        //hora extra
+        $extraHour = $connection->execute("
+            SELECT 
+                SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                    WHERE 
+                        SUBSTRING([CT2_DATA],1,4) = '$year'
+                        AND [CT2_DEBITO] in ('41101008','42101008') 
+                        AND D_E_L_E_T_ != '*'
+                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)
+            ")->fetchAll('assoc'); 
+        
+        //prolabore
+        $prolabore = $connection->execute("
+            SELECT 
+                SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                    WHERE 
+                        SUBSTRING([CT2_DATA],1,4) = '$year'
+                        AND [CT2_DEBITO] in ('41101004','42101004') 
+                        AND D_E_L_E_T_ != '*'
+                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)
+            ")->fetchAll('assoc'); 
+        
+        //proventos        
+        $earnings = $connection->execute("
+            SELECT 
+                SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                    WHERE 
+                        SUBSTRING([CT2_DATA],1,4) = '$year'
+                        AND [CT2_DEBITO] in ('41101001','41101002','41101003','41101005'
+                                            ,'41101009','41101010','41101011','41101025'
+                                            ,'41101026','42101001','42101002','42101003'
+                                            ,'42101005','42101009','42101010','42101011') 
+                        AND D_E_L_E_T_ != '*'
+                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)
+                    ")->fetchAll('assoc'); 
+       
+        $this->set(compact('year','outehs','coursesAndTraining','safetyEquipment','medical','transport','feeding','socialCharges','prizesAndGratuities','internshipBag','extraHour','prolabore','earnings'));
+        $this->set('_serialize', ['year','outehs','coursesAndTraining','safetyEquipment','medical','transport','feeding','socialCharges','prizesAndGratuities','internshipBag','extraHour','prolabore','earnings']);
+        $this->viewBuilder()->layout('ajax');
+        $this->response->type('pdf');
+        
+    }
+    
+    public function PersonnelExpensesFilter() {
+        
+        $connection = ConnectionManager::get('baseProtheus');
+        
+        $year = $this->request->data['year']; 
+        
+        //outras despesas
+        $outehs = $connection->execute("
+            SELECT 
+                SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                    WHERE 
+                        SUBSTRING([CT2_DATA],1,4) = '$year'
+                        AND [CT2_DEBITO] in ('41101018','41101022','41101023') 
+                        AND D_E_L_E_T_ != '*'
+                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")->fetchAll('assoc');  
+        
+        //cursos e treinamentos
+        $coursesAndTraining = $connection->execute("
+            SELECT 
+                SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                    WHERE 
+                        SUBSTRING([CT2_DATA],1,4) = '$year'
+                        AND [CT2_DEBITO] in ('41103036','42103036') 
+                        AND D_E_L_E_T_ != '*'
+                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")->fetchAll('assoc');
+
+        
+        //meteriais de segurança
+        $safetyEquipment = $connection->execute("
+            SELECT 
+                SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                    WHERE 
+                        SUBSTRING([CT2_DATA],1,4) = '$year'
+                        AND [CT2_DEBITO] in ('41101019','41101020') 
+                        AND D_E_L_E_T_ != '*'
+                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")->fetchAll('assoc');   
+        
+        //assistencia medica
+        $medical = $connection->execute("
+            SELECT 
+                SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                    WHERE 
+                        SUBSTRING([CT2_DATA],1,4) = '$year'
+                        AND [CT2_DEBITO] in ('41101016','42101016','41101017','42101017') 
+                        AND D_E_L_E_T_ != '*'
+                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")->fetchAll('assoc');     
+        
+        //tanstporte
+        $transport = $connection->execute("
+            SELECT 
+                SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                    WHERE 
+                        SUBSTRING([CT2_DATA],1,4) = '$year'
+                        AND [CT2_DEBITO] in ('41101014','42101014','41101021','42101021') 
+                        AND D_E_L_E_T_ != '*'
+                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")->fetchAll('assoc');         
+        
+        // alimentação
+        $feeding = $connection->execute("
+            SELECT 
+                SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                    WHERE 
+                        SUBSTRING([CT2_DATA],1,4) = '$year'
+                        AND [CT2_DEBITO] in ('41101015','42101015') 
+                        AND D_E_L_E_T_ != '*'
+                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")->fetchAll('assoc'); 
+        
+        //encargos sociais
+        $socialCharges = $connection->execute("
+            SELECT 
+                SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                    WHERE 
+                        SUBSTRING([CT2_DATA],1,4) = '$year'
+                        AND [CT2_DEBITO] in ('41101012','41101013','42101012','42101013') 
+                        AND D_E_L_E_T_ != '*'
+                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")->fetchAll('assoc'); 
+        
+        //premios e gratificações
+        $prizesAndGratuities = $connection->execute("
+            SELECT 
+                SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                    WHERE 
+                        SUBSTRING([CT2_DATA],1,4) = '$year'
+                        AND [CT2_DEBITO] in ('41101007','41101024','42101007','42101024') 
+                        AND D_E_L_E_T_ != '*'
+                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")->fetchAll('assoc'); 
+        
+        //hora extra
+        $internshipBag = $connection->execute("
+            SELECT 
+                SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                    WHERE 
+                        SUBSTRING([CT2_DATA],1,4) = '$year'
+                        AND [CT2_DEBITO] in ('41101006','42101006') 
+                        AND D_E_L_E_T_ != '*'
+                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)
+            ")->fetchAll('assoc'); 
+        
+        //hora extra
+        $extraHour = $connection->execute("
+            SELECT 
+                SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                    WHERE 
+                        SUBSTRING([CT2_DATA],1,4) = '$year'
+                        AND [CT2_DEBITO] in ('41101008','42101008') 
+                        AND D_E_L_E_T_ != '*'
+                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)
+            ")->fetchAll('assoc'); 
+        
+        //prolabore
+        $prolabore = $connection->execute("
+            SELECT 
+                SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                    WHERE 
+                        SUBSTRING([CT2_DATA],1,4) = '$year'
+                        AND [CT2_DEBITO] in ('41101004','42101004') 
+                        AND D_E_L_E_T_ != '*'
+                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)
+            ")->fetchAll('assoc'); 
+        
+        //proventos        
+        $earnings = $connection->execute("
+            SELECT 
+                SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                    WHERE 
+                        SUBSTRING([CT2_DATA],1,4) = '$year'
+                        AND [CT2_DEBITO] in ('41101001','41101002','41101003','41101005'
+                                            ,'41101009','41101010','41101011','41101025'
+                                            ,'41101026','42101001','42101002','42101003'
+                                            ,'42101005','42101009','42101010','42101011') 
+                        AND D_E_L_E_T_ != '*'
+                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)
+                    ")->fetchAll('assoc'); 
+       
+        $this->set(compact('year','outehs','coursesAndTraining','safetyEquipment','medical','transport','feeding','socialCharges','prizesAndGratuities','internshipBag','extraHour','prolabore','earnings'));
+        $this->set('_serialize', ['year','outehs','coursesAndTraining','safetyEquipment','medical','transport','feeding','socialCharges','prizesAndGratuities','internshipBag','extraHour','prolabore','earnings']);
+        
+    }
+    
+    public function PersonnelExpenses() {
+        
+        $connection = ConnectionManager::get('baseProtheus');
+        
+        $outehs = $connection->execute("
+            SELECT 
+                SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                    WHERE 
+                        SUBSTRING([CT2_DATA],1,4) = YEAR(GETDATE())
+                        AND [CT2_DEBITO] in ('41101018','41101022','41101023') 
+                        AND D_E_L_E_T_ != '*'
+                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")->fetchAll('assoc');  
+                
+        //cursos e treinamentos
+        $coursesAndTraining = $connection->execute("
+            SELECT 
+                SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                    WHERE 
+                        SUBSTRING([CT2_DATA],1,4) = YEAR(GETDATE())
+                        AND [CT2_DEBITO] in ('41103036','42103036')
+                        AND D_E_L_E_T_ != '*'
+                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")->fetchAll('assoc');
+        
+        //meteriais de segurança
+        $safetyEquipment = $connection->execute("
+            SELECT 
+                SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                    WHERE 
+                        SUBSTRING([CT2_DATA],1,4) = YEAR(GETDATE())
+                        AND [CT2_DEBITO] in ('41101019','41101020') 
+                        AND D_E_L_E_T_ != '*'
+                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")->fetchAll('assoc');   
+        
+        //assistencia medica
+        $medical = $connection->execute("
+            SELECT 
+                SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                    WHERE 
+                        SUBSTRING([CT2_DATA],1,4) = YEAR(GETDATE())
+                        AND [CT2_DEBITO] in ('41101016','42101016','41101017','42101017') 
+                        AND D_E_L_E_T_ != '*'
+                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")->fetchAll('assoc');     
+        
+        //tanstporte
+        $transport = $connection->execute("
+            SELECT 
+                SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                    WHERE 
+                        SUBSTRING([CT2_DATA],1,4) = YEAR(GETDATE())
+                        AND [CT2_DEBITO] in ('41101014','42101014','41101021','42101021') 
+                        AND D_E_L_E_T_ != '*'
+                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")->fetchAll('assoc');         
+        
+        // alimentação
+        $feeding = $connection->execute("
+            SELECT 
+                SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                    WHERE 
+                        SUBSTRING([CT2_DATA],1,4) = YEAR(GETDATE())
+                        AND [CT2_DEBITO] in ('41101015','42101015') 
+                        AND D_E_L_E_T_ != '*'
+                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")->fetchAll('assoc'); 
+        
+        //encargos sociais
+        $socialCharges = $connection->execute("
+            SELECT 
+                SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                    WHERE 
+                        SUBSTRING([CT2_DATA],1,4) = YEAR(GETDATE())
+                        AND [CT2_DEBITO] in ('41101012','41101013','42101012','42101013') 
+                        AND D_E_L_E_T_ != '*'
+                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")->fetchAll('assoc'); 
+        
+        //premios e gratificações
+        $prizesAndGratuities = $connection->execute("
+            SELECT 
+                SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                    WHERE 
+                        SUBSTRING([CT2_DATA],1,4) = YEAR(GETDATE())
+                        AND [CT2_DEBITO] in ('41101007','41101024','42101007','42101024') 
+                        AND D_E_L_E_T_ != '*'
+                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")->fetchAll('assoc'); 
+        
+        //hora extra
+        $internshipBag = $connection->execute("
+            SELECT 
+                SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                    WHERE 
+                        SUBSTRING([CT2_DATA],1,4) = YEAR(GETDATE())
+                        AND [CT2_DEBITO] in ('41101006','42101006') 
+                        AND D_E_L_E_T_ != '*'
+                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)
+            ")->fetchAll('assoc'); 
+        
+        //hora extra
+        $extraHour = $connection->execute("
+            SELECT 
+                SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                    WHERE 
+                        SUBSTRING([CT2_DATA],1,4) = YEAR(GETDATE())
+                        AND [CT2_DEBITO] in ('41101008','42101008') 
+                        AND D_E_L_E_T_ != '*'
+                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)
+            ")->fetchAll('assoc'); 
+        
+        //prolabore
+        $prolabore = $connection->execute("
+            SELECT 
+                SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                    WHERE 
+                        SUBSTRING([CT2_DATA],1,4) = YEAR(GETDATE())
+                        AND [CT2_DEBITO] in ('41101004','42101004') 
+                        AND D_E_L_E_T_ != '*'
+                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)
+            ")->fetchAll('assoc'); 
+        
+        //proventos        
+        $earnings = $connection->execute("
+            SELECT 
+                SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                    WHERE 
+                        SUBSTRING([CT2_DATA],1,4) = YEAR(GETDATE())
+                        AND [CT2_DEBITO] in ('41101001','41101002','41101003','41101005'
+                                            ,'41101009','41101010','41101011','41101025'
+                                            ,'41101026','42101001','42101002','42101003'
+                                            ,'42101005','42101009','42101010','42101011') 
+                        AND D_E_L_E_T_ != '*'
+                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)
+                    ")->fetchAll('assoc'); 
+       
+        $this->set(compact('outehs','coursesAndTraining','safetyEquipment','medical','transport','feeding','socialCharges','prizesAndGratuities','internshipBag','extraHour','prolabore','earnings'));
+        $this->set('_serialize', ['outehs','coursesAndTraining','safetyEquipment','medical','transport','feeding','socialCharges','prizesAndGratuities','internshipBag','extraHour','prolabore','earnings']);
+        
+    }
+    
     public function RevenuesPerCapitaPdf() {
         
         //debug($this->request->data);
