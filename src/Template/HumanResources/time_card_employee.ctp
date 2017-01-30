@@ -138,6 +138,7 @@ foreach ($timecardEmployeeRs as $key) {
 							.'<br><b>Matrícula: </b>'.$value['RA_MAT']
 							.'<br/><b>Nome: </b>'.$value['RA_NOME']
 							.'<br/><b>Cargo: </b>'.$value['Q3_DESCSUM']
+                                                        .'<br/><b>Dpto: </b>'.$value['QB_DESCRIC'] . ' <b>CC: </b>'.$value['RA_CC']
 							.'<br><b>Empresa: </b>Qualitex Engenharia e Serviços LTDA'
 							.'<br/><b>CNPJ: </b>35.738.970/0001-73'
 							.'<br/><b>Horário: </b>'.$timelunch		

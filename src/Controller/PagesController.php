@@ -43,6 +43,8 @@ class PagesController extends AppController
           AND DAY([RA_NASC]) >= (DAY(GETDATE())-3)
           AND DAY([RA_NASC]) <= (DAY(GETDATE())+3) 
           AND [RA_SITFOLH] != 'D'
+          AND [RA_DEMISSA] = ''
+          AND [SRA010].[D_E_L_E_T_] = ''
           order by DAY([RA_NASC])");
 
         $this->loadModel('Notices'); 

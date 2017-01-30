@@ -134,10 +134,11 @@ class HumanResourcesController extends AppController
                         ,[RA_NOME]
                         ,[Q3_DESCSUM]
                         ,[QB_DESCRIC]
+                        ,[RA_CC]
                     FROM [SRA010]
                         INNER JOIN [SQB010] ON [RA_DEPTO] = [QB_DEPTO]
                         INNER JOIN [SQ3010] ON [Q3_CARGO] = [RA_CARGO]
-                        WHERE [RA_DEMISSA] = ''")
+                        WHERE [RA_DEMISSA] = '' AND [SQB010].[D_E_L_E_T_] = '' AND [RA_CATFUNC] != 'E'")
                 ->fetchAll('assoc');
             }
             else
@@ -148,11 +149,12 @@ class HumanResourcesController extends AppController
                     ,[RA_NOME]
                     ,[Q3_DESCSUM]
                     ,[QB_DESCRIC]
+                    ,[RA_CC]
                 FROM [SRA010]
                 INNER JOIN [SQB010] ON [RA_DEPTO] = [QB_DEPTO]
                 INNER JOIN [SQ3010] ON [Q3_CARGO] = [RA_CARGO]
                 WHERE [QB_DESCRIC] = '". $key ."' 
-                AND [RA_DEMISSA] = ''")
+                AND [RA_DEMISSA] = '' AND [SQB010].[D_E_L_E_T_] = '' AND [RA_CATFUNC] != 'E'")
                 ->fetchAll('assoc');  
             }
         }    
@@ -182,9 +184,12 @@ class HumanResourcesController extends AppController
                     [RA_MAT]
                     ,[RA_NOME]
                     ,[Q3_DESCSUM]
+                    ,[RA_CC]
+                    ,[QB_DESCRIC]
                 FROM [SRA010]
                 INNER JOIN [SQ3010] ON [Q3_CARGO] = [RA_CARGO]
-                WHERE [RA_DEMISSA] = ''")
+                INNER JOIN [SQB010] ON [RA_DEPTO] = [QB_DEPTO]
+                WHERE [RA_DEMISSA] = '' AND [SQ3010].[D_E_L_E_T_] = '' AND [RA_CATFUNC] != 'E'")
                 ->fetchAll('assoc');
             }
             else
@@ -193,10 +198,13 @@ class HumanResourcesController extends AppController
                     [RA_MAT]
                     ,[RA_NOME]
                     ,[Q3_DESCSUM]
+                    ,[RA_CC]
+                    ,[QB_DESCRIC]
                 FROM [SRA010]
                 INNER JOIN [SQ3010] ON [Q3_CARGO] = [RA_CARGO]
+                INNER JOIN [SQB010] ON [RA_DEPTO] = [QB_DEPTO]
                 WHERE [RA_NOME] = '". $key ."'
-                    AND [RA_DEMISSA] = ''")
+                    AND [RA_DEMISSA] = '' AND [SQ3010].[D_E_L_E_T_] = '' AND [RA_CATFUNC] != 'E'")
                 ->fetchAll('assoc');  
             }
         }
@@ -417,7 +425,7 @@ class HumanResourcesController extends AppController
         $listOfEmployees = $connection->execute("SELECT 
                 [RA_NOME]
             FROM [SRA010]
-            WHERE [RA_DEMISSA] = ''
+            WHERE [RA_DEMISSA] = '' AND [RA_CATFUNC] != 'E'
             ORDER BY [RA_NOME]")
             ->fetchAll('assoc');
 
@@ -429,7 +437,7 @@ class HumanResourcesController extends AppController
 
         $listOfDepartaments = $connection->execute("SELECT 
                 [QB_DESCRIC]
-            FROM [SQB010]")
+            FROM [SQB010] WHERE [D_E_L_E_T_] = ''")
             ->fetchAll('assoc');
 
         $listOfDepartamentsNames['TODOS'] = 'TODOS';
