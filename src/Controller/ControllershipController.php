@@ -8,6 +8,1467 @@ use Cake\Controller\Component\FlashComponent;
 use Cake\Datasource\ConnectionManager;
 
 class ControllershipController extends AppController {
+
+    public function FinancialExpensesPdf(){
+        
+        $connection = ConnectionManager::get('baseProtheus');
+        
+        $year = $this->request->data['yearPdf'];
+              
+        $cc = $this->request->data['ccPdf']; 
+        
+        $ccpdf = $this->request->data['ccPdf']; 
+        
+        $cc = substr($cc,0,2);
+        
+        if ($cc != 'TO'){
+            
+            $rates = $connection->execute("
+                SELECT 
+                    SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                            WHERE 
+                    SUBSTRING([CT2_DATA],1,4) = '$year'
+                    AND [CT2_DEBITO] in ('41103022','42102022') 
+                    AND D_E_L_E_T_ != '*' AND [CT2_CCD] = '$cc'
+                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                            ->fetchAll('assoc');
+        
+            $interestCosts = $connection->execute("
+                    SELECT 
+                        SUM([CT2_VALOR]) AS [CT2_VALOR]
+                    , [CT2_CCD]
+                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                    FROM [CT2010] 
+                                WHERE 
+                        SUBSTRING([CT2_DATA],1,4) = '$year'
+                        AND [CT2_DEBITO] in ('42104001') 
+                        AND D_E_L_E_T_ != '*' AND [CT2_CCD] = '$cc'
+                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                                ->fetchAll('assoc');
+
+            $discountsGiven = $connection->execute("
+                    SELECT 
+                        SUM([CT2_VALOR]) AS [CT2_VALOR]
+                    , [CT2_CCD]
+                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                    FROM [CT2010] 
+                                WHERE 
+                        SUBSTRING([CT2_DATA],1,4) = '$year'
+                        AND [CT2_DEBITO] in ('42104002') 
+                        AND D_E_L_E_T_ != '*' AND [CT2_CCD] = '$cc'
+                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                                ->fetchAll('assoc');
+
+            $bankExpenses = $connection->execute("
+                    SELECT 
+                        SUM([CT2_VALOR]) AS [CT2_VALOR]
+                    , [CT2_CCD]
+                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                    FROM [CT2010] 
+                                WHERE 
+                        SUBSTRING([CT2_DATA],1,4) = '$year'
+                        AND [CT2_DEBITO] in ('42104003') 
+                        AND D_E_L_E_T_ != '*' AND [CT2_CCD] = '$cc'
+                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                                ->fetchAll('assoc');  
+
+            $fines = $connection->execute("
+                    SELECT 
+                        SUM([CT2_VALOR]) AS [CT2_VALOR]
+                    , [CT2_CCD]
+                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                    FROM [CT2010] 
+                                WHERE 
+                        SUBSTRING([CT2_DATA],1,4) = '$year'
+                        AND [CT2_DEBITO] in ('42104004') 
+                        AND D_E_L_E_T_ != '*' AND [CT2_CCD] = '$cc'
+                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                                ->fetchAll('assoc'); 
+
+            $iof = $connection->execute("
+                    SELECT 
+                        SUM([CT2_VALOR]) AS [CT2_VALOR]
+                    , [CT2_CCD]
+                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                    FROM [CT2010] 
+                                WHERE 
+                        SUBSTRING([CT2_DATA],1,4) = '$year'
+                        AND [CT2_DEBITO] in ('42104005') 
+                        AND D_E_L_E_T_ != '*' AND [CT2_CCD] = '$cc'
+                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                                ->fetchAll('assoc'); 
+
+            $ioc = $connection->execute("
+                    SELECT 
+                        SUM([CT2_VALOR]) AS [CT2_VALOR]
+                    , [CT2_CCD]
+                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                    FROM [CT2010] 
+                                WHERE 
+                        SUBSTRING([CT2_DATA],1,4) = '$year'
+                        AND [CT2_DEBITO] in ('42104006') 
+                        AND D_E_L_E_T_ != '*'  AND [CT2_CCD] = '$cc'
+                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                                ->fetchAll('assoc'); 
+
+            $bankInterestRate = $connection->execute("
+                    SELECT 
+                        SUM([CT2_VALOR]) AS [CT2_VALOR]
+                    , [CT2_CCD]
+                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                    FROM [CT2010] 
+                                WHERE 
+                        SUBSTRING([CT2_DATA],1,4) = '$year'
+                        AND [CT2_DEBITO] in ('42104007') 
+                        AND D_E_L_E_T_ != '*'  AND [CT2_CCD] = '$cc'
+                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                                ->fetchAll('assoc'); 
+
+            $financialCharges = $connection->execute("
+                    SELECT 
+                        SUM([CT2_VALOR]) AS [CT2_VALOR]
+                    , [CT2_CCD]
+                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                    FROM [CT2010] 
+                                WHERE 
+                        SUBSTRING([CT2_DATA],1,4) = '$year'
+                        AND [CT2_DEBITO] in ('42104008') 
+                        AND D_E_L_E_T_ != '*'  AND [CT2_CCD] = '$cc'
+                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                                ->fetchAll('assoc'); 
+
+            $irs = $connection->execute("
+                    SELECT 
+                        SUM([CT2_VALOR]) AS [CT2_VALOR]
+                    , [CT2_CCD]
+                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                    FROM [CT2010] 
+                                WHERE 
+                        SUBSTRING([CT2_DATA],1,4) = '$year'
+                        AND [CT2_DEBITO] in ('42104009') 
+                        AND D_E_L_E_T_ != '*'  AND [CT2_CCD] = '$cc'
+                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                                ->fetchAll('assoc');
+            
+        }else{
+            
+           $rates = $connection->execute("
+                SELECT 
+                    SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                            WHERE 
+                    SUBSTRING([CT2_DATA],1,4) = '$year'
+                    AND [CT2_DEBITO] in ('41103022','42102022') 
+                    AND D_E_L_E_T_ != '*'
+                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                            ->fetchAll('assoc');
+        
+            $interestCosts = $connection->execute("
+                    SELECT 
+                        SUM([CT2_VALOR]) AS [CT2_VALOR]
+                    , [CT2_CCD]
+                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                    FROM [CT2010] 
+                                WHERE 
+                        SUBSTRING([CT2_DATA],1,4) = '$year'
+                        AND [CT2_DEBITO] in ('42104001') 
+                        AND D_E_L_E_T_ != '*'
+                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                                ->fetchAll('assoc');
+
+            $discountsGiven = $connection->execute("
+                    SELECT 
+                        SUM([CT2_VALOR]) AS [CT2_VALOR]
+                    , [CT2_CCD]
+                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                    FROM [CT2010] 
+                                WHERE 
+                        SUBSTRING([CT2_DATA],1,4) = '$year'
+                        AND [CT2_DEBITO] in ('42104002') 
+                        AND D_E_L_E_T_ != '*'
+                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                                ->fetchAll('assoc');
+
+            $bankExpenses = $connection->execute("
+                    SELECT 
+                        SUM([CT2_VALOR]) AS [CT2_VALOR]
+                    , [CT2_CCD]
+                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                    FROM [CT2010] 
+                                WHERE 
+                        SUBSTRING([CT2_DATA],1,4) = '$year'
+                        AND [CT2_DEBITO] in ('42104003') 
+                        AND D_E_L_E_T_ != '*'
+                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                                ->fetchAll('assoc');  
+
+            $fines = $connection->execute("
+                    SELECT 
+                        SUM([CT2_VALOR]) AS [CT2_VALOR]
+                    , [CT2_CCD]
+                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                    FROM [CT2010] 
+                                WHERE 
+                        SUBSTRING([CT2_DATA],1,4) = '$year'
+                        AND [CT2_DEBITO] in ('42104004') 
+                        AND D_E_L_E_T_ != '*'
+                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                                ->fetchAll('assoc'); 
+
+            $iof = $connection->execute("
+                    SELECT 
+                        SUM([CT2_VALOR]) AS [CT2_VALOR]
+                    , [CT2_CCD]
+                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                    FROM [CT2010] 
+                                WHERE 
+                        SUBSTRING([CT2_DATA],1,4) = '$year'
+                        AND [CT2_DEBITO] in ('42104005') 
+                        AND D_E_L_E_T_ != '*'
+                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                                ->fetchAll('assoc'); 
+
+            $ioc = $connection->execute("
+                    SELECT 
+                        SUM([CT2_VALOR]) AS [CT2_VALOR]
+                    , [CT2_CCD]
+                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                    FROM [CT2010] 
+                                WHERE 
+                        SUBSTRING([CT2_DATA],1,4) = '$year'
+                        AND [CT2_DEBITO] in ('42104006') 
+                        AND D_E_L_E_T_ != '*'
+                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                                ->fetchAll('assoc'); 
+
+            $bankInterestRate = $connection->execute("
+                    SELECT 
+                        SUM([CT2_VALOR]) AS [CT2_VALOR]
+                    , [CT2_CCD]
+                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                    FROM [CT2010] 
+                                WHERE 
+                        SUBSTRING([CT2_DATA],1,4) = '$year'
+                        AND [CT2_DEBITO] in ('42104007') 
+                        AND D_E_L_E_T_ != '*'
+                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                                ->fetchAll('assoc'); 
+
+            $financialCharges = $connection->execute("
+                    SELECT 
+                        SUM([CT2_VALOR]) AS [CT2_VALOR]
+                    , [CT2_CCD]
+                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                    FROM [CT2010] 
+                                WHERE 
+                        SUBSTRING([CT2_DATA],1,4) = '$year'
+                        AND [CT2_DEBITO] in ('42104008') 
+                        AND D_E_L_E_T_ != '*'
+                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                                ->fetchAll('assoc'); 
+
+            $irs = $connection->execute("
+                    SELECT 
+                        SUM([CT2_VALOR]) AS [CT2_VALOR]
+                    , [CT2_CCD]
+                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                    FROM [CT2010] 
+                                WHERE 
+                        SUBSTRING([CT2_DATA],1,4) = '$year'
+                        AND [CT2_DEBITO] in ('42104009') 
+                        AND D_E_L_E_T_ != '*'
+                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                                ->fetchAll('assoc');
+            
+        }
+        
+        $this->set(compact('rates','interestCosts','discountsGiven','bankExpenses','fines','iof','ioc','bankInterestRate','financialCharges','irs'));
+        $this->set('_serialize', ['rates','interestCosts','discountsGiven','bankExpenses','fines','iof','ioc','bankInterestRate','financialCharges','irs']);
+      
+        $this->viewBuilder()->layout('ajax');
+        $this->response->type('pdf');
+        
+    }
+    
+    public function FinancialExpensesFilter(){
+        
+        $year = $this->request->data['year'];
+        
+        $connection = ConnectionManager::get('baseProtheus');
+        
+        $rates = $connection->execute("
+                SELECT 
+                    SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                            WHERE 
+                    SUBSTRING([CT2_DATA],1,4) = '$year'
+                    AND [CT2_DEBITO] in ('41103022','42102022') 
+                    AND D_E_L_E_T_ != '*'
+                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                            ->fetchAll('assoc');
+        
+        $interestCosts = $connection->execute("
+                SELECT 
+                    SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                            WHERE 
+                    SUBSTRING([CT2_DATA],1,4) = '$year'
+                    AND [CT2_DEBITO] in ('42104001') 
+                    AND D_E_L_E_T_ != '*'
+                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                            ->fetchAll('assoc');
+        
+        $discountsGiven = $connection->execute("
+                SELECT 
+                    SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                            WHERE 
+                    SUBSTRING([CT2_DATA],1,4) = '$year'
+                    AND [CT2_DEBITO] in ('42104002') 
+                    AND D_E_L_E_T_ != '*'
+                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                            ->fetchAll('assoc');
+        
+        $bankExpenses = $connection->execute("
+                SELECT 
+                    SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                            WHERE 
+                    SUBSTRING([CT2_DATA],1,4) = '$year'
+                    AND [CT2_DEBITO] in ('42104003') 
+                    AND D_E_L_E_T_ != '*'
+                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                            ->fetchAll('assoc');  
+        
+        $fines = $connection->execute("
+                SELECT 
+                    SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                            WHERE 
+                    SUBSTRING([CT2_DATA],1,4) = '$year'
+                    AND [CT2_DEBITO] in ('42104004') 
+                    AND D_E_L_E_T_ != '*'
+                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                            ->fetchAll('assoc'); 
+        
+        $iof = $connection->execute("
+                SELECT 
+                    SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                            WHERE 
+                    SUBSTRING([CT2_DATA],1,4) = '$year'
+                    AND [CT2_DEBITO] in ('42104005') 
+                    AND D_E_L_E_T_ != '*'
+                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                            ->fetchAll('assoc'); 
+        
+        $ioc = $connection->execute("
+                SELECT 
+                    SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                            WHERE 
+                    SUBSTRING([CT2_DATA],1,4) = '$year'
+                    AND [CT2_DEBITO] in ('42104006') 
+                    AND D_E_L_E_T_ != '*'
+                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                            ->fetchAll('assoc'); 
+        
+        $bankInterestRate = $connection->execute("
+                SELECT 
+                    SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                            WHERE 
+                    SUBSTRING([CT2_DATA],1,4) = '$year'
+                    AND [CT2_DEBITO] in ('42104007') 
+                    AND D_E_L_E_T_ != '*'
+                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                            ->fetchAll('assoc'); 
+       
+        $financialCharges = $connection->execute("
+                SELECT 
+                    SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                            WHERE 
+                    SUBSTRING([CT2_DATA],1,4) = '$year'
+                    AND [CT2_DEBITO] in ('42104008') 
+                    AND D_E_L_E_T_ != '*'
+                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                            ->fetchAll('assoc'); 
+        
+        $irs = $connection->execute("
+                SELECT 
+                    SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                            WHERE 
+                    SUBSTRING([CT2_DATA],1,4) = '$year'
+                    AND [CT2_DEBITO] in ('42104009') 
+                    AND D_E_L_E_T_ != '*'
+                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                            ->fetchAll('assoc'); 
+        
+        $this->set(compact('rates','interestCosts','discountsGiven','bankExpenses','fines','iof','ioc','bankInterestRate','financialCharges','irs'));
+        $this->set('_serialize', ['rates','interestCosts','discountsGiven','bankExpenses','fines','iof','ioc','bankInterestRate','financialCharges','irs']);
+               
+    }
+    
+    public function FinancialExpenses(){
+        
+        $connection = ConnectionManager::get('baseProtheus');
+        
+        $rates = $connection->execute("
+                SELECT 
+                    SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                            WHERE 
+                    SUBSTRING([CT2_DATA],1,4) = YEAR(GETDATE())
+                    AND [CT2_DEBITO] in ('41103022','42102022') 
+                    AND D_E_L_E_T_ != '*'
+                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                            ->fetchAll('assoc');
+        
+        $interestCosts = $connection->execute("
+                SELECT 
+                    SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                            WHERE 
+                    SUBSTRING([CT2_DATA],1,4) = YEAR(GETDATE())
+                    AND [CT2_DEBITO] in ('42104001') 
+                    AND D_E_L_E_T_ != '*'
+                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                            ->fetchAll('assoc');
+        
+        $discountsGiven = $connection->execute("
+                SELECT 
+                    SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                            WHERE 
+                    SUBSTRING([CT2_DATA],1,4) = YEAR(GETDATE())
+                    AND [CT2_DEBITO] in ('42104002') 
+                    AND D_E_L_E_T_ != '*'
+                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                            ->fetchAll('assoc');
+        
+        $bankExpenses = $connection->execute("
+                SELECT 
+                    SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                            WHERE 
+                    SUBSTRING([CT2_DATA],1,4) = YEAR(GETDATE())
+                    AND [CT2_DEBITO] in ('42104003') 
+                    AND D_E_L_E_T_ != '*'
+                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                            ->fetchAll('assoc');  
+        
+        $fines = $connection->execute("
+                SELECT 
+                    SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                            WHERE 
+                    SUBSTRING([CT2_DATA],1,4) = YEAR(GETDATE())
+                    AND [CT2_DEBITO] in ('42104004') 
+                    AND D_E_L_E_T_ != '*'
+                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                            ->fetchAll('assoc'); 
+        
+        $iof = $connection->execute("
+                SELECT 
+                    SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                            WHERE 
+                    SUBSTRING([CT2_DATA],1,4) = YEAR(GETDATE())
+                    AND [CT2_DEBITO] in ('42104005') 
+                    AND D_E_L_E_T_ != '*'
+                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                            ->fetchAll('assoc'); 
+        
+        $ioc = $connection->execute("
+                SELECT 
+                    SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                            WHERE 
+                    SUBSTRING([CT2_DATA],1,4) = YEAR(GETDATE())
+                    AND [CT2_DEBITO] in ('42104006') 
+                    AND D_E_L_E_T_ != '*'
+                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                            ->fetchAll('assoc'); 
+        
+        $bankInterestRate = $connection->execute("
+                SELECT 
+                    SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                            WHERE 
+                    SUBSTRING([CT2_DATA],1,4) = YEAR(GETDATE())
+                    AND [CT2_DEBITO] in ('42104007') 
+                    AND D_E_L_E_T_ != '*'
+                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                            ->fetchAll('assoc'); 
+       
+        $financialCharges = $connection->execute("
+                SELECT 
+                    SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                            WHERE 
+                    SUBSTRING([CT2_DATA],1,4) = YEAR(GETDATE())
+                    AND [CT2_DEBITO] in ('42104008') 
+                    AND D_E_L_E_T_ != '*'
+                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                            ->fetchAll('assoc'); 
+        
+        $irs = $connection->execute("
+                SELECT 
+                    SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                            WHERE 
+                    SUBSTRING([CT2_DATA],1,4) = YEAR(GETDATE())
+                    AND [CT2_DEBITO] in ('42104009') 
+                    AND D_E_L_E_T_ != '*'
+                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                            ->fetchAll('assoc'); 
+        
+        $this->set(compact('rates','interestCosts','discountsGiven','bankExpenses','fines','iof','ioc','bankInterestRate','financialCharges','irs'));
+        $this->set('_serialize', ['rates','interestCosts','discountsGiven','bankExpenses','fines','iof','ioc','bankInterestRate','financialCharges','irs']);
+       
+        
+    }
+
+    public function AdministrativeExpensesPdf() {
+        
+        $year = $this->request->data['yearPdf'];
+              
+        $connection = ConnectionManager::get('baseProtheus');
+        
+        $cc = $this->request->data['ccPdf']; 
+        
+        $ccpdf = $this->request->data['ccPdf']; 
+        
+        $cc = substr($cc,0,2);
+        
+        if ($cc != 'TO'){
+        
+            $rent = $connection->execute("
+                SELECT 
+                    SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                            WHERE 
+                    SUBSTRING([CT2_DATA],1,4) = '$year'
+                    AND [CT2_DEBITO] in ('41103004','42102002') 
+                    AND D_E_L_E_T_ != '*' AND [CT2_CCD] = '$cc'
+                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                            ->fetchAll('assoc');
+
+            $phoneAndInternet = $connection->execute("
+                SELECT 
+                    SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                            WHERE 
+                    SUBSTRING([CT2_DATA],1,4) = '$year'
+                    AND [CT2_DEBITO] in ('41103003','42102003') 
+                    AND D_E_L_E_T_ != '*' AND [CT2_CCD] = '$cc'
+                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                            ->fetchAll('assoc');
+
+            $electricity = $connection->execute("
+                SELECT 
+                        SUM([CT2_VALOR]) AS [CT2_VALOR]
+                    , [CT2_CCD]
+                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                    FROM [CT2010] 
+                                WHERE 
+                        SUBSTRING([CT2_DATA],1,4) = '$year'
+                        AND [CT2_DEBITO] in ('41103002','42102029') 
+                        AND D_E_L_E_T_ != '*' AND [CT2_CCD] = '$cc'
+                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                            ->fetchAll('assoc');
+
+            $waterAndSewage = $connection->execute("
+                SELECT 
+                    SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                            WHERE 
+                    SUBSTRING([CT2_DATA],1,4) = '$year'
+                    AND [CT2_DEBITO] in ('41103001','42102001') 
+                    AND D_E_L_E_T_ != '*' AND [CT2_CCD] = '$cc'
+                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                            ->fetchAll('assoc');
+
+            $officeSupplies = $connection->execute("
+                SELECT 
+                    SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                            WHERE 
+                    SUBSTRING([CT2_DATA],1,4) = '$year'
+                    AND [CT2_DEBITO] in ('41103015','41103047','42102015','42102048') 
+                    AND D_E_L_E_T_ != '*' AND [CT2_CCD] = '$cc'
+                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                            ->fetchAll('assoc');
+
+            $cleaningSupplies = $connection->execute("
+                SELECT 
+                    SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                            WHERE 
+                    SUBSTRING([CT2_DATA],1,4) = '$year'
+                    AND [CT2_DEBITO] in ('41103033','42102035') 
+                    AND D_E_L_E_T_ != '*' AND [CT2_CCD] = '$cc'
+                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                            ->fetchAll('assoc');
+
+            $others = $connection->execute("
+                SELECT 
+                    SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                            WHERE 
+                    SUBSTRING([CT2_DATA],1,4) = '$year'
+                    AND [CT2_DEBITO] in ('41103007','41103016','41103018','41103019','41103024','41103037'
+                                        ,'41103038','42102004','42102016','42102018','42102019','42102024'
+                                        ,'42102039','42102045','42102047') 
+                    AND D_E_L_E_T_ != '*' AND [CT2_CCD] = '$cc'
+                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+            ->fetchAll('assoc');
+            
+        }else{
+            
+            $rent = $connection->execute("
+                SELECT 
+                    SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                            WHERE 
+                    SUBSTRING([CT2_DATA],1,4) = '$year'
+                    AND [CT2_DEBITO] in ('41103004','42102002') 
+                    AND D_E_L_E_T_ != '*'
+                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                            ->fetchAll('assoc');
+
+            $phoneAndInternet = $connection->execute("
+                SELECT 
+                    SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                            WHERE 
+                    SUBSTRING([CT2_DATA],1,4) = '$year'
+                    AND [CT2_DEBITO] in ('41103003','42102003') 
+                    AND D_E_L_E_T_ != '*'
+                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                            ->fetchAll('assoc');
+
+            $electricity = $connection->execute("
+                SELECT 
+                        SUM([CT2_VALOR]) AS [CT2_VALOR]
+                    , [CT2_CCD]
+                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                    FROM [CT2010] 
+                                WHERE 
+                        SUBSTRING([CT2_DATA],1,4) = '$year'
+                        AND [CT2_DEBITO] in ('41103002','42102029') 
+                        AND D_E_L_E_T_ != '*'
+                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                            ->fetchAll('assoc');
+
+            $waterAndSewage = $connection->execute("
+                SELECT 
+                    SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                            WHERE 
+                    SUBSTRING([CT2_DATA],1,4) = '$year'
+                    AND [CT2_DEBITO] in ('41103001','42102001') 
+                    AND D_E_L_E_T_ != '*'
+                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                            ->fetchAll('assoc');
+
+            $officeSupplies = $connection->execute("
+                SELECT 
+                    SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                            WHERE 
+                    SUBSTRING([CT2_DATA],1,4) = '$year'
+                    AND [CT2_DEBITO] in ('41103015','41103047','42102015','42102048') 
+                    AND D_E_L_E_T_ != '*'
+                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                            ->fetchAll('assoc');
+
+            $cleaningSupplies = $connection->execute("
+                SELECT 
+                    SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                            WHERE 
+                    SUBSTRING([CT2_DATA],1,4) = '$year'
+                    AND [CT2_DEBITO] in ('41103033','42102035') 
+                    AND D_E_L_E_T_ != '*'
+                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                            ->fetchAll('assoc');
+
+            $others = $connection->execute("
+                SELECT 
+                    SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                            WHERE 
+                    SUBSTRING([CT2_DATA],1,4) = '$year'
+                    AND [CT2_DEBITO] in ('41103007','41103016','41103018','41103019','41103024','41103037'
+                                        ,'41103038','42102004','42102016','42102018','42102019','42102024'
+                                        ,'42102039','42102045','42102047') 
+                    AND D_E_L_E_T_ != '*'
+                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+            ->fetchAll('assoc');
+            
+        }
+        
+        $this->set(compact('ccpdf','year','rent','phoneAndInternet','electricity','waterAndSewage','officeSupplies','cleaningSupplies','others'));
+        $this->set('_serialize', ['ccpdf','year','rent','phoneAndInternet','electricity','waterAndSewage','officeSupplies','cleaningSupplies','others']);
+       
+        $this->viewBuilder()->layout('ajax');
+        $this->response->type('pdf');
+    }
+    
+    public function AdministrativeExpensesFilter() {
+        
+        $year = $this->request->data['year'];
+              
+        $connection = ConnectionManager::get('baseProtheus');
+        
+        $rent = $connection->execute("
+            SELECT 
+                SUM([CT2_VALOR]) AS [CT2_VALOR]
+            , [CT2_CCD]
+            , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+            FROM [CT2010] 
+                        WHERE 
+                SUBSTRING([CT2_DATA],1,4) = '$year'
+                AND [CT2_DEBITO] in ('41103004','42102002') 
+                AND D_E_L_E_T_ != '*'
+            GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                        ->fetchAll('assoc');
+        
+        $phoneAndInternet = $connection->execute("
+            SELECT 
+                SUM([CT2_VALOR]) AS [CT2_VALOR]
+            , [CT2_CCD]
+            , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+            FROM [CT2010] 
+                        WHERE 
+                SUBSTRING([CT2_DATA],1,4) = '$year'
+                AND [CT2_DEBITO] in ('41103003','42102003') 
+                AND D_E_L_E_T_ != '*'
+            GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                        ->fetchAll('assoc');
+        
+        $electricity = $connection->execute("
+            SELECT 
+                    SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                            WHERE 
+                    SUBSTRING([CT2_DATA],1,4) = '$year'
+                    AND [CT2_DEBITO] in ('41103002','42102029') 
+                    AND D_E_L_E_T_ != '*'
+                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                        ->fetchAll('assoc');
+        
+        $waterAndSewage = $connection->execute("
+            SELECT 
+                SUM([CT2_VALOR]) AS [CT2_VALOR]
+            , [CT2_CCD]
+            , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+            FROM [CT2010] 
+                        WHERE 
+                SUBSTRING([CT2_DATA],1,4) = '$year'
+                AND [CT2_DEBITO] in ('41103001','42102001') 
+                AND D_E_L_E_T_ != '*'
+            GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                        ->fetchAll('assoc');
+        
+        $officeSupplies = $connection->execute("
+            SELECT 
+                SUM([CT2_VALOR]) AS [CT2_VALOR]
+            , [CT2_CCD]
+            , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+            FROM [CT2010] 
+                        WHERE 
+                SUBSTRING([CT2_DATA],1,4) = '$year'
+                AND [CT2_DEBITO] in ('41103015','41103047','42102015','42102048') 
+                AND D_E_L_E_T_ != '*'
+            GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                        ->fetchAll('assoc');
+        
+        $cleaningSupplies = $connection->execute("
+            SELECT 
+                SUM([CT2_VALOR]) AS [CT2_VALOR]
+            , [CT2_CCD]
+            , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+            FROM [CT2010] 
+                        WHERE 
+                SUBSTRING([CT2_DATA],1,4) = '$year'
+                AND [CT2_DEBITO] in ('41103033','42102035') 
+                AND D_E_L_E_T_ != '*'
+            GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                        ->fetchAll('assoc');
+        
+        $others = $connection->execute("
+            SELECT 
+                SUM([CT2_VALOR]) AS [CT2_VALOR]
+            , [CT2_CCD]
+            , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+            FROM [CT2010] 
+                        WHERE 
+                SUBSTRING([CT2_DATA],1,4) = '$year'
+                AND [CT2_DEBITO] in ('41103007','41103016','41103018','41103019','41103024','41103037'
+                                    ,'41103038','42102004','42102016','42102018','42102019','42102024'
+                                    ,'42102039','42102045','42102047') 
+                AND D_E_L_E_T_ != '*'
+            GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+        ->fetchAll('assoc');
+        
+        $this->set(compact('year','rent','phoneAndInternet','electricity','waterAndSewage','officeSupplies','cleaningSupplies','others'));
+        $this->set('_serialize', ['year','rent','phoneAndInternet','electricity','waterAndSewage','officeSupplies','cleaningSupplies','others']);
+       
+        
+    }
+   
+    public function AdministrativeExpenses() {
+      
+        $connection = ConnectionManager::get('baseProtheus');
+        
+        $rent = $connection->execute("
+            SELECT 
+                SUM([CT2_VALOR]) AS [CT2_VALOR]
+            , [CT2_CCD]
+            , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+            FROM [CT2010] 
+                        WHERE 
+                SUBSTRING([CT2_DATA],1,4) = YEAR(GETDATE())
+                AND [CT2_DEBITO] in ('41103004','42102002') 
+                AND D_E_L_E_T_ != '*'
+            GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                        ->fetchAll('assoc');
+        
+        $phoneAndInternet = $connection->execute("
+            SELECT 
+                SUM([CT2_VALOR]) AS [CT2_VALOR]
+            , [CT2_CCD]
+            , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+            FROM [CT2010] 
+                        WHERE 
+                SUBSTRING([CT2_DATA],1,4) = YEAR(GETDATE())
+                AND [CT2_DEBITO] in ('41103003','42102003') 
+                AND D_E_L_E_T_ != '*'
+            GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                        ->fetchAll('assoc');
+        
+        $electricity = $connection->execute("
+            SELECT 
+                    SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                            WHERE 
+                    SUBSTRING([CT2_DATA],1,4) = YEAR(GETDATE())
+                    AND [CT2_DEBITO] in ('41103002','42102029') 
+                    AND D_E_L_E_T_ != '*'
+                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                        ->fetchAll('assoc');
+        
+        $waterAndSewage = $connection->execute("
+            SELECT 
+                SUM([CT2_VALOR]) AS [CT2_VALOR]
+            , [CT2_CCD]
+            , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+            FROM [CT2010] 
+                        WHERE 
+                SUBSTRING([CT2_DATA],1,4) = YEAR(GETDATE())
+                AND [CT2_DEBITO] in ('41103001','42102001') 
+                AND D_E_L_E_T_ != '*'
+            GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                        ->fetchAll('assoc');
+        
+        $officeSupplies = $connection->execute("
+            SELECT 
+                SUM([CT2_VALOR]) AS [CT2_VALOR]
+            , [CT2_CCD]
+            , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+            FROM [CT2010] 
+                        WHERE 
+                SUBSTRING([CT2_DATA],1,4) = YEAR(GETDATE())
+                AND [CT2_DEBITO] in ('41103015','41103047','42102015','42102048') 
+                AND D_E_L_E_T_ != '*'
+            GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                        ->fetchAll('assoc');
+        
+        $cleaningSupplies = $connection->execute("
+            SELECT 
+                SUM([CT2_VALOR]) AS [CT2_VALOR]
+            , [CT2_CCD]
+            , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+            FROM [CT2010] 
+                        WHERE 
+                SUBSTRING([CT2_DATA],1,4) = YEAR(GETDATE())
+                AND [CT2_DEBITO] in ('41103033','42102035') 
+                AND D_E_L_E_T_ != '*'
+            GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                        ->fetchAll('assoc');
+        
+        $others = $connection->execute("
+            SELECT 
+                SUM([CT2_VALOR]) AS [CT2_VALOR]
+            , [CT2_CCD]
+            , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+            FROM [CT2010] 
+                        WHERE 
+                SUBSTRING([CT2_DATA],1,4) = YEAR(GETDATE())
+                AND [CT2_DEBITO] in ('41103007','41103016','41103018','41103019','41103024','41103037'
+                                    ,'41103038','42102004','42102016','42102018','42102019','42102024'
+                                    ,'42102039','42102045','42102047') 
+                AND D_E_L_E_T_ != '*'
+            GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+        ->fetchAll('assoc');
+        
+        $this->set(compact('rent','phoneAndInternet','electricity','waterAndSewage','officeSupplies','cleaningSupplies','others'));
+        $this->set('_serialize', ['rent','phoneAndInternet','electricity','waterAndSewage','officeSupplies','cleaningSupplies','others']);
+       
+        
+    }
+    
+    
+    public function OperationalExpensesPdf() {
+        
+        $year = $this->request->data['yearPdf'];
+        
+        $connection = ConnectionManager::get('baseProtheus');
+        
+        
+        $cc = $this->request->data['ccPdf']; 
+        
+        $ccpdf = $this->request->data['ccPdf']; 
+        
+        $cc = substr($cc,0,2);
+        
+        if ($cc != 'TO'){
+        
+            $maintenance = $connection->execute("
+                SELECT 
+                    SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                            WHERE 
+                    SUBSTRING([CT2_DATA],1,4) = '$year'
+                    AND [CT2_DEBITO] in ('41103008','41103026','41103035'
+                                        ,'41103031','41103041','41103045'
+                                        ,'42102005','42102027','42102033'
+                                        ,'42103037','42102042') 
+                    AND D_E_L_E_T_ != '*' AND [CT2_CCD] = '$cc'
+                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                        ->fetchAll('assoc'); 
+
+            $fines = $connection->execute("
+                SELECT 
+                    SUM([CT2_VALOR]) AS [CT2_VALOR]
+                    , [CT2_CCD]
+                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                    FROM [CT2010] 
+                                WHERE 
+                        SUBSTRING([CT2_DATA],1,4) = '$year'
+                        AND [CT2_DEBITO] in ('41103044','42102044') 
+                        AND D_E_L_E_T_ != '*' AND [CT2_CCD] = '$cc'
+                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                        ->fetchAll('assoc'); 
+
+            $tires = $connection->execute("SELECT 
+                SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                            WHERE 
+                    SUBSTRING([CT2_DATA],1,4) = '$year'
+                    AND [CT2_DEBITO] in ('41103032','42102034') 
+                    AND D_E_L_E_T_ != '*' AND [CT2_CCD] = '$cc'
+                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                ->fetchAll('assoc'); 
+
+            $fuelAndLubricants = $connection->execute("
+                SELECT 
+                    SUM([CT2_VALOR]) AS [CT2_VALOR]
+                    , [CT2_CCD]
+                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                    FROM [CT2010] 
+                                WHERE 
+                        SUBSTRING([CT2_DATA],1,4) = '$year'
+                        AND [CT2_DEBITO] in ('41103023','42102023') 
+                        AND D_E_L_E_T_ != '*' AND [CT2_CCD] = '$cc'
+                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                ->fetchAll('assoc'); 
+
+            $rents = $connection->execute("SELECT 
+                SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                            WHERE 
+                    SUBSTRING([CT2_DATA],1,4) = '$year'
+                    AND [CT2_DEBITO] in ('41103005','42102008','41103006','42102025') 
+                    AND D_E_L_E_T_ != '*' AND [CT2_CCD] = '$cc'
+                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                ->fetchAll('assoc'); 
+
+            $freight = $connection->execute("
+                SELECT 
+                SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                            WHERE 
+                    SUBSTRING([CT2_DATA],1,4) = '$year'
+                    AND [CT2_DEBITO] in ('41103009','41103014','41103042','42102006','42102014','42102043') 
+                    AND D_E_L_E_T_ != '*' AND [CT2_CCD] = '$cc'
+                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                ->fetchAll('assoc'); 
+
+            $materials = $connection->execute("
+                SELECT 
+                    SUM([CT2_VALOR]) AS [CT2_VALOR]
+                    , [CT2_CCD]
+                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                    FROM [CT2010] 
+                                WHERE 
+                        SUBSTRING([CT2_DATA],1,4) = '$year'
+                        AND [CT2_DEBITO] in ('41103017','41103027','41103028','41103040'
+                                            ,'41103043','41201001','42102017','42102028'
+                                            ,'42102030','42102041') 
+                        AND D_E_L_E_T_ != '*' AND [CT2_CCD] = '$cc'
+                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                ->fetchAll('assoc');
+
+            $various = $connection->execute("
+                SELECT 
+                    SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                            WHERE 
+                    SUBSTRING([CT2_DATA],1,4) = '$year'
+                    AND [CT2_DEBITO] in ('41103020','41103021','41103030','42102020','42102021','42102032') 
+                    AND D_E_L_E_T_ != '*' AND [CT2_CCD] = '$cc'
+                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                ->fetchAll('assoc');
+        }else{
+            
+            $maintenance = $connection->execute("
+                SELECT 
+                    SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                            WHERE 
+                    SUBSTRING([CT2_DATA],1,4) = '$year'
+                    AND [CT2_DEBITO] in ('41103008','41103026','41103035'
+                                        ,'41103031','41103041','41103045'
+                                        ,'42102005','42102027','42102033'
+                                        ,'42103037','42102042') 
+                    AND D_E_L_E_T_ != '*'
+                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                        ->fetchAll('assoc'); 
+
+            $fines = $connection->execute("
+                SELECT 
+                    SUM([CT2_VALOR]) AS [CT2_VALOR]
+                    , [CT2_CCD]
+                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                    FROM [CT2010] 
+                                WHERE 
+                        SUBSTRING([CT2_DATA],1,4) = '$year'
+                        AND [CT2_DEBITO] in ('41103044','42102044') 
+                        AND D_E_L_E_T_ != '*'
+                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                        ->fetchAll('assoc'); 
+
+            $tires = $connection->execute("SELECT 
+                SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                            WHERE 
+                    SUBSTRING([CT2_DATA],1,4) = '$year'
+                    AND [CT2_DEBITO] in ('41103032','42102034') 
+                    AND D_E_L_E_T_ != '*'
+                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                ->fetchAll('assoc'); 
+
+            $fuelAndLubricants = $connection->execute("
+                SELECT 
+                    SUM([CT2_VALOR]) AS [CT2_VALOR]
+                    , [CT2_CCD]
+                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                    FROM [CT2010] 
+                                WHERE 
+                        SUBSTRING([CT2_DATA],1,4) = '$year'
+                        AND [CT2_DEBITO] in ('41103023','42102023') 
+                        AND D_E_L_E_T_ != '*'
+                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                ->fetchAll('assoc'); 
+
+            $rents = $connection->execute("SELECT 
+                SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                            WHERE 
+                    SUBSTRING([CT2_DATA],1,4) = '$year'
+                    AND [CT2_DEBITO] in ('41103005','42102008','41103006','42102025') 
+                    AND D_E_L_E_T_ != '*'
+                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                ->fetchAll('assoc'); 
+
+            $freight = $connection->execute("
+                SELECT 
+                SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                            WHERE 
+                    SUBSTRING([CT2_DATA],1,4) = '$year'
+                    AND [CT2_DEBITO] in ('41103009','41103014','41103042','42102006','42102014','42102043') 
+                    AND D_E_L_E_T_ != '*'
+                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                ->fetchAll('assoc'); 
+
+            $materials = $connection->execute("
+                SELECT 
+                    SUM([CT2_VALOR]) AS [CT2_VALOR]
+                    , [CT2_CCD]
+                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                    FROM [CT2010] 
+                                WHERE 
+                        SUBSTRING([CT2_DATA],1,4) = '$year'
+                        AND [CT2_DEBITO] in ('41103017','41103027','41103028','41103040'
+                                            ,'41103043','41201001','42102017','42102028'
+                                            ,'42102030','42102041') 
+                        AND D_E_L_E_T_ != '*'
+                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                ->fetchAll('assoc');
+
+            $various = $connection->execute("
+                SELECT 
+                    SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                            WHERE 
+                    SUBSTRING([CT2_DATA],1,4) = '$year'
+                    AND [CT2_DEBITO] in ('41103020','41103021','41103030','42102020','42102021','42102032') 
+                    AND D_E_L_E_T_ != '*'
+                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                ->fetchAll('assoc');
+            
+        }
+
+        $this->set(compact('ccpdf','year','maintenance','fines','tires','fuelAndLubricants','rents','freight','materials','various'));
+        $this->set('_serialize', ['ccpdf','year','maintenance','fines','tires','fuelAndLubricants','rents','freight','materials','various']);
+       
+        $this->viewBuilder()->layout('ajax');
+        $this->response->type('pdf');
+    }
+    
+    public function OperationalExpensesFilter() {
+        
+        $year = $this->request->data['year'];
+        
+        $connection = ConnectionManager::get('baseProtheus');
+        
+        $maintenance = $connection->execute("
+            SELECT 
+                SUM([CT2_VALOR]) AS [CT2_VALOR]
+            , [CT2_CCD]
+            , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+            FROM [CT2010] 
+                        WHERE 
+                SUBSTRING([CT2_DATA],1,4) = '$year'
+                AND [CT2_DEBITO] in ('41103008','41103026','41103035'
+                                    ,'41103031','41103041','41103045'
+                                    ,'42102005','42102027','42102033'
+                                    ,'42103037','42102042') 
+                AND D_E_L_E_T_ != '*'
+            GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                    ->fetchAll('assoc'); 
+        
+        $fines = $connection->execute("
+            SELECT 
+                SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                            WHERE 
+                    SUBSTRING([CT2_DATA],1,4) = '$year'
+                    AND [CT2_DEBITO] in ('41103044','42102044') 
+                    AND D_E_L_E_T_ != '*'
+                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                    ->fetchAll('assoc'); 
+        
+        $tires = $connection->execute("SELECT 
+            SUM([CT2_VALOR]) AS [CT2_VALOR]
+            , [CT2_CCD]
+            , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+            FROM [CT2010] 
+                        WHERE 
+                SUBSTRING([CT2_DATA],1,4) = '$year'
+                AND [CT2_DEBITO] in ('41103032','42102034') 
+                AND D_E_L_E_T_ != '*'
+            GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+            ->fetchAll('assoc'); 
+        
+        $fuelAndLubricants = $connection->execute("
+            SELECT 
+                SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                            WHERE 
+                    SUBSTRING([CT2_DATA],1,4) = '$year'
+                    AND [CT2_DEBITO] in ('41103023','42102023') 
+                    AND D_E_L_E_T_ != '*'
+                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+            ->fetchAll('assoc'); 
+        
+        $rents = $connection->execute("SELECT 
+            SUM([CT2_VALOR]) AS [CT2_VALOR]
+            , [CT2_CCD]
+            , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+            FROM [CT2010] 
+                        WHERE 
+                SUBSTRING([CT2_DATA],1,4) = '$year'
+                AND [CT2_DEBITO] in ('41103005','42102008','41103006','42102025') 
+                AND D_E_L_E_T_ != '*'
+            GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+            ->fetchAll('assoc'); 
+        
+        $freight = $connection->execute("
+            SELECT 
+            SUM([CT2_VALOR]) AS [CT2_VALOR]
+            , [CT2_CCD]
+            , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+            FROM [CT2010] 
+                        WHERE 
+                SUBSTRING([CT2_DATA],1,4) = '$year'
+                AND [CT2_DEBITO] in ('41103009','41103014','41103042','42102006','42102014','42102043') 
+                AND D_E_L_E_T_ != '*'
+            GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+            ->fetchAll('assoc'); 
+        
+        $materials = $connection->execute("
+            SELECT 
+                SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                            WHERE 
+                    SUBSTRING([CT2_DATA],1,4) = '$year'
+                    AND [CT2_DEBITO] in ('41103017','41103027','41103028','41103040'
+                                        ,'41103043','41201001','42102017','42102028'
+                                        ,'42102030','42102041') 
+                    AND D_E_L_E_T_ != '*'
+                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+            ->fetchAll('assoc');
+        
+        $various = $connection->execute("
+            SELECT 
+                SUM([CT2_VALOR]) AS [CT2_VALOR]
+            , [CT2_CCD]
+            , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+            FROM [CT2010] 
+                        WHERE 
+                SUBSTRING([CT2_DATA],1,4) = '$year'
+                AND [CT2_DEBITO] in ('41103020','41103021','41103030','42102020','42102021','42102032') 
+                AND D_E_L_E_T_ != '*'
+            GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+            ->fetchAll('assoc');
+        
+        $this->set(compact('year','maintenance','fines','tires','fuelAndLubricants','rents','freight','materials','various'));
+        $this->set('_serialize', ['year','maintenance','fines','tires','fuelAndLubricants','rents','freight','materials','various']);
+        
+    }
+    
+    public function OperationalExpenses() {
+        
+        $connection = ConnectionManager::get('baseProtheus');
+        
+        $maintenance = $connection->execute("
+            SELECT 
+                SUM([CT2_VALOR]) AS [CT2_VALOR]
+            , [CT2_CCD]
+            , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+            FROM [CT2010] 
+                        WHERE 
+                SUBSTRING([CT2_DATA],1,4) = YEAR(GETDATE())
+                AND [CT2_DEBITO] in ('41103008','41103026','41103035'
+                                    ,'41103031','41103041','41103045'
+                                    ,'42102005','42102027','42102033'
+                                    ,'42103037','42102042') 
+                AND D_E_L_E_T_ != '*'
+            GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                    ->fetchAll('assoc'); 
+        
+        $fines = $connection->execute("
+            SELECT 
+                SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                            WHERE 
+                    SUBSTRING([CT2_DATA],1,4) = YEAR(GETDATE())
+                    AND [CT2_DEBITO] in ('41103044','42102044') 
+                    AND D_E_L_E_T_ != '*'
+                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                    ->fetchAll('assoc'); 
+        
+        $tires = $connection->execute("SELECT 
+            SUM([CT2_VALOR]) AS [CT2_VALOR]
+            , [CT2_CCD]
+            , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+            FROM [CT2010] 
+                        WHERE 
+                SUBSTRING([CT2_DATA],1,4) = YEAR(GETDATE())
+                AND [CT2_DEBITO] in ('41103032','42102034') 
+                AND D_E_L_E_T_ != '*'
+            GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+            ->fetchAll('assoc'); 
+        
+        $fuelAndLubricants = $connection->execute("
+            SELECT 
+                SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                            WHERE 
+                    SUBSTRING([CT2_DATA],1,4) = YEAR(GETDATE())
+                    AND [CT2_DEBITO] in ('41103023','42102023') 
+                    AND D_E_L_E_T_ != '*'
+                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+            ->fetchAll('assoc'); 
+        
+        $rents = $connection->execute("SELECT 
+            SUM([CT2_VALOR]) AS [CT2_VALOR]
+            , [CT2_CCD]
+            , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+            FROM [CT2010] 
+                        WHERE 
+                SUBSTRING([CT2_DATA],1,4) = YEAR(GETDATE())
+                AND [CT2_DEBITO] in ('41103005','42102008','41103006','42102025') 
+                AND D_E_L_E_T_ != '*'
+            GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+            ->fetchAll('assoc'); 
+        
+        $freight = $connection->execute("
+            SELECT 
+            SUM([CT2_VALOR]) AS [CT2_VALOR]
+            , [CT2_CCD]
+            , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+            FROM [CT2010] 
+                        WHERE 
+                SUBSTRING([CT2_DATA],1,4) = YEAR(GETDATE())
+                AND [CT2_DEBITO] in ('41103009','41103014','41103042','42102006','42102014','42102043') 
+                AND D_E_L_E_T_ != '*'
+            GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+            ->fetchAll('assoc'); 
+        
+        $materials = $connection->execute("
+            SELECT 
+                SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                            WHERE 
+                    SUBSTRING([CT2_DATA],1,4) = YEAR(GETDATE())
+                    AND [CT2_DEBITO] in ('41103017','41103027','41103028','41103040'
+                                        ,'41103043','41201001','42102017','42102028'
+                                        ,'42102030','42102041') 
+                    AND D_E_L_E_T_ != '*'
+                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+            ->fetchAll('assoc');
+        
+        $various = $connection->execute("
+            SELECT 
+                SUM([CT2_VALOR]) AS [CT2_VALOR]
+            , [CT2_CCD]
+            , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+            FROM [CT2010] 
+                        WHERE 
+                SUBSTRING([CT2_DATA],1,4) = YEAR(GETDATE())
+                AND [CT2_DEBITO] in ('41103020','41103021','41103030','42102020','42102021','42102032') 
+                AND D_E_L_E_T_ != '*'
+            GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+            ->fetchAll('assoc');
+        
+        $this->set(compact('maintenance','fines','tires','fuelAndLubricants','rents','freight','materials','various'));
+        $this->set('_serialize', ['maintenance','fines','tires','fuelAndLubricants','rents','freight','materials','various']);
+        
+        
+    }
     
     public function PersonnelExpensesPdf() {
         
@@ -22,21 +1483,22 @@ class ControllershipController extends AppController {
         
         $cc = substr($cc,0,2);
         
-        //quadro de pessoal
-        $staffPerMonth = $connection->execute("
-            SELECT  
-                COUNT([RD_PD]) as CONT      
-                ,[RD_DATARQ]
-                ,[RD_CC]			
-                FROM [SRD010]
-                    WHERE [SRD010].[D_E_L_E_T_] <> '*'
-                        AND [RD_PD] = '101'
-                        AND SUBSTRING([RD_DATARQ],0,5) = '2016'					
-                    GROUP BY [RD_CC],[RD_DATARQ]
-                    ORDER BY [RD_CC],[RD_DATARQ]")
-                ->fetchAll('assoc');        
-        
         if ($cc != 'TO'){
+            
+             //quadro de pessoal
+            $staffPerMonth = $connection->execute("
+                SELECT  
+                    COUNT([RD_PD]) as CONT      
+                    ,[RD_DATARQ]
+                    ,[RD_CC]			
+                    FROM [SRD010]
+                        WHERE [SRD010].[D_E_L_E_T_] <> '*'
+                            AND [RD_PD] = '101'
+                            AND SUBSTRING([RD_DATARQ],0,5) = '2016'
+                            AND [RD_CC] = '$cc'
+                        GROUP BY [RD_CC],[RD_DATARQ]
+                        ORDER BY [RD_CC],[RD_DATARQ]")
+                    ->fetchAll('assoc');   
             
             $outehs = $connection->execute("
                 SELECT 
@@ -202,6 +1664,20 @@ class ControllershipController extends AppController {
                         ")->fetchAll('assoc'); 
         
         }else{
+            
+            //quadro de pessoal
+            $staffPerMonth = $connection->execute("
+                SELECT  
+                    COUNT([RD_PD]) as CONT      
+                    ,[RD_DATARQ]
+                    ,[RD_CC]			
+                    FROM [SRD010]
+                        WHERE [SRD010].[D_E_L_E_T_] <> '*'
+                            AND [RD_PD] = '101'
+                            AND SUBSTRING([RD_DATARQ],0,5) = '2016'
+                        GROUP BY [RD_CC],[RD_DATARQ]
+                        ORDER BY [RD_CC],[RD_DATARQ]")
+                    ->fetchAll('assoc');   
             
             $outehs = $connection->execute("
                 SELECT 
