@@ -12,126 +12,152 @@ for($i = 0; $i < sizeof($x); $i++){
     $costCenters[$x[$i]] = $x[$i];
 }
 
-$naturezas = ['Manuntenções','Multas de trânsito','Pseus (novos e renovados)'
-                ,'Combustíveis e lubrificantes','Alugueis','Frete, pedagios e correios'
-                ,'Materiais', 'Despesas diversas'];
+$naturezas = ['ICMS','ISS','COFINS','PIS','IRPJ','CSLL','IPVA','IPTU','ITBI','FECOEP'];
 
 $monthsLabels = ['Jan', 'Fev', 'Mar', 'Mai', 'Abr', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
 $monthsNumbers = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
 
 $totalAnual = 0;
 
-$maintenanceMonths = [];
+$icmsMonths = [];
 $valorTotal = 0;
 foreach($monthsNumbers as $key):
     $valor = 0;
-    foreach($maintenance as $x => $value):
+    foreach($icms as $x => $value):
         if ($key == $value['CT2_DATA'])
             $valor += $value['CT2_VALOR'];  
             $totalAnual += $valor;
     endforeach;
     $valorTotal += $valor;
-    $maintenanceMonths[] = $valor;
+    $icmsMonths[] = $valor;
 endforeach;
-$maintenanceMonths[] = $valorTotal;        
+$icmsMonths[] = $valorTotal;
 
-$finesMonths = [];
+$issMonths = [];
 $valorTotal = 0;
 foreach($monthsNumbers as $key):
     $valor = 0;
-    foreach($fines as $x => $value):
+    foreach($iss as $x => $value):
         if ($key == $value['CT2_DATA'])
             $valor += $value['CT2_VALOR'];  
             $totalAnual += $valor;
     endforeach;
     $valorTotal += $valor;
-    $finesMonths[] = $valor;
+    $issMonths[] = $valor;
 endforeach;
-$finesMonths[] = $valorTotal;
+$issMonths[] = $valorTotal;
 
-$tiresMonths = [];
+$cofinsMonths = [];
 $valorTotal = 0;
 foreach($monthsNumbers as $key):
     $valor = 0;
-    foreach($tires as $x => $value):
+    foreach($cofins as $x => $value):
         if ($key == $value['CT2_DATA'])
             $valor += $value['CT2_VALOR'];  
             $totalAnual += $valor;
     endforeach;
     $valorTotal += $valor;
-    $tiresMonths[] = $valor;
-    endforeach;
-$tiresMonths[] = $valorTotal;
-
-$fuelAndLubricantsMonths = [];
-$valorTotal = 0;
-foreach($monthsNumbers as $key):
-    $valor = 0;
-    foreach($fuelAndLubricants as $x => $value):
-        if ($key == $value['CT2_DATA'])
-            $valor += $value['CT2_VALOR'];  
-            $totalAnual += $valor;
-    endforeach;
-    $valorTotal += $valor;
-    $fuelAndLubricantsMonths[] = $valor;
+    $cofinsMonths[] = $valor;
 endforeach;
-$fuelAndLubricantsMonths[] = $valorTotal;
+$cofinsMonths[] = $valorTotal;
 
-$rentsMonths = [];
+$pisMonths = [];
 $valorTotal = 0;
 foreach($monthsNumbers as $key):
     $valor = 0;
-    foreach($rents as $x => $value):
+    foreach($pis as $x => $value):
         if ($key == $value['CT2_DATA'])
             $valor += $value['CT2_VALOR'];  
             $totalAnual += $valor;
     endforeach;
     $valorTotal += $valor;
-    $rentsMonths[] = $valor;
+    $pisMonths[] = $valor;
 endforeach;
-$rentsMonths[] = $valorTotal;
+$pisMonths[] = $valorTotal;
 
-$freightMonths = [];
+$irpjMonths = [];
 $valorTotal = 0;
 foreach($monthsNumbers as $key):
     $valor = 0;
-    foreach($freight as $x => $value):
+    foreach($irpj as $x => $value):
         if ($key == $value['CT2_DATA'])
             $valor += $value['CT2_VALOR'];  
             $totalAnual += $valor;
     endforeach;
     $valorTotal += $valor;
-    $freightMonths[] = $valor;
+    $irpjMonths[] = $valor;
 endforeach;
-$freightMonths[] = $valorTotal;
+$irpjMonths[] = $valorTotal;
 
-$materialsMonths = [];
+$csllMonths = [];
 $valorTotal = 0;
 foreach($monthsNumbers as $key):
     $valor = 0;
-    foreach($materials as $x => $value):
+    foreach($csll as $x => $value):
         if ($key == $value['CT2_DATA'])
             $valor += $value['CT2_VALOR'];  
             $totalAnual += $valor;
     endforeach;
     $valorTotal += $valor;
-    $materialsMonths[] = $valor;
+    $csllMonths[] = $valor;
 endforeach;
-$materialsMonths[] = $valorTotal;
+$csllMonths[] = $valorTotal;
 
-$variousMonths = [];
+$ipvaMonths = [];
 $valorTotal = 0;
 foreach($monthsNumbers as $key):
     $valor = 0;
-    foreach($various as $x => $value):
+    foreach($ipva as $x => $value):
         if ($key == $value['CT2_DATA'])
             $valor += $value['CT2_VALOR'];  
             $totalAnual += $valor;
     endforeach;
     $valorTotal += $valor;
-    $variousMonths[] = $valor;
+    $ipvaMonths[] = $valor;
 endforeach;
-$variousMonths[] = $valorTotal;
+$ipvaMonths[] = $valorTotal;
+
+$iptuMonths = [];
+$valorTotal = 0;
+foreach($monthsNumbers as $key):
+    $valor = 0;
+    foreach($iptu as $x => $value):
+        if ($key == $value['CT2_DATA'])
+            $valor += $value['CT2_VALOR'];  
+            $totalAnual += $valor;
+    endforeach;
+    $valorTotal += $valor;
+    $iptuMonths[] = $valor;
+endforeach;
+$iptuMonths[] = $valorTotal;
+
+$itbiMonths = [];
+$valorTotal = 0;
+foreach($monthsNumbers as $key):
+    $valor = 0;
+    foreach($itbi as $x => $value):
+        if ($key == $value['CT2_DATA'])
+            $valor += $value['CT2_VALOR'];  
+            $totalAnual += $valor;
+    endforeach;
+    $valorTotal += $valor;
+    $itbiMonths[] = $valor;
+endforeach;
+$itbiMonths[] = $valorTotal;
+
+$fecoepMonths = [];
+$valorTotal = 0;
+foreach($monthsNumbers as $key):
+    $valor = 0;
+    foreach($fecoep as $x => $value):
+        if ($key == $value['CT2_DATA'])
+            $valor += $value['CT2_VALOR'];  
+            $totalAnual += $valor;
+    endforeach;
+    $valorTotal += $valor;
+    $fecoepMonths[] = $valor;
+endforeach;
+$fecoepMonths[] = $valorTotal;
     
 ?>
 <?php 
@@ -176,7 +202,7 @@ $pdf = new MYPDF('l', PDF_UNIT, PDF_PAGE_FORMAT, true, PDO::SQLSRV_ENCODING_UTF8
 // set document information
 $pdf->SetCreator(PDF_CREATOR);
 $pdf->SetAuthor('Qualitex Engenharia e Serviços');
-$pdf->SetTitle('Despesas com operacional');
+$pdf->SetTitle('Despesas com tributação');
 $pdf->SetSubject('Despesas');
 $pdf->SetKeywords('Despesas');
 
@@ -244,78 +270,95 @@ $html .= '<table class="table" align="center">'
             .'<tr bgcolor="#F5F5F5">'
                 .'<th>'.$naturezas[0].'</th>';
                 for ($i = 0; $i <= 11; $i++){ 
-                    $html .= '<td>' .number_format($maintenanceMonths[$i],0,',','.'). '</td>';
+                    $html .= '<td>' .number_format($icmsMonths[$i],0,',','.'). '</td>';
                 }
-                $html .= '<th>'.number_format($maintenanceMonths[12],0,',','.').'</th>'
+                $html .= '<th>'.number_format($icmsMonths[12],0,',','.').'</th>'
             .'</tr>' 
+            
             .'<tr>'
                 .'<th>'.$naturezas[1].'</th>';
                 for ($i = 0; $i <= 11; $i++){ 
-                    $html .= '<td>' .number_format($finesMonths[$i],0,',','.'). '</td>';
+                    $html .= '<td>' .number_format($issMonths[$i],0,',','.'). '</td>';
                 }
-                $html .= '<th>'.number_format($finesMonths[12],0,',','.').'</th>'
+                $html .= '<th>'.number_format($issMonths[12],0,',','.').'</th>'
             .'</tr>'                 
+            
             .'<tr bgcolor="#F5F5F5">'
                 .'<th>'.$naturezas[2].'</th>';
                 for ($i = 0; $i <= 11; $i++){ 
-                    $html .= '<td>' .number_format($tiresMonths[$i],0,',','.'). '</td>';
+                    $html .= '<td>' .number_format($cofinsMonths[$i],0,',','.'). '</td>';
                 }
-                $html .= '<th>'.number_format($tiresMonths[12],0,',','.').'</th>'
+                $html .= '<th>'.number_format($cofinsMonths[12],0,',','.').'</th>'
             .'</tr>'
             
             .'<tr>'
                 .'<th>'.$naturezas[3].'</th>';
                 for ($i = 0; $i <= 11; $i++){ 
-                    $html .= '<td>' .number_format($fuelAndLubricantsMonths[$i],0,',','.'). '</td>';
+                    $html .= '<td>' .number_format($pisMonths[$i],0,',','.'). '</td>';
                 }
-                $html .= '<th>'.number_format($fuelAndLubricantsMonths[12],0,',','.').'</th>'
+                $html .= '<th>'.number_format($pisMonths[12],0,',','.').'</th>'
             .'</tr>'          
             
             .'<tr bgcolor="#F5F5F5">'
                 .'<th>'.$naturezas[4].'</th>';
                 for ($i = 0; $i <= 11; $i++){ 
-                    $html .= '<td>' .number_format($rentsMonths[$i],0,',','.'). '</td>';
+                    $html .= '<td>' .number_format($irpjMonths[$i],0,',','.'). '</td>';
                 }
-                $html .= '<th>'.number_format($rentsMonths[12],0,',','.').'</th>'
+                $html .= '<th>'.number_format($irpjMonths[12],0,',','.').'</th>'
             .'</tr>'
             
             .'<tr>'
                 .'<th>'.$naturezas[5].'</th>';
                 for ($i = 0; $i <= 11; $i++){ 
-                    $html .= '<td>' .number_format($freightMonths[$i],0,',','.'). '</td>';
+                    $html .= '<td>' .number_format($csllMonths[$i],0,',','.'). '</td>';
                 }
-                $html .= '<th>'.number_format($freightMonths[12],0,',','.').'</th>'
+                $html .= '<th>'.number_format($csllMonths[12],0,',','.').'</th>'
             .'</tr>'  
           
             .'<tr bgcolor="#F5F5F5">'
                 .'<th>'.$naturezas[6].'</th>';
                 for ($i = 0; $i <= 11; $i++){ 
-                    $html .= '<td>' .number_format($materialsMonths[$i],0,',','.'). '</td>';
+                    $html .= '<td>' .number_format($ipvaMonths[$i],0,',','.'). '</td>';
                 }
-                $html .= '<th>'.number_format($materialsMonths[12],0,',','.').'</th>'
+                $html .= '<th>'.number_format($ipvaMonths[12],0,',','.').'</th>'
             .'</tr>'            
-                        
+           
             .'<tr>'
                 .'<th>'.$naturezas[7].'</th>';
                 for ($i = 0; $i <= 11; $i++){ 
-                    $html .= '<td>' .number_format($variousMonths[$i],0,',','.'). '</td>';
+                    $html .= '<td>' .number_format($iptuMonths[$i],0,',','.'). '</td>';
                 }
-                $html .= '<th>'.number_format($variousMonths[12],0,',','.').'</th>'
-            .'</tr>'            
+                $html .= '<th>'.number_format($iptuMonths[12],0,',','.').'</th>'
+            .'</tr>'   
                         
             .'<tr bgcolor="#F5F5F5">'
+                .'<th>'.$naturezas[8].'</th>';
+                for ($i = 0; $i <= 11; $i++){ 
+                    $html .= '<td>' .number_format($itbiMonths[$i],0,',','.'). '</td>';
+                }
+                $html .= '<th>'.number_format($itbiMonths[12],0,',','.').'</th>'
+            .'</tr>'  
+            
+            .'<tr>'
+                .'<th>'.$naturezas[9].'</th>';
+                for ($i = 0; $i <= 11; $i++){ 
+                    $html .= '<td>' .number_format($fecoepMonths[$i],0,',','.'). '</td>';
+                }
+                $html .= '<th>'.number_format($fecoepMonths[12],0,',','.').'</th>'
+            .'</tr>'
+            
+            .'<tr>'
                 .'<th>Total</th>';
                 for ($i = 0; $i <= 11; $i++){  
-                    $html .= '<td>'.number_format($maintenanceMonths[$i] + $finesMonths[$i] + $tiresMonths[$i] +
-                                                                    $fuelAndLubricantsMonths[$i] + $rentsMonths[$i] + $freightMonths[$i] +
-                                                                        $materialsMonths[$i] + $variousMonths[$i],0,',','.') .'</td>';
+                    $html .= '<td>'.number_format($icmsMonths[$i] + $issMonths[$i] + $cofinsMonths[$i] +
+                                                    $pisMonths[$i] + $irpjMonths[$i] + $csllMonths[$i] +
+                                                        $ipvaMonths[$i] + $iptuMonths[$i] + $itbiMonths[$i] + $fecoepMonths[$i],0,',','.') .'</td>';
                 }
                 
-                $html .= '<th>'. number_format($maintenanceMonths[12] + $finesMonths[12] + $tiresMonths[12] +
-                                                                    $fuelAndLubricantsMonths[12] + $rentsMonths[12] + $freightMonths[12] +
-                                                                        $materialsMonths[12] + $variousMonths[12],0,',','.') .'</th>';                                
-                $html .= '</tr>'                
-                        
+                $html .= '<th>'. number_format($icmsMonths[12] + $issMonths[12] + $cofinsMonths[12] +
+                                                    $pisMonths[12] + $irpjMonths[12] + $csllMonths[12] +
+                                                        $ipvaMonths[12] + $iptuMonths[$i] + $itbiMonths[$i] + $fecoepMonths[$i],0,',','.') .'</th>';                                
+                $html .= '</tr>'               
         . '</tbody>'    
        . '</table>';
 
@@ -328,7 +371,7 @@ $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 2, 0, true, '', true);
 
 // Close and output PDF document
 // This method has several options, check the source code documentation for more information.
-$pdf->Output('Despesas com operacional.pdf', 'I');
+$pdf->Output('Despesas com tributação.pdf', 'I');
 
 //============================================================+
 // END OF FILE

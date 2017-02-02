@@ -12,160 +12,159 @@ for($i = 0; $i < sizeof($x); $i++){
     $costCenters[$x[$i]] = $x[$i];
 }
 
-$naturezas = ['Taxas e tarifas','Juros passivos','Descontos concedidos','Despesas bancarias'
-                ,'Multas','IOF','IOC','Juros Bancarios','Encargos Financeiros','IRS'];
+$naturezas = ['ICMS','ISS','COFINS','PIS','IRPJ','CSLL','IPVA','IPTU','ITBI','FECOEP'];
 
 $monthsLabels = ['Jan', 'Fev', 'Mar', 'Mai', 'Abr', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
 $monthsNumbers = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
 
 $totalAnual = 0;
 
-$ratesMonths = [];
+$icmsMonths = [];
 $valorTotal = 0;
 foreach($monthsNumbers as $key):
     $valor = 0;
-    foreach($rates as $x => $value):
+    foreach($icms as $x => $value):
         if ($key == $value['CT2_DATA'])
             $valor += $value['CT2_VALOR'];  
             $totalAnual += $valor;
     endforeach;
     $valorTotal += $valor;
-    $ratesMonths[] = $valor;
+    $icmsMonths[] = $valor;
 endforeach;
-$ratesMonths[] = $valorTotal;
+$icmsMonths[] = $valorTotal;
 
-$interestCostsMonths = [];
+$issMonths = [];
 $valorTotal = 0;
 foreach($monthsNumbers as $key):
     $valor = 0;
-    foreach($interestCosts as $x => $value):
+    foreach($iss as $x => $value):
         if ($key == $value['CT2_DATA'])
             $valor += $value['CT2_VALOR'];  
             $totalAnual += $valor;
     endforeach;
     $valorTotal += $valor;
-    $interestCostsMonths[] = $valor;
+    $issMonths[] = $valor;
 endforeach;
-$interestCostsMonths[] = $valorTotal;
+$issMonths[] = $valorTotal;
 
-$discountsGivenMonths = [];
+$cofinsMonths = [];
 $valorTotal = 0;
 foreach($monthsNumbers as $key):
     $valor = 0;
-    foreach($discountsGiven as $x => $value):
+    foreach($cofins as $x => $value):
         if ($key == $value['CT2_DATA'])
             $valor += $value['CT2_VALOR'];  
             $totalAnual += $valor;
     endforeach;
     $valorTotal += $valor;
-    $discountsGivenMonths[] = $valor;
+    $cofinsMonths[] = $valor;
 endforeach;
-$discountsGivenMonths[] = $valorTotal;
+$cofinsMonths[] = $valorTotal;
 
-$bankExpensesMonths = [];
+$pisMonths = [];
 $valorTotal = 0;
 foreach($monthsNumbers as $key):
     $valor = 0;
-    foreach($bankExpenses as $x => $value):
+    foreach($pis as $x => $value):
         if ($key == $value['CT2_DATA'])
             $valor += $value['CT2_VALOR'];  
             $totalAnual += $valor;
     endforeach;
     $valorTotal += $valor;
-    $bankExpensesMonths[] = $valor;
+    $pisMonths[] = $valor;
 endforeach;
-$bankExpensesMonths[] = $valorTotal;
+$pisMonths[] = $valorTotal;
 
-$finesMonths = [];
+$irpjMonths = [];
 $valorTotal = 0;
 foreach($monthsNumbers as $key):
     $valor = 0;
-    foreach($fines as $x => $value):
+    foreach($irpj as $x => $value):
         if ($key == $value['CT2_DATA'])
             $valor += $value['CT2_VALOR'];  
             $totalAnual += $valor;
     endforeach;
     $valorTotal += $valor;
-    $finesMonths[] = $valor;
+    $irpjMonths[] = $valor;
 endforeach;
-$finesMonths[] = $valorTotal;
+$irpjMonths[] = $valorTotal;
 
-$iofMonths = [];
+$csllMonths = [];
 $valorTotal = 0;
 foreach($monthsNumbers as $key):
     $valor = 0;
-    foreach($iof as $x => $value):
+    foreach($csll as $x => $value):
         if ($key == $value['CT2_DATA'])
             $valor += $value['CT2_VALOR'];  
             $totalAnual += $valor;
     endforeach;
     $valorTotal += $valor;
-    $iofMonths[] = $valor;
+    $csllMonths[] = $valor;
 endforeach;
-$iofMonths[] = $valorTotal;
+$csllMonths[] = $valorTotal;
 
-$iocMonths = [];
+$ipvaMonths = [];
 $valorTotal = 0;
 foreach($monthsNumbers as $key):
     $valor = 0;
-    foreach($ioc as $x => $value):
+    foreach($ipva as $x => $value):
         if ($key == $value['CT2_DATA'])
             $valor += $value['CT2_VALOR'];  
             $totalAnual += $valor;
     endforeach;
     $valorTotal += $valor;
-    $iocMonths[] = $valor;
+    $ipvaMonths[] = $valor;
 endforeach;
-$iocMonths[] = $valorTotal;
+$ipvaMonths[] = $valorTotal;
 
-$bankInterestRateMonths = [];
+$iptuMonths = [];
 $valorTotal = 0;
 foreach($monthsNumbers as $key):
     $valor = 0;
-    foreach($bankInterestRate as $x => $value):
+    foreach($iptu as $x => $value):
         if ($key == $value['CT2_DATA'])
             $valor += $value['CT2_VALOR'];  
             $totalAnual += $valor;
     endforeach;
     $valorTotal += $valor;
-    $bankInterestRateMonths[] = $valor;
+    $iptuMonths[] = $valor;
 endforeach;
-$bankInterestRateMonths[] = $valorTotal;
+$iptuMonths[] = $valorTotal;
 
-$financialChargesMonths = [];
+$itbiMonths = [];
 $valorTotal = 0;
 foreach($monthsNumbers as $key):
     $valor = 0;
-    foreach($financialCharges as $x => $value):
+    foreach($itbi as $x => $value):
         if ($key == $value['CT2_DATA'])
             $valor += $value['CT2_VALOR'];  
             $totalAnual += $valor;
     endforeach;
     $valorTotal += $valor;
-    $financialChargesMonths[] = $valor;
+    $itbiMonths[] = $valor;
 endforeach;
-$financialChargesMonths[] = $valorTotal;
+$itbiMonths[] = $valorTotal;
 
-$irsMonths = [];
+$fecoepMonths = [];
 $valorTotal = 0;
 foreach($monthsNumbers as $key):
     $valor = 0;
-    foreach($irs as $x => $value):
+    foreach($fecoep as $x => $value):
         if ($key == $value['CT2_DATA'])
             $valor += $value['CT2_VALOR'];  
             $totalAnual += $valor;
     endforeach;
     $valorTotal += $valor;
-    $irsMonths[] = $valor;
+    $fecoepMonths[] = $valor;
 endforeach;
-$irsMonths[] = $valorTotal;
+$fecoepMonths[] = $valorTotal;
 
 ?>
 
 <section class="content-header">
     <h1>
         Painel
-        <small>Controladoria - Despesas com administrativo</small>
+        <small>Controladoria - Despesas com tributação</small>
     </h1>      
 </section>
 
@@ -195,7 +194,7 @@ $irsMonths[] = $valorTotal;
                                     <div class="col-md-4">
                                         <?php
                                             $x = null;
-                                            echo $this->Form->create($x,['url' => ['controller'=>'Controllership','action' => 'FinancialExpensesFilter']]);
+                                            echo $this->Form->create($x,['url' => ['controller'=>'Controllership','action' => 'TaxedExpensesFilter']]);
                                             echo $this->Form->input('year', ['default' => '2017' ,'disabled' => FALSE,'label'=>' ']);
                                         ?>
                                     </div> 
@@ -235,7 +234,7 @@ $irsMonths[] = $valorTotal;
                                     <div class="col-md-6">
                                         <?php
                                             $x = null;
-                                            echo $this->Form->create($x,['url' => ['controller'=>'Controllership','action' => 'FinancialExpensesPdf']]);
+                                            echo $this->Form->create($x,['url' => ['controller'=>'Controllership','action' => 'TaxedExpensesPdf']]);
                                             echo $this->Form->input('yearPdf', ['default' => '2017' ,'disabled' => FALSE,'label'=>'Informe o ano desejado:']);
                                             echo $this->Form->input('ccPdf', ['id' => 'ccPdf', 'options' => $costCenters, 'label' => 'Selecione o centro de custo:']); 
                                         ?>
@@ -261,7 +260,7 @@ $irsMonths[] = $valorTotal;
         <div class="col-md-12">
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Despesas administrativas:</h3>
+                    <h3 class="box-title">Despesas tributarias:</h3>
                     <div class="box-tools pull-right">
                         <button type="button" class="btn btn-box-tool" data-widget="collapse">
                             <i class="fa fa-minus"></i>
@@ -304,94 +303,93 @@ $irsMonths[] = $valorTotal;
                             <tr>
                                 <th><?php echo $naturezas[0]; ?></th>
                                 <?php for ($i = 0; $i <= 11; $i++){ ?>
-                                    <td> <?php echo number_format($ratesMonths[$i],0,',','.'); ?> </td>
+                                    <td> <?php echo number_format($icmsMonths[$i],0,',','.'); ?> </td>
                                 <?php } ?>
-                                <th><?php echo number_format($ratesMonths[12],0,',','.');; ?></th>
+                                <th><?php echo number_format($icmsMonths[12],0,',','.');; ?></th>
                             </tr>
                             
                             <tr>
                                 <th><?php echo $naturezas[1]; ?></th>
                                 <?php for ($i = 0; $i <= 11; $i++){ ?>
-                                    <td> <?php echo number_format($interestCostsMonths[$i],0,',','.'); ?> </td>
+                                    <td> <?php echo number_format($issMonths[$i],0,',','.'); ?> </td>
                                 <?php } ?>
-                                <th><?php echo number_format($interestCostsMonths[12],0,',','.');; ?></th>
+                                <th><?php echo number_format($issMonths[12],0,',','.');; ?></th>
                             </tr>
                             
                             <tr>
                                 <th><?php echo $naturezas[2]; ?></th>
                                 <?php for ($i = 0; $i <= 11; $i++){ ?>
-                                    <td> <?php echo number_format($discountsGivenMonths[$i],0,',','.'); ?> </td>
+                                    <td> <?php echo number_format($cofinsMonths[$i],0,',','.'); ?> </td>
                                 <?php } ?>
-                                <th><?php echo number_format($discountsGivenMonths[12],0,',','.');; ?></th>
+                                <th><?php echo number_format($cofinsMonths[12],0,',','.');; ?></th>
                             </tr>
                             
                             <tr>
                                 <th><?php echo $naturezas[3]; ?></th>
                                 <?php for ($i = 0; $i <= 11; $i++){ ?>
-                                    <td> <?php echo number_format($bankExpensesMonths[$i],0,',','.'); ?> </td>
+                                    <td> <?php echo number_format($pisMonths[$i],0,',','.'); ?> </td>
                                 <?php } ?>
-                                <th><?php echo number_format($bankExpensesMonths[12],0,',','.');; ?></th>
+                                <th><?php echo number_format($pisMonths[12],0,',','.');; ?></th>
                             </tr>
                             
                             <tr>
                                 <th><?php echo $naturezas[4]; ?></th>
                                 <?php for ($i = 0; $i <= 11; $i++){ ?>
-                                    <td> <?php echo number_format($finesMonths[$i],0,',','.'); ?> </td>
+                                    <td> <?php echo number_format($irpjMonths[$i],0,',','.'); ?> </td>
                                 <?php } ?>
-                                <th><?php echo number_format($finesMonths[12],0,',','.');; ?></th>
+                                <th><?php echo number_format($irpjMonths[12],0,',','.');; ?></th>
                             </tr>
                             
                             <tr>
                                 <th><?php echo $naturezas[5]; ?></th>
                                 <?php for ($i = 0; $i <= 11; $i++){ ?>
-                                    <td> <?php echo number_format($iofMonths[$i],0,',','.'); ?> </td>
+                                    <td> <?php echo number_format($csllMonths[$i],0,',','.'); ?> </td>
                                 <?php } ?>
-                                <th><?php echo number_format($iofMonths[12],0,',','.');; ?></th>
+                                <th><?php echo number_format($csllMonths[12],0,',','.');; ?></th>
                             </tr>
                             
                             <tr>
                                 <th><?php echo $naturezas[6]; ?></th>
                                 <?php for ($i = 0; $i <= 11; $i++){ ?>
-                                    <td> <?php echo number_format($iocMonths[$i],0,',','.'); ?> </td>
+                                    <td> <?php echo number_format($ipvaMonths[$i],0,',','.'); ?> </td>
                                 <?php } ?>
-                                <th><?php echo number_format($iocMonths[12],0,',','.');; ?></th>
+                                <th><?php echo number_format($ipvaMonths[12],0,',','.');; ?></th>
                             </tr>
                             
                             <tr>
                                 <th><?php echo $naturezas[7]; ?></th>
                                 <?php for ($i = 0; $i <= 11; $i++){ ?>
-                                    <td> <?php echo number_format($bankInterestRateMonths[$i],0,',','.'); ?> </td>
+                                    <td> <?php echo number_format($iptuMonths[$i],0,',','.'); ?> </td>
                                 <?php } ?>
-                                <th><?php echo number_format($bankInterestRateMonths[12],0,',','.');; ?></th>
+                                <th><?php echo number_format($iptuMonths[12],0,',','.');; ?></th>
                             </tr>
                             
                             <tr>
                                 <th><?php echo $naturezas[8]; ?></th>
                                 <?php for ($i = 0; $i <= 11; $i++){ ?>
-                                    <td> <?php echo number_format($financialChargesMonths[$i],0,',','.'); ?> </td>
+                                    <td> <?php echo number_format($itbiMonths[$i],0,',','.'); ?> </td>
                                 <?php } ?>
-                                <th><?php echo number_format($financialChargesMonths[12],0,',','.');; ?></th>
+                                <th><?php echo number_format($itbiMonths[12],0,',','.');; ?></th>
                             </tr>
                             
                             <tr>
                                 <th><?php echo $naturezas[9]; ?></th>
                                 <?php for ($i = 0; $i <= 11; $i++){ ?>
-                                    <td> <?php echo number_format($irsMonths[$i],0,',','.'); ?> </td>
+                                    <td> <?php echo number_format($fecoepMonths[$i],0,',','.'); ?> </td>
                                 <?php } ?>
-                                <th><?php echo number_format($irsMonths[12],0,',','.');; ?></th>
+                                <th><?php echo number_format($fecoepMonths[12],0,',','.');; ?></th>
                             </tr>
-                            
                             
                             <tr>
                                 <th><?php echo 'Total' ?></th>
                                 <?php for ($i = 0; $i <= 11; $i++){  ?>
-                                    <td> <?php echo number_format($ratesMonths[$i] + $interestCostsMonths[$i] + $discountsGivenMonths[$i] +
-                                                                    $bankExpensesMonths[$i] + $finesMonths[$i] + $iofMonths[$i] +
-                                                                        $iocMonths[$i] + $bankInterestRateMonths[$i] + $financialChargesMonths[$i]+ $irsMonths[$i] ,0,',','.'); ?> </td>
+                                    <td> <?php echo number_format($icmsMonths[$i] + $issMonths[$i] + $cofinsMonths[$i] +
+                                                                    $pisMonths[$i] + $irpjMonths[$i] + $csllMonths[$i] +
+                                                                        $ipvaMonths[$i] + $iptuMonths[$i] + $itbiMonths[$i] + $fecoepMonths[$i],0,',','.'); ?> </td>
                                 <?php } ?>
-                                <th><?php echo number_format($ratesMonths[12] + $interestCostsMonths[12] + $discountsGivenMonths[12] +
-                                                                    $bankExpensesMonths[12] + $finesMonths[12] + $iofMonths[12] +
-                                                                        $iocMonths[12] + $bankInterestRateMonths[$i] + $financialChargesMonths[$i]+ $irsMonths[$i],0,',','.'); ?></th>                                
+                                <th><?php echo number_format($icmsMonths[12] + $issMonths[12] + $cofinsMonths[12] +
+                                                                    $pisMonths[12] + $irpjMonths[12] + $csllMonths[12] +
+                                                                        $ipvaMonths[12] + $iptuMonths[$i] + $itbiMonths[$i] + $fecoepMonths[$i],0,',','.'); ?></th>                                
                             </tr>
                             
                             
@@ -427,16 +425,16 @@ Number.prototype.formatMoney = function(c, d, t){
         
         document.getElementById('ccPdf').value = document.getElementById('cc').value;      
           
-        var rates = JSON.parse( '<?php echo json_encode($rates) ?>' );
-        var interestCosts = JSON.parse( '<?php echo json_encode($interestCosts) ?>' );
-        var discountsGiven = JSON.parse( '<?php echo json_encode($discountsGiven) ?>' );
-        var bankExpenses = JSON.parse( '<?php echo json_encode($bankExpenses) ?>' );
-        var fines = JSON.parse( '<?php echo json_encode($fines) ?>' );
-        var iof = JSON.parse( '<?php echo json_encode($iof) ?>' );
-        var ioc = JSON.parse( '<?php echo json_encode($ioc) ?>' );
-        var bankInterestRate = JSON.parse( '<?php echo json_encode($bankInterestRate) ?>' );
-        var financialCharges = JSON.parse( '<?php echo json_encode($financialCharges) ?>' );
-        var irs = JSON.parse( '<?php echo json_encode($irs) ?>' );
+        var icms = JSON.parse( '<?php echo json_encode($icms) ?>' );
+        var iss = JSON.parse( '<?php echo json_encode($iss) ?>' );
+        var cofins = JSON.parse( '<?php echo json_encode($cofins) ?>' );
+        var pis = JSON.parse( '<?php echo json_encode($pis) ?>' );
+        var irpj = JSON.parse( '<?php echo json_encode($irpj) ?>' );
+        var csll = JSON.parse( '<?php echo json_encode($csll) ?>' );
+        var ipva = JSON.parse( '<?php echo json_encode($ipva) ?>' );
+        var iptu = JSON.parse( '<?php echo json_encode($iptu) ?>' );
+        var itbi = JSON.parse( '<?php echo json_encode($itbi) ?>' );
+        var fecoep = JSON.parse( '<?php echo json_encode($fecoep) ?>' );
                 
         var naturezas = JSON.parse( '<?php echo json_encode($naturezas) ?>' );
         
@@ -446,287 +444,286 @@ Number.prototype.formatMoney = function(c, d, t){
         var totalAnual = 0;        
         var cc = document.getElementById('cc').value;
         
-        ratesMonths = [];
+        icmsMonths = [];
         valorTotal = 0; 
         for(var i = 0; i < monthsNumbers.length; i++){ 
             valor = 0;
             if(cc != 'TODOS'){
-                for(var x = 0; x < rates.length; x++){
-                    if (monthsNumbers[i] === rates[x].CT2_DATA && rates[x].CT2_CCD.substring(0,2) === cc.substring(0,2)){
-                        var aux = parseFloat(rates[x].CT2_VALOR);
+                for(var x = 0; x < icms.length; x++){
+                    if (monthsNumbers[i] === icms[x].CT2_DATA && icms[x].CT2_CCD.substring(0,2) === cc.substring(0,2)){
+                        var aux = parseFloat(icms[x].CT2_VALOR);
                         valor += aux;
                     }
                     totalAnual += valor;
                 }
                 valorTotal += valor;
-                ratesMonths.push(valor);
+                icmsMonths.push(valor);
             }else{
-                for(var x = 0; x < rates.length; x++){
-                if (monthsNumbers[i] === rates[x].CT2_DATA){
-                    var aux = parseFloat(rates[x].CT2_VALOR);
+                for(var x = 0; x < icms.length; x++){
+                if (monthsNumbers[i] === icms[x].CT2_DATA){
+                    var aux = parseFloat(icms[x].CT2_VALOR);
                     valor += aux;
                 }
                 totalAnual += valor;
                 }
                 valorTotal += valor;
-                ratesMonths.push(valor);
+                icmsMonths.push(valor);
             }
         }
-        ratesMonths.push(valorTotal);
+        icmsMonths.push(valorTotal);
         
-        interestCostsMonths = [];
+        issMonths = [];
         valorTotal = 0; 
         for(var i = 0; i < monthsNumbers.length; i++){ 
             valor = 0;
             if(cc != 'TODOS'){
-                for(var x = 0; x < interestCosts.length; x++){
-                    if (monthsNumbers[i] === interestCosts[x].CT2_DATA && interestCosts[x].CT2_CCD.substring(0,2) === cc.substring(0,2)){
-                        var aux = parseFloat(interestCosts[x].CT2_VALOR);
+                for(var x = 0; x < iss.length; x++){
+                    if (monthsNumbers[i] === iss[x].CT2_DATA && iss[x].CT2_CCD.substring(0,2) === cc.substring(0,2)){
+                        var aux = parseFloat(iss[x].CT2_VALOR);
                         valor += aux;
                     }
                     totalAnual += valor;
                 }
                 valorTotal += valor;
-                interestCostsMonths.push(valor);
+                issMonths.push(valor);
             }else{
-                for(var x = 0; x < interestCosts.length; x++){
-                if (monthsNumbers[i] === interestCosts[x].CT2_DATA){
-                    var aux = parseFloat(interestCosts[x].CT2_VALOR);
+                for(var x = 0; x < iss.length; x++){
+                if (monthsNumbers[i] === iss[x].CT2_DATA){
+                    var aux = parseFloat(iss[x].CT2_VALOR);
                     valor += aux;
                 }
                 totalAnual += valor;
                 }
                 valorTotal += valor;
-                interestCostsMonths.push(valor);
+                issMonths.push(valor);
             }
         }
-        interestCostsMonths.push(valorTotal);
+        issMonths.push(valorTotal);
         
-        discountsGivenMonths = [];
+        cofinsMonths = [];
         valorTotal = 0; 
         for(var i = 0; i < monthsNumbers.length; i++){ 
             valor = 0;
             if(cc != 'TODOS'){
-                for(var x = 0; x < discountsGiven.length; x++){
-                    if (monthsNumbers[i] === discountsGiven[x].CT2_DATA && discountsGiven[x].CT2_CCD.substring(0,2) === cc.substring(0,2)){
-                        var aux = parseFloat(discountsGiven[x].CT2_VALOR);
+                for(var x = 0; x < cofins.length; x++){
+                    if (monthsNumbers[i] === cofins[x].CT2_DATA && cofins[x].CT2_CCD.substring(0,2) === cc.substring(0,2)){
+                        var aux = parseFloat(cofins[x].CT2_VALOR);
                         valor += aux;
                     }
                     totalAnual += valor;
                 }
                 valorTotal += valor;
-                discountsGivenMonths.push(valor);
+                cofinsMonths.push(valor);
             }else{
-                for(var x = 0; x < discountsGiven.length; x++){
-                if (monthsNumbers[i] === discountsGiven[x].CT2_DATA){
-                    var aux = parseFloat(discountsGiven[x].CT2_VALOR);
+                for(var x = 0; x < cofins.length; x++){
+                if (monthsNumbers[i] === cofins[x].CT2_DATA){
+                    var aux = parseFloat(cofins[x].CT2_VALOR);
                     valor += aux;
                 }
                 totalAnual += valor;
                 }
                 valorTotal += valor;
-                discountsGivenMonths.push(valor);
+                cofinsMonths.push(valor);
             }
         }
-        discountsGivenMonths.push(valorTotal);
+        cofinsMonths.push(valorTotal);
         
-        bankExpensesMonths = [];
+        pisMonths = [];
         valorTotal = 0; 
         for(var i = 0; i < monthsNumbers.length; i++){ 
             valor = 0;
             if(cc != 'TODOS'){
-                for(var x = 0; x < bankExpenses.length; x++){
-                    if (monthsNumbers[i] === bankExpenses[x].CT2_DATA && bankExpenses[x].CT2_CCD.substring(0,2) === cc.substring(0,2)){
-                        var aux = parseFloat(bankExpenses[x].CT2_VALOR);
+                for(var x = 0; x < pis.length; x++){
+                    if (monthsNumbers[i] === pis[x].CT2_DATA && pis[x].CT2_CCD.substring(0,2) === cc.substring(0,2)){
+                        var aux = parseFloat(pis[x].CT2_VALOR);
                         valor += aux;
                     }
                     totalAnual += valor;
                 }
                 valorTotal += valor;
-                bankExpensesMonths.push(valor);
+                pisMonths.push(valor);
             }else{
-                for(var x = 0; x < bankExpenses.length; x++){
-                if (monthsNumbers[i] === bankExpenses[x].CT2_DATA){
-                    var aux = parseFloat(bankExpenses[x].CT2_VALOR);
+                for(var x = 0; x < pis.length; x++){
+                if (monthsNumbers[i] === pis[x].CT2_DATA){
+                    var aux = parseFloat(pis[x].CT2_VALOR);
                     valor += aux;
                 }
                 totalAnual += valor;
                 }
                 valorTotal += valor;
-                bankExpensesMonths.push(valor);
+                pisMonths.push(valor);
             }
         }
-        bankExpensesMonths.push(valorTotal);
+        pisMonths.push(valorTotal);
         
-        finesMonths = [];
+        irpjMonths = [];
         valorTotal = 0; 
         for(var i = 0; i < monthsNumbers.length; i++){ 
             valor = 0;
             if(cc != 'TODOS'){
-                for(var x = 0; x < fines.length; x++){
-                    if (monthsNumbers[i] === fines[x].CT2_DATA && fines[x].CT2_CCD.substring(0,2) === cc.substring(0,2)){
-                        var aux = parseFloat(fines[x].CT2_VALOR);
+                for(var x = 0; x < irpj.length; x++){
+                    if (monthsNumbers[i] === irpj[x].CT2_DATA && irpj[x].CT2_CCD.substring(0,2) === cc.substring(0,2)){
+                        var aux = parseFloat(irpj[x].CT2_VALOR);
                         valor += aux;
                     }
                     totalAnual += valor;
                 }
                 valorTotal += valor;
-                finesMonths.push(valor);
+                irpjMonths.push(valor);
             }else{
-                for(var x = 0; x < fines.length; x++){
-                if (monthsNumbers[i] === fines[x].CT2_DATA){
-                    var aux = parseFloat(fines[x].CT2_VALOR);
+                for(var x = 0; x < irpj.length; x++){
+                if (monthsNumbers[i] === irpj[x].CT2_DATA){
+                    var aux = parseFloat(irpj[x].CT2_VALOR);
                     valor += aux;
                 }
                 totalAnual += valor;
                 }
                 valorTotal += valor;
-                finesMonths.push(valor);
+                irpjMonths.push(valor);
             }
         }
-        finesMonths.push(valorTotal);
+        irpjMonths.push(valorTotal);
         
         
-        iofMonths = [];
+        csllMonths = [];
         valorTotal = 0; 
         for(var i = 0; i < monthsNumbers.length; i++){ 
             valor = 0;
             if(cc != 'TODOS'){
-                for(var x = 0; x < iof.length; x++){
-                    if (monthsNumbers[i] === iof[x].CT2_DATA && iof[x].CT2_CCD.substring(0,2) === cc.substring(0,2)){
-                        var aux = parseFloat(iof[x].CT2_VALOR);
+                for(var x = 0; x < csll.length; x++){
+                    if (monthsNumbers[i] === csll[x].CT2_DATA && csll[x].CT2_CCD.substring(0,2) === cc.substring(0,2)){
+                        var aux = parseFloat(csll[x].CT2_VALOR);
                         valor += aux;
                     }
                     totalAnual += valor;
                 }
                 valorTotal += valor;
-                iofMonths.push(valor);
+                csllMonths.push(valor);
             }else{
-                for(var x = 0; x < iof.length; x++){
-                if (monthsNumbers[i] === iof[x].CT2_DATA){
-                    var aux = parseFloat(iof[x].CT2_VALOR);
+                for(var x = 0; x < csll.length; x++){
+                if (monthsNumbers[i] === csll[x].CT2_DATA){
+                    var aux = parseFloat(csll[x].CT2_VALOR);
                     valor += aux;
                 }
                 totalAnual += valor;
                 }
                 valorTotal += valor;
-                iofMonths.push(valor);
+                csllMonths.push(valor);
             }
         }
-        iofMonths.push(valorTotal);
+        csllMonths.push(valorTotal);
         
-        iocMonths = [];
+        ipvaMonths = [];
         valorTotal = 0; 
         for(var i = 0; i < monthsNumbers.length; i++){ 
             valor = 0;
             if(cc != 'TODOS'){
-                for(var x = 0; x < ioc.length; x++){
-                    if (monthsNumbers[i] === ioc[x].CT2_DATA && ioc[x].CT2_CCD.substring(0,2) === cc.substring(0,2)){
-                        var aux = parseFloat(ioc[x].CT2_VALOR);
+                for(var x = 0; x < ipva.length; x++){
+                    if (monthsNumbers[i] === ipva[x].CT2_DATA && ipva[x].CT2_CCD.substring(0,2) === cc.substring(0,2)){
+                        var aux = parseFloat(ipva[x].CT2_VALOR);
                         valor += aux;
                     }
                     totalAnual += valor;
                 }
                 valorTotal += valor;
-                iocMonths.push(valor);
+                ipvaMonths.push(valor);
             }else{
-                for(var x = 0; x < ioc.length; x++){
-                if (monthsNumbers[i] === ioc[x].CT2_DATA){
-                    var aux = parseFloat(ioc[x].CT2_VALOR);
+                for(var x = 0; x < ipva.length; x++){
+                if (monthsNumbers[i] === ipva[x].CT2_DATA){
+                    var aux = parseFloat(ipva[x].CT2_VALOR);
                     valor += aux;
                 }
                 totalAnual += valor;
                 }
                 valorTotal += valor;
-                iocMonths.push(valor);
+                ipvaMonths.push(valor);
             }
         }
-        iocMonths.push(valorTotal);
+        ipvaMonths.push(valorTotal);
         
-        bankInterestRateMonths = [];
+        iptuMonths = [];
         valorTotal = 0; 
         for(var i = 0; i < monthsNumbers.length; i++){ 
             valor = 0;
             if(cc != 'TODOS'){
-                for(var x = 0; x < bankInterestRate.length; x++){
-                    if (monthsNumbers[i] === bankInterestRate[x].CT2_DATA && bankInterestRate[x].CT2_CCD.substring(0,2) === cc.substring(0,2)){
-                        var aux = parseFloat(bankInterestRate[x].CT2_VALOR);
+                for(var x = 0; x < iptu.length; x++){
+                    if (monthsNumbers[i] === iptu[x].CT2_DATA && iptu[x].CT2_CCD.substring(0,2) === cc.substring(0,2)){
+                        var aux = parseFloat(iptu[x].CT2_VALOR);
                         valor += aux;
                     }
                     totalAnual += valor;
                 }
                 valorTotal += valor;
-                bankInterestRateMonths.push(valor);
+                iptuMonths.push(valor);
             }else{
-                for(var x = 0; x < bankInterestRate.length; x++){
-                if (monthsNumbers[i] === bankInterestRate[x].CT2_DATA){
-                    var aux = parseFloat(bankInterestRate[x].CT2_VALOR);
+                for(var x = 0; x < iptu.length; x++){
+                if (monthsNumbers[i] === iptu[x].CT2_DATA){
+                    var aux = parseFloat(iptu[x].CT2_VALOR);
                     valor += aux;
                 }
                 totalAnual += valor;
                 }
                 valorTotal += valor;
-                bankInterestRateMonths.push(valor);
+                iptuMonths.push(valor);
             }
         }
-        bankInterestRateMonths.push(valorTotal);
+        iptuMonths.push(valorTotal);
         
-        financialChargesMonths = [];
+        itbiMonths = [];
         valorTotal = 0; 
         for(var i = 0; i < monthsNumbers.length; i++){ 
             valor = 0;
             if(cc != 'TODOS'){
-                for(var x = 0; x < financialCharges.length; x++){
-                    if (monthsNumbers[i] === financialCharges[x].CT2_DATA && financialCharges[x].CT2_CCD.substring(0,2) === cc.substring(0,2)){
-                        var aux = parseFloat(financialCharges[x].CT2_VALOR);
+                for(var x = 0; x < itbi.length; x++){
+                    if (monthsNumbers[i] === itbi[x].CT2_DATA && itbi[x].CT2_CCD.substring(0,2) === cc.substring(0,2)){
+                        var aux = parseFloat(itbi[x].CT2_VALOR);
                         valor += aux;
                     }
                     totalAnual += valor;
                 }
                 valorTotal += valor;
-                financialChargesMonths.push(valor);
+                itbiMonths.push(valor);
             }else{
-                for(var x = 0; x < financialCharges.length; x++){
-                if (monthsNumbers[i] === financialCharges[x].CT2_DATA){
-                    var aux = parseFloat(financialCharges[x].CT2_VALOR);
+                for(var x = 0; x < itbi.length; x++){
+                if (monthsNumbers[i] === itbi[x].CT2_DATA){
+                    var aux = parseFloat(itbi[x].CT2_VALOR);
                     valor += aux;
                 }
                 totalAnual += valor;
                 }
                 valorTotal += valor;
-                financialChargesMonths.push(valor);
+                itbiMonths.push(valor);
             }
         }
-        financialChargesMonths.push(valorTotal);
+        itbiMonths.push(valorTotal);
         
-        irsMonths = [];
+        fecoepMonths = [];
         valorTotal = 0; 
         for(var i = 0; i < monthsNumbers.length; i++){ 
             valor = 0;
             if(cc != 'TODOS'){
-                for(var x = 0; x < irs.length; x++){
-                    if (monthsNumbers[i] === irs[x].CT2_DATA && irs[x].CT2_CCD.substring(0,2) === cc.substring(0,2)){
-                        var aux = parseFloat(irs[x].CT2_VALOR);
+                for(var x = 0; x < fecoep.length; x++){
+                    if (monthsNumbers[i] === fecoep[x].CT2_DATA && fecoep[x].CT2_CCD.substring(0,2) === cc.substring(0,2)){
+                        var aux = parseFloat(fecoep[x].CT2_VALOR);
                         valor += aux;
                     }
                     totalAnual += valor;
                 }
                 valorTotal += valor;
-                irsMonths.push(valor);
+                fecoepMonths.push(valor);
             }else{
-                for(var x = 0; x < irs.length; x++){
-                if (monthsNumbers[i] === irs[x].CT2_DATA){
-                    var aux = parseFloat(irs[x].CT2_VALOR);
+                for(var x = 0; x < fecoep.length; x++){
+                if (monthsNumbers[i] === fecoep[x].CT2_DATA){
+                    var aux = parseFloat(fecoep[x].CT2_VALOR);
                     valor += aux;
                 }
                 totalAnual += valor;
                 }
                 valorTotal += valor;
-                irsMonths.push(valor);
+                fecoepMonths.push(valor);
             }
         }
-        irsMonths.push(valorTotal);
-        
+        fecoepMonths.push(valorTotal);
         
         html = '';                
         html += '<table id="example1" class="table table-bordered table-hover">';
@@ -743,95 +740,95 @@ Number.prototype.formatMoney = function(c, d, t){
         
         html += '<tr>';
         html += '<th>'+naturezas[0]+'</th>';
-        for(var x = 0; x < ratesMonths.length -1; x++){
-             html += '<td>'+ ratesMonths[x].formatMoney(0, ',', '.'); +'</td>';
+        for(var x = 0; x < icmsMonths.length -1; x++){
+             html += '<td>'+ icmsMonths[x].formatMoney(0, ',', '.'); +'</td>';
         }
-        html += '<th>'+ratesMonths[12].formatMoney(0, ',', '.')+'</th>';
+        html += '<th>'+icmsMonths[12].formatMoney(0, ',', '.')+'</th>';
         html += '</tr>';
         
         html += '<tr>';
         html += '<th>'+naturezas[1]+'</th>';
-        for(var x = 0; x < interestCostsMonths.length -1; x++){
-             html += '<td>'+ interestCostsMonths[x].formatMoney(0, ',', '.'); +'</td>';
+        for(var x = 0; x < issMonths.length -1; x++){
+             html += '<td>'+ issMonths[x].formatMoney(0, ',', '.'); +'</td>';
         }
-        html += '<th>'+interestCostsMonths[12].formatMoney(0, ',', '.')+'</th>';
+        html += '<th>'+issMonths[12].formatMoney(0, ',', '.')+'</th>';
         html += '</tr>';
         
         html += '<tr>';
         html += '<th>'+naturezas[2]+'</th>';
-        for(var x = 0; x < discountsGivenMonths.length -1; x++){
-             html += '<td>'+ discountsGivenMonths[x].formatMoney(0, ',', '.'); +'</td>';
+        for(var x = 0; x < cofinsMonths.length -1; x++){
+             html += '<td>'+ cofinsMonths[x].formatMoney(0, ',', '.'); +'</td>';
         }
-        html += '<th>'+discountsGivenMonths[12].formatMoney(0, ',', '.')+'</th>';
-        html += '</tr>';    
-        
-        html += '<tr>';
-        html += '<th>'+naturezas[3]+'</th>';
-        for(var x = 0; x < bankExpensesMonths.length -1; x++){
-             html += '<td>'+ bankExpensesMonths[x].formatMoney(0, ',', '.'); +'</td>';
-        }
-        html += '<th>'+bankExpensesMonths[12].formatMoney(0, ',', '.')+'</th>';
-        html += '</tr>';  
-        
-        html += '<tr>';
-        html += '<th>'+naturezas[4]+'</th>';
-        for(var x = 0; x < finesMonths.length -1; x++){
-             html += '<td>'+ finesMonths[x].formatMoney(0, ',', '.'); +'</td>';
-        }
-        html += '<th>'+finesMonths[12].formatMoney(0, ',', '.')+'</th>';
+        html += '<th>'+cofinsMonths[12].formatMoney(0, ',', '.')+'</th>';
         html += '</tr>';
         
         html += '<tr>';
-        html += '<th>'+naturezas[5]+'</th>';
-        for(var x = 0; x < iofMonths.length -1; x++){
-             html += '<td>'+ iofMonths[x].formatMoney(0, ',', '.'); +'</td>';
+        html += '<th>'+naturezas[3]+'</th>';
+        for(var x = 0; x < pisMonths.length -1; x++){
+             html += '<td>'+ pisMonths[x].formatMoney(0, ',', '.'); +'</td>';
         }
-        html += '<th>'+iofMonths[12].formatMoney(0, ',', '.')+'</th>';
+        html += '<th>'+pisMonths[12].formatMoney(0, ',', '.')+'</th>';
+        html += '</tr>';    
+        
+        html += '<tr>';
+        html += '<th>'+naturezas[4]+'</th>';
+        for(var x = 0; x < irpjMonths.length -1; x++){
+             html += '<td>'+ irpjMonths[x].formatMoney(0, ',', '.'); +'</td>';
+        }
+        html += '<th>'+irpjMonths[12].formatMoney(0, ',', '.')+'</th>';
+        html += '</tr>';  
+        
+        html += '<tr>';
+        html += '<th>'+naturezas[5]+'</th>';
+        for(var x = 0; x < csllMonths.length -1; x++){
+             html += '<td>'+ csllMonths[x].formatMoney(0, ',', '.'); +'</td>';
+        }
+        html += '<th>'+csllMonths[12].formatMoney(0, ',', '.')+'</th>';
         html += '</tr>';
         
         html += '<tr>';
         html += '<th>'+naturezas[6]+'</th>';
-        for(var x = 0; x < iocMonths.length -1; x++){
-             html += '<td>'+ iocMonths[x].formatMoney(0, ',', '.'); +'</td>';
+        for(var x = 0; x < ipvaMonths.length -1; x++){
+             html += '<td>'+ ipvaMonths[x].formatMoney(0, ',', '.'); +'</td>';
         }
-        html += '<th>'+iocMonths[12].formatMoney(0, ',', '.')+'</th>';
+        html += '<th>'+ipvaMonths[12].formatMoney(0, ',', '.')+'</th>';
         html += '</tr>';
         
         html += '<tr>';
         html += '<th>'+naturezas[7]+'</th>';
-        for(var x = 0; x < bankInterestRateMonths.length -1; x++){
-             html += '<td>'+ bankInterestRateMonths[x].formatMoney(0, ',', '.'); +'</td>';
+        for(var x = 0; x < iptuMonths.length -1; x++){
+             html += '<td>'+ iptuMonths[x].formatMoney(0, ',', '.'); +'</td>';
         }
-        html += '<th>'+bankInterestRateMonths[12].formatMoney(0, ',', '.')+'</th>';
+        html += '<th>'+iptuMonths[12].formatMoney(0, ',', '.')+'</th>';
         html += '</tr>';
         
         html += '<tr>';
         html += '<th>'+naturezas[8]+'</th>';
-        for(var x = 0; x < financialChargesMonths.length -1; x++){
-             html += '<td>'+ financialChargesMonths[x].formatMoney(0, ',', '.'); +'</td>';
+        for(var x = 0; x < itbiMonths.length -1; x++){
+             html += '<td>'+ itbiMonths[x].formatMoney(0, ',', '.'); +'</td>';
         }
-        html += '<th>'+financialChargesMonths[12].formatMoney(0, ',', '.')+'</th>';
-        html += '</tr>'; 
+        html += '<th>'+itbiMonths[12].formatMoney(0, ',', '.')+'</th>';
+        html += '</tr>';
         
         html += '<tr>';
         html += '<th>'+naturezas[9]+'</th>';
-        for(var x = 0; x < irsMonths.length -1; x++){
-             html += '<td>'+ irsMonths[x].formatMoney(0, ',', '.'); +'</td>';
+        for(var x = 0; x < fecoepMonths.length -1; x++){
+             html += '<td>'+ fecoepMonths[x].formatMoney(0, ',', '.'); +'</td>';
         }
-        html += '<th>'+irsMonths[12].formatMoney(0, ',', '.')+'</th>';
+        html += '<th>'+fecoepMonths[12].formatMoney(0, ',', '.')+'</th>';
         html += '</tr>';
         
         html += '<tr>';
         html += '<th>Total</th>';
         for (i = 0; i <= 11; i++){
-            valorMensal = ratesMonths[i] + interestCostsMonths[i] + discountsGivenMonths[i] +
-                            bankExpensesMonths[i] + finesMonths[i] + iofMonths[i] + iocMonths[i] +
-                                bankInterestRateMonths[i] + financialChargesMonths[12] + irsMonths[12];
+            valorMensal = icmsMonths[i] + issMonths[i] + cofinsMonths[i] +
+                            pisMonths[i] + irpjMonths[i] + csllMonths[i] +
+                                ipvaMonths[i] + iptuMonths[i] + itbiMonths[i] + fecoepMonths[i];
             html += '<th>'+valorMensal.formatMoney(0, ',', '.')+'</th>';
         }
-        valorAnual = ratesMonths[12] + interestCostsMonths[12] + discountsGivenMonths[12] +
-                            bankExpensesMonths[12] + finesMonths[12] + iofMonths[12] + iocMonths[i] +
-                                bankInterestRateMonths[12] + financialChargesMonths[12] + irsMonths[12];
+        valorAnual = icmsMonths[12] + issMonths[12] + cofinsMonths[12] +
+                            pisMonths[12] + irpjMonths[12] + csllMonths[12] +
+                                ipvaMonths[12] + iptuMonths[12] + itbiMonths[12] + fecoepMonths[12];
         html += '<th>'+valorAnual.formatMoney(0, ',', '.')+'</th>';
         html += '</tr>';
                

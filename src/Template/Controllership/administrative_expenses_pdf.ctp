@@ -163,8 +163,8 @@ $pdf = new MYPDF('l', PDF_UNIT, PDF_PAGE_FORMAT, true, PDO::SQLSRV_ENCODING_UTF8
 $pdf->SetCreator(PDF_CREATOR);
 $pdf->SetAuthor('Qualitex Engenharia e Serviços');
 $pdf->SetTitle('Despesas com administrativo');
-$pdf->SetSubject('Receitas');
-$pdf->SetKeywords('Receitas');
+$pdf->SetSubject('Despesas');
+$pdf->SetKeywords('Despesas');
 
 // set default header data
 $pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE.' ', PDF_HEADER_STRING, array(0,64,255), array(0,64,128));

@@ -12,667 +12,367 @@ for($i = 0; $i < sizeof($x); $i++){
     $costCenters[$x[$i]] = $x[$i];
 }
 
-$naturezas = ['Aluguel','Telefone e Internet','Energia eletrica'
-                ,'Agua e esgoto','Material de escritório','Material de limpeza'
-                ,'Outras diversas'];
+$naturezas = ['Taxas e Juros','Juros passivos','Descontos concedidos','Despesas bancarias'
+                ,'Multas','IOF','IOC','Juros Bancarios','Encargos Financeiros','IRS'];
 
 $monthsLabels = ['Jan', 'Fev', 'Mar', 'Mai', 'Abr', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
 $monthsNumbers = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
 
 $totalAnual = 0;
 
-$rentMonths = [];
+$ratesMonths = [];
 $valorTotal = 0;
 foreach($monthsNumbers as $key):
     $valor = 0;
-    foreach($rent as $x => $value):
+    foreach($rates as $x => $value):
         if ($key == $value['CT2_DATA'])
             $valor += $value['CT2_VALOR'];  
             $totalAnual += $valor;
     endforeach;
     $valorTotal += $valor;
-    $rentMonths[] = $valor;
+    $ratesMonths[] = $valor;
 endforeach;
-$rentMonths[] = $valorTotal;
+$ratesMonths[] = $valorTotal;
 
-$phoneAndInternetMonths = [];
+$interestCostsMonths = [];
 $valorTotal = 0;
 foreach($monthsNumbers as $key):
     $valor = 0;
-    foreach($phoneAndInternet as $x => $value):
+    foreach($interestCosts as $x => $value):
         if ($key == $value['CT2_DATA'])
             $valor += $value['CT2_VALOR'];  
             $totalAnual += $valor;
     endforeach;
     $valorTotal += $valor;
-    $phoneAndInternetMonths[] = $valor;
+    $interestCostsMonths[] = $valor;
 endforeach;
-$phoneAndInternetMonths[] = $valorTotal;
+$interestCostsMonths[] = $valorTotal;
 
-$electricityMonths = [];
+$discountsGivenMonths = [];
 $valorTotal = 0;
 foreach($monthsNumbers as $key):
     $valor = 0;
-    foreach($electricity as $x => $value):
+    foreach($discountsGiven as $x => $value):
         if ($key == $value['CT2_DATA'])
             $valor += $value['CT2_VALOR'];  
             $totalAnual += $valor;
     endforeach;
     $valorTotal += $valor;
-    $electricityMonths[] = $valor;
+    $discountsGivenMonths[] = $valor;
 endforeach;
-$electricityMonths[] = $valorTotal;
+$discountsGivenMonths[] = $valorTotal;
 
-$waterAndSewageMonths = [];
+$bankExpensesMonths = [];
 $valorTotal = 0;
 foreach($monthsNumbers as $key):
     $valor = 0;
-    foreach($waterAndSewage as $x => $value):
+    foreach($bankExpenses as $x => $value):
         if ($key == $value['CT2_DATA'])
             $valor += $value['CT2_VALOR'];  
             $totalAnual += $valor;
     endforeach;
     $valorTotal += $valor;
-    $waterAndSewageMonths[] = $valor;
+    $bankExpensesMonths[] = $valor;
 endforeach;
-$waterAndSewageMonths[] = $valorTotal;
+$bankExpensesMonths[] = $valorTotal;
 
-$officeSuppliesMonths = [];
+$finesMonths = [];
 $valorTotal = 0;
 foreach($monthsNumbers as $key):
     $valor = 0;
-    foreach($officeSupplies as $x => $value):
+    foreach($fines as $x => $value):
         if ($key == $value['CT2_DATA'])
             $valor += $value['CT2_VALOR'];  
             $totalAnual += $valor;
     endforeach;
     $valorTotal += $valor;
-    $officeSuppliesMonths[] = $valor;
+    $finesMonths[] = $valor;
 endforeach;
-$officeSuppliesMonths[] = $valorTotal;
+$finesMonths[] = $valorTotal;
 
-$cleaningSuppliesMonths = [];
+$iofMonths = [];
 $valorTotal = 0;
 foreach($monthsNumbers as $key):
     $valor = 0;
-    foreach($cleaningSupplies as $x => $value):
+    foreach($iof as $x => $value):
         if ($key == $value['CT2_DATA'])
             $valor += $value['CT2_VALOR'];  
             $totalAnual += $valor;
     endforeach;
     $valorTotal += $valor;
-    $cleaningSuppliesMonths[] = $valor;
+    $iofMonths[] = $valor;
 endforeach;
-$cleaningSuppliesMonths[] = $valorTotal;
+$iofMonths[] = $valorTotal;
 
-$othersMonths = [];
+$iocMonths = [];
 $valorTotal = 0;
 foreach($monthsNumbers as $key):
     $valor = 0;
-    foreach($others as $x => $value):
+    foreach($ioc as $x => $value):
         if ($key == $value['CT2_DATA'])
             $valor += $value['CT2_VALOR'];  
             $totalAnual += $valor;
     endforeach;
     $valorTotal += $valor;
-    $othersMonths[] = $valor;
+    $iocMonths[] = $valor;
 endforeach;
-$othersMonths[] = $valorTotal;
+$iocMonths[] = $valorTotal;
 
-?>
+$bankInterestRateMonths = [];
+$valorTotal = 0;
+foreach($monthsNumbers as $key):
+    $valor = 0;
+    foreach($bankInterestRate as $x => $value):
+        if ($key == $value['CT2_DATA'])
+            $valor += $value['CT2_VALOR'];  
+            $totalAnual += $valor;
+    endforeach;
+    $valorTotal += $valor;
+    $bankInterestRateMonths[] = $valor;
+endforeach;
+$bankInterestRateMonths[] = $valorTotal;
 
-<section class="content-header">
-    <h1>
-        Painel
-        <small>Controladoria - Despesas com administrativo</small>
-    </h1>      
-</section>
+$financialChargesMonths = [];
+$valorTotal = 0;
+foreach($monthsNumbers as $key):
+    $valor = 0;
+    foreach($financialCharges as $x => $value):
+        if ($key == $value['CT2_DATA'])
+            $valor += $value['CT2_VALOR'];  
+            $totalAnual += $valor;
+    endforeach;
+    $valorTotal += $valor;
+    $financialChargesMonths[] = $valor;
+endforeach;
+$financialChargesMonths[] = $valorTotal;
 
-<section class="content">
+$irsMonths = [];
+$valorTotal = 0;
+foreach($monthsNumbers as $key):
+    $valor = 0;
+    foreach($irs as $x => $value):
+        if ($key == $value['CT2_DATA'])
+            $valor += $value['CT2_VALOR'];  
+            $totalAnual += $valor;
+    endforeach;
+    $valorTotal += $valor;
+    $irsMonths[] = $valor;
+endforeach;
+$irsMonths[] = $valorTotal;
+
+
+
+class MYPDF extends TCPDF {
+
+    //Page header
+    public function Header() {
+
+        // Logo
+        $image_file = K_PATH_IMAGES.'logo.jpg';
+
+        $this->Image($image_file, 5, 5, 25, '', 'JPG', '', 'T', false, 300, '', false, false, 0, false, false, false);
+       
+        // Set font
+        $this->SetFont('times', 'B', 10);
+
+        // Title
+        //$this->Cell(0, 15, '', 0, false, 'C', 0, '', 0, false, 'M', 'M');
+    }
+
+    // Page footer
+    public function Footer() {
+
+        // Position at 15 mm from bottom
+        $this->SetY(-15);
+
+        // Set font
+        $this->SetFont('times', 'B', 10);
+
+        // Page number
+        $this->Cell(0, 10, 'Página '.$this->getAliasNumPage().' de '.$this->getAliasNbPages(), 0, false, 'C', 0, '', 0, false, 'T', 'M');
+    }
     
-    <div class="row">
-        <div class="col-md-6">
-            <div class="box box-success">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Configurar ano de referência:</b></h3>
-                    <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                            <i class="fa fa-minus"></i>
-                        </button>
-                        <button type="button" class="btn btn-box-tool" data-widget="remove">
-                            <i class="fa fa-times"></i>
-                        </button>
-                    </div>
-                </div>
-                <div class="box-body">
-                    <div class="chart">          
-                        <div class="box-body"> 
-                            <div class="roles form large-9 medium-8 columns content">
-                                <fieldset>
-                                    <legend><?= __('Informar o ano desejado:') ?></legend>
-                                    <div class="col-md-4"></div>
-                                    <div class="col-md-4">
-                                        <?php
-                                            $x = null;
-                                            echo $this->Form->create($x,['url' => ['controller'=>'Controllership','action' => 'AdministrativeExpensesFilter']]);
-                                            echo $this->Form->input('year', ['default' => '2017' ,'disabled' => FALSE,'label'=>' ']);
-                                        ?>
-                                    </div> 
-                                    <div class="col-md-4"></div>
-                                    
-                                </fieldset>  
-                                <div align="center">
-                                    <?= $this->Form->button(__('Refinar')) ?>
-                                </div>
-                                
-                                <?php echo $this->Form->end();   ?>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="box box-warning">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Ações relacionadas:</b></h3>
-                    <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                            <i class="fa fa-minus"></i>
-                        </button>
-                        <button type="button" class="btn btn-box-tool" data-widget="remove">
-                            <i class="fa fa-times"></i>
-                        </button>
-                    </div>
-                </div>
-                <div class="box-body">
-                    <div class="chart">          
-                        <div class="box-body"> 
-                            <div class="roles form large-9 medium-8 columns content">
-                                <fieldset>
-                                    <div class="col-md-3"></div>
-                                    <div class="col-md-6">
-                                        <?php
-                                            $x = null;
-                                            echo $this->Form->create($x,['url' => ['controller'=>'Controllership','action' => 'AdministrativeExpensesPdf']]);
-                                            echo $this->Form->input('yearPdf', ['default' => '2017' ,'disabled' => FALSE,'label'=>'Informe o ano desejado:']);
-                                            echo $this->Form->input('ccPdf', ['id' => 'ccPdf', 'options' => $costCenters, 'label' => 'Selecione o centro de custo:']); 
-                                        ?>
-                                    </div> 
-                                    <div class="col-md-3"></div>                                    
-                                </fieldset>  
-                                <div align="center">
-                                    <button class="btn btn-success" type="submit" formtarget="_blank"><?php echo __('Gerar Relatório'); ?></button>
-                                </div>
-                                
-                                <?php echo $this->Form->end();   ?>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> 
-    
-    
-    <div class="row">
-        
-        <div class="col-md-12">
-            <div class="box box-primary">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Despesas administrativas:</h3>
-                    <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                            <i class="fa fa-minus"></i>
-                        </button>
-                        <button type="button" class="btn btn-box-tool" data-widget="remove">
-                            <i class="fa fa-times"></i>
-                        </button>
-                    </div>
-                </div>
-                <div class="box-body">
-                    
-                    <div class="row">
-                            <div class="col-md-4"></div>
-                            <div class="col-md-4" align="center">
-                                <?php echo $this->Form->input('cc', ['id' => 'cc', 'options' => $costCenters, 'label' => 'Selecione o centro de custo:']); ?>
-                            </div>
-                            <div class="col-md-4"></div>
+}
 
-                            
-                       </div>
+// create new PDF document
+$pdf = new MYPDF('l', PDF_UNIT, PDF_PAGE_FORMAT, true, PDO::SQLSRV_ENCODING_UTF8, false);
+
+//$this->SetFont('times', 'B', 8);
+
+// set document information
+$pdf->SetCreator(PDF_CREATOR);
+$pdf->SetAuthor('Qualitex Engenharia e Serviços');
+$pdf->SetTitle('Despesas com financeiras');
+$pdf->SetSubject('Despesas');
+$pdf->SetKeywords('Despesas');
+
+// set default header data
+$pdf->SetHeaderData(PDF_HEADER_LOGO, PDF_HEADER_LOGO_WIDTH, PDF_HEADER_TITLE.' ', PDF_HEADER_STRING, array(0,64,255), array(0,64,128));
+$pdf->setFooterData(array(0,64,0), array(0,64,128));
+
+// set header and footer fonts
+$pdf->setHeaderFont(Array(PDF_FONT_NAME_MAIN, '', PDF_FONT_SIZE_MAIN));
+$pdf->setFooterFont(Array(PDF_FONT_NAME_DATA, '', PDF_FONT_SIZE_DATA));
+
+// set default monospaced font
+$pdf->SetDefaultMonospacedFont(PDF_FONT_MONOSPACED);
+
+// set margins
+$pdf->SetMargins(3, 3, 3);
+$pdf->SetHeaderMargin(PDF_MARGIN_HEADER);
+$pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+
+// set auto page breaks
+$pdf->SetAutoPageBreak(TRUE, PDF_MARGIN_BOTTOM);
+
+// set image scale factor
+$pdf->setImageScale(PDF_IMAGE_SCALE_RATIO);
+
+// set some language-dependent strings (optional)
+if (@file_exists(dirname(__FILE__).'/lang/eng.php')) {
+    require_once(dirname(__FILE__).'/lang/eng.php');
+    $pdf->setLanguageArray($l);
+}
+
+// ---------------------------------------------------------
+
+// set default font subsetting mode
+$pdf->setFontSubsetting(true);
+
+// Set font
+// dejavusans is a UTF-8 Unicode font, if you only need to
+// print standard ASCII chars, you can use core fonts like
+// helvetica or times to reduce file size.
+$pdf->SetFont('helvetica', '', 8, '', true);
+
+// Add a page
+// This method has several options, check the source code documentation for more information.
+$pdf->AddPage();
+
+$html = '';
+
+$html .='<h3 align="center">Tabela de despesas financeiras:</h3>';
+
+$html .='<p align="center">Centro de custo: '.$ccpdf.'</p>';
+
+$html .= '<table class="table" align="center">'
+        . '<thead>'
+            . '<tr>'
+                . '<th>Naturezas</th>';
+                foreach ($monthsLabels as $key => $value): 
+                    $html .= '<th>' .$value.'</th>';
+                endforeach; 
+                $html .=  '<th>Total</th>'
+            . '</tr>'
+        . '</thead>'
+        . '<tbody>'
                         
-                        <div align="right">
-                                <a id="btnExport" onclick="fnExcelReport()" class="btn btn-primary" type=""><?php echo __('Gerar Excel'); ?></a>
-                            </div>
-                    
-                    <table id="example1" class="table table-bordered table-hover">
-                        
-                        <thead>
-                            <tr>           
-                                <th>Naturezas</th>
-                                <?php foreach ($monthsLabels as $key => $value): ?>
-                                    <th><?php echo $value; ?></th>
-                                <?php endforeach ?>  
-                                <th>Total</th>
-                            </tr>                            
-                        </thead>
-                        
-                        <tbody>
-                            
-                            <tr>
-                                <th><?php echo $naturezas[0]; ?></th>
-                                <?php for ($i = 0; $i <= 11; $i++){ ?>
-                                    <td> <?php echo number_format($rentMonths[$i],0,',','.'); ?> </td>
-                                <?php } ?>
-                                <th><?php echo number_format($rentMonths[12],0,',','.');; ?></th>
-                            </tr>
-                            
-                            <tr>
-                                <th><?php echo $naturezas[1]; ?></th>
-                                <?php for ($i = 0; $i <= 11; $i++){ ?>
-                                    <td> <?php echo number_format($phoneAndInternetMonths[$i],0,',','.'); ?> </td>
-                                <?php } ?>
-                                <th><?php echo number_format($phoneAndInternetMonths[12],0,',','.');; ?></th>
-                            </tr>
-                            
-                            <tr>
-                                <th><?php echo $naturezas[2]; ?></th>
-                                <?php for ($i = 0; $i <= 11; $i++){ ?>
-                                    <td> <?php echo number_format($electricityMonths[$i],0,',','.'); ?> </td>
-                                <?php } ?>
-                                <th><?php echo number_format($electricityMonths[12],0,',','.');; ?></th>
-                            </tr>
-                            
-                            <tr>
-                                <th><?php echo $naturezas[3]; ?></th>
-                                <?php for ($i = 0; $i <= 11; $i++){ ?>
-                                    <td> <?php echo number_format($waterAndSewageMonths[$i],0,',','.'); ?> </td>
-                                <?php } ?>
-                                <th><?php echo number_format($waterAndSewageMonths[12],0,',','.');; ?></th>
-                            </tr>
-                            
-                            <tr>
-                                <th><?php echo $naturezas[4]; ?></th>
-                                <?php for ($i = 0; $i <= 11; $i++){ ?>
-                                    <td> <?php echo number_format($officeSuppliesMonths[$i],0,',','.'); ?> </td>
-                                <?php } ?>
-                                <th><?php echo number_format($officeSuppliesMonths[12],0,',','.');; ?></th>
-                            </tr>
-                            
-                            <tr>
-                                <th><?php echo $naturezas[5]; ?></th>
-                                <?php for ($i = 0; $i <= 11; $i++){ ?>
-                                    <td> <?php echo number_format($cleaningSuppliesMonths[$i],0,',','.'); ?> </td>
-                                <?php } ?>
-                                <th><?php echo number_format($cleaningSuppliesMonths[12],0,',','.');; ?></th>
-                            </tr>
-                            
-                            <tr>
-                                <th><?php echo $naturezas[6]; ?></th>
-                                <?php for ($i = 0; $i <= 11; $i++){ ?>
-                                    <td> <?php echo number_format($othersMonths[$i],0,',','.'); ?> </td>
-                                <?php } ?>
-                                <th><?php echo number_format($othersMonths[12],0,',','.');; ?></th>
-                            </tr>
-                            
-                            <tr>
-                                <th><?php echo 'Total' ?></th>
-                                <?php for ($i = 0; $i <= 11; $i++){  ?>
-                                    <td> <?php echo number_format($rentMonths[$i] + $phoneAndInternetMonths[$i] + $electricityMonths[$i] +
-                                                                    $waterAndSewageMonths[$i] + $officeSuppliesMonths[$i] + $cleaningSuppliesMonths[$i] +
-                                                                        $othersMonths[$i],0,',','.'); ?> </td>
-                                <?php } ?>
-                                <th><?php echo number_format($rentMonths[12] + $phoneAndInternetMonths[12] + $electricityMonths[12] +
-                                                                    $waterAndSewageMonths[12] + $officeSuppliesMonths[12] + $cleaningSuppliesMonths[12] +
-                                                                        $othersMonths[12],0,',','.'); ?></th>                                
-                            </tr>
-                            
-                            
-                        </tbody>
-                        
-                    </table>
-                                      
-                </div>
-            </div>
-        </div>
-        
-    </div>   
-    
-    
-</section>
-
-
-<?php $this->start('scriptBotton'); ?>
-<script>
-    
-Number.prototype.formatMoney = function(c, d, t){
-    var n = this, 
-    c = isNaN(c = Math.abs(c)) ? 2 : c, 
-    d = d == undefined ? "." : d, 
-    t = t == undefined ? "," : t, 
-    s = n < 0 ? "-" : "", 
-    i = String(parseInt(n = Math.abs(Number(n) || 0).toFixed(c))), 
-    j = (j = i.length) > 3 ? j % 3 : 0;
-   return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
- };
-    
-    $("#cc").change(function() { 
-        
-        document.getElementById('ccPdf').value = document.getElementById('cc').value;      
+            .'<tr bgcolor="#F5F5F5">'
+                .'<th>'.$naturezas[0].'</th>';
+                for ($i = 0; $i <= 11; $i++){ 
+                    $html .= '<td>' .number_format($ratesMonths[$i],0,',','.'). '</td>';
+                }
+                $html .= '<th>'.number_format($ratesMonths[12],0,',','.').'</th>'
+            .'</tr>' 
+            .'<tr>'
+                .'<th>'.$naturezas[1].'</th>';
+                for ($i = 0; $i <= 11; $i++){ 
+                    $html .= '<td>' .number_format($interestCostsMonths[$i],0,',','.'). '</td>';
+                }
+                $html .= '<th>'.number_format($interestCostsMonths[12],0,',','.').'</th>'
+            .'</tr>'                 
+            .'<tr bgcolor="#F5F5F5">'
+                .'<th>'.$naturezas[2].'</th>';
+                for ($i = 0; $i <= 11; $i++){ 
+                    $html .= '<td>' .number_format($discountsGivenMonths[$i],0,',','.'). '</td>';
+                }
+                $html .= '<th>'.number_format($discountsGivenMonths[12],0,',','.').'</th>'
+            .'</tr>'
+            
+            .'<tr>'
+                .'<th>'.$naturezas[3].'</th>';
+                for ($i = 0; $i <= 11; $i++){ 
+                    $html .= '<td>' .number_format($bankExpensesMonths[$i],0,',','.'). '</td>';
+                }
+                $html .= '<th>'.number_format($bankExpensesMonths[12],0,',','.').'</th>'
+            .'</tr>'          
+            
+            .'<tr bgcolor="#F5F5F5">'
+                .'<th>'.$naturezas[4].'</th>';
+                for ($i = 0; $i <= 11; $i++){ 
+                    $html .= '<td>' .number_format($finesMonths[$i],0,',','.'). '</td>';
+                }
+                $html .= '<th>'.number_format($finesMonths[12],0,',','.').'</th>'
+            .'</tr>'
+            
+            .'<tr>'
+                .'<th>'.$naturezas[5].'</th>';
+                for ($i = 0; $i <= 11; $i++){ 
+                    $html .= '<td>' .number_format($iofMonths[$i],0,',','.'). '</td>';
+                }
+                $html .= '<th>'.number_format($iofMonths[12],0,',','.').'</th>'
+            .'</tr>'  
           
-        var rent = JSON.parse( '<?php echo json_encode($rent) ?>' );
-        var phoneAndInternet = JSON.parse( '<?php echo json_encode($phoneAndInternet) ?>' );
-        var electricity = JSON.parse( '<?php echo json_encode($electricity) ?>' );
-        var waterAndSewage = JSON.parse( '<?php echo json_encode($waterAndSewage) ?>' );
-        var officeSupplies = JSON.parse( '<?php echo json_encode($officeSupplies) ?>' );
-        var cleaningSupplies = JSON.parse( '<?php echo json_encode($cleaningSupplies) ?>' );
-        var others = JSON.parse( '<?php echo json_encode($others) ?>' );
+            .'<tr bgcolor="#F5F5F5">'
+                .'<th>'.$naturezas[6].'</th>';
+                for ($i = 0; $i <= 11; $i++){ 
+                    $html .= '<td>' .number_format($iocMonths[$i],0,',','.'). '</td>';
+                }
+                $html .= '<th>'.number_format($iocMonths[12],0,',','.').'</th>'
+            .'</tr>'            
+                        
+            .'<tr>'
+                .'<th>'.$naturezas[7].'</th>';
+                for ($i = 0; $i <= 11; $i++){ 
+                    $html .= '<td>' .number_format($bankInterestRateMonths[$i],0,',','.'). '</td>';
+                }
+                $html .= '<th>'.number_format($bankInterestRateMonths[12],0,',','.').'</th>'
+            .'</tr>'            
+            
+            .'<tr bgcolor="#F5F5F5">'
+                .'<th>'.$naturezas[8].'</th>';
+                for ($i = 0; $i <= 11; $i++){ 
+                    $html .= '<td>' .number_format($financialChargesMonths[$i],0,',','.'). '</td>';
+                }
+                $html .= '<th>'.number_format($financialChargesMonths[12],0,',','.').'</th>'
+            .'</tr>' 
+            
+            .'<tr>'
+                .'<th>'.$naturezas[9].'</th>';
+                for ($i = 0; $i <= 11; $i++){ 
+                    $html .= '<td>' .number_format($irsMonths[$i],0,',','.'). '</td>';
+                }
+                $html .= '<th>'.number_format($irsMonths[12],0,',','.').'</th>'
+            .'</tr>'
+            
+            .'<tr bgcolor="#F5F5F5">'
+                .'<th>Total</th>';
+                for ($i = 0; $i <= 11; $i++){  
+                    $html .= '<td>'.number_format($ratesMonths[$i] + $interestCostsMonths[$i] + $discountsGivenMonths[$i] +
+                                                  $bankExpensesMonths[$i] + $finesMonths[$i] + $iofMonths[$i] +
+                                                  $iocMonths[$i] + $bankInterestRateMonths[$i] + $financialChargesMonths[$i] + $irsMonths[$i],0,',','.') .'</td>';
+                }
                 
-        var naturezas = JSON.parse( '<?php echo json_encode($naturezas) ?>' );
-        
-        var monthsNumbers = JSON.parse( '<?php echo json_encode($monthsNumbers) ?>' );
-        var monthsLabels = JSON.parse( '<?php echo json_encode($monthsLabels) ?>' );
-        
-        var totalAnual = 0;        
-        var cc = document.getElementById('cc').value;
-        
-        rentMonths = [];
-        valorTotal = 0; 
-        for(var i = 0; i < monthsNumbers.length; i++){ 
-            valor = 0;
-            if(cc != 'TODOS'){
-                for(var x = 0; x < rent.length; x++){
-                    if (monthsNumbers[i] === rent[x].CT2_DATA && rent[x].CT2_CCD.substring(0,2) === cc.substring(0,2)){
-                        var aux = parseFloat(rent[x].CT2_VALOR);
-                        valor += aux;
-                    }
-                    totalAnual += valor;
-                }
-                valorTotal += valor;
-                rentMonths.push(valor);
-            }else{
-                for(var x = 0; x < rent.length; x++){
-                if (monthsNumbers[i] === rent[x].CT2_DATA){
-                    var aux = parseFloat(rent[x].CT2_VALOR);
-                    valor += aux;
-                }
-                totalAnual += valor;
-                }
-                valorTotal += valor;
-                rentMonths.push(valor);
-            }
-        }
-        rentMonths.push(valorTotal);
-        
-        phoneAndInternetMonths = [];
-        valorTotal = 0; 
-        for(var i = 0; i < monthsNumbers.length; i++){ 
-            valor = 0;
-            if(cc != 'TODOS'){
-                for(var x = 0; x < phoneAndInternet.length; x++){
-                    if (monthsNumbers[i] === phoneAndInternet[x].CT2_DATA && phoneAndInternet[x].CT2_CCD.substring(0,2) === cc.substring(0,2)){
-                        var aux = parseFloat(phoneAndInternet[x].CT2_VALOR);
-                        valor += aux;
-                    }
-                    totalAnual += valor;
-                }
-                valorTotal += valor;
-                phoneAndInternetMonths.push(valor);
-            }else{
-                for(var x = 0; x < phoneAndInternet.length; x++){
-                if (monthsNumbers[i] === phoneAndInternet[x].CT2_DATA){
-                    var aux = parseFloat(phoneAndInternet[x].CT2_VALOR);
-                    valor += aux;
-                }
-                totalAnual += valor;
-                }
-                valorTotal += valor;
-                phoneAndInternetMonths.push(valor);
-            }
-        }
-        phoneAndInternetMonths.push(valorTotal);
-        
-        electricityMonths = [];
-        valorTotal = 0; 
-        for(var i = 0; i < monthsNumbers.length; i++){ 
-            valor = 0;
-            if(cc != 'TODOS'){
-                for(var x = 0; x < electricity.length; x++){
-                    if (monthsNumbers[i] === electricity[x].CT2_DATA && electricity[x].CT2_CCD.substring(0,2) === cc.substring(0,2)){
-                        var aux = parseFloat(electricity[x].CT2_VALOR);
-                        valor += aux;
-                    }
-                    totalAnual += valor;
-                }
-                valorTotal += valor;
-                electricityMonths.push(valor);
-            }else{
-                for(var x = 0; x < electricity.length; x++){
-                if (monthsNumbers[i] === electricity[x].CT2_DATA){
-                    var aux = parseFloat(electricity[x].CT2_VALOR);
-                    valor += aux;
-                }
-                totalAnual += valor;
-                }
-                valorTotal += valor;
-                electricityMonths.push(valor);
-            }
-        }
-        electricityMonths.push(valorTotal);
-        
-        waterAndSewageMonths = [];
-        valorTotal = 0; 
-        for(var i = 0; i < monthsNumbers.length; i++){ 
-            valor = 0;
-            if(cc != 'TODOS'){
-                for(var x = 0; x < waterAndSewage.length; x++){
-                    if (monthsNumbers[i] === waterAndSewage[x].CT2_DATA && waterAndSewage[x].CT2_CCD.substring(0,2) === cc.substring(0,2)){
-                        var aux = parseFloat(waterAndSewage[x].CT2_VALOR);
-                        valor += aux;
-                    }
-                    totalAnual += valor;
-                }
-                valorTotal += valor;
-                waterAndSewageMonths.push(valor);
-            }else{
-                for(var x = 0; x < electricity.length; x++){
-                if (monthsNumbers[i] === electricity[x].CT2_DATA){
-                    var aux = parseFloat(electricity[x].CT2_VALOR);
-                    valor += aux;
-                }
-                totalAnual += valor;
-                }
-                valorTotal += valor;
-                waterAndSewageMonths.push(valor);
-            }
-        }
-        waterAndSewageMonths.push(valorTotal);
-        
-        officeSuppliesMonths = [];
-        valorTotal = 0; 
-        for(var i = 0; i < monthsNumbers.length; i++){ 
-            valor = 0;
-            if(cc != 'TODOS'){
-                for(var x = 0; x < officeSupplies.length; x++){
-                    if (monthsNumbers[i] === officeSupplies[x].CT2_DATA && officeSupplies[x].CT2_CCD.substring(0,2) === cc.substring(0,2)){
-                        var aux = parseFloat(officeSupplies[x].CT2_VALOR);
-                        valor += aux;
-                    }
-                    totalAnual += valor;
-                }
-                valorTotal += valor;
-                officeSuppliesMonths.push(valor);
-            }else{
-                for(var x = 0; x < officeSupplies.length; x++){
-                if (monthsNumbers[i] === officeSupplies[x].CT2_DATA){
-                    var aux = parseFloat(officeSupplies[x].CT2_VALOR);
-                    valor += aux;
-                }
-                totalAnual += valor;
-                }
-                valorTotal += valor;
-                officeSuppliesMonths.push(valor);
-            }
-        }
-        officeSuppliesMonths.push(valorTotal);
-        
-        
-        cleaningSuppliesMonths = [];
-        valorTotal = 0; 
-        for(var i = 0; i < monthsNumbers.length; i++){ 
-            valor = 0;
-            if(cc != 'TODOS'){
-                for(var x = 0; x < cleaningSupplies.length; x++){
-                    if (monthsNumbers[i] === cleaningSupplies[x].CT2_DATA && cleaningSupplies[x].CT2_CCD.substring(0,2) === cc.substring(0,2)){
-                        var aux = parseFloat(cleaningSupplies[x].CT2_VALOR);
-                        valor += aux;
-                    }
-                    totalAnual += valor;
-                }
-                valorTotal += valor;
-                cleaningSuppliesMonths.push(valor);
-            }else{
-                for(var x = 0; x < cleaningSupplies.length; x++){
-                if (monthsNumbers[i] === cleaningSupplies[x].CT2_DATA){
-                    var aux = parseFloat(cleaningSupplies[x].CT2_VALOR);
-                    valor += aux;
-                }
-                totalAnual += valor;
-                }
-                valorTotal += valor;
-                cleaningSuppliesMonths.push(valor);
-            }
-        }
-        cleaningSuppliesMonths.push(valorTotal);
-        
-        othersMonths = [];
-        valorTotal = 0; 
-        for(var i = 0; i < monthsNumbers.length; i++){ 
-            valor = 0;
-            if(cc != 'TODOS'){
-                for(var x = 0; x < others.length; x++){
-                    if (monthsNumbers[i] === others[x].CT2_DATA && others[x].CT2_CCD.substring(0,2) === cc.substring(0,2)){
-                        var aux = parseFloat(others[x].CT2_VALOR);
-                        valor += aux;
-                    }
-                    totalAnual += valor;
-                }
-                valorTotal += valor;
-                othersMonths.push(valor);
-            }else{
-                for(var x = 0; x < others.length; x++){
-                if (monthsNumbers[i] === others[x].CT2_DATA){
-                    var aux = parseFloat(others[x].CT2_VALOR);
-                    valor += aux;
-                }
-                totalAnual += valor;
-                }
-                valorTotal += valor;
-                othersMonths.push(valor);
-            }
-        }
-        othersMonths.push(valorTotal);
-        
-        
-        html = '';                
-        html += '<table id="example1" class="table table-bordered table-hover">';
-        html += '<theader>';
-        html += '<tr>';
-        html += '<th>Naturezas</th>';
-        for(var x = 0; x < monthsLabels.length; x++){
-             html += '<th>'+ monthsLabels[x] +'</th>';
-        } 
-        html += '<th>Total</th>';
-        html += '</tr>';                            
-        html += '</theader>';
-        html += '<tbody>';
-        
-        html += '<tr>';
-        html += '<th>'+naturezas[0]+'</th>';
-        for(var x = 0; x < rentMonths.length -1; x++){
-             html += '<td>'+ rentMonths[x].formatMoney(0, ',', '.'); +'</td>';
-        }
-        html += '<th>'+rentMonths[12].formatMoney(0, ',', '.')+'</th>';
-        html += '</tr>';
-        
-        html += '<tr>';
-        html += '<th>'+naturezas[1]+'</th>';
-        for(var x = 0; x < phoneAndInternetMonths.length -1; x++){
-             html += '<td>'+ phoneAndInternetMonths[x].formatMoney(0, ',', '.'); +'</td>';
-        }
-        html += '<th>'+phoneAndInternetMonths[12].formatMoney(0, ',', '.')+'</th>';
-        html += '</tr>';
-        
-        html += '<tr>';
-        html += '<th>'+naturezas[2]+'</th>';
-        for(var x = 0; x < waterAndSewageMonths.length -1; x++){
-             html += '<td>'+ waterAndSewageMonths[x].formatMoney(0, ',', '.'); +'</td>';
-        }
-        html += '<th>'+waterAndSewageMonths[12].formatMoney(0, ',', '.')+'</th>';
-        html += '</tr>';    
-        
-        html += '<tr>';
-        html += '<th>'+naturezas[3]+'</th>';
-        for(var x = 0; x < officeSuppliesMonths.length -1; x++){
-             html += '<td>'+ officeSuppliesMonths[x].formatMoney(0, ',', '.'); +'</td>';
-        }
-        html += '<th>'+officeSuppliesMonths[12].formatMoney(0, ',', '.')+'</th>';
-        html += '</tr>';  
-        
-        html += '<tr>';
-        html += '<th>'+naturezas[4]+'</th>';
-        for(var x = 0; x < cleaningSuppliesMonths.length -1; x++){
-             html += '<td>'+ cleaningSuppliesMonths[x].formatMoney(0, ',', '.'); +'</td>';
-        }
-        html += '<th>'+cleaningSuppliesMonths[12].formatMoney(0, ',', '.')+'</th>';
-        html += '</tr>';
-        
-        html += '<tr>';
-        html += '<th>'+naturezas[5]+'</th>';
-        for(var x = 0; x < othersMonths.length -1; x++){
-             html += '<td>'+ othersMonths[x].formatMoney(0, ',', '.'); +'</td>';
-        }
-        html += '<th>'+othersMonths[12].formatMoney(0, ',', '.')+'</th>';
-        html += '</tr>';
-        
-         html += '<tr>';
-        html += '<th>Total</th>';
-        for (i = 0; i <= 11; i++){
-            valorMensal = rentMonths[i] + phoneAndInternetMonths[i] + electricityMonths[i] +
-                            waterAndSewageMonths[i] + officeSuppliesMonths[i] + cleaningSuppliesMonths[i] +
-                                othersMonths[i];
-            html += '<th>'+valorMensal.formatMoney(0, ',', '.')+'</th>';
-        }
-        valorAnual = rentMonths[12] + phoneAndInternetMonths[12] + electricityMonths[12] +
-                            waterAndSewageMonths[12] + officeSuppliesMonths[12] + cleaningSuppliesMonths[12] +
-                                othersMonths[12];
-        html += '<th>'+valorAnual.formatMoney(0, ',', '.')+'</th>';
-        html += '</tr>';
-               
-        html += '</tbody>';
-        html += '</table>';
-        document.getElementById("example1").innerHTML = html;
-        
-    });
-</script>
-<?php $this->end(); ?>
+                $html .= '<th>'. number_format($ratesMonths[12] + $interestCostsMonths[12] + $discountsGivenMonths[12] +
+                                               $bankExpensesMonths[12] + $finesMonths[12] + $iofMonths[12] +
+                                               $iocMonths[12] + $bankInterestRateMonths[12] + $financialChargesMonths[12] + $irsMonths[12],0,',','.') .'</th>';                                
+                $html .= '</tr>'                
+                        
+        . '</tbody>'    
+       . '</table>';
 
 
 
 
-<script type="text/javascript">
-    
-function fnExcelReport(){
-       var htmltable= document.getElementById('example1');
-       var html = htmltable.outerHTML;
-       window.open('data:application/vnd.ms-excel,' + encodeURIComponent(html));
-}
+$pdf->writeHTMLCell(0, 0, '', '', $html, 0, 2, 0, true, '', true);
 
-function fnExcelReport2(){
-       var htmltable= document.getElementById('example2');
-       var html = htmltable.outerHTML;
-       window.open('data:application/vnd.ms-excel,' + encodeURIComponent(html));
-}
+// ---------------------------------------------------------
 
-</script>
+// Close and output PDF document
+// This method has several options, check the source code documentation for more information.
+$pdf->Output('Despesas com financeiro.pdf', 'I');
+
+//============================================================+
+// END OF FILE
+//============================================================+
+?>  
