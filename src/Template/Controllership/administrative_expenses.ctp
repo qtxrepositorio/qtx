@@ -655,13 +655,7 @@ Number.prototype.formatMoney = function(c, d, t){
         document.getElementById("example1").innerHTML = html;
         
     });
-</script>
-<?php $this->end(); ?>
 
-
-
-
-<script type="text/javascript">
     
 function fnExcelReport(){
        var htmltable= document.getElementById('example1');
@@ -676,3 +670,9 @@ function fnExcelReport2(){
 }
 
 </script>
+<?php $this->end(); ?>
+
+
+
+
+

@@ -573,11 +573,209 @@ class ControllershipController extends AppController {
         
     }
     
-    public function InvestmentExpensesPdf (){}
+    public function InvestmentExpensesPdf (){
+        
+        $connection = ConnectionManager::get('baseProtheus');
+        
+        $year = $this->request->data['yearPdf'];
+              
+        $cc = $this->request->data['ccPdf']; 
+        
+        $ccpdf = $this->request->data['ccPdf']; 
+        
+        $cc = substr($cc,0,2);
+        
+        if ($cc != 'TO'){
+            
+            $furnitureAndUtensils = $connection->execute("
+                SELECT 
+                    SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                            WHERE 
+                    SUBSTRING([CT2_DATA],1,4) = '$year'
+                    AND [CT2_DEBITO] in ('13201001') 
+                    AND D_E_L_E_T_ != '*' AND [CT2_CCD] = '$cc'
+                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                            ->fetchAll('assoc');
+            
+            $machinesAndEquipment = $connection->execute("
+                SELECT 
+                    SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                            WHERE 
+                    SUBSTRING([CT2_DATA],1,4) = '$year'
+                    AND [CT2_DEBITO] in ('13201005','13201009','13201010','13201011','13201014') 
+                    AND D_E_L_E_T_ != '*' AND [CT2_CCD] = '$cc'
+                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                            ->fetchAll('assoc');
+            
+            $vehicles = $connection->execute("
+                SELECT 
+                    SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                            WHERE 
+                    SUBSTRING([CT2_DATA],1,4) = '$year'
+                    AND [CT2_DEBITO] in ('13201007','13201008') 
+                    AND D_E_L_E_T_ != '*' AND [CT2_CCD] = '$cc'
+                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                            ->fetchAll('assoc');
+            
+        }else{
+            
+            $furnitureAndUtensils = $connection->execute("
+                SELECT 
+                    SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                            WHERE 
+                    SUBSTRING([CT2_DATA],1,4) = '$year'
+                    AND [CT2_DEBITO] in ('13201001') 
+                    AND D_E_L_E_T_ != '*' 
+                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                            ->fetchAll('assoc');
+            
+            $machinesAndEquipment = $connection->execute("
+                SELECT 
+                    SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                            WHERE 
+                    SUBSTRING([CT2_DATA],1,4) = '$year'
+                    AND [CT2_DEBITO] in ('13201005','13201009','13201010','13201011','13201014') 
+                    AND D_E_L_E_T_ != '*' 
+                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                            ->fetchAll('assoc');
+            
+            $vehicles = $connection->execute("
+                SELECT 
+                    SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                            WHERE 
+                    SUBSTRING([CT2_DATA],1,4) = '$year'
+                    AND [CT2_DEBITO] in ('13201007','13201008') 
+                    AND D_E_L_E_T_ != '*' 
+                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                            ->fetchAll('assoc');
+        
+                     
+        }
+        
+        $this->set(compact('ccpdf','year','furnitureAndUtensils','machinesAndEquipment','vehicles'));
+        $this->set('_serialize', ['ccpdf','year','furnitureAndUtensils','machinesAndEquipment','vehicles']);
+                
+        $this->viewBuilder()->layout('ajax');
+        $this->response->type('pdf');
+        
+        
+    }
     
-    public function InvestmentExpensesFilter (){}
+    public function InvestmentExpensesFilter (){
+        
+        $connection = ConnectionManager::get('baseProtheus');
+        
+        $year = $this->request->data['year'];
+        
+        $furnitureAndUtensils = $connection->execute("
+                SELECT 
+                    SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                            WHERE 
+                    SUBSTRING([CT2_DATA],1,4) = '$year'
+                    AND [CT2_DEBITO] in ('13201001') 
+                    AND D_E_L_E_T_ != '*' 
+                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                            ->fetchAll('assoc');
+            
+        $machinesAndEquipment = $connection->execute("
+                SELECT 
+                    SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                            WHERE 
+                    SUBSTRING([CT2_DATA],1,4) = '$year'
+                    AND [CT2_DEBITO] in ('13201005','13201009','13201010','13201011','13201014') 
+                    AND D_E_L_E_T_ != '*' 
+                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                            ->fetchAll('assoc');
+            
+        $vehicles = $connection->execute("
+                SELECT 
+                    SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                            WHERE 
+                    SUBSTRING([CT2_DATA],1,4) = '$year'
+                    AND [CT2_DEBITO] in ('13201007','13201008') 
+                    AND D_E_L_E_T_ != '*' 
+                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                            ->fetchAll('assoc');
+        
+        $this->set(compact('year','furnitureAndUtensils','machinesAndEquipment','vehicles'));
+        $this->set('_serialize', ['year','furnitureAndUtensils','machinesAndEquipment','vehicles']);
+        
+    }
     
-    public function InvestmentExpenses (){}
+    public function InvestmentExpenses (){
+        
+        $connection = ConnectionManager::get('baseProtheus');
+        
+        $furnitureAndUtensils = $connection->execute("
+                SELECT 
+                    SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                            WHERE 
+                    SUBSTRING([CT2_DATA],1,4) = YEAR(GETDATE())
+                    AND [CT2_DEBITO] in ('13201001') 
+                    AND D_E_L_E_T_ != '*' 
+                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                            ->fetchAll('assoc');
+            
+        $machinesAndEquipment = $connection->execute("
+                SELECT 
+                    SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                            WHERE 
+                    SUBSTRING([CT2_DATA],1,4) = YEAR(GETDATE())
+                    AND [CT2_DEBITO] in ('13201005','13201009','13201010','13201011','13201014') 
+                    AND D_E_L_E_T_ != '*' 
+                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                            ->fetchAll('assoc');
+            
+        $vehicles = $connection->execute("
+                SELECT 
+                    SUM([CT2_VALOR]) AS [CT2_VALOR]
+                , [CT2_CCD]
+                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+                FROM [CT2010] 
+                            WHERE 
+                    SUBSTRING([CT2_DATA],1,4) = YEAR(GETDATE())
+                    AND [CT2_DEBITO] in ('13201007','13201008') 
+                    AND D_E_L_E_T_ != '*' 
+                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
+                            ->fetchAll('assoc');
+        
+        $this->set(compact('furnitureAndUtensils','machinesAndEquipment','vehicles'));
+        $this->set('_serialize', ['furnitureAndUtensils','machinesAndEquipment','vehicles']);
+        
+    }
 
     public function FinancialExpensesPdf(){
         

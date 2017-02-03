@@ -165,7 +165,7 @@ $irsMonths[] = $valorTotal;
 <section class="content-header">
     <h1>
         Painel
-        <small>Controladoria - Despesas com administrativo</small>
+        <small>Controladoria - Despesas com Financeiro</small>
     </h1>      
 </section>
 
@@ -261,7 +261,7 @@ $irsMonths[] = $valorTotal;
         <div class="col-md-12">
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Despesas administrativas:</h3>
+                    <h3 class="box-title">Despesas com Financeiro:</h3>
                     <div class="box-tools pull-right">
                         <button type="button" class="btn btn-box-tool" data-widget="collapse">
                             <i class="fa fa-minus"></i>
