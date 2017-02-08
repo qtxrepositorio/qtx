@@ -12,7 +12,7 @@ for($i = 0; $i < sizeof($x); $i++){
     $costCenters[$x[$i]] = $x[$i];
 }
 
-$naturezas = ['Móveis e utensílhos','Máquinas e equipamentos','Veículos'];
+$naturezas = ['Moveis e utensilhos','Maquinas e equipamentos','Veiculos'];
 
 $monthsLabels = ['Jan', 'Fev', 'Mar', 'Mai', 'Abr', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
 $monthsNumbers = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
