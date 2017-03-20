@@ -99,19 +99,19 @@ $html .= '<table CELLSPACING="0" CELLPADDING="7">
 				<td ROWSPAN="2" border="1" width="50">
 					<img src="img/logoq.png" style="width:40px;height:30px;">
 			  	</td>     
-                <td align="center" bgcolor="#92d050" border="1" width="200">
+                <td align="center" bgcolor="#92d050" border="1" width="150">
                     Matrícula: '.$registry.'                    
                 </td> 
             </tr>
             <tr>
-                <td border="1" width="200">
+                <td border="1" width="150">
                     <font size="10">
                         '.$name.' 
                     </font>
                 </td>
 			</tr>
             <tr>
-                <td border="1" width="350">
+                <td border="1" width="305">
                     
                     
                 </td>

@@ -134,8 +134,8 @@ foreach ($timecardDepartamentRs as $key) {
 		$html .='<tr>
 					<td border="1" width="270">
 						<font size="9">'
-							.'<b>Mês/Ano: </b>'.$month.'<b> / </b>'.$year
-							.'<br><b>Matrícula: </b>'.$value['RA_MAT']
+							.'<b>Matrícula: </b>'.$value['RA_MAT']
+							.' <b>Mês/Ano: </b>'.$month.'<b> / </b>'.$year
 							.'<br/><b>Nome: </b>'.$value['RA_NOME']
 							.'<br/><b>Cargo: </b>'.$value['Q3_DESCSUM']
                                                         .'<br/><b>Dpto: </b>'.$value['QB_DESCRIC'] . ' <b>CC: </b>'.$value['RA_CC'] 
