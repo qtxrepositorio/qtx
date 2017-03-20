@@ -283,7 +283,7 @@ $fecoepMonths[] = $valorTotal;
                        </div>
                         
                         <div align="right">
-                                <a id="btnExport" onclick="fnExcelReport()" class="btn btn-primary" type=""><?php echo __('Gerar Excel'); ?></a>
+                                <a id="btnExport" onclick="fnExcelReport()" class="btn btn-primary" type=""><?php echo __('Exportar para Excel'); ?></a>
                             </div>
                     
                     <table id="example1" class="table table-bordered table-hover">

@@ -12,8 +12,8 @@ for($i = 0; $i < sizeof($x); $i++){
     $costCenters[$x[$i]] = $x[$i];
 }
 
-$naturezas = ['Aluguel','Telefone e Internet','Energia eletrica'
-                ,'Agua e esgoto','Material de escritório','Material de limpeza'
+$naturezas = ['Aluguel','Telefone e Internet','Energia elétrica'
+                ,'Água e esgoto','Material de escritório','Material de limpeza'
                 ,'Outras diversas'];
 
 $monthsLabels = ['Jan', 'Fev', 'Mar', 'Mai', 'Abr', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];

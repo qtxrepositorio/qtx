@@ -1787,7 +1787,7 @@ class ControllershipController extends AppController {
                 FROM [CT2010] 
                             WHERE 
                     SUBSTRING([CT2_DATA],1,4) = '$year'
-                    AND [CT2_DEBITO] in ('41103008','41103026','41103035'
+                    AND [CT2_DEBITO] in ('41103008','41103035'
                                         ,'41103031','41103041','41103045'
                                         ,'42102005','42102027','42102033'
                                         ,'42103037','42102042') 
@@ -1881,7 +1881,7 @@ class ControllershipController extends AppController {
                 FROM [CT2010] 
                             WHERE 
                     SUBSTRING([CT2_DATA],1,4) = '$year'
-                    AND [CT2_DEBITO] in ('41103020','41103021','41103030','42102020','42102021','42102032') 
+                    AND [CT2_DEBITO] in ('41103020','41103021','42102020','42102021') 
                     AND D_E_L_E_T_ != '*' AND [CT2_CCD] = '$cc'
                 GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
                 ->fetchAll('assoc');
@@ -1895,7 +1895,7 @@ class ControllershipController extends AppController {
                 FROM [CT2010] 
                             WHERE 
                     SUBSTRING([CT2_DATA],1,4) = '$year'
-                    AND [CT2_DEBITO] in ('41103008','41103026','41103035'
+                    AND [CT2_DEBITO] in ('41103008','41103035'
                                         ,'41103031','41103041','41103045'
                                         ,'42102005','42102027','42102033'
                                         ,'42103037','42102042') 
@@ -1989,7 +1989,7 @@ class ControllershipController extends AppController {
                 FROM [CT2010] 
                             WHERE 
                     SUBSTRING([CT2_DATA],1,4) = '$year'
-                    AND [CT2_DEBITO] in ('41103020','41103021','41103030','42102020','42102021','42102032') 
+                    AND [CT2_DEBITO] in ('41103020','41103021','42102020','42102021') 
                     AND D_E_L_E_T_ != '*'
                 GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
                 ->fetchAll('assoc');
@@ -2017,7 +2017,7 @@ class ControllershipController extends AppController {
             FROM [CT2010] 
                         WHERE 
                 SUBSTRING([CT2_DATA],1,4) = '$year'
-                AND [CT2_DEBITO] in ('41103008','41103026','41103035'
+                AND [CT2_DEBITO] in ('41103008','41103035'
                                     ,'41103031','41103041','41103045'
                                     ,'42102005','42102027','42102033'
                                     ,'42103037','42102042') 
@@ -2111,7 +2111,7 @@ class ControllershipController extends AppController {
             FROM [CT2010] 
                         WHERE 
                 SUBSTRING([CT2_DATA],1,4) = '$year'
-                AND [CT2_DEBITO] in ('41103020','41103021','41103030','42102020','42102021','42102032') 
+                AND [CT2_DEBITO] in ('41103020','41103021','42102020','42102021') 
                 AND D_E_L_E_T_ != '*'
             GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
             ->fetchAll('assoc');
@@ -2133,7 +2133,7 @@ class ControllershipController extends AppController {
             FROM [CT2010] 
                         WHERE 
                 SUBSTRING([CT2_DATA],1,4) = YEAR(GETDATE())
-                AND [CT2_DEBITO] in ('41103008','41103026','41103035'
+                AND [CT2_DEBITO] in ('41103008','41103035'
                                     ,'41103031','41103041','41103045'
                                     ,'42102005','42102027','42102033'
                                     ,'42103037','42102042') 
@@ -2227,7 +2227,7 @@ class ControllershipController extends AppController {
             FROM [CT2010] 
                         WHERE 
                 SUBSTRING([CT2_DATA],1,4) = YEAR(GETDATE())
-                AND [CT2_DEBITO] in ('41103020','41103021','41103030','42102020','42102021','42102032') 
+                AND [CT2_DEBITO] in ('41103020','41103021','42102020','42102021') 
                 AND D_E_L_E_T_ != '*'
             GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
             ->fetchAll('assoc');
@@ -3568,7 +3568,7 @@ class ControllershipController extends AppController {
                 FROM [CT2010] 
                     WHERE 
                         SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                        AND [CT2_DEBITO] in ('11204005','11204007','11204008','11204009','11204010','11204011') 
+                        AND [CT2_DEBITO] in ('11204005','11204007','11204008','11204009','11204010') 
                         AND D_E_L_E_T_ != '*'
                     GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)
                 ")->fetchAll('assoc');
@@ -3581,7 +3581,7 @@ class ControllershipController extends AppController {
                 FROM [CT2010] 
                     WHERE 
                         SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                        AND [CT2_DEBITO] in ('11204005','11204007','11204008','11204009','11204010','11204011') 
+                        AND [CT2_DEBITO] in ('11204005','11204007','11204008','11204009','11204010') 
                         AND D_E_L_E_T_ != '*'
                     GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)
                 ")->fetchAll('assoc');
@@ -3628,7 +3628,26 @@ class ControllershipController extends AppController {
                             SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
                             AND [CT2_DEBITO] in ('41101018','41101022','41101023') 
                             AND D_E_L_E_T_ != '*'
-                        ")->fetchAll('assoc');  
+                        ")->fetchAll('assoc'); 
+
+            //higienização
+            $sanitationOneRs = $connection->execute("
+                SELECT
+                    SUM([CT2_VALOR]) AS [CT2_VALOR]
+                    FROM [CT2010] 
+                        WHERE 
+                            SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
+                            AND [CT2_DEBITO] in ('41103012','42102011')
+                            AND D_E_L_E_T_ != '*'")->fetchAll('assoc');
+
+            $sanitationTwoRs = $connection->execute("
+                SELECT
+                    SUM([CT2_VALOR]) AS [CT2_VALOR]
+                    FROM [CT2010] 
+                        WHERE 
+                            SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
+                            AND [CT2_DEBITO] in ('41103012','42102011')
+                            AND D_E_L_E_T_ != '*'")->fetchAll('assoc'); 
                     
             //cursos e treinamentos
             $coursesAndTrainingOneRs = $connection->execute("
@@ -3638,8 +3657,7 @@ class ControllershipController extends AppController {
                         WHERE 
                             SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
                             AND [CT2_DEBITO] in ('41103036','42103036')
-                            AND D_E_L_E_T_ != '*'
-                        GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")->fetchAll('assoc');
+                            AND D_E_L_E_T_ != '*'")->fetchAll('assoc');
 
             $coursesAndTrainingTwoRs = $connection->execute("
                 SELECT
@@ -3858,7 +3876,7 @@ class ControllershipController extends AppController {
                 FROM [CT2010] 
                             WHERE 
                     SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                    AND [CT2_DEBITO] in ('41103008','41103026','41103035'
+                    AND [CT2_DEBITO] in ('41103008','41103035'
                                         ,'41103031','41103041','41103045'
                                         ,'42102005','42102027','42102033'
                                         ,'42103037','42102042') 
@@ -3871,7 +3889,7 @@ class ControllershipController extends AppController {
                 FROM [CT2010] 
                             WHERE 
                     SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                    AND [CT2_DEBITO] in ('41103008','41103026','41103035'
+                    AND [CT2_DEBITO] in ('41103008','41103035'
                                         ,'41103031','41103041','41103045'
                                         ,'42102005','42102027','42102033'
                                         ,'42103037','42102042') 
@@ -4005,13 +4023,94 @@ class ControllershipController extends AppController {
                         AND D_E_L_E_T_ != '*'")
                 ->fetchAll('assoc');
             
+            $materialsLabOneRs = $connection->execute("
+                SELECT 
+                    SUM([CT2_VALOR]) AS [CT2_VALOR]
+                    FROM [CT2010] 
+                                WHERE 
+                        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
+                        AND [CT2_DEBITO] in ('41103017','42102017') 
+                        AND D_E_L_E_T_ != '*'")
+                ->fetchAll('assoc');
+
+            $materialsLabTwoRs = $connection->execute("
+                SELECT 
+                    SUM([CT2_VALOR]) AS [CT2_VALOR]
+                    FROM [CT2010] 
+                                WHERE 
+                        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
+                        AND [CT2_DEBITO] in ('41103017','42102017') 
+                        AND D_E_L_E_T_ != '*'")
+                ->fetchAll('assoc');
+
+            $analisesLabOneRs = $connection->execute("
+                SELECT 
+                    SUM([CT2_VALOR]) AS [CT2_VALOR]
+                    FROM [CT2010] 
+                                WHERE 
+                        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
+                        AND [CT2_DEBITO] in ('41103048') 
+                        AND D_E_L_E_T_ != '*'")
+                ->fetchAll('assoc');
+
+            $analisesLabTwoRs = $connection->execute("
+                SELECT 
+                    SUM([CT2_VALOR]) AS [CT2_VALOR]
+                    FROM [CT2010] 
+                                WHERE 
+                        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
+                        AND [CT2_DEBITO] in ('41103048') 
+                        AND D_E_L_E_T_ != '*'")
+                ->fetchAll('assoc');
+
+            $descartETratOneRs = $connection->execute("
+                SELECT 
+                    SUM([CT2_VALOR]) AS [CT2_VALOR]
+                    FROM [CT2010] 
+                                WHERE 
+                        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
+                        AND [CT2_DEBITO] in ('41103026') 
+                        AND D_E_L_E_T_ != '*'")
+                ->fetchAll('assoc');
+
+            $descartETratTwoRs = $connection->execute("
+                SELECT 
+                    SUM([CT2_VALOR]) AS [CT2_VALOR]
+                    FROM [CT2010] 
+                                WHERE 
+                        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
+                        AND [CT2_DEBITO] in ('41103026') 
+                        AND D_E_L_E_T_ != '*'")
+                ->fetchAll('assoc');
+
+            $viagensOneRs = $connection->execute("
+                SELECT 
+                    SUM([CT2_VALOR]) AS [CT2_VALOR]
+                    FROM [CT2010] 
+                                WHERE 
+                        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
+                        AND [CT2_DEBITO] in ('41103030','42102032') 
+                        AND D_E_L_E_T_ != '*'")
+                ->fetchAll('assoc');
+
+            $viagensTwoRs = $connection->execute("
+                SELECT 
+                    SUM([CT2_VALOR]) AS [CT2_VALOR]
+                    FROM [CT2010] 
+                                WHERE 
+                        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
+                        AND [CT2_DEBITO] in ('42102032') 
+                        AND D_E_L_E_T_ != '*'")
+                ->fetchAll('assoc');
+
+
             $othersOPROneRs = $connection->execute("
                 SELECT 
                     SUM([CT2_VALOR]) AS [CT2_VALOR]
                 FROM [CT2010] 
                             WHERE 
                     SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                    AND [CT2_DEBITO] in ('41103020','41103021','41103030','42102020','42102021','42102032') 
+                    AND [CT2_DEBITO] in ('41103020','41103021','42102020','42102021') 
                     AND D_E_L_E_T_ != '*'")
                 ->fetchAll('assoc');
 
@@ -4021,7 +4120,7 @@ class ControllershipController extends AppController {
                 FROM [CT2010] 
                             WHERE 
                     SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                    AND [CT2_DEBITO] in ('41103020','41103021','41103030','42102020','42102021','42102032') 
+                    AND [CT2_DEBITO] in ('41103020','41103021','42102020','42102021') 
                     AND D_E_L_E_T_ != '*'")
                 ->fetchAll('assoc');    
              // ============= OPERACIONAL DESPESAS FIM =============//
@@ -4712,7 +4811,7 @@ class ControllershipController extends AppController {
                 FROM [CT2010] 
                     WHERE 
                         SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                        AND [CT2_DEBITO] in ('11204005','11204007','11204008','11204009','11204010','11204011') 
+                        AND [CT2_DEBITO] in ('11204005','11204007','11204008','11204009','11204010') 
                         AND D_E_L_E_T_ != '*' AND [CT2_CCD] = '$ccParte'
                     GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)
                 ")->fetchAll('assoc');
@@ -4725,7 +4824,7 @@ class ControllershipController extends AppController {
                 FROM [CT2010] 
                     WHERE 
                         SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                        AND [CT2_DEBITO] in ('11204005','11204007','11204008','11204009','11204010','11204011') 
+                        AND [CT2_DEBITO] in ('11204005','11204007','11204008','11204009','11204010') 
                         AND D_E_L_E_T_ != '*' AND [CT2_CCD] = '$ccParte'
                     GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)
                 ")->fetchAll('assoc');
@@ -4773,6 +4872,27 @@ class ControllershipController extends AppController {
                             AND D_E_L_E_T_ != '*'
                             AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');  
                     
+                        //higienização
+            $sanitationOneRs  = $connection->execute("
+                SELECT
+                    SUM([CT2_VALOR]) AS [CT2_VALOR]
+                    FROM [CT2010] 
+                        WHERE 
+                            SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
+                            AND [CT2_DEBITO] in ('41103012','42102011')
+                            AND D_E_L_E_T_ != '*'
+                            AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
+
+            $sanitationTwoRs = $connection->execute("
+                SELECT
+                    SUM([CT2_VALOR]) AS [CT2_VALOR]
+                    FROM [CT2010] 
+                        WHERE 
+                            SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
+                            AND [CT2_DEBITO] in ('41103012','42102011')
+                            AND D_E_L_E_T_ != '*'
+                            AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc'); 
+
             //cursos e treinamentos
             $coursesAndTrainingOneRs = $connection->execute("
                 SELECT
@@ -5021,7 +5141,7 @@ class ControllershipController extends AppController {
                 FROM [CT2010] 
                             WHERE 
                     SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                    AND [CT2_DEBITO] in ('41103008','41103026','41103035'
+                    AND [CT2_DEBITO] in ('41103008','41103035'
                                         ,'41103031','41103041','41103045'
                                         ,'42102005','42102027','42102033'
                                         ,'42103037','42102042') 
@@ -5035,7 +5155,7 @@ class ControllershipController extends AppController {
                 FROM [CT2010] 
                             WHERE 
                     SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                    AND [CT2_DEBITO] in ('41103008','41103026','41103035'
+                    AND [CT2_DEBITO] in ('41103008','41103035'
                                         ,'41103031','41103041','41103045'
                                         ,'42102005','42102027','42102033'
                                         ,'42103037','42102042') 
@@ -5180,6 +5300,50 @@ class ControllershipController extends AppController {
                         AND D_E_L_E_T_ != '*'
                         AND [CT2_CCD] = " . substr($cc, 0,2) . "")
                 ->fetchAll('assoc');
+
+            $materialsLabOneRs = $connection->execute("
+                SELECT 
+                    SUM([CT2_VALOR]) AS [CT2_VALOR]
+                    FROM [CT2010] 
+                                WHERE 
+                        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
+                        AND [CT2_DEBITO] in ('41103017','42102017') 
+                        AND D_E_L_E_T_ != '*'
+                        AND [CT2_CCD] = " . substr($cc, 0,2) . "")
+                ->fetchAll('assoc');
+
+            $materialsLabTwoRs = $connection->execute("
+                SELECT 
+                    SUM([CT2_VALOR]) AS [CT2_VALOR]
+                    FROM [CT2010] 
+                                WHERE 
+                        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
+                        AND [CT2_DEBITO] in ('41103017','42102017') 
+                        AND D_E_L_E_T_ != '*'
+                        AND [CT2_CCD] = " . substr($cc, 0,2) . "")
+                ->fetchAll('assoc');    
+
+            $analisesLabOneRs  = $connection->execute("
+                SELECT 
+                    SUM([CT2_VALOR]) AS [CT2_VALOR]
+                    FROM [CT2010] 
+                                WHERE 
+                        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
+                        AND [CT2_DEBITO] in ('41103048') 
+                        AND D_E_L_E_T_ != '*'
+                        AND [CT2_CCD] = " . substr($cc, 0,2) . "")
+                ->fetchAll('assoc');
+
+            $analisesLabTwoRs = $connection->execute("
+                SELECT 
+                    SUM([CT2_VALOR]) AS [CT2_VALOR]
+                    FROM [CT2010] 
+                                WHERE 
+                        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
+                        AND [CT2_DEBITO] in ('41103048') 
+                        AND D_E_L_E_T_ != '*'
+                        AND [CT2_CCD] = " . substr($cc, 0,2) . "")
+                ->fetchAll('assoc');
             
             $othersOPROneRs = $connection->execute("
                 SELECT 
@@ -5187,9 +5351,53 @@ class ControllershipController extends AppController {
                 FROM [CT2010] 
                             WHERE 
                     SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                    AND [CT2_DEBITO] in ('41103020','41103021','41103030','42102020','42102021','42102032') 
+                    AND [CT2_DEBITO] in ('41103020','41103021','42102020','42102021') 
                     AND D_E_L_E_T_ != '*'
                     AND [CT2_CCD] = " . substr($cc, 0,2) . "")
+                ->fetchAll('assoc');
+
+            $descartETratOneRs = $connection->execute("
+                SELECT 
+                    SUM([CT2_VALOR]) AS [CT2_VALOR]
+                    FROM [CT2010] 
+                                WHERE 
+                        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
+                        AND [CT2_DEBITO] in ('41103026') 
+                        AND D_E_L_E_T_ != '*'
+                        AND [CT2_CCD] = " . substr($cc, 0,2) . "")
+                ->fetchAll('assoc');
+
+            $descartETratTwoRs = $connection->execute("
+                SELECT 
+                    SUM([CT2_VALOR]) AS [CT2_VALOR]
+                    FROM [CT2010] 
+                                WHERE 
+                        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
+                        AND [CT2_DEBITO] in ('41103026') 
+                        AND D_E_L_E_T_ != '*'
+                        AND [CT2_CCD] = " . substr($cc, 0,2) . "")
+                ->fetchAll('assoc');
+
+            $viagensOneRs = $connection->execute("
+                SELECT 
+                    SUM([CT2_VALOR]) AS [CT2_VALOR]
+                    FROM [CT2010] 
+                                WHERE 
+                        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
+                        AND [CT2_DEBITO] in ('41103030','42102032') 
+                        AND D_E_L_E_T_ != '*'
+                        AND [CT2_CCD] = " . substr($cc, 0,2) . "")
+                ->fetchAll('assoc');
+
+            $viagensTwoRs = $connection->execute("
+                SELECT 
+                    SUM([CT2_VALOR]) AS [CT2_VALOR]
+                    FROM [CT2010] 
+                                WHERE 
+                        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
+                        AND [CT2_DEBITO] in ('41103030','42102032') 
+                        AND D_E_L_E_T_ != '*'
+                        AND [CT2_CCD] = " . substr($cc, 0,2) . "")
                 ->fetchAll('assoc');
 
             $othersOPRTwoRs = $connection->execute("
@@ -5198,7 +5406,7 @@ class ControllershipController extends AppController {
                 FROM [CT2010] 
                             WHERE 
                     SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                    AND [CT2_DEBITO] in ('41103020','41103021','41103030','42102020','42102021','42102032') 
+                    AND [CT2_DEBITO] in ('41103020','41103021','42102020','42102021') 
                     AND D_E_L_E_T_ != '*'
                     AND [CT2_CCD] = " . substr($cc, 0,2) . "")
                 ->fetchAll('assoc');    
@@ -5856,6 +6064,7 @@ class ControllershipController extends AppController {
                              //Quadro de pessoal
                              ,'staffPerMonthTwoRs','staffPerMonthOneRs'   
                              //Dados de pessoal:
+                             , 'sanitationOneRs' ,'sanitationTwoRs'
                              ,'othersRHOneRs','coursesAndTrainingOneRs','safetyEquipmentOneRs','medicalOneRs'
                              ,'transportOneRs','feedingOneRs','socialChargesOneRs','prizesAndGratuitiesOneRs'
                              ,'internshipBagOneRs','extraHourOneRs','prolaboreOneRs','earningsOneRs'
@@ -5866,7 +6075,7 @@ class ControllershipController extends AppController {
                              ,'maintenanceOneRs','finesOfCarsOneRs','tiresOneRs','fuelAndLubricantsOneRs'
                              ,'rentsOprOneRs','freightOneRs','materialsOneRs','othersOPROneRs','maintenanceTwoRs'
                              ,'finesOfCarsTwoRs','tiresTwoRs','fuelAndLubricantsTwoRs','rentsOprTwoRs','freightTwoRs'
-                             ,'materialsTwoRs','othersOPRTwoRs'
+                             ,'materialsTwoRs','othersOPRTwoRs', 'materialsLabOneRs', 'materialsLabTwoRs','analisesLabOneRs','analisesLabTwoRs','descartETratOneRs','descartETratTwoRs','viagensOneRs','viagensTwoRs'
                              // Dados do adm:
                              ,'rentAdmOneRs','phoneAndInternetOneRs'
                              ,'electricityOneRs','waterAndSewageOneRs','officeSuppliesOneRs','cleaningSuppliesOneRs'
@@ -5896,6 +6105,7 @@ class ControllershipController extends AppController {
                               //Quadro de pessoal
                              ,'staffPerMonthTwoRs','staffPerMonthOneRs'  
                              //Dados de pessoal:
+                             , 'sanitationOneRs' ,'sanitationTwoRs'
                              ,'othersRHOneRs','coursesAndTrainingOneRs','safetyEquipmentOneRs','medicalOneRs'
                              ,'transportOneRs','feedingOneRs','socialChargesOneRs','prizesAndGratuitiesOneRs'
                              ,'internshipBagOneRs','extraHourOneRs','prolaboreOneRs','earningsOneRs'
@@ -5906,7 +6116,7 @@ class ControllershipController extends AppController {
                              ,'maintenanceOneRs','finesOfCarsOneRs','tiresOneRs','fuelAndLubricantsOneRs'
                              ,'rentsOprOneRs','freightOneRs','materialsOneRs','othersOPROneRs','maintenanceTwoRs'
                              ,'finesOfCarsTwoRs','tiresTwoRs','fuelAndLubricantsTwoRs','rentsOprTwoRs','freightTwoRs'
-                             ,'materialsTwoRs','othersOPRTwoRs'
+                             ,'materialsTwoRs','othersOPRTwoRs', 'materialsLabOneRs', 'materialsLabTwoRs','analisesLabOneRs','analisesLabTwoRs','descartETratOneRs','descartETratTwoRs','viagensOneRs','viagensTwoRs'
                              // Dados do adm:
                              ,'rentAdmOneRs','phoneAndInternetOneRs'
                              ,'electricityOneRs','waterAndSewageOneRs','officeSuppliesOneRs','cleaningSuppliesOneRs'

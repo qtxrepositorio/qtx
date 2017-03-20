@@ -12,7 +12,7 @@ for($i = 0; $i < sizeof($x); $i++){
     $costCenters[$x[$i]] = $x[$i];
 }
 
-$naturezas = ['Proventos', 'Pro-Labore', 'Hora Extra', 'Bolsa Estágio', 'Premios e Gratificações'
+$naturezas = ['Proventos', 'Pro-Labore', 'Hora Extra', 'Bolsa Estágio', 'Prêmios e Gratificações'
             , 'Encargos Sociais', 'Alimentação', 'Transporte de pessoal', 'Assistência Médica', 'Materiais de Segurança'
             , 'Cursos e Treinamentos', 'Outros Custos'];
 
@@ -456,6 +456,7 @@ $html .= '<table class="table" align="center">'
             . '</tbody>'    
        . '</table>';
 
+/*
 $html .='<h3 align="center">Tabela de despesas com pessoal Per Capito:</h3>';
 
 $html .='<p align="center">Centro de custo: '.$ccpdf.'</p>';
@@ -657,7 +658,7 @@ $html .= '<table class="table" align="center">'
                 $html .= '</tr>'            
             . '</tbody>'    
        . '</table>';
-
+*/
 
 $pdf->writeHTMLCell(0, 0, '', '', $html, 0, 2, 0, true, '', true);
 
