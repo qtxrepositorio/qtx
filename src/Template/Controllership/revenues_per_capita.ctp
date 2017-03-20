@@ -457,7 +457,7 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <?php if($totalCCRevenue > 0 and $totalCCStaff > 0){ ?>
                                             <th class="active"><?php echo number_format( $totalCCRevenue/$totalCCStaff ,0,',','.'); ?></th>
                                         <?php }else{ ?>
-                                            <th class="active"><?php echo 0; ?></th> 
+                                            <th class="active"><?php echo '*'; ?></th> 
                                         <?php } ?>
                                             
                                         <?php $totalyear += $total;  ?>
@@ -487,7 +487,7 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <?php if($totalCCRevenue > 0 and $totalCCStaff > 0){ ?>
                                             <th class="active"><?php echo number_format( $totalCCRevenue/$totalCCStaff ,0,',','.'); ?></th>
                                         <?php }else{ ?>
-                                            <th class="active"><?php echo 0; ?></th> 
+                                            <th class="active"><?php echo '*'; ?></th> 
                                         <?php } ?>
                                         <?php $totalyear += $total;  ?>
                                     </tr> 
@@ -516,7 +516,7 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <?php if($totalCCRevenue > 0 and $totalCCStaff > 0){ ?>
                                             <th class="active"><?php echo number_format( $totalCCRevenue/$totalCCStaff ,0,',','.'); ?></th>
                                         <?php }else{ ?>
-                                            <th class="active"><?php echo 0; ?></th> 
+                                            <th class="active"><?php echo '*'; ?></th> 
                                         <?php } ?>
                                         <?php $totalyear += $total;  ?>
                                     </tr>
@@ -545,7 +545,7 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <?php if($totalCCRevenue > 0 and $totalCCStaff > 0){ ?>
                                             <th class="active"><?php echo number_format( $totalCCRevenue/$totalCCStaff ,0,',','.'); ?></th>
                                         <?php }else{ ?>
-                                            <th class="active"><?php echo 0; ?></th> 
+                                            <th class="active"><?php echo '*'; ?></th> 
                                         <?php } ?>
                                         <?php $totalyear += $total;  ?>
                                     </tr>
@@ -574,7 +574,7 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <?php if($totalCCRevenue > 0 and $totalCCStaff > 0){ ?>
                                             <th class="active"><?php echo number_format( $totalCCRevenue/$totalCCStaff ,0,',','.'); ?></th>
                                         <?php }else{ ?>
-                                            <th class="active"><?php echo 0; ?></th> 
+                                            <th class="active"><?php echo '*'; ?></th> 
                                         <?php } ?>
                                         <?php $totalyear += $total;  ?>
                                     </tr>
@@ -603,7 +603,7 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <?php if($totalCCRevenue > 0 and $totalCCStaff > 0){ ?>
                                             <th class="active"><?php echo number_format( $totalCCRevenue/$totalCCStaff ,0,',','.'); ?></th>
                                         <?php }else{ ?>
-                                            <th class="active"><?php echo 0; ?></th> 
+                                            <th class="active"><?php echo '*'; ?></th> 
                                         <?php } ?>
                                         <?php $totalyear += $total;  ?>
                                     </tr>
@@ -632,7 +632,7 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <?php if($totalCCRevenue > 0 and $totalCCStaff > 0){ ?>
                                             <th class="active"><?php echo number_format( $totalCCRevenue/$totalCCStaff ,0,',','.'); ?></th>
                                         <?php }else{ ?>
-                                            <th class="active"><?php echo 0; ?></th> 
+                                            <th class="active"><?php echo '*'; ?></th> 
                                         <?php } ?>
                                         <?php $totalyear += $total;  ?>
                                     </tr>
@@ -661,7 +661,7 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <?php if($totalCCRevenue > 0 and $totalCCStaff > 0){ ?>
                                             <th class="active"><?php echo number_format( $totalCCRevenue/$totalCCStaff ,0,',','.'); ?></th>
                                         <?php }else{ ?>
-                                            <th class="active"><?php echo 0; ?></th> 
+                                            <th class="active"><?php echo '*'; ?></th> 
                                         <?php } ?>
                                         <?php $totalyear += $total;  ?>
                                     </tr>
@@ -690,7 +690,7 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <?php if($totalCCRevenue > 0 and $totalCCStaff > 0){ ?>
                                             <th class="active"><?php echo number_format( $totalCCRevenue/$totalCCStaff ,0,',','.'); ?></th>
                                         <?php }else{ ?>
-                                            <th class="active"><?php echo 0; ?></th> 
+                                            <th class="active"><?php echo '*'; ?></th> 
                                         <?php } ?>
                                         <?php $totalyear += $total;  ?>
                                     </tr>
@@ -719,7 +719,7 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <?php if($totalCCRevenue > 0 and $totalCCStaff > 0){ ?>
                                             <th class="active"><?php echo number_format( $totalCCRevenue/$totalCCStaff ,0,',','.'); ?></th>
                                         <?php }else{ ?>
-                                            <th class="active"><?php echo 0; ?></th> 
+                                            <th class="active"><?php echo '*'; ?></th> 
                                         <?php } ?>
                                         <?php $totalyear += $total;  ?>
                                     </tr>
@@ -748,7 +748,7 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <?php if($totalCCRevenue > 0 and $totalCCStaff > 0){ ?>
                                             <th class="active"><?php echo number_format( $totalCCRevenue/$totalCCStaff ,0,',','.'); ?></th>
                                         <?php }else{ ?>
-                                            <th class="active"><?php echo 0; ?></th> 
+                                            <th class="active"><?php echo '*'; ?></th> 
                                         <?php } ?>
                                         <?php $totalyear += $total;  ?>
                                     </tr>
@@ -777,7 +777,7 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <?php if($totalCCRevenue > 0 and $totalCCStaff > 0){ ?>
                                             <th class="active"><?php echo number_format( $totalCCRevenue/$totalCCStaff ,0,',','.'); ?></th>
                                         <?php }else{ ?>
-                                            <th class="active"><?php echo 0; ?></th> 
+                                            <th class="active"><?php echo '*'; ?></th> 
                                         <?php } ?>
                                         <?php $totalyear += $total;  ?>
                                     </tr>
@@ -806,7 +806,7 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <?php if($totalCCRevenue > 0 and $totalCCStaff > 0){ ?>
                                             <th class="active"><?php echo number_format( $totalCCRevenue/$totalCCStaff ,0,',','.'); ?></th>
                                         <?php }else{ ?>
-                                            <th class="active"><?php echo 0; ?></th> 
+                                            <th class="active"><?php echo '*'; ?></th> 
                                         <?php } ?>
                                         <?php $totalyear += $total;  ?>
                                     </tr>
@@ -835,7 +835,7 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <?php if($totalCCRevenue > 0 and $totalCCStaff > 0){ ?>
                                             <th class="active"><?php echo number_format( $totalCCRevenue/$totalCCStaff ,0,',','.'); ?></th>
                                         <?php }else{ ?>
-                                            <th class="active"><?php echo 0; ?></th> 
+                                            <th class="active"><?php echo '*'; ?></th> 
                                         <?php } ?>
                                         <?php $totalyear += $total;  ?>
                                     </tr>
@@ -864,7 +864,7 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <?php if($totalCCRevenue > 0 and $totalCCStaff > 0){ ?>
                                             <th class="active"><?php echo number_format( $totalCCRevenue/$totalCCStaff ,0,',','.'); ?></th>
                                         <?php }else{ ?>
-                                            <th class="active"><?php echo 0; ?></th> 
+                                            <th class="active"><?php echo '*'; ?></th> 
                                         <?php } ?>
                                         <?php $totalyear += $total;  ?>
                                     </tr>
@@ -893,7 +893,7 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <?php if($totalCCRevenue > 0 and $totalCCStaff > 0){ ?>
                                             <th class="active"><?php echo number_format( $totalCCRevenue/$totalCCStaff ,0,',','.'); ?></th>
                                         <?php }else{ ?>
-                                            <th class="active"><?php echo 0; ?></th> 
+                                            <th class="active"><?php echo '*'; ?></th> 
                                         <?php } ?>
                                         <?php $totalyear += $total;  ?>
                                     </tr>
@@ -922,7 +922,7 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <?php if($totalCCRevenue > 0 and $totalCCStaff > 0){ ?>
                                             <th class="active"><?php echo number_format( $totalCCRevenue/$totalCCStaff ,0,',','.'); ?></th>
                                         <?php }else{ ?>
-                                            <th class="active"><?php echo 0; ?></th> 
+                                            <th class="active"><?php echo '*'; ?></th> 
                                         <?php } ?>
                                         <?php $totalyear += $total;  ?>
                                     </tr>
@@ -1094,10 +1094,10 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                             } //chave do for?>
                                         </td>
                                         
-                                        <?php if ($totalRevenue > 0 and $totalStaff > 0){ ?>
+                                        <?php if ($totalCCRevenue > 0 and $totalCCStaff > 0){ ?>
                                                 <th class="active"><?php echo number_format(($totalCCRevenue-$totalCCRetentions)/$totalCCStaff,0,',','.'); ?></th>
                                         <?php }else{ ?>
-                                                <th class="active"><?php echo 0; ?></th>
+                                                <th class="active"><?php echo '*'; ?></th>
                                         <?php } ?>
                                         
                                         <?php $totalyear += $total;  ?>
@@ -1127,10 +1127,10 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                             } //chave do for?>
                                         </td>                                        
                                         
-                                        <?php if ($totalRevenue > 0 and $totalStaff > 0){ ?>
+                                        <?php if ($totalCCRevenue > 0 and $totalCCStaff > 0){ ?>
                                                 <th class="active"><?php echo number_format(($totalCCRevenue-$totalCCRetentions)/$totalCCStaff,0,',','.'); ?></th>
                                         <?php }else{ ?>
-                                                <th class="active"><?php echo 0; ?></th>
+                                                <th class="active"><?php echo '*'; ?></th>
                                         <?php } ?>
                                             
                                             <?php $totalyear += $total;  ?>
@@ -1159,10 +1159,10 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                                 }
                                             } //chave do for?>
                                         </td>                                        
-                                        <?php if ($totalRevenue > 0 and $totalStaff > 0){ ?>
+                                        <?php if ($totalCCRevenue > 0 and $totalCCStaff > 0){ ?>
                                                 <th class="active"><?php echo number_format(($totalCCRevenue-$totalCCRetentions)/$totalCCStaff,0,',','.'); ?></th>
                                         <?php }else{ ?>
-                                                <th class="active"><?php echo 0; ?></th>
+                                                <th class="active"><?php echo '*'; ?></th>
                                         <?php } ?>
                                             <?php $totalyear += $total;  ?>
                                     </tr> 
@@ -1190,10 +1190,10 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                                 }
                                             } //chave do for?>
                                         </td>                                        
-                                        <?php if ($totalRevenue > 0 and $totalStaff > 0){ ?>
+                                        <?php if ($totalCCRevenue > 0 and $totalCCStaff > 0){ ?>
                                                 <th class="active"><?php echo number_format(($totalCCRevenue-$totalCCRetentions)/$totalCCStaff,0,',','.'); ?></th>
                                         <?php }else{ ?>
-                                                <th class="active"><?php echo 0; ?></th>
+                                                <th class="active"><?php echo '*'; ?></th>
                                         <?php } ?>
                                             <?php $totalyear += $total;  ?>
                                     </tr> 
@@ -1221,10 +1221,10 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                                 }
                                             } //chave do for?>
                                         </td>                                        
-                                        <?php if ($totalRevenue > 0 and $totalStaff > 0){ ?>
+                                        <?php if ($totalCCRevenue > 0 and $totalCCStaff > 0){ ?>
                                                 <th class="active"><?php echo number_format(($totalCCRevenue-$totalCCRetentions)/$totalCCStaff,0,',','.'); ?></th>
                                         <?php }else{ ?>
-                                                <th class="active"><?php echo 0; ?></th>
+                                                <th class="active"><?php echo '*'; ?></th>
                                         <?php } ?>
                                             <?php $totalyear += $total;  ?>
                                     </tr> 
@@ -1252,10 +1252,10 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                                 }
                                             } //chave do for?>
                                         </td>                                        
-                                        <?php if ($totalRevenue > 0 and $totalStaff > 0){ ?>
+                                        <?php if ($totalCCRevenue > 0 and $totalCCStaff > 0){ ?>
                                                 <th class="active"><?php echo number_format(($totalCCRevenue-$totalCCRetentions)/$totalCCStaff,0,',','.'); ?></th>
                                         <?php }else{ ?>
-                                                <th class="active"><?php echo 0; ?></th>
+                                                <th class="active"><?php echo '*'; ?></th>
                                         <?php } ?>
                                             <?php $totalyear += $total;  ?>
                                     </tr> 
@@ -1283,10 +1283,10 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                                 }
                                             } //chave do for?>
                                         </td>                                        
-                                        <?php if ($totalRevenue > 0 and $totalStaff > 0){ ?>
+                                        <?php if ($totalCCRevenue > 0 and $totalCCStaff > 0){ ?>
                                                 <th class="active"><?php echo number_format(($totalCCRevenue-$totalCCRetentions)/$totalCCStaff,0,',','.'); ?></th>
                                         <?php }else{ ?>
-                                                <th class="active"><?php echo 0; ?></th>
+                                                <th class="active"><?php echo '*'; ?></th>
                                         <?php } ?>
                                             <?php $totalyear += $total;  ?>
                                     </tr> 
@@ -1314,10 +1314,10 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                                 }
                                             } //chave do for?>
                                         </td>                                        
-                                        <?php if ($totalRevenue > 0 and $totalStaff > 0){ ?>
+                                        <?php if ($totalCCRevenue > 0 and $totalCCStaff > 0){ ?>
                                                 <th class="active"><?php echo number_format(($totalCCRevenue-$totalCCRetentions)/$totalCCStaff,0,',','.'); ?></th>
                                         <?php }else{ ?>
-                                                <th class="active"><?php echo 0; ?></th>
+                                                <th class="active"><?php echo '*'; ?></th>
                                         <?php } ?>
                                             <?php $totalyear += $total;  ?>
                                     </tr> 
@@ -1345,10 +1345,10 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                                 }
                                             } //chave do for?>
                                         </td>                                        
-                                        <?php if ($totalRevenue > 0 and $totalStaff > 0){ ?>
+                                        <?php if ($totalCCRevenue > 0 and $totalCCStaff > 0){ ?>
                                                 <th class="active"><?php echo number_format(($totalCCRevenue-$totalCCRetentions)/$totalCCStaff,0,',','.'); ?></th>
                                         <?php }else{ ?>
-                                                <th class="active"><?php echo 0; ?></th>
+                                                <th class="active"><?php echo '*'; ?></th>
                                         <?php } ?>
                                             <?php $totalyear += $total;  ?>
                                     </tr> 
@@ -1376,10 +1376,10 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                                 }
                                             } //chave do for?>
                                         </td>                                        
-                                        <?php if ($totalRevenue > 0 and $totalStaff > 0){ ?>
+                                        <?php if ($totalCCRevenue > 0 and $totalCCStaff > 0){ ?>
                                                 <th class="active"><?php echo number_format(($totalCCRevenue-$totalCCRetentions)/$totalCCStaff,0,',','.'); ?></th>
                                         <?php }else{ ?>
-                                                <th class="active"><?php echo 0; ?></th>
+                                                <th class="active"><?php echo '*'; ?></th>
                                         <?php } ?>
                                             <?php $totalyear += $total;  ?>
                                     </tr> 
@@ -1407,10 +1407,10 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                                 }
                                             } //chave do for?>
                                         </td>                                        
-                                        <?php if ($totalRevenue > 0 and $totalStaff > 0){ ?>
+                                        <?php if ($totalCCRevenue > 0 and $totalCCStaff > 0){ ?>
                                                 <th class="active"><?php echo number_format(($totalCCRevenue-$totalCCRetentions)/$totalCCStaff,0,',','.'); ?></th>
                                         <?php }else{ ?>
-                                                <th class="active"><?php echo 0; ?></th>
+                                                <th class="active"><?php echo '*'; ?></th>
                                         <?php } ?>
                                             <?php $totalyear += $total;  ?>
                                     </tr>
@@ -1438,10 +1438,10 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                                 }
                                             } //chave do for?>
                                         </td>                                        
-                                        <?php if ($totalRevenue > 0 and $totalStaff > 0){ ?>
+                                        <?php if ($totalCCRevenue > 0 and $totalCCStaff > 0){ ?>
                                                 <th class="active"><?php echo number_format(($totalCCRevenue-$totalCCRetentions)/$totalCCStaff,0,',','.'); ?></th>
                                         <?php }else{ ?>
-                                                <th class="active"><?php echo 0; ?></th>
+                                                <th class="active"><?php echo '*'; ?></th>
                                         <?php } ?>
                                             <?php $totalyear += $total;  ?>
                                     </tr> 
@@ -1469,10 +1469,10 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                                 }
                                             } //chave do for?>
                                         </td>                                        
-                                        <?php if ($totalRevenue > 0 and $totalStaff > 0){ ?>
+                                        <?php if ($totalCCRevenue > 0 and $totalCCStaff > 0){ ?>
                                                 <th class="active"><?php echo number_format(($totalCCRevenue-$totalCCRetentions)/$totalCCStaff,0,',','.'); ?></th>
                                         <?php }else{ ?>
-                                                <th class="active"><?php echo 0; ?></th>
+                                                <th class="active"><?php echo '*'; ?></th>
                                         <?php } ?>
                                             <?php $totalyear += $total;  ?>
                                     </tr> 
@@ -1500,10 +1500,10 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                                 }
                                             } //chave do for?>
                                         </td>                                        
-                                        <?php if ($totalRevenue > 0 and $totalStaff > 0){ ?>
+                                        <?php if ($totalCCRevenue > 0 and $totalCCStaff > 0){ ?>
                                                 <th class="active"><?php echo number_format(($totalCCRevenue-$totalCCRetentions)/$totalCCStaff,0,',','.'); ?></th>
                                         <?php }else{ ?>
-                                                <th class="active"><?php echo 0; ?></th>
+                                                <th class="active"><?php echo '*'; ?></th>
                                         <?php } ?>
                                             <?php $totalyear += $total;  ?>
                                     </tr> 
@@ -1531,10 +1531,10 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                                 }
                                             } //chave do for?>
                                         </td>                                        
-                                        <?php if ($totalRevenue > 0 and $totalStaff > 0){ ?>
+                                        <?php if ($totalCCRevenue > 0 and $totalCCStaff > 0){ ?>
                                                 <th class="active"><?php echo number_format(($totalCCRevenue-$totalCCRetentions)/$totalCCStaff,0,',','.'); ?></th>
                                         <?php }else{ ?>
-                                                <th class="active"><?php echo 0; ?></th>
+                                                <th class="active"><?php echo '*'; ?></th>
                                         <?php } ?>
                                             <?php $totalyear += $total;  ?>
                                     </tr> 
@@ -1562,10 +1562,10 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                                 }
                                             } //chave do for?>
                                         </td>                                        
-                                        <?php if ($totalRevenue > 0 and $totalStaff > 0){ ?>
+                                        <?php if ($totalCCRevenue > 0 and $totalCCStaff > 0){ ?>
                                                 <th class="active"><?php echo number_format(($totalCCRevenue-$totalCCRetentions)/$totalCCStaff,0,',','.'); ?></th>
                                         <?php }else{ ?>
-                                                <th class="active"><?php echo 0; ?></th>
+                                                <th class="active"><?php echo '*'; ?></th>
                                         <?php } ?>
                                             <?php $totalyear += $total;  ?>
                                     </tr> 
@@ -1593,10 +1593,10 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                                 }
                                             } //chave do for?>
                                         </td>                                        
-                                        <?php if ($totalRevenue > 0 and $totalStaff > 0){ ?>
+                                        <?php if ($totalCCRevenue > 0 and $totalCCStaff > 0){ ?>
                                                 <th class="active"><?php echo number_format(($totalCCRevenue-$totalCCRetentions)/$totalCCStaff,0,',','.'); ?></th>
                                         <?php }else{ ?>
-                                                <th class="active"><?php echo 0; ?></th>
+                                                <th class="active"><?php echo '*'; ?></th>
                                         <?php } ?>
                                             <?php $totalyear += $total;  ?>
                                     </tr> 

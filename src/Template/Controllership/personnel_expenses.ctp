@@ -12,7 +12,7 @@ for($i = 0; $i < sizeof($x); $i++){
     $costCenters[$x[$i]] = $x[$i];
 }
 
-$naturezas = ['Proventos', 'Pro-Labore', 'Hora Extra', 'Bolsa Estágio', 'Premios e Gratificações'
+$naturezas = ['Proventos', 'Pro-Labore', 'Hora Extra', 'Bolsa Estágio', 'Prêmios e Gratificações'
             , 'Encargos Sociais', 'Alimentação', 'Transporte de pessoal', 'Assistência Médica', 'Materiais de Segurança'
             , 'Cursos e Treinamentos', 'Outras Despesas'];
 
@@ -340,8 +340,8 @@ $outehsMonths[] = $valorTotal;
                        </div>
                         
                         <div align="right">
-                                <a id="btnExport" onclick="fnExcelReport()" class="btn btn-primary" type=""><?php echo __('Gerar Excel'); ?></a>
-                            </div>
+                            <a class="btn btn-primary" download="somedata.xls" href="#" onclick="return ExcellentExport.excel(this, 'example1', 'Sheet Name Here');">Exportar para Excel</a>
+                        </div>
                     
                     <table id="example1" class="table table-bordered table-hover">
                         
@@ -468,7 +468,7 @@ $outehsMonths[] = $valorTotal;
 
     
     
-    
+    <!--
     <div class="row">
         
         <div class="col-md-12">
@@ -497,8 +497,8 @@ $outehsMonths[] = $valorTotal;
                        </div>
                         
                         <div align="right">
-                                <a id="btnExport" onclick="fnExcelReport()2" class="btn btn-primary" type=""><?php echo __('Gerar Excel'); ?></a>
-                            </div>
+                            <a class="btn btn-primary" download="somedata.xls" href="#" onclick="return ExcellentExport.excel(this, 'example2', 'Sheet Name Here');">Exportar para Excel</a>
+                        </div>
                     
                     <table id="example2" class="table table-bordered table-hover">
                         
@@ -683,15 +683,49 @@ $outehsMonths[] = $valorTotal;
                             <tr>
                                 <th><?php echo 'Total' ?></th>
                                 <?php for ($i = 0; $i <= 11; $i++){  ?>
-                                    <td> <?php echo number_format(($earningsMonths[$i] + $prolaboreMonths[$i] + $extraHoursMonths[$i] +
-                                                                    $internshipBagMonths[$i] + $prizesAndGratuitiesMonths[$i] + $socialChargesMonths[$i] +
-                                                                        $feedingMonths[$i] + $transportMonths[$i] + $medicalMonths[$i] + $safetyEquipmentMonths[$i] + 
-                                                                            $coursesAndTrainingMonths[$i] + $outehsMonths[$i])/$staff_year[$i],0,',','.'); ?> </td>
+                                    <td> 
+                                        <?php 
+                                            if($staff_year[$i] > 0){
+                                                echo number_format(($earningsMonths[$i] 
+                                                                    + $prolaboreMonths[$i] 
+                                                                    + $extraHoursMonths[$i] 
+                                                                    + $internshipBagMonths[$i] 
+                                                                    + $prizesAndGratuitiesMonths[$i] 
+                                                                    + $socialChargesMonths[$i] 
+                                                                    + $feedingMonths[$i] 
+                                                                    + $transportMonths[$i] 
+                                                                    + $medicalMonths[$i] 
+                                                                    + $safetyEquipmentMonths[$i] 
+                                                                    + $coursesAndTrainingMonths[$i] 
+                                                                    + $outehsMonths[$i])
+                                                                /$staff_year[$i],0,',','.'); 
+                                            }else{
+                                                echo '*';
+                                            }
+                                        ?> 
+                                    </td>
                                 <?php } ?>
-                                <th><?php echo number_format(($earningsMonths[12] + $prolaboreMonths[12] + $extraHoursMonths[12] + $internshipBagMonths[12] +
-                                                                $prizesAndGratuitiesMonths[12] + $socialChargesMonths[12] + $feedingMonths[12] + 
-                                                                    $transportMonths[12] + $medicalMonths[12] + $safetyEquipmentMonths[12] + 
-                                                                        $coursesAndTrainingMonths[12] + $outehsMonths[12]) / $staff_year[12],0,',','.'); ?></th>                                
+                                <th>
+                                    <?php 
+                                        if($staff_year[12] > 0){
+                                            echo number_format(($earningsMonths[12] 
+                                                                + $prolaboreMonths[12] 
+                                                                + $extraHoursMonths[12] 
+                                                                + $internshipBagMonths[12] 
+                                                                + $prizesAndGratuitiesMonths[12] 
+                                                                + $socialChargesMonths[12] 
+                                                                + $feedingMonths[12] 
+                                                                + $transportMonths[12] 
+                                                                + $medicalMonths[12] 
+                                                                + $safetyEquipmentMonths[12] 
+                                                                + $coursesAndTrainingMonths[12] 
+                                                                + $outehsMonths[12]) 
+                                                            / $staff_year[12],0,',','.'); 
+                                        }else{
+                                            echo '*';
+                                        }    
+                                    ?>
+                                </th>                                
                             </tr>
                             
                         </tbody>
@@ -701,7 +735,10 @@ $outehsMonths[] = $valorTotal;
             </div>
         </div>
         
+        
     </div>
+
+    -->
 </section>
 
 
@@ -1903,21 +1940,4 @@ Number.prototype.formatMoney = function(c, d, t){
 
 
 
-
-<script type="text/javascript">
-    
-function fnExcelReport(){
-       var htmltable= document.getElementById('example1');
-       var html = htmltable.outerHTML;
-       window.open('data:application/vnd.ms-excel,' + encodeURIComponent(html));
-}
-
-function fnExcelReport2(){
-       var htmltable= document.getElementById('example2');
-       var html = htmltable.outerHTML;
-       window.open('data:application/vnd.ms-excel,' + encodeURIComponent(html));
-}
-
-</script>
-
-
+<?php $this->Html->script(['AdminLTE./plugins/excellentexport/excellentexport.min.js',], ['block' => 'script']); ?>

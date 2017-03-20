@@ -13,7 +13,7 @@ for($i = 0; $i < sizeof($x); $i++){
 }
 
 $naturezas = ['Manuntenções','Multas de trânsito','Pseus (novos e renovados)'
-                ,'Combustíveis e lubrificantes','Alugueis','Frete, pedagios e correios'
+                ,'Combustíveis e lubrificantes','Alugueis','Frete, pedágios e correios'
                 ,'Materiais', 'Despesas diversas'];
 
 $monthsLabels = ['Jan', 'Fev', 'Mar', 'Mai', 'Abr', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];

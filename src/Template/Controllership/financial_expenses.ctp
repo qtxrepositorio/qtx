@@ -12,7 +12,7 @@ for($i = 0; $i < sizeof($x); $i++){
     $costCenters[$x[$i]] = $x[$i];
 }
 
-$naturezas = ['Taxas e tarifas','Juros passivos','Descontos concedidos','Despesas bancarias'
+$naturezas = ['Taxas e tarifas','Juros passivos','Descontos concedidos','Despesas bancárias'
                 ,'Multas','IOF','IOC','Juros Bancarios','Encargos Financeiros','IRS'];
 
 $monthsLabels = ['Jan', 'Fev', 'Mar', 'Mai', 'Abr', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
@@ -284,8 +284,8 @@ $irsMonths[] = $valorTotal;
                        </div>
                         
                         <div align="right">
-                                <a id="btnExport" onclick="fnExcelReport()" class="btn btn-primary" type=""><?php echo __('Gerar Excel'); ?></a>
-                            </div>
+                            <a class="btn btn-primary" download="somedata.xls" href="#" onclick="return ExcellentExport.excel(this, 'example1', 'Sheet Name Here');">Exportar para Excel</a>
+                        </div>
                     
                     <table id="example1" class="table table-bordered table-hover">
                         
@@ -844,20 +844,5 @@ Number.prototype.formatMoney = function(c, d, t){
 <?php $this->end(); ?>
 
 
+<?php $this->Html->script(['AdminLTE./plugins/excellentexport/excellentexport.min.js',], ['block' => 'script']); ?>
 
-
-<script type="text/javascript">
-    
-function fnExcelReport(){
-       var htmltable= document.getElementById('example1');
-       var html = htmltable.outerHTML;
-       window.open('data:application/vnd.ms-excel,' + encodeURIComponent(html));
-}
-
-function fnExcelReport2(){
-       var htmltable= document.getElementById('example2');
-       var html = htmltable.outerHTML;
-       window.open('data:application/vnd.ms-excel,' + encodeURIComponent(html));
-}
-
-</script>

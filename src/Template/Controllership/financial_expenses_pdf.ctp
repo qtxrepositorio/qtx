@@ -12,7 +12,7 @@ for($i = 0; $i < sizeof($x); $i++){
     $costCenters[$x[$i]] = $x[$i];
 }
 
-$naturezas = ['Taxas e Juros','Juros passivos','Descontos concedidos','Despesas bancarias'
+$naturezas = ['Taxas e tarifas','Juros passivos','Descontos concedidos','Despesas bancárias'
                 ,'Multas','IOF','IOC','Juros Bancarios','Encargos Financeiros','IRS'];
 
 $monthsLabels = ['Jan', 'Fev', 'Mar', 'Mai', 'Abr', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
