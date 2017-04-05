@@ -15,7 +15,7 @@ for($i = 0; $i < sizeof($x); $i++){
 $naturezas = ['Taxas e tarifas','Juros passivos','Descontos concedidos','Despesas bancárias'
                 ,'Multas','IOF','IOC','Juros Bancarios','Encargos Financeiros','IRS'];
 
-$monthsLabels = ['Jan', 'Fev', 'Mar', 'Mai', 'Abr', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
+$monthsLabels = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
 $monthsNumbers = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
 
 $totalAnual = 0;

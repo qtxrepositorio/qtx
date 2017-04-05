@@ -152,7 +152,7 @@ $months = array('Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','A
                                       ?>
                                       <?php endforeach; ?>
                         </table>
-                        <h5 align="right"><b>* Aniversariantes recentes, margem de 2 dias antes e 2 dias depois da data atual.</b></h5>                              
+                                                  
                     </div>
                 </div>
             </div>
