@@ -1844,7 +1844,7 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                         $resultado = "Sem Quadro.";
                                     }
                                 ?>
-                                <td align="right"><?php echo number_format($resultado,1,',','.') ?></td>
+                                <td align="right"><?php if($resultado != "Sem Quadro."){echo number_format($resultado,1,',','.'); }else{ echo $resultado; } ?></td>
                                 <?php
                                     $resultado = 0;
                                     if($staffPerMonthOneRs[0]['CONT'] > 0  and $staffPerMonthTwoRs[0]['CONT'] > 0){
@@ -1859,7 +1859,7 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                         $resultado = "Sem Quadro.";
                                     }
                                 ?>
-                                <td align="right"><?php echo number_format($resultado,1,',','.') ?></td>  
+                                <td align="right"><?php if($resultado != "Sem Quadro."){echo number_format($resultado,1,',','.'); }else{ echo $resultado; } ?></td>  
                             </tr>
 
                             <tr>

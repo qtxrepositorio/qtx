@@ -1,3 +1,5 @@
+--INICIO DO PROJETO
+
 CREATE TABLE users(
     id INT IDENTITY(1,1) CONSTRAINT pk_users PRIMARY KEY,
 	name VARCHAR(100) not null,
@@ -42,6 +44,9 @@ CREATE TABLE notices_roles(
 	role_id INT NOT NULL CONSTRAINT fk_receiver_role_key FOREIGN KEY (role_id) REFERENCES roles(id)
 	CONSTRAINT pk_notices_roles_idx PRIMARY KEY (notice_id, role_id)
 );
+
+
+-- SEGUNDA FASE
 
 
 
