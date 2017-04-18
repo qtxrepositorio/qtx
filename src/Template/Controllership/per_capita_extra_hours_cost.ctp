@@ -166,6 +166,8 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
         month05, month06, month07, month08,
         month09, month10, month11, month12 ];
 
+    alert(allMonths[0]);
+
     var allMonthsFinish = []
     for (var i = 0; i < labels.length; i++) {
         allMonthsFinish.push(allMonths[i]);

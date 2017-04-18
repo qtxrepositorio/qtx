@@ -209,7 +209,7 @@ $(document).ready(function(){
                 "sNext": "Próximo",
                 "sPrevious": "Anterior"
             }
-        },"lengthMenu": [ 3, 10, 15 ]
+        },"lengthMenu": [ 5, 10, 15 ]
     });
     $('#example1').DataTable({      
         "language": {
@@ -237,7 +237,7 @@ $(document).ready(function(){
                 "sNext": "Próximo",
                 "sPrevious": "Anterior"
             }
-        },"lengthMenu": [ 3, 10, 15 ]
+        },"lengthMenu": [ 5, 10, 15 ]
     });
 });
 </script>
