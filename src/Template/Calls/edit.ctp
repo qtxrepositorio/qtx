@@ -10,7 +10,7 @@
                         <fieldset>
                             <legend><?= __('Editar Chamado') ?></legend>
                             <?php
-                                echo $this->Form->input('subject', ['label'=>'Assunto:']);
+                                echo $this->Form->input('subject', ['disabled' => TRUE, 'label'=>'Assunto:']);
                                 echo $this->Form->input('text', ['label'=>'Descrição:', 'type' => 'textarea']);
                                 echo $this->Form->input('urgency', ['label'=>'Urgência:','options' => ['Baixa'=>'Baixa',
                                         'Média'=>'Média',

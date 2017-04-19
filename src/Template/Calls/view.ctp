@@ -1,4 +1,4 @@
-<?php //debug($call['id']); ?>
+<?php //debug($call); ?>
 
 <section class="content">
 
@@ -51,7 +51,24 @@
 
                             <?php foreach ($call['calls_responses'] as $key => $value): ?>
 
-                                <?php if ($value['created_by'] != $call['created_by']): ?>
+                                <?php if ($value['created_by'] == $call['authenticatedUser']['name']): ?>
+
+                                    <div class="direct-chat-msg right">
+                                        <div class="direct-chat-info clearfix">
+                                            <span class="direct-chat-name pull-right">
+                                                <?php echo $value['created_by']; ?>
+                                            </span>
+                                            <span class="direct-chat-timestamp pull-left">
+                                                <?php echo $value['created']; ?>
+                                            </span>   
+                                        </div>
+                                        <?php //echo $this->Html->image('user3-128x128.jpg', ['alt' => 'Message User Image', 'class' => 'direct-chat-img']); ?>
+                                        <div class="direct-chat-text">
+                                            <?php echo $value['text']; ?></span>
+                                        </div>
+                                    </div>
+
+                                <?php else: ?>
                                     
                                     <div class="direct-chat-msg">
                                         <div class="direct-chat-info clearfix">
@@ -62,23 +79,6 @@
                                             </span>
                                         </div>
                                         <?php //echo $this->Html->image('user1-128x128.jpg', ['alt' => 'Message User Image', 'class' => 'direct-chat-img']); ?>
-                                        <div class="direct-chat-text">
-                                            <?php echo $value['text']; ?></span>
-                                        </div>
-                                    </div>
-
-                                <?php else: ?>
-                                    
-                                    <div class="direct-chat-msg right">
-                                        <div class="direct-chat-info clearfix">
-                                            <span class="direct-chat-name pull-right">
-                                                <?php echo $value['created_by']; ?></span>
-                                            </span>
-                                            <span class="direct-chat-timestamp pull-left">
-                                                <?php echo $value['created']; ?>
-                                            </span>   
-                                        </div>
-                                        <?php //echo $this->Html->image('user3-128x128.jpg', ['alt' => 'Message User Image', 'class' => 'direct-chat-img']); ?>
                                         <div class="direct-chat-text">
                                             <?php echo $value['text']; ?></span>
                                         </div>

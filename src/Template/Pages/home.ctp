@@ -1,3 +1,7 @@
+<?php 
+
+?>
+
 <section class="content">
 
     <div class="row">
@@ -9,7 +13,7 @@
                     <div class="box box-info">
                         <div class="box-header with-border">
                             <h3 class="box-title">Chamados </h3>(
-                            <?= $this->Html->link(__('Ver todos'), ['controller'=>'Notices','action'=>'index'])?>)
+                            <?= $this->Html->link(__('Ver todos'), ['controller'=>'Calls','action'=>'index'])?>)
                             <div class="box-tools pull-right">
                                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                                 </button>
@@ -23,31 +27,27 @@
                         </div>
                         <div class="box-footer no-padding">
                             <ul class="nav nav-pills nav-stacked">
-                                <li>
-                                    <a href="#">United States of America
-                                        <span class="pull-right text-red">
-                                            <i class="fa fa-angle-down"></i> 12%</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">India 
-                                        <span class="pull-right text-green">
-                                            <i class="fa fa-angle-up"></i> 4%</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">China
-                                        <span class="pull-right text-yellow">
-                                            <i class="fa fa-angle-left"></i> 0% </span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">China
-                                        <span class="pull-right text-yellow">
-                                            <i class="fa fa-angle-left"></i> 0% </span>
-                                    </a>
-                                </li>
-                                
+                                <table id="example1" class="table table-bordered table-hover">
+                                    <thead>
+                                        <tr>     
+                                            <th>Id:</th>                           
+                                            <th>Assunto:</th>
+                                            <th>Status:</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php foreach ($calls as $key): ?>
+                                            <tr>
+                                                <td><?php echo $key['calls']['id']; ?></td>
+                                                <td><?php echo $key['calls']['text']; ?></td> 
+                                                <td><?php echo $key['calls']['status']; ?></td>
+                                                <td class="actions"  align="center">
+                                                        <?php echo $this->Html->link(__('<i class="glyphicon glyphicon-eye-open"></i>'), array('controller'=> 'Calls','action' => 'view', $key['calls']['id']), array('class' => 'btn btn-primary btn-xs', 'escape' => false, 'data-toggle'=>'tooltip', 'title' => 'Visualizar')); ?>
+                                                    </td>
+                                            </tr>     
+                                        <?php endforeach ?>  
+                                    </tbody>
+                                </table>                             
                             </ul>
                         </div>
                     </div>
