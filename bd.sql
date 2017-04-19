@@ -58,7 +58,7 @@ CREATE TABLE calls(
 	category VARCHAR(50) not null,
 	status VARCHAR(50) not null,
 	created_by INT NOT NULL CONSTRAINT fk_sender_call_key FOREIGN KEY (created_by) REFERENCES users(id),
-	attributed_to INT NOT NULL CONSTRAINT fk_receiver_key FOREIGN KEY (attributed_to) REFERENCES users(id),
+	attributed_to INT NOT NULL CONSTRAINT fk_receiver_call_key FOREIGN KEY (attributed_to) REFERENCES users(id),
 	visualized BIT,
 	created DATETIME2 DEFAULT NULL,
     modified DATETIME2 DEFAULT NULL

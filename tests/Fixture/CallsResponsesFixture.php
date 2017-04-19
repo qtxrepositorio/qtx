@@ -43,7 +43,7 @@ class CallsResponsesFixture extends TestFixture
             'created_by' => 1,
             'call_id' => 1,
             'visualized' => 1,
-            'created' => 1492524268
+            'created' => 1492529570
         ],
     ];
 }

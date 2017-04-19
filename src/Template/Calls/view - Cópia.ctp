@@ -1,5 +1,10 @@
-<?php //debug($call['id']); ?>
+<?php 
 
+//debug($call);
+
+$callsResponse = 0; 
+
+ ?>
 <section class="content">
 
     <div class="row">
@@ -34,6 +39,7 @@
 
         <div class="col-md-7">
 
+            
             <div class="col-md-12">
                 <!-- DIRECT CHAT PRIMARY -->
                 <div class="box box-primary direct-chat direct-chat-primary">
@@ -41,13 +47,14 @@
                         <h3 class="box-title">Acompanhamento do chamado</h3>
 
                         <div class="box-tools pull-right">
-                                                        
+                            <span data-toggle="tooltip" title="3 New Messages" class="badge bg-light-blue">3 atualizações</span>
+                            
                         </div>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
                         <!-- Conversations are loaded here -->
-                        <div id="id" class="direct-chat-messages">
+                        <div class="direct-chat-messages">
 
                             <?php foreach ($call['calls_responses'] as $key => $value): ?>
 
@@ -95,24 +102,32 @@
                     </div>
                     <!-- /.box-body -->
                     <div class="box-footer">
-                        <?php
-                            $x = null;
-                            echo $this->Form->create($x,['url' => ['controller'=>'CallsResponses','action' => 'add-chat']]);
-                        ?>
                             <div class="input-group">
-                                <input type="text" name="text" placeholder="Escreva uma mensagem ..." class="form-control">
-                        
-                                <?php
-                                    echo $this->Form->input('call_id', ['type'=>'hidden', 'default'=> $call['id']]);
-                                    echo $this->Form->input('created_by', ['type'=>'hidden', 'default'=> $call['authenticatedUser']['id']]);
-                                    echo $this->Form->input('visualized', ['type'=>'hidden', 'default'=> 0]);
-                                ?>
 
-                                <span class="input-group-btn">
-                                    <button type="submit" class="btn btn-primary btn-flat">Enviar</button>
-                                </span>
+                                <div class="callsResponses form large-9 medium-8 columns content">
+                                    <?= $this->Form->create($callsResponse) ?>
+                                    <fieldset>
+                                        <?php
+                                            echo $this->Form->input('text',
+                                                ["type"=>"text", 
+                                                 "name"=>"text",
+                                                 "placeholder"=>"Escreva uma mensagem ...",
+                                                 "class"=>"form-control"]);
+                                            echo $this->Form->input('created_by', ['type'=>'hidden']);
+                                            echo $this->Form->input('call_id', ['type'=>'hidden']);
+                                            echo $this->Form->input('visualized', ['type'=>'hidden']);
+                                        ?>
+                                    </fieldset>
+                                    
+                                    
+                                        <?= $this->Form->button(__('Submit')) ?>
+                                                               
+                                </div>
+
+                                <?= $this->Form->end() ?>
+
                             </div>
-                        <?php echo $this->Form->end();   ?>
+
                     </div>
                     <!-- /.box-footer-->
                 </div>
@@ -120,14 +135,10 @@
             </div>
             <!-- /.col -->
 
+            
+
     </div>
 
 </section>
 
 
-<script type="text/javascript">
-    
-    var div = document.getElementById("id");
-    div.scrollTop = div.scrollHeight - div.clientHeight;
-
-</script>

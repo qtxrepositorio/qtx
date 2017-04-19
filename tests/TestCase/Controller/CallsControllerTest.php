@@ -17,6 +17,12 @@ class CallsControllerTest extends IntegrationTestCase
      */
     public $fixtures = [
         'app.calls',
+        'app.users',
+        'app.notices',
+        'app.notices_users',
+        'app.roles',
+        'app.notices_roles',
+        'app.roles_users',
         'app.calls_responses'
     ];
 

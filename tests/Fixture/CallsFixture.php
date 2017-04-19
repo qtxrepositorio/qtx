@@ -31,7 +31,7 @@ class CallsFixture extends TestFixture
         '_constraints' => [
             'primary' => ['type' => 'primary', 'columns' => ['id'], 'length' => []],
             'fk_sender_call_key' => ['type' => 'foreign', 'columns' => ['created_by'], 'references' => ['users', 'id'], 'update' => 'noAction', 'delete' => 'noAction', 'length' => []],
-            'fk_receiver_key' => ['type' => 'foreign', 'columns' => ['attributed_to'], 'references' => ['users', 'id'], 'update' => 'noAction', 'delete' => 'noAction', 'length' => []],
+            'fk_receiver_call_key' => ['type' => 'foreign', 'columns' => ['attributed_to'], 'references' => ['users', 'id'], 'update' => 'noAction', 'delete' => 'noAction', 'length' => []],
         ],
     ];
     // @codingStandardsIgnoreEnd
@@ -52,8 +52,8 @@ class CallsFixture extends TestFixture
             'created_by' => 1,
             'attributed_to' => 1,
             'visualized' => 1,
-            'created' => 1492524202,
-            'modified' => 1492524202
+            'created' => 1492529563,
+            'modified' => 1492529563
         ],
     ];
 }

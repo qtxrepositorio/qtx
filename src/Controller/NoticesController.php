@@ -27,7 +27,7 @@ class NoticesController extends AppController
         
         $notices = $this->paginate($this->Notices->find()
                         ->where(['user_id' => $authenticatedUserId])
-                        ->order(['id' => 'DESC'])
+                        
         );
 
         $noticesUsers = $this->Notices->find()                

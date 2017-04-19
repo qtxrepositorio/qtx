@@ -40,6 +40,24 @@ class CallsTable extends Table
 
         $this->addBehavior('Timestamp');
 
+        /*$this->hasOne('Users', [
+            'foreignKey' => 'created_by'
+        ]);
+
+        $this->hasOne('Users', [
+            'foreignKey' => 'attributed_to'
+        ]);*/
+
+        $this->belongsTo('Users', [
+            'foreignKey' => 'created_by',
+            'joinType' => 'INNER'
+        ]);
+
+        $this->belongsTo('Users', [
+            'foreignKey' => 'attributed_to',
+            'joinType' => 'INNER'
+        ]);
+
         $this->hasMany('CallsResponses', [
             'foreignKey' => 'call_id'
         ]);
