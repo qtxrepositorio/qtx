@@ -24,17 +24,19 @@ class NoticesController extends AppController
     public function index() 
     {
         $authenticatedUserId = $this->Auth->user('id');
+        
         $notices = $this->paginate($this->Notices->find()
                         ->where(['user_id' => $authenticatedUserId])
-                        ->order(['id' => 'DESC'])
+                        
         );
-        $noticesUsers = $this->Notices->find()
-                
+
+        $noticesUsers = $this->Notices->find()                
                 ->select(['notices.id', 'notices.subject', 'notices.text', 'notices.created', 'users.name'])
                 ->innerJoin('notices_users', 'notices.id = notices_users.notice_id')
                 ->innerJoin('users', 'users.id = notices.user_id')
                 ->where(['notices_users.user_id' => $authenticatedUserId])
                 ->order(['notices.id' => 'DESC']);
+
         $connection = ConnectionManager::get('default');
         $noticesRoles = $connection->execute("
         SELECT DISTINCT

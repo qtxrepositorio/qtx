@@ -46,8 +46,32 @@ CREATE TABLE notices_roles(
 );
 
 
--- SEGUNDA FASE
+/*
+SEGUNDA FASE: Adicionar as tabelas do sistema de chamados.
+*/
 
+CREATE TABLE calls(
+	id INT IDENTITY(1,1) CONSTRAINT pk_calls PRIMARY KEY,
+	subject VARCHAR(100) not null,
+	text VARCHAR(500),
+	urgency VARCHAR(50) not null,
+	category VARCHAR(50) not null,
+	status VARCHAR(50) not null,
+	created_by INT NOT NULL CONSTRAINT fk_sender_call_key FOREIGN KEY (created_by) REFERENCES users(id),
+	attributed_to INT NOT NULL CONSTRAINT fk_receiver_call_key FOREIGN KEY (attributed_to) REFERENCES users(id),
+	visualized BIT,
+	created DATETIME2 DEFAULT NULL,
+    modified DATETIME2 DEFAULT NULL
+);
+
+CREATE TABLE calls_responses(
+	id INT IDENTITY(1,1) CONSTRAINT pk_calls_responses PRIMARY KEY,
+	text VARCHAR(500),
+	created_by INT NOT NULL CONSTRAINT fk_sender_response_key FOREIGN KEY (created_by) REFERENCES users(id),
+	call_id INT NOT NULL CONSTRAINT fk_call_key FOREIGN KEY (call_id) REFERENCES calls(id), 
+	visualized BIT,
+	created DATETIME2 DEFAULT NULL 
+);
 
 
 

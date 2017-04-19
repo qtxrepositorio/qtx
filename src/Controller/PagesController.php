@@ -49,8 +49,16 @@ class PagesController extends AppController
 
         $this->loadModel('Notices'); 
         $this->loadModel('RolesUsers'); 
+        $this->loadModel('Calls');
 
         $authenticatedUserId = $this->Auth->user('id');
+
+        $calls = $this->Calls->find()
+            ->limit(4)
+            ->select(['calls.id', 'calls.text', 'calls.created_by', 'calls.status'])
+            ->where(['created_by' => $authenticatedUserId])
+            ->orWhere(['attributed_to' => $authenticatedUserId])
+            ->order(['calls.id' => 'DESC']);
 
         $noticesUsers = $this->Notices->find()
             ->limit(4)
@@ -75,7 +83,7 @@ class PagesController extends AppController
         WHERE [notices_roles].[role_id] IN (SELECT [role_id] FROM [integratedSystemQualitex].[dbo].[roles_users] WHERE [user_id] = ".$authenticatedUserId.")
           ORDER BY [id] DESC");
 
-        $this->set(compact('page', 'subpage','birthdaysOfTheMonth','noticesUsers','noticesRoles'));
+        $this->set(compact('page', 'subpage','birthdaysOfTheMonth','noticesUsers','noticesRoles','calls'));
 
         try {
             $this->render(implode('/', $path));

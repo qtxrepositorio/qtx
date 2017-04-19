@@ -130,10 +130,10 @@
                             <table id="example2" class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
-                                        <th><?= $this->Paginator->sort('Assunto:') ?></th>
-                                        <th><?= $this->Paginator->sort('Conteúdo:') ?></th>
-                                        <th><?= $this->Paginator->sort('Criado em:') ?></th>
-                                        <th align="center" class="actions"><?= __('Ações:') ?></th>
+                                        <th>Assunto</th>
+                                        <th>Conteúdo</th>
+                                        <th>Criado em</th>
+                                        <th align="center" class="actions">Ações</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -209,7 +209,7 @@ $(document).ready(function(){
                 "sNext": "Próximo",
                 "sPrevious": "Anterior"
             }
-        },"lengthMenu": [ 3, 10, 15 ]
+        },"lengthMenu": [ 5, 10, 15 ]
     });
     $('#example1').DataTable({      
         "language": {
@@ -237,7 +237,7 @@ $(document).ready(function(){
                 "sNext": "Próximo",
                 "sPrevious": "Anterior"
             }
-        },"lengthMenu": [ 3, 10, 15 ]
+        },"lengthMenu": [ 5, 10, 15 ]
     });
 });
 </script>

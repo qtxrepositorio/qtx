@@ -4005,8 +4005,8 @@ class ControllershipController extends AppController {
                     FROM [CT2010] 
                                 WHERE 
                         SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                        AND [CT2_DEBITO] in ('41103017','41103027','41103028','41103040'
-                                            ,'41103043','41201001','42102017','42102028'
+                        AND [CT2_DEBITO] in ('41103027','41103028','41103040'
+                                            ,'41103043','41201001','42102028'
                                             ,'42102030','42102041') 
                         AND D_E_L_E_T_ != '*'")
                 ->fetchAll('assoc');
@@ -4017,8 +4017,8 @@ class ControllershipController extends AppController {
                     FROM [CT2010] 
                                 WHERE 
                         SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                        AND [CT2_DEBITO] in ('41103017','41103027','41103028','41103040'
-                                            ,'41103043','41201001','42102017','42102028'
+                        AND [CT2_DEBITO] in ('41103027','41103028','41103040'
+                                            ,'41103043','41201001','42102028'
                                             ,'42102030','42102041') 
                         AND D_E_L_E_T_ != '*'")
                 ->fetchAll('assoc');
@@ -5281,8 +5281,8 @@ class ControllershipController extends AppController {
                     FROM [CT2010] 
                                 WHERE 
                         SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                        AND [CT2_DEBITO] in ('41103017','41103027','41103028','41103040'
-                                            ,'41103043','41201001','42102017','42102028'
+                        AND [CT2_DEBITO] in ('41103027','41103028','41103040'
+                                            ,'41103043','41201001','42102028'
                                             ,'42102030','42102041') 
                         AND D_E_L_E_T_ != '*'
                         AND [CT2_CCD] = " . substr($cc, 0,2) . "")
@@ -5294,8 +5294,8 @@ class ControllershipController extends AppController {
                     FROM [CT2010] 
                                 WHERE 
                         SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                        AND [CT2_DEBITO] in ('41103017','41103027','41103028','41103040'
-                                            ,'41103043','41201001','42102017','42102028'
+                        AND [CT2_DEBITO] in ('41103027','41103028','41103040'
+                                            ,'41103043','41201001','42102028'
                                             ,'42102030','42102041') 
                         AND D_E_L_E_T_ != '*'
                         AND [CT2_CCD] = " . substr($cc, 0,2) . "")
