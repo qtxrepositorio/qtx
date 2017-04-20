@@ -185,7 +185,13 @@ class CallsController extends AppController
 
     public function dash(){
 
-        
+        $authenticatedUserId = $this->Auth->user('id');
+
+        $calls = $this->Calls->find()
+            ->order(['Calls.id' => 'DESC']);
+
+        $this->set(compact('calls'));
+        $this->set('_serialize', ['calls']);        
         
     }
     

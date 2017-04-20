@@ -75,6 +75,7 @@ $this->Html->script(['//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js',
     $(document).ready(function () {
 
         $('#example1').DataTable({
+            "order": [[ 0, "desc" ]],
             "language": {
                 "lengthMenu": "Mostrando _MENU_ registros por página",
                 "zeroRecords": "Nada encontrado",
