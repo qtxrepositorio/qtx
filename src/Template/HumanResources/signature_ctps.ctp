@@ -104,18 +104,34 @@ table{
 ';
 
 
-$html .= '<table>
+if ($typePayment == 'M') {
+    $typePayment = 'MENSALISTA';
+}elseif ($typePayment = 'P') {
+    $typePayment = 'PRO-LABORE';
+}elseif ($typePayment = 'S') {
+    $typePayment = 'SEMANALISTA';
+}elseif ($typePayment = 'T') {
+    $typePayment = 'TAREFEIRO';
+}
+
+
+$html .= '<table cellpadding="2">
 			<tr>
-				<th border="1" width="280">
+				<th border="1" width="200">
 					<font size="8">'
-						.'<b>Matrícula: </b>'.$registry.'  <b>Nome: </b>'.$name.'<br/>'
+						.'<b>Matrícula: </b>'.$registry
+                        .'<br/><b>Nome: </b>'.$name.'<br/>'
 						.'<b>Empresa: </b>Qualitex Engenharia e Serviços LTDA'
 						.'<br/><b>CNPJ: </b>35.738.970/0001-73'
 						.'<br/><b>End.: </b>Rod. Divaldo Suruagy, KM 12, S/N'
 						.'<br/>Polo Multifabril, <b>CEP:</b> 57.160-000'
 						.'<br/><b>Esp. Do Estabel.: </b>Prestador de serviço'
-						.'<br/><b>Cargo: </b>'.$role	
-						.'<br/><b>Data Admissão: </b>'.$admissionDate									
+						.'<br/><b>Cargo: </b>'.$role
+                        .'<br/><b>CBO: </b>'.$cbo	
+						.'<br/><b>Data Admissão: </b>'.$admissionDate	
+                        .'<br/><b>Salário: </b>R$ '.number_format($salary, 2, ',', '.')
+                        .' ('.$salaryExt.') / ' .$typePayment   
+                        							
 			  		.'</font>
 				</th>			  
 			</tr>

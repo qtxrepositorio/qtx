@@ -1,8 +1,13 @@
 <?php
 namespace App\Controller;
 
+use Cake\Core\Configure;
+use Cake\Network\Exception\NotFoundException;
+use Cake\View\Exception\MissingTemplateException;
+use Cake\Datasource\ConnectionManager;
+use Cake\Event\Event;
 use App\Controller\AppController;
-
+use Cake\Controller\Component\FlashComponent;
 /**
  * Calls Controller
  *
@@ -185,7 +190,30 @@ class CallsController extends AppController
 
     public function dash(){
 
-        
+        $authenticatedUserId = $this->Auth->user('id');
+
+        $connection = ConnectionManager::get('baseProtheus');
+        $callsCountCategory = $connection
+            ->execute("SELECT count([id]) as count, category
+              FROM [integratedSystemQualitex].[dbo].[calls]
+              WHERE calls.created  > DATEADD(DAY, -30 , GETDATE())
+              AND calls.attributed_to = $authenticatedUserId
+              group by category
+            ");  
+
+        $callsCountStatus = $connection
+            ->execute("SELECT count([id]) as count, status
+              FROM [integratedSystemQualitex].[dbo].[calls]
+              WHERE calls.created  > DATEADD(DAY, -30 , GETDATE())
+              AND calls.attributed_to = $authenticatedUserId
+              group by status
+            "); 
+
+        $calls = $this->Calls->find()
+            ->order(['Calls.id' => 'DESC']);
+
+        $this->set(compact('calls','callsCountCategory','callsCountStatus'));
+        $this->set('_serialize', ['calls','callsCountCategory','callsCountStatus']);        
         
     }
     
