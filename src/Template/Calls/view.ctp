@@ -21,7 +21,6 @@
                     <p><b>Criado por: </b><?= h($call->created_by) ?></p>
                     <p><b>Criado em: </b><?= h($call->created) ?></p>
                     <p><b>Modificado em: </b><?= h($call->modified) ?></p>
-                    <p><b>Criado por: </b><?= h($call->created_by) ?></p>
                     <p><b>Vizualidado pelo técnico: </b><?= $call->visualized ? __('Sim') : __('Não'); ?></p>
 
                     <?php echo $this->Html->link(__('<i class="glyphicon glyphicon-pencil"></i>'), array('action' => 'edit', $call->id), array('class' => 'btn btn-warning btn-xs', 'escape' => false, 'data-toggle'=>'tooltip', 'title' => 'Editar')); ?>
