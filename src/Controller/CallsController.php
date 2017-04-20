@@ -24,10 +24,10 @@ class CallsController extends AppController
 
         $authenticatedUserId = $this->Auth->user('id');
 
-        $calls = $this->paginate($this->Calls->find()
-                        ->where(['created_by' => $authenticatedUserId])
-                        ->orWhere(['attributed_to' => $authenticatedUserId])
-                        ->order(['calls.id' => 'DESC']));
+        $calls = $this->Calls->find()
+                    ->where(['created_by' => $authenticatedUserId])
+                    ->orWhere(['attributed_to' => $authenticatedUserId])
+                    ->order(['Calls.id' => 'DESC']);
 
         $this->set(compact('calls'));
         $this->set('_serialize', ['calls']);

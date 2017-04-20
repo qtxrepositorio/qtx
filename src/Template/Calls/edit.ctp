@@ -1,4 +1,4 @@
-<?php ?>
+<?php //debug($call); ?>
 
 <section class="content">
     <div class="row">
@@ -19,13 +19,23 @@
                                          'Suporte ao usuário'=>'Suporte ao usuário',
                                          'Costumizações de sistema'=>'Costumizações de sistema',
                                          'Outros'=>'Outros'] ]);
-                                echo $this->Form->input('status', ['label'=>'Status:', 'options' => ['Novo'=>'Novo',
+                                if ($authenticatedUser['id'] == $call['attributed_to']) {
+                                    echo $this->Form->input('status', ['label'=>'Status:', 'options' => ['Novo'=>'Novo',
                                      'Processando'=>'Processando',
                                      'Pendente'=>'Pendente',
                                      'Solucionado'=>'Solucionado',
-                                     'Fechado'=>'Fechado'] ]);
-                                echo $this->Form->input('created_by', ['disabled' => TRUE,'label'=>'Criado Por:','default'=>$authenticatedUser['name'],'options' => $users]);
-                                echo $this->Form->input('attributed_to', ['label'=>'Atribuído para:','options' => $users]);
+                                     'Fechado'=>'Fechado'] ]);  
+                                     echo $this->Form->input('attributed_to', ['label'=>'Atribuído para:','options' => $users]); 
+                                }else{
+                                    echo $this->Form->input('status', ['disabled' => TRUE, 'label'=>'Status:', 'options' => ['Novo'=>'Novo',
+                                     'Processando'=>'Processando',
+                                     'Pendente'=>'Pendente',
+                                     'Solucionado'=>'Solucionado',
+                                     'Fechado'=>'Fechado'] ]);  
+                                    echo $this->Form->input('attributed_to', ['disabled' => TRUE, 'label'=>'Atribuído para:','options' => $users]);
+                                }
+                                
+                                
                                 echo $this->Form->input('visualized', ['type'=>'hidden','default' => 0]);
                             ?>
                         </fieldset>
