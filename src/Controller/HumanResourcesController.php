@@ -287,11 +287,16 @@ class HumanResourcesController extends AppController
         $signatureCTPSEmployee = $connection->execute("SELECT 
                 [RA_MAT]
                 ,[RA_NOME]      
-                ,[RA_ADMISSA]    
-                ,[Q3_DESCSUM]
+                ,[RA_ADMISSA]  
+                ,[RJ_CODCBO]  
+                ,[RJ_DESC]
+                ,[RA_SALARIO]
+                ,[RA_XSALEXT]
+                ,[RA_CATFUNC]
             FROM [SRA010]
-            INNER JOIN [SQ3010] ON [Q3_CARGO] = [RA_CARGO]
-            WHERE [RA_NOME] = '". $signatureCTPS ."'")
+            INNER JOIN [SRJ010] ON [RJ_FUNCAO] = [RA_CODFUNC]
+            WHERE [RJ_CODCBO] != '' AND [SRJ010].D_E_L_E_T_ = ''
+            AND [RA_NOME] = '". $signatureCTPS ."'")
             ->fetchAll('assoc');
 
         foreach ($signatureCTPSEmployee as $key)
@@ -304,11 +309,16 @@ class HumanResourcesController extends AppController
            $year = substr($key['RA_ADMISSA'], 0,4);
 
            $admissionDate = $day . '/' . $month . '/' . $year  ;
-           $role = $key['Q3_DESCSUM'];
+           $role = $key['RJ_DESC'];
+
+           $cbo = $key['RJ_CODCBO'];
+           $salary = $key['RA_SALARIO'];
+           $salaryExt = $key['RA_XSALEXT'];
+           $typePayment = $key['RA_CATFUNC'];
         }
 
-        $this->set(compact('registry','name','admissionDate','role'));
-        $this->set('_serialize', ['registry','name','admissionDate','role']);
+        $this->set(compact('registry','name','admissionDate','role','cbo','salary','salaryExt','typePayment'));
+        $this->set('_serialize', ['registry','name','admissionDate','role','cbo','salary','salaryExt','typePayment']);
         $this->viewBuilder()->layout('ajax');
         $this->response->type('pdf');
     }
