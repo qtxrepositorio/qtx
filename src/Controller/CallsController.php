@@ -85,7 +85,10 @@ class CallsController extends AppController {
                 $this->Flash->error(__('O chamado não pode ser salvo, tente novamente!'));
             }
         }
-        $users = $this->Calls->Users->find('list', ['limit' => 200]);
+        $users = $this->Calls->Users->find('list', ['limit' => 200])
+            ->select(['users.id','users.name'])
+            ->innerJoin('roles_users', 'users.id = roles_users.user_id')
+            ->where(['roles_users.role_id' => 26]);
         $this->set(compact('call', 'users', 'authenticatedUser'));
         $this->set('_serialize', ['call', 'authenticatedUser']);
     }
