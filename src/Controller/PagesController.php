@@ -56,15 +56,27 @@ class PagesController extends AppController
         $this->loadModel('Notices'); 
         $this->loadModel('RolesUsers'); 
         $this->loadModel('Calls');
+        $this->loadModel('CallsResponses');
+
 
         $authenticatedUserId = $this->Auth->user('id');
 
         $calls = $this->Calls->find()
-            ->limit(4)
-            ->select(['calls.id', 'calls.text', 'calls.created_by', 'calls.status'])
+            ->limit(5)
+            ->select(['calls.id', 'calls.subject', 'calls.created_by', 'calls.status'])
             ->where(['created_by' => $authenticatedUserId])
             ->orWhere(['attributed_to' => $authenticatedUserId])
             ->order(['calls.id' => 'DESC']);
+        
+        foreach ($calls as $call) {
+            $quant = $noticesRoles = $connection->execute("SELECT count([id]) as count
+                FROM [integratedSystemQualitex].[dbo].[calls_responses] 
+                WHERE call_id = " . $call['calls']['id'] ." AND visualized = 0 AND created_by != $authenticatedUserId
+            ");
+            foreach ($quant as $value) {
+                $call['calls']['quantNotifications'] = $value['count']; 
+            }
+        }
 
         $noticesUsers = $this->Notices->find()
             ->limit(4)
@@ -89,7 +101,7 @@ class PagesController extends AppController
         WHERE [notices_roles].[role_id] IN (SELECT [role_id] FROM [integratedSystemQualitex].[dbo].[roles_users] WHERE [user_id] = ".$authenticatedUserId.")
           ORDER BY [id] DESC");
 
-        $this->set(compact('page', 'subpage','birthdaysOfTheMonth','noticesUsers','noticesRoles','calls'));
+        $this->set(compact('page', 'subpage','birthdaysOfTheMonth','noticesUsers','noticesRoles','calls','authenticatedUserId'));
 
         try {
             $this->render(implode('/', $path));

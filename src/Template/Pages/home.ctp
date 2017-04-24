@@ -1,3 +1,5 @@
+<?php ?>
+
 <section class="content">
 
     <div class="row">
@@ -34,11 +36,28 @@
                                         <?php foreach ($calls as $key): ?>
                                             <tr>
                                                 <td><?php echo $key['calls']['id']; ?></td>
-                                                <td><?php echo $key['calls']['text']; ?></td> 
+                                                <td><?php echo $key['calls']['subject']; ?>
+
+                                                <?php if ($key['calls']['quantNotifications'] > 1): ?>
+                                                    
+                                                    <span class="label label-warning">
+                                                        <?php echo $key['calls']['quantNotifications'] 
+                                                                . ' Novas.'?>
+                                                    </span>      
+                                                <?php elseif ($key['calls']['quantNotifications'] == 1): ?>
+                                                    <span class="label label-warning">
+                                                        <?php echo $key['calls']['quantNotifications'] 
+                                                                . ' Nova.'?>
+                                                    </span>    
+                                                
+                                                <?php endif ?>
+                                                    
+                                                </td> 
                                                 <td><?php echo $key['calls']['status']; ?></td>
                                                 <td class="actions"  align="center">
                                                         <?php echo $this->Html->link(__('<i class="glyphicon glyphicon-eye-open"></i>'), array('controller'=> 'Calls','action' => 'view', $key['calls']['id']), array('class' => 'btn btn-primary btn-xs', 'escape' => false, 'data-toggle'=>'tooltip', 'title' => 'Visualizar')); ?>
                                                     </td>
+                                                
                                             </tr>     
                                         <?php endforeach ?>  
                                     </tbody>
@@ -65,13 +84,15 @@
                                 <div class="row">
                                     <table id="example1" class="table table-bordered table-hover">
                                         <thead>
-                                            <tr>                                
+                                            <tr>    
+                                                <th>Id:</th>                            
                                                 <th>Assunto:</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php foreach ($noticesUsers as $noticesUser): ?>
                                                 <tr> 
+                                                    <td><?php echo $noticesUser->notices['id']; ?></td>
                                                     <?php 
                                                         if (strlen($noticesUser->notices['subject']) > 45) 
                                                         {
@@ -116,13 +137,15 @@
                                 <div class="row">
                                     <table id="example1" class="table table-bordered table-hover">
                                         <thead>
-                                            <tr>                                
+                                            <tr>  
+                                                <th>Id:</th>                                 
                                                 <th>Assunto:</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php foreach ($noticesRoles as $noticesRole): ?>
                                                 <tr> 
+                                                    <td><?php echo $noticesUser->notices['id']; ?></td>
                                                     <?php 
                                                         if (strlen($noticesRole['subject']) > 45) 
                                                         {
