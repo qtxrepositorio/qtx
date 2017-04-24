@@ -116,18 +116,12 @@ class CallsResponsesController extends AppController
 
     public function addChat(){
 
-        //debug($this->request->data);
-
         $callsResponse = $this->CallsResponses->newEntity();
         $callsResponse = $this->CallsResponses->patchEntity($callsResponse, $this->request->data);
-
-        //debug($callsResponse);
 
         if($this->CallsResponses->save($callsResponse)){
             return $this->redirect(['controller' => 'Calls','action' => 'view', $this->request->data['call_id']]);    
         }
-
-        
 
     }
 

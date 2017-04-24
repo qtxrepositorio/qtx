@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controller;
 
 use Cake\Core\Configure;
@@ -8,31 +9,27 @@ use Cake\Datasource\ConnectionManager;
 use Cake\Event\Event;
 use App\Controller\AppController;
 use Cake\Controller\Component\FlashComponent;
+
 /**
  * Calls Controller
  *
  * @property \App\Model\Table\CallsTable $Calls
  */
-class CallsController extends AppController
-{
+class CallsController extends AppController {
 
     /**
      * Index method
      *
      * @return \Cake\Network\Response|null
      */
-    public function index()
-    {
-        $this->paginate = [
-            'contain' => ['Users']
-        ];
+    public function index() {
 
         $authenticatedUserId = $this->Auth->user('id');
 
         $calls = $this->Calls->find()
-                    ->where(['created_by' => $authenticatedUserId])
-                    ->orWhere(['attributed_to' => $authenticatedUserId])
-                    ->order(['Calls.id' => 'DESC']);
+                ->where(['created_by' => $authenticatedUserId])
+                ->orWhere(['attributed_to' => $authenticatedUserId])
+                ->order(['Calls.id' => 'DESC']);
 
         $this->set(compact('calls'));
         $this->set('_serialize', ['calls']);
@@ -45,27 +42,24 @@ class CallsController extends AppController
      * @return \Cake\Network\Response|null
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view($id = null)
-    {
+    public function view($id = null) {
 
-        $this->loadModel('Users'); 
-        $this->loadModel('CallsResponses'); 
+        $this->loadModel('Users');
+        $this->loadModel('CallsResponses');
 
         $authenticatedUser = $this->Auth->user();
-        
+
         $call = $this->Calls->get($id, [
             'contain' => ['Users', 'CallsResponses']
         ]);
 
         $call['authenticatedUser'] = $authenticatedUser;
 
-        //debug($call);
-
         foreach ($call['calls_responses'] as $key => $value) {
 
             $query = $this->Users->find()
-            ->where([
-                'id'=> $value['created_by']           
+                    ->where([
+                'id' => $value['created_by']
             ]);
 
             $created_by = $query->all();
@@ -73,18 +67,16 @@ class CallsController extends AppController
             foreach ($created_by as $key => $x) {
                 $value['created_by'] = $x['name'];
             }
-
         }
 
         $query = $this->Users->find()
-            ->where([
-                'id'=> $call['created_by']            
-            ]);
+                ->where([
+            'id' => $call['created_by']
+        ]);
 
         $created_by = $query->all();
 
-        foreach ($created_by as $key) 
-        {
+        foreach ($created_by as $key) {
             $created_by_name = $key['name'];
         }
 
@@ -94,10 +86,6 @@ class CallsController extends AppController
 
         $this->set('call', $call);
         $this->set('_serialize', ['call']);
-
-        //$this->set(compact('responses'));
-        //$this->set('_serialize', ['responses']);
-
     }
 
     /**
@@ -105,8 +93,7 @@ class CallsController extends AppController
      *
      * @return \Cake\Network\Response|void Redirects on successful add, renders view otherwise.
      */
-    public function add()
-    {
+    public function add() {
         $authenticatedUser = $this->Auth->user();
         $call = $this->Calls->newEntity();
         if ($this->request->is('post')) {
@@ -131,22 +118,26 @@ class CallsController extends AppController
      * @return \Cake\Network\Response|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
-    public function edit($id = null)
-    {
+    public function edit($id = null) {
+
         $call = $this->Calls->get($id, [
             'contain' => []
         ]);
 
         $authenticatedUser = $this->Auth->user();
 
+        $statusBeforeEdit = $this->findStatus($id);
+
         if ($this->request->is(['patch', 'post', 'put'])) {
             $call = $this->Calls->patchEntity($call, $this->request->data);
             if ($this->Calls->save($call)) {
-                $this->Flash->success(__('O chamado foi salvo com sucesso!'));
-
-                return $this->redirect(['action' => 'index']);
+                $this->Flash->success(__('O chamado foi atualizado com sucesso!'));
+                if ($call['status'] != $statusBeforeEdit) {
+                  $this->saveNewStatus($id, $call['status'], $authenticatedUser['id']);
+                }
+                //return $this->redirect(['action' => 'index']);
             } else {
-                $this->Flash->error(__('O chamado não pode ser salvo, tente novamente!'));
+                $this->Flash->error(__('O chamado não pode ser atualizado, tente novamente!'));
             }
         }
         $users = $this->Calls->Users->find('list', ['limit' => 200]);
@@ -161,8 +152,7 @@ class CallsController extends AppController
      * @return \Cake\Network\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete($id = null)
-    {
+    public function delete($id = null) {
         $this->request->allowMethod(['post', 'delete']);
         $call = $this->Calls->get($id);
         if ($this->Calls->delete($call)) {
@@ -174,8 +164,7 @@ class CallsController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
-    public function visualized($id = null)
-    {
+    public function visualized($id = null) {
         $call = $this->Calls->get($id, [
             'contain' => []
         ]);
@@ -188,33 +177,69 @@ class CallsController extends AppController
         }
     }
 
-    public function dash(){
+    public function dash() {
 
         $authenticatedUserId = $this->Auth->user('id');
 
         $connection = ConnectionManager::get('baseProtheus');
         $callsCountCategory = $connection
-            ->execute("SELECT count([id]) as count, category
+                ->execute("SELECT count([id]) as count, category
               FROM [integratedSystemQualitex].[dbo].[calls]
               WHERE calls.created  > DATEADD(DAY, -30 , GETDATE())
               AND calls.attributed_to = $authenticatedUserId
               group by category
-            ");  
+            ");
 
         $callsCountStatus = $connection
-            ->execute("SELECT count([id]) as count, status
+                ->execute("SELECT count([id]) as count, status
               FROM [integratedSystemQualitex].[dbo].[calls]
               WHERE calls.created  > DATEADD(DAY, -30 , GETDATE())
               AND calls.attributed_to = $authenticatedUserId
               group by status
-            "); 
+            ");
 
         $calls = $this->Calls->find()
-            ->order(['Calls.id' => 'DESC']);
+                ->order(['Calls.id' => 'DESC']);
 
-        $this->set(compact('calls','callsCountCategory','callsCountStatus'));
-        $this->set('_serialize', ['calls','callsCountCategory','callsCountStatus']);        
-        
+        $this->set(compact('calls', 'callsCountCategory', 'callsCountStatus'));
+        $this->set('_serialize', ['calls', 'callsCountCategory', 'callsCountStatus']);
     }
-    
+
+    public function findStatus($id = null) {
+
+        $calls = $this->Calls->find()
+                ->where(['id' => $id]);
+
+        $status = '';
+
+        foreach ($calls as $key => $value) {
+            $status = $value['status'];
+        }
+
+        return $status;
+    }
+
+    public function saveNewStatus($call_id = null, $status = null, $created_by = null){
+
+      $this->loadModel('CallsResponses');
+
+      $callsResponse = $this->CallsResponses->newEntity();
+
+      if ($status != 'Solucionado') {
+        $callsResponse['text'] = 'O status do chamado foi alteradao para: '. $status .'.';      
+      }else{
+        $callsResponse['text'] = 'O chamado foi solucionado!';      
+      }
+
+      $callsResponse['created_by'] = $created_by;
+      $callsResponse['call_id'] = $call_id;
+
+      //$callsResponse = $this->CallsResponses->patchEntity($callsResponse);
+
+      if($this->CallsResponses->save($callsResponse)){
+        return $this->redirect(['controller' => 'Calls','action' => 'view', $call_id]);    
+      }
+
+    }
+
 }
