@@ -16,11 +16,11 @@
                     <table id="example1" cellpadding="0" cellspacing="0" class="table table-bordered table-hover">
                         <thead>
                             <tr>
-                                <th width="20">Id</th>
+                                <th>Id</th>
                                 <th>Assunto</th>
-                                <th width="200">Descrição</th>
+                                <!-- <th>Descrição</th> -->
                                 <th>Urgência</th>
-                                <th>Categoria</th>
+                                <!-- <th>Categoria</th> -->
                                 <th>Status</th>
                                 <th>Criado em</th>
                                 <th class="actions">Ações</th>
@@ -29,11 +29,11 @@
                         <tbody>
                             <?php foreach ($calls as $call): ?>
                             <tr>
-                                <td width="20"><?= $this->Number->format($call->id) ?></td>
+                                <td><?= $this->Number->format($call->id) ?></td>
                                 <td><?= h($call->subject) ?></td>
-                                <td  width="200"><?= h($call->text) ?></td>
+                                <!-- <td><?= h($call->text) ?></td> -->
                                 <td><?= h($call->urgency) ?></td>
-                                <td><?= h($call->category) ?></td>
+                                <!-- <td><?= h($call->category) ?></td> -->
                                 <td><?= h($call->status) ?></td>
                                 <td><?= h($call->created) ?></td>
                                 
