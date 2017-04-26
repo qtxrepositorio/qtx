@@ -360,7 +360,8 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
 
     percentages = [];
     for (var i = 0; i < labels.length; i++) {
-        percentage = (extraHours[i] * 100) / salarys[i];
+        percentage = (parseFloat(extraHours[i]) * 100) / (parseFloat(salarys[i]) + parseFloat(extraHours[i])) ;
+        //alert(percentage);
         percentages.push(percentage.toFixed(2));
     };
 
@@ -465,7 +466,8 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
 
         percentages = [];
         for (var i = 0; i < labels.length; i++) {
-            percentage = (extraHours[i] * 100) / salarys[i];
+            percentage = (parseFloat(extraHours[i]) * 100) / (parseFloat(salarys[i]) + parseFloat(extraHours[i])) ;
+            //alert(percentage);
             percentages.push(percentage.toFixed(2));
         };
 
