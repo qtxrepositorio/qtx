@@ -537,9 +537,7 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
         }
     }
 
-    alert(month05109.toFixed(2));
-    alert(month06109.toFixed(2));
-
+    
     var months109 = [ month01109.toFixed(2), month02109.toFixed(2), month03109.toFixed(2)
         , month04109.toFixed(2), month05109.toFixed(2), month06109.toFixed(2)
         , month07109.toFixed(2), month08109.toFixed(2), month09109.toFixed(2)

@@ -3311,12 +3311,7 @@ class ControllershipController extends AppController {
             FROM [SRD010] 
             INNER JOIN [CTT010] ON [CTT_CUSTO] = [RD_CC]
                 WHERE [SRD010].[D_E_L_E_T_] <> '*' 
-                AND [RD_DATARQ] 
-                        BETWEEN 
-                            ( substring(convert(varchar(10),DATEADD(m, -12, current_timestamp), 103),7,5) 
-                            + substring(convert(varchar(10),DATEADD(m, -12, current_timestamp), 103),4,2) )
-                            AND 
-                            ( select max([RD_DATARQ]) FROM [SRD010] )
+                AND SUBSTRING([RD_DATARQ],0,5) = YEAR(GETDATE()) 
                 AND [RD_PD] IN('109','117','118','123','157','229')
             GROUP BY [RD_DATARQ],[CTT_DESC01],[RD_CC]
             ORDER BY [RD_DATARQ] ASC")
@@ -3331,18 +3326,102 @@ class ControllershipController extends AppController {
             INNER JOIN [CTT010] ON [CTT_CUSTO] = [RD_CC]
                 WHERE [SRD010].[D_E_L_E_T_] <> '*'
                     AND [RD_PD] = '101'
-                    AND [RD_DATARQ] 
-                        BETWEEN 
-                            ( substring(convert(varchar(10),DATEADD(m, -12, current_timestamp), 103),7,5) 
-                            + substring(convert(varchar(10),DATEADD(m, -12, current_timestamp), 103),4,2) )
-                            AND 
-                            ( select max([RD_DATARQ]) FROM [SRD010] )
+                    AND SUBSTRING([RD_DATARQ],0,5) = YEAR(GETDATE()) 
                 GROUP BY [RD_CC],[RD_DATARQ],[CTT_DESC01] 
                 ORDER BY [RD_CC],[RD_DATARQ] ")
                 ->fetchAll('assoc');
 
         $this->set(compact('extraHour', 'staffPerMonth'));
         $this->set('_serialize', ['extraHour', 'staffPerMonth']);
+    }
+
+    public function PerCapitaExtraHoursCostFilter() {
+
+        //debug($this->request->data);
+
+        $year = $this->request->data['year'];
+        $CustoDeHorasExtraPorCentroDeCustoCCS = $this->request->data['CustoDeHorasExtraPorCentroDeCustoCCS'];
+
+        $connection = ConnectionManager::get('baseProtheus');
+
+        $ccsNames = $connection->execute("SELECT 
+            [CTT_DESC01] 
+            FROM [SRD010] 
+            INNER JOIN [CTT010] ON [CTT_CUSTO] = [RD_CC]
+                WHERE [SRD010].[D_E_L_E_T_] <> '*' 
+                AND SUBSTRING([RD_DATARQ],0,5) = YEAR(GETDATE()) 
+                AND [RD_PD] IN('109','117','118','123','157','229')
+            GROUP BY [RD_DATARQ],[CTT_DESC01]
+            ORDER BY [RD_DATARQ] ASC")->fetchAll('assoc');
+
+        if ($this->request->data['CustoDeHorasExtraPorCentroDeCustoCCS'] == 'TODOS') {
+
+            $extraHour = $connection->execute("SELECT 
+                SUM([RD_VALOR]) SUM
+                ,[RD_DATARQ]
+                ,[CTT_DESC01] 
+                ,[RD_CC]
+            FROM [SRD010] 
+            INNER JOIN [CTT010] ON [CTT_CUSTO] = [RD_CC]
+                WHERE [SRD010].[D_E_L_E_T_] <> '*' 
+                AND SUBSTRING([RD_DATARQ],0,5) = $year
+                AND [RD_PD] IN('109','117','118','123','157','229')
+            GROUP BY [RD_DATARQ],[CTT_DESC01],[RD_CC]
+            ORDER BY [RD_DATARQ] ASC")
+                ->fetchAll('assoc');
+
+            $staffPerMonth = $connection->execute("SELECT    
+                COUNT([RD_PD]) as CONT      
+                ,[RD_DATARQ]
+                ,[RD_CC]
+                ,[CTT_DESC01] 
+                FROM [SRD010] 
+                INNER JOIN [CTT010] ON [CTT_CUSTO] = [RD_CC]
+                    WHERE [SRD010].[D_E_L_E_T_] <> '*'
+                        AND [RD_PD] = '101'
+                        AND SUBSTRING([RD_DATARQ],0,5) = $year
+                    GROUP BY [RD_CC],[RD_DATARQ],[CTT_DESC01] 
+                    ORDER BY [RD_CC],[RD_DATARQ] ")
+                    ->fetchAll('assoc');  
+
+        }else{
+
+            $extraHour = $connection->execute("SELECT 
+                SUM([RD_VALOR]) SUM
+                ,[RD_DATARQ]
+                ,[CTT_DESC01] 
+                ,[RD_CC]
+            FROM [SRD010] 
+            INNER JOIN [CTT010] ON [CTT_CUSTO] = [RD_CC]
+                WHERE [SRD010].[D_E_L_E_T_] <> '*' 
+                AND SUBSTRING([RD_DATARQ],0,5) = $year
+                AND [RD_PD] IN('109','117','118','123','157','229')
+                AND [CTT_DESC01] like '%$CustoDeHorasExtraPorCentroDeCustoCCS%'
+            GROUP BY [RD_DATARQ],[CTT_DESC01],[RD_CC]
+            ORDER BY [RD_DATARQ] ASC")
+                ->fetchAll('assoc');
+
+            $staffPerMonth = $connection->execute("SELECT    
+                COUNT([RD_PD]) as CONT      
+                ,[RD_DATARQ]
+                ,[RD_CC]
+                ,[CTT_DESC01] 
+                FROM [SRD010] 
+                INNER JOIN [CTT010] ON [CTT_CUSTO] = [RD_CC]
+                    WHERE [SRD010].[D_E_L_E_T_] <> '*'
+                        AND [RD_PD] = '101'
+                        AND SUBSTRING([RD_DATARQ],0,5) = $year
+                        AND [CTT_DESC01] like '%$CustoDeHorasExtraPorCentroDeCustoCCS%'
+                    GROUP BY [RD_CC],[RD_DATARQ],[CTT_DESC01] 
+                    ORDER BY [RD_CC],[RD_DATARQ] ")
+                    ->fetchAll('assoc');
+
+        }
+
+        
+
+        $this->set(compact('extraHour', 'staffPerMonth','ccsNames'));
+        $this->set('_serialize', ['extraHour', 'staffPerMonth','ccsNames']);
     }
 
     public function OvertimeVersusPay() {
