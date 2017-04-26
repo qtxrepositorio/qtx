@@ -1,17 +1,13 @@
 <?php
-$costCenters['TODOS'] = 'TODOS';
-for ($i = 0; $i < count($staffPerMonth); $i++) {
-    if (!in_array($staffPerMonth[$i]['RD_CC'], $costCenters)) {
-        $costCenters[$staffPerMonth[$i]['RD_CC']] = $staffPerMonth[$i]['RD_CC'];
+
+$costCentersNames['TODOS'] = 'TODOS';
+for ($i = 0; $i < count($ccsNames); $i++) {
+    if (!in_array($ccsNames[$i]['CTT_DESC01'], $costCentersNames)) {
+        $costCentersNames[$ccsNames[$i]['CTT_DESC01']] = $ccsNames[$i]['CTT_DESC01'];
     }
 }
 
-$costCentersNames['TODOS'] = 'TODOS';
-for ($i = 0; $i < count($staffPerMonth); $i++) {
-    if (!in_array($staffPerMonth[$i]['CTT_DESC01'], $costCentersNames)) {
-        $costCentersNames[$staffPerMonth[$i]['CTT_DESC01']] = $staffPerMonth[$i]['CTT_DESC01'];
-    }
-}
+//debug($costCentersNames);
 
 $months = [];
 foreach ($staffPerMonth as $key => $value) {
@@ -62,8 +58,7 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
                                             $x = null;
                                             echo $this->Form->create($x,['url' => ['controller'=>'Controllership','action' => 'PerCapitaExtraHoursCostFilter']]);
                                             echo $this->Form->input('year', ['default' => $date['year'] ,'disabled' => FALSE,'label'=>'Informe o ano:']);
-                                            
-                                            echo $this->Form->input('CustoDeHorasExtraPorCentroDeCustoCCS', ['visible' => false ,'id' => 'extrasXsalarioValue', 'options' => $costCentersNames, 'label' => 'Selecione o centro de custo:']);
+                                            echo $this->Form->input('CustoDeHorasExtraPorCentroDeCustoCCS', ['id' => 'extrasXsalarioValue', 'options' => $costCentersNames, 'label' => 'Selecione o centro de custo:']);
                                         ?>
                                     </div> 
                                     <div class="col-md-2"></div>
@@ -121,6 +116,7 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
     for (var i = 0; i < staffPerMonth.length; i++) {
         if (labels.indexOf(staffPerMonth[i].RD_DATARQ) == -1 )  {
             labels.push(staffPerMonth[i].RD_DATARQ);
+            //alert(staffPerMonth[i].RD_DATARQ);
         }
     }
 
@@ -178,13 +174,12 @@ $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block
         }else if (staffPerMonth[x].RD_DATARQ.substring(4,6) == '13') {
             var aux = parseFloat(staffPerMonth[x].CONT);
             month13 += aux;
-        }  
-
+        }          
     }
     
     allMonths = [ month01, month02, month03, month04,
         month05, month06, month07, month08,
-        month09, month10, month11, month12, month13  ];
+        month09, month10, month11, month12, month13 ];
 
     //alert(allMonths[0]);
 
