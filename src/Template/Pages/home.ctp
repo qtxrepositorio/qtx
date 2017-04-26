@@ -145,7 +145,7 @@
                                         <tbody>
                                             <?php foreach ($noticesRoles as $noticesRole): ?>
                                                 <tr> 
-                                                    <td><?php echo $noticesUser->notices['id']; ?></td>
+                                                    <td><?php echo $noticesRole['id']; ?></td>
                                                     <?php 
                                                         if (strlen($noticesRole['subject']) > 45) 
                                                         {
