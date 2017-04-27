@@ -90,6 +90,10 @@ class UsersTable extends Table
             ->requirePresence('status', 'create')
             ->notEmpty('status');
 
+        $validator
+            ->email('email')
+            ->notEmpty('email');
+
         return $validator;
     }
 
@@ -103,6 +107,7 @@ class UsersTable extends Table
     public function buildRules(RulesChecker $rules)
     {
         $rules->add($rules->isUnique(['username']));
+        $rules->add($rules->isUnique(['email']));
 
         return $rules;
     }

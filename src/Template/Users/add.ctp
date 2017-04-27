@@ -14,6 +14,7 @@
                             echo $this->Form->input('status', ['label'=>'Ativo']);
                             echo $this->Form->input('username', ['label'=>'Usuário']);
                             echo $this->Form->input('password', ['label'=>'Senha:']);
+                            echo $this->Form->input('email', ['label'=>'Email:']);
                             echo $this->Form->input('roles._ids', ['style'=>'width: 100%;','class'=>'form-control select2','options' => $roles, 'label'=>'Grupos Relacionados (Opcional):']);
                             //echo $this->Form->input('notices._ids', ['options' => $notices, 'label'=>'Notícias Relacionadas (Opcional):']);
                         ?>

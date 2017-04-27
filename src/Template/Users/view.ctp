@@ -16,6 +16,7 @@
                     <p><b>CPF: </b><?= h($user->cpf) ?></p>
                     <p><b>Usuário: </b><?= h($user->username) ?></p> 
                     <p><b>Senha: </b>*****</p> 
+                    <p><b>Email: </b><?= h($user->email) ?></p> 
                     <p><b>Id: </b><?= $this->Number->format($user->id) ?></p> 
                     <p><b>Criado em: </b><?= h($user->created) ?></p> 
                     <p><b>Modificado em: </b><?=  h($user->modified)  ?></p> 
