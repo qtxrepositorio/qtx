@@ -16,35 +16,29 @@ class CallMailer extends Mailer
      */
     static public $name = 'Call';
 
-    public function newCall($call){
+    public function newCall($call, $email){
 
-        $this->loadModel('Users');
-
-        $emails = $this->Users->find()
-            ->where(['id' => $call['created_by']])
-            ->orWhere(['id' => $call['attributed_to']])
-            ->andWhere(['email' => 'is not null']);
-
-        foreach ($emails as $key) {
-            //debug($key['email']);
-            $this->to($key['email'])
-                ->profile('qtx')
-                ->emailFormat('html')
-                ->template('call/add')
-                ->layout('call')
-                ->viewVars()
-                ->subject('Novo chamado cadastraddo com ID: ' . $call['id']);
-        }
-    }
-
-    public function editCall($call){
-
-        $this->to('desenvolvimento@qualitex.com.br')
+        //debug($key['email']);
+        $this->to($email)
             ->profile('qtx')
             ->emailFormat('html')
-            ->template('call/edit')
-            ->layout('call')
-            ->viewVars()
-            ->subject('Tô passando');
+           ->template('call')
+            ->layout('call/add')
+            ->viewVars(['call' => $call])
+            ->subject('Novo chamado cadastraddo com ID: ' . $call['id']);
+        
+    }
+
+    public function editCall($call, $email){
+
+        //debug($key['email']);
+        $this->to($email)
+            ->profile('qtx')
+            ->emailFormat('html')
+            ->template('call')
+            ->layout('call/edit')
+            ->viewVars(['call' => $call])
+            ->subject('O chamado ' . $call['id'] .' foi alterado para: ' . $call['status'] .'.');
+        
     }
 }

@@ -11,7 +11,6 @@ use App\Controller\AppController;
 use Cake\Controller\Component\FlashComponent;
 use Cake\Mailer\MailerAwareTrait;
 
-
 class CallsController extends AppController {
 
     public function index() {
@@ -73,16 +72,29 @@ class CallsController extends AppController {
         $this->set('_serialize', ['call']);
     }
 
-    use MailerAwareTrait;
+use MailerAwareTrait;
+
     public function add() {
         $authenticatedUser = $this->Auth->user();
         $call = $this->Calls->newEntity();
         if ($this->request->is('post')) {
             $call = $this->Calls->patchEntity($call, $this->request->data);
             if ($this->Calls->save($call)) {
+
                 $this->Flash->success(__('O chamado foi salvo com sucesso!'));
 
-                $this->getMailer('Call')->send('newCall', [$call]);
+                $this->loadModel('Users');
+                $query = $this->Users->find()
+                        ->where(['id' => $call['created_by']])
+                        ->orWhere(['id' => $call['attributed_to']]);
+
+                $emails = $query->all();
+
+                foreach ($emails as $key => $value) {
+                    if ($value['email'] != '') {
+                        $this->getMailer('Call')->send('newCall', [$call, $value['email']]);
+                    }
+                }
 
                 return $this->redirect(['action' => 'index']);
             } else {
@@ -91,9 +103,9 @@ class CallsController extends AppController {
         }
 
         $users = $this->Calls->Users->find('list', ['limit' => 200])
-            ->select(['users.id','users.name'])
-            ->innerJoin('roles_users', 'users.id = roles_users.user_id')
-            ->where(['roles_users.role_id' => 26]);
+                ->select(['users.id', 'users.name'])
+                ->innerJoin('roles_users', 'users.id = roles_users.user_id')
+                ->where(['roles_users.role_id' => 26]);
         $this->set(compact('call', 'users', 'authenticatedUser'));
         $this->set('_serialize', ['call', 'authenticatedUser']);
     }
@@ -113,9 +125,22 @@ class CallsController extends AppController {
             if ($this->Calls->save($call)) {
                 $this->Flash->success(__('O chamado foi atualizado com sucesso!'));
                 if ($call['status'] != $statusBeforeEdit) {
-                  $this->saveNewStatus($id, $call['status'], $authenticatedUser['id']);
+
+                    $this->saveNewStatus($id, $call['status'], $authenticatedUser['id']);
+
+                    $this->loadModel('Users');
+                    $query = $this->Users->find()
+                        ->where(['id' => $call['created_by']])
+                        ->orWhere(['id' => $call['attributed_to']]);
+                    $emails = $query->all();
+
+                    foreach ($emails as $key => $value) {
+                        if ($value['email'] != '') {
+                            $this->getMailer('Call')->send('editCall', [$call, $value['email']]);
+                        }
+                    }
                 }
-                //return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'index']);
             } else {
                 $this->Flash->error(__('O chamado não pode ser atualizado, tente novamente!'));
             }
@@ -152,14 +177,13 @@ class CallsController extends AppController {
 
         $connection = ConnectionManager::get('default');
         $callsCountCategory = $connection
-            ->execute("
+                ->execute("
                 UPDATE[calls_responses]
                     SET
                         visualized = 1
                     WHERE call_id = $id
-                        AND created_by != ". $authenticatedUser['id']
-            );
-
+                        AND created_by != " . $authenticatedUser['id']
+        );
     }
 
     public function dash() {
@@ -204,98 +228,84 @@ class CallsController extends AppController {
         return $status;
     }
 
-    public function saveNewStatus($call_id = null, $status = null, $created_by = null){
+    public function saveNewStatus($call_id = null, $status = null, $created_by = null) {
 
-      $this->loadModel('CallsResponses');
+        $this->loadModel('CallsResponses');
 
-      $callsResponse = $this->CallsResponses->newEntity();
+        $callsResponse = $this->CallsResponses->newEntity();
 
-      if ($status != 'Solucionado') {
-        $callsResponse['text'] = 'O status do chamado foi alteradao para: '. $status .'.';      
-      }else{
-        $callsResponse['text'] = 'O chamado foi solucionado!';      
-      }
+        if ($status != 'Solucionado') {
+            $callsResponse['text'] = 'O status do chamado foi alteradao para: ' . $status . '.';
+        } else {
+            $callsResponse['text'] = 'O chamado foi solucionado!';
+        }
 
-      $this->getMailer('Call')->send('editCall', [$call]);
+        $callsResponse['created_by'] = $created_by;
+        $callsResponse['call_id'] = $call_id;
+        $callsResponse['visualized'] = 0;
 
-      $callsResponse['created_by'] = $created_by;
-      $callsResponse['call_id'] = $call_id;
-      $callsResponse['visualized'] = 0;
+        //$callsResponse = $this->CallsResponses->patchEntity($callsResponse);
 
-      //$callsResponse = $this->CallsResponses->patchEntity($callsResponse);
-
-      if($this->CallsResponses->save($callsResponse)){
-        return $this->redirect(['controller' => 'Calls','action' => 'view', $call_id]);    
-      }
-
+        if ($this->CallsResponses->save($callsResponse)) {
+            return $this->redirect(['controller' => 'Calls', 'action' => 'view', $call_id]);
+        }
     }
 
-    public function beforeFilter(Event $event)
-    {
+    public function beforeFilter(Event $event) {
         parent::beforeFilter($event);
         // Allow users to register and logout.
         // You should not add the "login" action to allow list. Doing so would
         // cause problems with normal functioning of AuthComponent.
 
-        $this->Auth->allow(['index','add','edit','delete','view']);  
+        $this->Auth->allow(['index', 'add', 'edit', 'delete', 'view']);
     }
 
-     public function isAuthorized($user)
-    {
-        $this->loadModel('Users'); 
+    public function isAuthorized($user) {
+        $this->loadModel('Users');
         $this->loadModel('Roles');
-        $this->loadModel('RolesUsers'); 
+        $this->loadModel('RolesUsers');
         $authenticatedUserId = $this->Auth->user('id');
         $query = $this->Users->find()
-            ->where([
-                'id'=> $authenticatedUserId            
-            ]);
+                ->where([
+            'id' => $authenticatedUserId
+        ]);
         $statusArray = $query->all();
         $status = null;
-        foreach ($statusArray as $key)
-        {            
+        foreach ($statusArray as $key) {
             $status = $key['status'];
         }
-        if($status == true)
-        {
+        if ($status == true) {
             $query = $this->RolesUsers->find()
-                ->where([
-                    'user_id'=> $authenticatedUserId            
-                ]);    
-            $currentUserGroups = $query->all();    
-            $release = null;    
-            foreach ($currentUserGroups as $key)
-            {
+                    ->where([
+                'user_id' => $authenticatedUserId
+            ]);
+            $currentUserGroups = $query->all();
+            $release = null;
+            foreach ($currentUserGroups as $key) {
                 $query = $this->Roles->find()
-                ->where([
-                    'id'=> $key['role_id']           
-                ]);    
-                $correspondingFunction = $query->all();  
-                foreach ($correspondingFunction as $key)
-                {
-                    if($key['id'] == 25 or $key['id'] == 26 or $key['id'] == 01) 
-                    {
-                        $release = true;        
+                        ->where([
+                    'id' => $key['role_id']
+                ]);
+                $correspondingFunction = $query->all();
+                foreach ($correspondingFunction as $key) {
+                    if ($key['id'] == 25 or $key['id'] == 26 or $key['id'] == 01) {
+                        $release = true;
                     }
                 }
             }
-            if($release == false)
-            {
+            if ($release == false) {
                 $this->Flash->error(__('Você não tem autorização para acessar esta área do sistema. Caso necessário, favor entrar em contato com o setor TI.'));
-                $this->redirect($this->Auth->redirectUrl());              
-            }
-            else
-            {
+                $this->redirect($this->Auth->redirectUrl());
+            } else {
                 //$this->Flash->error(__('VC É ADM')); 
-                if(in_array($this->action, array('dash')))
-                return true;            
+                if (in_array($this->action, array('dash')))
+                    return true;
             }
         }
-        else
-        {
-            $this->redirect($this->Auth->logout());        
+        else {
+            $this->redirect($this->Auth->logout());
         }
         return parent::isAuthorized($user);
-    }   
+    }
 
 }
