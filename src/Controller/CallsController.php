@@ -9,6 +9,7 @@ use Cake\Datasource\ConnectionManager;
 use Cake\Event\Event;
 use App\Controller\AppController;
 use Cake\Controller\Component\FlashComponent;
+use Cake\Mailer\MailerAwareTrait;
 
 
 class CallsController extends AppController {
@@ -72,6 +73,7 @@ class CallsController extends AppController {
         $this->set('_serialize', ['call']);
     }
 
+    use MailerAwareTrait;
     public function add() {
         $authenticatedUser = $this->Auth->user();
         $call = $this->Calls->newEntity();
@@ -80,11 +82,14 @@ class CallsController extends AppController {
             if ($this->Calls->save($call)) {
                 $this->Flash->success(__('O chamado foi salvo com sucesso!'));
 
+                $this->getMailer('Call')->send('newCall', [$call]);
+
                 return $this->redirect(['action' => 'index']);
             } else {
                 $this->Flash->error(__('O chamado não pode ser salvo, tente novamente!'));
             }
         }
+
         $users = $this->Calls->Users->find('list', ['limit' => 200])
             ->select(['users.id','users.name'])
             ->innerJoin('roles_users', 'users.id = roles_users.user_id')
@@ -210,6 +215,8 @@ class CallsController extends AppController {
       }else{
         $callsResponse['text'] = 'O chamado foi solucionado!';      
       }
+
+      $this->getMailer('Call')->send('editCall', [$call]);
 
       $callsResponse['created_by'] = $created_by;
       $callsResponse['call_id'] = $call_id;

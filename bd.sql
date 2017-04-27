@@ -7,6 +7,7 @@ CREATE TABLE users(
     username VARCHAR(50) not null,
     password VARCHAR(255) not null,
 	status bit not null,
+	email VARCHAR(100) not null,
     created DATETIME2 DEFAULT NULL,
     modified DATETIME2 DEFAULT NULL 
 );
