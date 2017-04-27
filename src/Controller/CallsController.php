@@ -30,6 +30,7 @@ class CallsController extends AppController {
 
         $this->loadModel('Users');
         $this->loadModel('RolesUsers');
+        $this->loadModel('Roles');
         $this->loadModel('CallsResponses');
 
         $authenticatedUser = $this->Auth->user();
@@ -152,48 +153,80 @@ class CallsController extends AppController {
 
     public function edit($id = null) {
 
+        $this->loadModel('RolesUsers');
+        $this->loadModel('Roles');
+
         $call = $this->Calls->get($id, [
             'contain' => []
         ]);
 
         $authenticatedUser = $this->Auth->user();
 
-        $statusBeforeEdit = $this->findStatus($id);
-
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $call = $this->Calls->patchEntity($call, $this->request->data);
-            if ($this->Calls->save($call)) {
-                $this->Flash->success(__('O chamado foi atualizado com sucesso!'));
-                if ($call['status'] != $statusBeforeEdit) {
-
-                    $this->saveNewStatus($id, $call['status'], $authenticatedUser['id']);
-
-                    $this->loadModel('Users');
-                    $query = $this->Users->find()
-                        ->where(['id' => $call['created_by']])
-                        ->orWhere(['id' => $call['attributed_to']]);
-                    $emails = $query->all();
-
-                    foreach ($emails as $key => $value) {
-                        if ($value['id'] == $call['created_by']) {
-                            $call['created_by'] = $value['name'];
-                        }elseif($value['id'] == $call['attributed_to']){
-                            $call['attributed_to'] = $value['name'];
-                        }
-                    }
-
-                    foreach ($emails as $key => $value) {
-                        if ($value['email'] != '') {
-
-                            $this->getMailer('Call')->send('editCall', [$call, $value['email']]);
-                        }
-                    }
+        ///
+        $query = $this->RolesUsers->find()
+                    ->where([
+                'user_id' => $authenticatedUser['id']
+            ]);
+        $currentUserGroups = $query->all();
+        $release = null;
+        foreach ($currentUserGroups as $key) {
+            $query = $this->Roles->find()
+                    ->where([
+                'id' => $key['role_id']
+            ]);
+        $correspondingFunction = $query->all();
+            foreach ($correspondingFunction as $key) {
+                if ($key['id'] == 25 or $key['id'] == 26 or $key['id'] == 01) {
+                    $release = true;
                 }
-                return $this->redirect(['action' => 'index']);
-            } else {
-                $this->Flash->error(__('O chamado não pode ser atualizado, tente novamente!'));
             }
         }
+        ///
+
+        if (($call['created_by'] == $authenticatedUser['id']) or ($call['attributed_to'] == $authenticatedUser['id']) or ($release == true)) {
+
+            $statusBeforeEdit = $this->findStatus($id);
+
+            if ($this->request->is(['patch', 'post', 'put'])) {
+                $call = $this->Calls->patchEntity($call, $this->request->data);
+                if ($this->Calls->save($call)) {
+                    $this->Flash->success(__('O chamado foi atualizado com sucesso!'));
+                    if ($call['status'] != $statusBeforeEdit) {
+
+                        $this->saveNewStatus($id, $call['status'], $authenticatedUser['id']);
+
+                        $this->loadModel('Users');
+                        $query = $this->Users->find()
+                            ->where(['id' => $call['created_by']])
+                            ->orWhere(['id' => $call['attributed_to']]);
+                        $emails = $query->all();
+
+                        foreach ($emails as $key => $value) {
+                            if ($value['id'] == $call['created_by']) {
+                                $call['created_by'] = $value['name'];
+                            }elseif($value['id'] == $call['attributed_to']){
+                                $call['attributed_to'] = $value['name'];
+                            }
+                        }
+
+                        foreach ($emails as $key => $value) {
+                            if ($value['email'] != '') {
+
+                                $this->getMailer('Call')->send('editCall', [$call, $value['email']]);
+                            }
+                        }
+                    }
+                    return $this->redirect(['action' => 'index']);
+                } else {
+                    $this->Flash->error(__('O chamado não pode ser atualizado, tente novamente!'));
+                }
+            }
+        }else{
+            
+            $this->Flash->error(__('Você só tem acesso a chamados atribuídos ou criados para/por você, a menos que faça parte dos grupos de gerenciamento de chamados!'));
+            return $this->redirect(['action' => 'index']);
+        }
+
         $users = $this->Calls->Users->find('list', ['limit' => 200]);
         $this->set(compact('call', 'users', 'authenticatedUser'));
         $this->set('_serialize', ['call', 'authenticatedUser']);
