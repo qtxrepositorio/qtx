@@ -72,10 +72,12 @@ class CallsController extends AppController {
         $this->set('_serialize', ['call']);
     }
 
-use MailerAwareTrait;
+    use MailerAwareTrait;
 
     public function add() {
+
         $authenticatedUser = $this->Auth->user();
+
         $call = $this->Calls->newEntity();
         if ($this->request->is('post')) {
             $call = $this->Calls->patchEntity($call, $this->request->data);
@@ -87,8 +89,15 @@ use MailerAwareTrait;
                 $query = $this->Users->find()
                         ->where(['id' => $call['created_by']])
                         ->orWhere(['id' => $call['attributed_to']]);
-
                 $emails = $query->all();
+
+                foreach ($emails as $key => $value) {
+                    if ($value['id'] == $call['created_by']) {
+                        $call['created_by'] = $value['name'];
+                    }elseif($value['id'] == $call['attributed_to']){
+                        $call['attributed_to'] = $value['name'];
+                    }
+                }
 
                 foreach ($emails as $key => $value) {
                     if ($value['email'] != '') {
@@ -135,7 +144,16 @@ use MailerAwareTrait;
                     $emails = $query->all();
 
                     foreach ($emails as $key => $value) {
+                        if ($value['id'] == $call['created_by']) {
+                            $call['created_by'] = $value['name'];
+                        }elseif($value['id'] == $call['attributed_to']){
+                            $call['attributed_to'] = $value['name'];
+                        }
+                    }
+
+                    foreach ($emails as $key => $value) {
                         if ($value['email'] != '') {
+
                             $this->getMailer('Call')->send('editCall', [$call, $value['email']]);
                         }
                     }
@@ -151,10 +169,38 @@ use MailerAwareTrait;
     }
 
     public function delete($id = null) {
+
         $this->request->allowMethod(['post', 'delete']);
         $call = $this->Calls->get($id);
+
+        $authenticatedUser = $this->Auth->user();
+
+        $this->loadModel('CallsResponses');
+        $this->CallsResponses->deleteResponeses($call['id']);
+
         if ($this->Calls->delete($call)) {
             $this->Flash->success(__('O chamado foi apagado com sucesso!'));
+
+            $this->loadModel('Users');
+            $query = $this->Users->find()
+                    ->where(['id' => $call['created_by']])
+                    ->orWhere(['id' => $call['attributed_to']]);
+            $emails = $query->all();
+
+            foreach ($emails as $key => $value) {
+                if ($value['id'] == $call['created_by']) {
+                    $call['created_by'] = $value['name'];
+                }elseif($value['id'] == $call['attributed_to']){
+                    $call['attributed_to'] = $value['name'];
+                }
+            }
+
+            foreach ($emails as $key => $value) {
+                if ($value['email'] != '') {
+                    $this->getMailer('Call')->send('deleteCall', [$call, $value['email'], $authenticatedUser['name']]);
+                }
+            }
+
         } else {
             $this->Flash->error(__('O chamado não pode ser apagado, tente novamente!'));
         }
@@ -177,7 +223,7 @@ use MailerAwareTrait;
 
         $connection = ConnectionManager::get('default');
         $callsCountCategory = $connection
-                ->execute("
+            ->execute("
                 UPDATE[calls_responses]
                     SET
                         visualized = 1

@@ -41,4 +41,18 @@ class CallMailer extends Mailer
             ->subject('O chamado ' . $call['id'] .' foi alterado para: ' . $call['status'] .'.');
         
     }
+
+
+    public function deleteCall($call, $email, $deleted_by){
+
+        //debug($key['email']);
+        $this->to($email)
+            ->profile('qtx')
+            ->emailFormat('html')
+            ->template('call')
+            ->layout('call/delete')
+            ->viewVars(['call' => $call, $deleted_by])
+            ->subject('O chamado ' . $call['id'] .' foi apagado por: ' . $deleted_by .'.');
+        
+    }
 }

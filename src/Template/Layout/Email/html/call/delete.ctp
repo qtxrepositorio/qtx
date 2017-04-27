@@ -1,5 +1,9 @@
 <div class="box-body">
 
+    <h3>Apagado por: <?= h($deleted_by) ?></h3>
+    
+    <p><b>Dados do pedido:</b></p>
+    <br>
     <p><b>Id do Chamado: </b><?= $this->Number->format($call->id) ?></p> 
     <p><b>Assunto: </b><?= h($call->subject) ?></p> 
     <p><b>Descrição: </b><?= h($call->text) ?></p>

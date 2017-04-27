@@ -5,6 +5,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\Datasource\ConnectionManager;
 
 /**
  * CallsResponses Model
@@ -85,5 +86,14 @@ class CallsResponsesTable extends Table
         $rules->add($rules->existsIn(['call_id'], 'Calls'));
 
         return $rules;
+    }
+
+    public function deleteResponeses($call_id){
+
+        $connection = ConnectionManager::get('default');
+        $noticesRoles = $connection->execute("DELETE
+            FROM [calls_responses]
+        WHERE [call_id] = $call_id");
+
     }
 }
