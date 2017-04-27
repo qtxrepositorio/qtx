@@ -29,6 +29,7 @@ class CallsController extends AppController {
     public function view($id = null) {
 
         $this->loadModel('Users');
+        $this->loadModel('RolesUsers');
         $this->loadModel('CallsResponses');
 
         $authenticatedUser = $this->Auth->user();
@@ -37,34 +38,64 @@ class CallsController extends AppController {
             'contain' => ['Users', 'CallsResponses']
         ]);
 
-        $call['authenticatedUser'] = $authenticatedUser;
+        ///
+        $query = $this->RolesUsers->find()
+                    ->where([
+                'user_id' => $authenticatedUser['id']
+            ]);
+        $currentUserGroups = $query->all();
+        $release = null;
+        foreach ($currentUserGroups as $key) {
+            $query = $this->Roles->find()
+                    ->where([
+                'id' => $key['role_id']
+            ]);
+        $correspondingFunction = $query->all();
+            foreach ($correspondingFunction as $key) {
+                if ($key['id'] == 25 or $key['id'] == 26 or $key['id'] == 01) {
+                    $release = true;
+                }
+            }
+        }
+        ///
 
-        foreach ($call['calls_responses'] as $key => $value) {
+        if (($call['created_by'] == $authenticatedUser['id']) or ($call['attributed_to'] == $authenticatedUser['id']) or ($release == true)) {
+
+            $call['authenticatedUser'] = $authenticatedUser;
+
+            foreach ($call['calls_responses'] as $key => $value) {
+
+                $query = $this->Users->find()
+                        ->where([
+                    'id' => $value['created_by']
+                ]);
+
+                $created_by = $query->all();
+
+                foreach ($created_by as $key => $x) {
+                    $value['created_by'] = $x['name'];
+                }
+            }
 
             $query = $this->Users->find()
                     ->where([
-                'id' => $value['created_by']
+                'id' => $call['created_by']
             ]);
 
             $created_by = $query->all();
 
-            foreach ($created_by as $key => $x) {
-                $value['created_by'] = $x['name'];
+            foreach ($created_by as $key) {
+                $created_by_name = $key['name'];
             }
+
+            $call['created_by'] = $created_by_name;
+        }else{
+            
+            $this->Flash->error(__('Você só tem acesso a chamados atribuídos ou criados para/por você, a menos que faça parte dos grupos de gerenciamento de chamados!'));
+            return $this->redirect(['action' => 'index']);
         }
 
-        $query = $this->Users->find()
-                ->where([
-            'id' => $call['created_by']
-        ]);
-
-        $created_by = $query->all();
-
-        foreach ($created_by as $key) {
-            $created_by_name = $key['name'];
-        }
-
-        $call['created_by'] = $created_by_name;
+        
 
         $this->visualized($call['id']);
 
