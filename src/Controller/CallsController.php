@@ -244,39 +244,46 @@ class CallsController extends AppController {
         $this->request->allowMethod(['post', 'delete']);
         $call = $this->Calls->get($id);
 
-        $authenticatedUser = $this->Auth->user();
+        if ($call['status'] == 'Novo') {
+            
+            $authenticatedUser = $this->Auth->user();
 
-        $this->loadModel('CallsResponses');
-        $this->CallsResponses->deleteResponeses($call['id']);
+            $this->loadModel('CallsResponses');
+            $this->CallsResponses->deleteResponeses($call['id']);
 
-        if ($this->Calls->delete($call)) {
-            $this->Flash->success(__('O chamado foi apagado com sucesso!'));
+            if ($this->Calls->delete($call)) {
+                $this->Flash->success(__('O chamado foi apagado com sucesso!'));
 
-            $this->loadModel('Users');
-            $query = $this->Users->find()
-                    ->where(['id' => $call['created_by']])
-                    ->orWhere(['id' => $call['attributed_to']]);
-            $emails = $query->all();
+                $this->loadModel('Users');
+                $query = $this->Users->find()
+                        ->where(['id' => $call['created_by']])
+                        ->orWhere(['id' => $call['attributed_to']]);
+                $emails = $query->all();
 
-            foreach ($emails as $key => $value) {
-                if ($value['id'] == $call['created_by']) {
-                    $call['created_by'] = $value['name'];
-                }elseif($value['id'] == $call['attributed_to']){
-                    $call['attributed_to'] = $value['name'];
+                foreach ($emails as $key => $value) {
+                    if ($value['id'] == $call['created_by']) {
+                        $call['created_by'] = $value['name'];
+                    }elseif($value['id'] == $call['attributed_to']){
+                        $call['attributed_to'] = $value['name'];
+                    }
                 }
+
+                foreach ($emails as $key => $value) {
+                    if ($value['email'] != '') {
+                        $this->getMailer('Call')->send('deleteCall', [$call, $value['email'], $authenticatedUser['name']]);
+                    }
+                }
+
+            } else {
+                $this->Flash->error(__('O chamado não pode ser apagado, tente novamente!'));
             }
 
-            foreach ($emails as $key => $value) {
-                if ($value['email'] != '') {
-                    $this->getMailer('Call')->send('deleteCall', [$call, $value['email'], $authenticatedUser['name']]);
-                }
-            }
-
-        } else {
-            $this->Flash->error(__('O chamado não pode ser apagado, tente novamente!'));
+            return $this->redirect(['action' => 'index']);
+            
+        }else{
+            $this->Flash->error(__('O chamado não pode ser apagado, por já ter sido iniciado!'));
+            return $this->redirect(['action' => 'index']);
         }
-
-        return $this->redirect(['action' => 'index']);
     }
 
     public function visualized($id = null) {
