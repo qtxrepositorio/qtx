@@ -22,7 +22,7 @@
                                      'Pendente'=>'Pendente',
                                      'Solucionado'=>'Solucionado',
                                      'Fechado'=>'Fechado'] ]);  
-                                     echo $this->Form->input('attributed_to', ['label'=>'Atribuído para:','options' => $users]); 
+                                     echo $this->Form->input('attributed_to', ['class'=>'form-control select2','label'=>'Atribuído para:','options' => $users]); 
                                 }else{
                                     echo $this->Form->input('status', ['disabled' => TRUE, 'label'=>'Status:', 'options' => ['Novo'=>'Novo',
                                      'Processando'=>'Processando',
