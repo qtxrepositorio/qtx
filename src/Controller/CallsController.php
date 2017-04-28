@@ -144,6 +144,15 @@ class CallsController extends AppController {
                     }
                 }
 
+                $connection = ConnectionManager::get('default');
+                $category = $connection->execute("
+                    SELECT *  FROM CALLS_CATEGORIES WHERE ID = " . $call['category'] );
+
+                foreach ($category as $key => $value) {
+                    $call['category'] = $value['name']; 
+                    $call['category_time'] = substr($value['time'],0,5);    
+                }
+
                 foreach ($emails as $key => $value) {
                     if ($value['email'] != '') {
                         $this->getMailer('Call')->send('newCall', [$call, $value['email']]);
@@ -226,6 +235,15 @@ class CallsController extends AppController {
                             }
                         }
 
+                        $connection = ConnectionManager::get('default');
+                        $category = $connection->execute("
+                            SELECT *  FROM CALLS_CATEGORIES WHERE ID = " . $call['category'] );
+
+                        foreach ($category as $key => $value) {
+                            $call['category'] = $value['name']; 
+                            $call['category_time'] = substr($value['time'],0,5);    
+                        }
+
                         foreach ($emails as $key => $value) {
                             if ($value['email'] != '') {
 
@@ -294,7 +312,7 @@ class CallsController extends AppController {
             return $this->redirect(['action' => 'index']);
             
         }else{
-            $this->Flash->error(__('O chamado não pode ser apagado, por já ter sido iniciado!'));
+            $this->Flash->error(__('Chamados que já tiveram o status alterado não podem ser apagados!'));
             return $this->redirect(['action' => 'index']);
         }
     }
@@ -394,10 +412,11 @@ class CallsController extends AppController {
         // You should not add the "login" action to allow list. Doing so would
         // cause problems with normal functioning of AuthComponent.
 
-        $this->Auth->allow(['index', 'add', 'edit', 'delete', 'view']);
+        //$this->Auth->allow(['index', 'add', 'edit', 'delete', 'view']);
     }
 
     public function isAuthorized($user) {
+
         $this->loadModel('Users');
         $this->loadModel('Roles');
         $this->loadModel('RolesUsers');
