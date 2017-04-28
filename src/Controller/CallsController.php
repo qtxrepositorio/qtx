@@ -32,6 +32,7 @@ class CallsController extends AppController {
         $this->loadModel('RolesUsers');
         $this->loadModel('Roles');
         $this->loadModel('CallsResponses');
+        $this->loadModel('CallsCategories');
 
         $authenticatedUser = $this->Auth->user();
 
@@ -61,6 +62,18 @@ class CallsController extends AppController {
         ///
 
         if (($call['created_by'] == $authenticatedUser['id']) or ($call['attributed_to'] == $authenticatedUser['id']) or ($release == true)) {
+
+            $connection = ConnectionManager::get('default');
+            $category = $connection->execute("
+                        SELECT name, time FROM CALLS_CATEGORIES WHERE ID = " . $call['category']);
+
+            foreach ($category as $key) {
+                //debug($key);
+                $call['category'] = $key['name'];
+                $call['category_time'] = substr($key['time'],0,5);                
+            }
+
+            //debug($category);
 
             $call['authenticatedUser'] = $authenticatedUser;
 
@@ -245,7 +258,7 @@ class CallsController extends AppController {
         $call = $this->Calls->get($id);
 
         if ($call['status'] == 'Novo') {
-            
+
             $authenticatedUser = $this->Auth->user();
 
             $this->loadModel('CallsResponses');

@@ -16,6 +16,7 @@
                     <p><b>Descrição: </b><?= h($call->text) ?></p>
                     <p><b>Urgência: </b><?= h($call->urgency) ?></p>
                     <p><b>Categoria: </b><?= h($call->category) ?></p>
+                    <p><b>Tempo para realização (HH:MM): </b><?= h($call->category_time) ?></p>
                     <p><b>Status: </b><?= h($call->status) ?></p>
                     <p><b>Atribuído para: </b><?= h($call->user->name) ?></p>
                     <p><b>Criado por: </b><?= h($call->created_by) ?></p>
