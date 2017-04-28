@@ -10,7 +10,7 @@ use Cake\ORM\Entity;
  * @property string $subject
  * @property string $text
  * @property string $urgency
- * @property int $category
+ * @property string $category
  * @property string $status
  * @property int $created_by
  * @property int $attributed_to

@@ -146,9 +146,13 @@ class CallsController extends AppController {
         $users = $this->Calls->Users->find('list', ['limit' => 200])
                 ->select(['users.id', 'users.name'])
                 ->innerJoin('roles_users', 'users.id = roles_users.user_id')
-                ->where(['roles_users.role_id' => 26]);
-        $this->set(compact('call', 'users', 'authenticatedUser'));
-        $this->set('_serialize', ['call', 'authenticatedUser']);
+                ->where(['roles_users.role_id' => 26])
+                ->order(['users.name' => 'ASC']);
+        $this->loadModel('CallsCategories');
+        $categories = $this->CallsCategories->find('list', ['limit' => 200])
+            ->order(['name' => 'ASC']);
+        $this->set(compact('call', 'users', 'categories', 'authenticatedUser'));
+        $this->set('_serialize', ['call','authenticatedUser']);
     }
 
     public function edit($id = null) {
@@ -228,7 +232,10 @@ class CallsController extends AppController {
         }
 
         $users = $this->Calls->Users->find('list', ['limit' => 200]);
-        $this->set(compact('call', 'users', 'authenticatedUser'));
+        $this->loadModel('CallsCategories');
+        $categories = $this->CallsCategories->find('list', ['limit' => 200])
+            ->order(['name' => 'ASC']);
+        $this->set(compact('call', 'users', 'categories', 'authenticatedUser'));
         $this->set('_serialize', ['call', 'authenticatedUser']);
     }
 

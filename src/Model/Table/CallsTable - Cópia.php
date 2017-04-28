@@ -40,6 +40,14 @@ class CallsTable extends Table
 
         $this->addBehavior('Timestamp');
 
+        /*$this->hasOne('Users', [
+            'foreignKey' => 'created_by'
+        ]);
+
+        $this->hasOne('Users', [
+            'foreignKey' => 'attributed_to'
+        ]);*/
+
         $this->belongsTo('Users', [
             'foreignKey' => 'created_by',
             'joinType' => 'INNER'
@@ -50,7 +58,9 @@ class CallsTable extends Table
             'joinType' => 'INNER'
         ]);
 
-        $this->hasOne('CallsCategories', [
+
+
+        $this->hasOne('Categories', [
             'foreignKey' => 'call_id'
         ]);
 
@@ -83,7 +93,6 @@ class CallsTable extends Table
             ->notEmpty('urgency');
 
         $validator
-            ->integer('category')
             ->requirePresence('category', 'create')
             ->notEmpty('category');
 
