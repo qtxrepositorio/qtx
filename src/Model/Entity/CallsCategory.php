@@ -4,24 +4,14 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * Call Entity
+ * CallsCategory Entity
  *
  * @property int $id
- * @property string $subject
- * @property string $text
- * @property string $urgency
- * @property int $category
- * @property string $status
- * @property int $created_by
- * @property int $attributed_to
- * @property bool $visualized
+ * @property string $name
+ * @property \Cake\I18n\Time $time
  * @property \Cake\I18n\Time $created
- * @property \Cake\I18n\Time $modified
- *
- * @property \App\Model\Entity\User $user
- * @property \App\Model\Entity\CallsResponse[] $calls_responses
  */
-class Call extends Entity
+class CallsCategory extends Entity
 {
 
     /**

@@ -15,10 +15,7 @@
                                 echo $this->Form->input('urgency', ['label'=>'Urgência:','options' => ['Baixa'=>'Baixa',
                                         'Média'=>'Média',
                                         'Alta'=>'Alta'] ]);
-                                echo $this->Form->input('category', ['label'=>'Categoria:','options' => ['Manuntenção/elétrica'=>'Manuntenção/elétrica',
-                                         'Suporte ao usuário'=>'Suporte ao usuário',
-                                         'Costumizações de sistema'=>'Costumizações de sistema',
-                                         'Outros'=>'Outros'] ]);
+                                echo $this->Form->input('category', ['class'=>'form-control select2','label'=>'Categoria:','options' => $categories ]);
                                 echo $this->Form->input('status', ['type'=>'hidden','label'=>'Status:', 'default'=>'Novo']);
                                 //debug($authenticatedUser['name']);
                                 echo $this->Form->input('created_by', ['type'=>'hidden','label'=>'Criado Por:','default'=>$authenticatedUser['id']]);

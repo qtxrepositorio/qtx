@@ -30,7 +30,9 @@ class CallsController extends AppController {
 
         $this->loadModel('Users');
         $this->loadModel('RolesUsers');
+        $this->loadModel('Roles');
         $this->loadModel('CallsResponses');
+        $this->loadModel('CallsCategories');
 
         $authenticatedUser = $this->Auth->user();
 
@@ -60,6 +62,18 @@ class CallsController extends AppController {
         ///
 
         if (($call['created_by'] == $authenticatedUser['id']) or ($call['attributed_to'] == $authenticatedUser['id']) or ($release == true)) {
+
+            $connection = ConnectionManager::get('default');
+            $category = $connection->execute("
+                        SELECT name, time FROM CALLS_CATEGORIES WHERE ID = " . $call['category']);
+
+            foreach ($category as $key) {
+                //debug($key);
+                $call['category'] = $key['name'];
+                $call['category_time'] = substr($key['time'],0,5);                
+            }
+
+            //debug($category);
 
             $call['authenticatedUser'] = $authenticatedUser;
 
@@ -145,12 +159,19 @@ class CallsController extends AppController {
         $users = $this->Calls->Users->find('list', ['limit' => 200])
                 ->select(['users.id', 'users.name'])
                 ->innerJoin('roles_users', 'users.id = roles_users.user_id')
-                ->where(['roles_users.role_id' => 26]);
-        $this->set(compact('call', 'users', 'authenticatedUser'));
-        $this->set('_serialize', ['call', 'authenticatedUser']);
+                ->where(['roles_users.role_id' => 26])
+                ->order(['users.name' => 'ASC']);
+        $this->loadModel('CallsCategories');
+        $categories = $this->CallsCategories->find('list', ['limit' => 200])
+            ->order(['name' => 'ASC']);
+        $this->set(compact('call', 'users', 'categories', 'authenticatedUser'));
+        $this->set('_serialize', ['call','authenticatedUser']);
     }
 
     public function edit($id = null) {
+
+        $this->loadModel('RolesUsers');
+        $this->loadModel('Roles');
 
         $call = $this->Calls->get($id, [
             'contain' => []
@@ -158,44 +179,76 @@ class CallsController extends AppController {
 
         $authenticatedUser = $this->Auth->user();
 
-        $statusBeforeEdit = $this->findStatus($id);
-
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $call = $this->Calls->patchEntity($call, $this->request->data);
-            if ($this->Calls->save($call)) {
-                $this->Flash->success(__('O chamado foi atualizado com sucesso!'));
-                if ($call['status'] != $statusBeforeEdit) {
-
-                    $this->saveNewStatus($id, $call['status'], $authenticatedUser['id']);
-
-                    $this->loadModel('Users');
-                    $query = $this->Users->find()
-                        ->where(['id' => $call['created_by']])
-                        ->orWhere(['id' => $call['attributed_to']]);
-                    $emails = $query->all();
-
-                    foreach ($emails as $key => $value) {
-                        if ($value['id'] == $call['created_by']) {
-                            $call['created_by'] = $value['name'];
-                        }elseif($value['id'] == $call['attributed_to']){
-                            $call['attributed_to'] = $value['name'];
-                        }
-                    }
-
-                    foreach ($emails as $key => $value) {
-                        if ($value['email'] != '') {
-
-                            $this->getMailer('Call')->send('editCall', [$call, $value['email']]);
-                        }
-                    }
+        ///
+        $query = $this->RolesUsers->find()
+                    ->where([
+                'user_id' => $authenticatedUser['id']
+            ]);
+        $currentUserGroups = $query->all();
+        $release = null;
+        foreach ($currentUserGroups as $key) {
+            $query = $this->Roles->find()
+                    ->where([
+                'id' => $key['role_id']
+            ]);
+        $correspondingFunction = $query->all();
+            foreach ($correspondingFunction as $key) {
+                if ($key['id'] == 25 or $key['id'] == 26 or $key['id'] == 01) {
+                    $release = true;
                 }
-                return $this->redirect(['action' => 'index']);
-            } else {
-                $this->Flash->error(__('O chamado não pode ser atualizado, tente novamente!'));
             }
         }
+        ///
+
+        if (($call['created_by'] == $authenticatedUser['id']) or ($call['attributed_to'] == $authenticatedUser['id']) or ($release == true)) {
+
+            $statusBeforeEdit = $this->findStatus($id);
+
+            if ($this->request->is(['patch', 'post', 'put'])) {
+                $call = $this->Calls->patchEntity($call, $this->request->data);
+                if ($this->Calls->save($call)) {
+                    $this->Flash->success(__('O chamado foi atualizado com sucesso!'));
+                    if ($call['status'] != $statusBeforeEdit) {
+
+                        $this->saveNewStatus($id, $call['status'], $authenticatedUser['id']);
+
+                        $this->loadModel('Users');
+                        $query = $this->Users->find()
+                            ->where(['id' => $call['created_by']])
+                            ->orWhere(['id' => $call['attributed_to']]);
+                        $emails = $query->all();
+
+                        foreach ($emails as $key => $value) {
+                            if ($value['id'] == $call['created_by']) {
+                                $call['created_by'] = $value['name'];
+                            }elseif($value['id'] == $call['attributed_to']){
+                                $call['attributed_to'] = $value['name'];
+                            }
+                        }
+
+                        foreach ($emails as $key => $value) {
+                            if ($value['email'] != '') {
+
+                                $this->getMailer('Call')->send('editCall', [$call, $value['email']]);
+                            }
+                        }
+                    }
+                    return $this->redirect(['action' => 'index']);
+                } else {
+                    $this->Flash->error(__('O chamado não pode ser atualizado, tente novamente!'));
+                }
+            }
+        }else{
+            
+            $this->Flash->error(__('Você só tem acesso a chamados atribuídos ou criados para/por você, a menos que faça parte dos grupos de gerenciamento de chamados!'));
+            return $this->redirect(['action' => 'index']);
+        }
+
         $users = $this->Calls->Users->find('list', ['limit' => 200]);
-        $this->set(compact('call', 'users', 'authenticatedUser'));
+        $this->loadModel('CallsCategories');
+        $categories = $this->CallsCategories->find('list', ['limit' => 200])
+            ->order(['name' => 'ASC']);
+        $this->set(compact('call', 'users', 'categories', 'authenticatedUser'));
         $this->set('_serialize', ['call', 'authenticatedUser']);
     }
 
@@ -204,39 +257,46 @@ class CallsController extends AppController {
         $this->request->allowMethod(['post', 'delete']);
         $call = $this->Calls->get($id);
 
-        $authenticatedUser = $this->Auth->user();
+        if ($call['status'] == 'Novo') {
 
-        $this->loadModel('CallsResponses');
-        $this->CallsResponses->deleteResponeses($call['id']);
+            $authenticatedUser = $this->Auth->user();
 
-        if ($this->Calls->delete($call)) {
-            $this->Flash->success(__('O chamado foi apagado com sucesso!'));
+            $this->loadModel('CallsResponses');
+            $this->CallsResponses->deleteResponeses($call['id']);
 
-            $this->loadModel('Users');
-            $query = $this->Users->find()
-                    ->where(['id' => $call['created_by']])
-                    ->orWhere(['id' => $call['attributed_to']]);
-            $emails = $query->all();
+            if ($this->Calls->delete($call)) {
+                $this->Flash->success(__('O chamado foi apagado com sucesso!'));
 
-            foreach ($emails as $key => $value) {
-                if ($value['id'] == $call['created_by']) {
-                    $call['created_by'] = $value['name'];
-                }elseif($value['id'] == $call['attributed_to']){
-                    $call['attributed_to'] = $value['name'];
+                $this->loadModel('Users');
+                $query = $this->Users->find()
+                        ->where(['id' => $call['created_by']])
+                        ->orWhere(['id' => $call['attributed_to']]);
+                $emails = $query->all();
+
+                foreach ($emails as $key => $value) {
+                    if ($value['id'] == $call['created_by']) {
+                        $call['created_by'] = $value['name'];
+                    }elseif($value['id'] == $call['attributed_to']){
+                        $call['attributed_to'] = $value['name'];
+                    }
                 }
+
+                foreach ($emails as $key => $value) {
+                    if ($value['email'] != '') {
+                        $this->getMailer('Call')->send('deleteCall', [$call, $value['email'], $authenticatedUser['name']]);
+                    }
+                }
+
+            } else {
+                $this->Flash->error(__('O chamado não pode ser apagado, tente novamente!'));
             }
 
-            foreach ($emails as $key => $value) {
-                if ($value['email'] != '') {
-                    $this->getMailer('Call')->send('deleteCall', [$call, $value['email'], $authenticatedUser['name']]);
-                }
-            }
-
-        } else {
-            $this->Flash->error(__('O chamado não pode ser apagado, tente novamente!'));
+            return $this->redirect(['action' => 'index']);
+            
+        }else{
+            $this->Flash->error(__('O chamado não pode ser apagado, por já ter sido iniciado!'));
+            return $this->redirect(['action' => 'index']);
         }
-
-        return $this->redirect(['action' => 'index']);
     }
 
     public function visualized($id = null) {

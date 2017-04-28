@@ -25,7 +25,7 @@ class CallMailer extends Mailer
            ->template('call')
             ->layout('call/add')
             ->viewVars(['call' => $call])
-            ->subject('Novo chamado cadastraddo com ID: ' . $call['id']);
+            ->subject('Novo chamado cadastraddo com ID: ' . $call['id'] .'.');
         
     }
 
@@ -51,7 +51,7 @@ class CallMailer extends Mailer
             ->emailFormat('html')
             ->template('call')
             ->layout('call/delete')
-            ->viewVars(['call' => $call, $deleted_by])
+            ->viewVars(['call' => $call, 'deleted_by' => $deleted_by])
             ->subject('O chamado ' . $call['id'] .' foi apagado por: ' . $deleted_by .'.');
         
     }
