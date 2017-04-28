@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Datasource\ConnectionManager;
 
 /**
  * CallsCategories Controller
@@ -18,8 +19,12 @@ class CallsCategoriesController extends AppController
      */
     public function index()
     {
-        $callsCategories = $this->paginate($this->CallsCategories);
+        $connection = ConnectionManager::get('default');
+        $callsCategories = $connection->execute("
+                SELECT *  FROM CALLS_CATEGORIES");
+        //$callsCategories = $callsCategories->queryAll();
 
+       
         $this->set(compact('callsCategories'));
         $this->set('_serialize', ['callsCategories']);
     }
