@@ -369,6 +369,82 @@ class CallsController extends AppController {
         $this->set('_serialize', ['calls', 'callsCountCategory', 'callsCountStatus']);
     }
 
+    public function dashboard(){
+        
+        $connection = ConnectionManager::get('default');
+
+        $quantByCategory = $connection
+                ->execute("SELECT TOP 10 COUNT([calls].[category]) as COUNT
+                      ,[calls_categories].[name] as NAME
+                  FROM [calls]
+                  INNER JOIN [calls_categories] ON [calls].[category] = [calls_categories].[id]
+                  GROUP BY [calls_categories].[name], [calls].[category]
+                  ORDER BY COUNT DESC
+                    ");
+
+        $quantByTech = $connection
+                ->execute("SELECT TOP 10 COUNT([calls].[id]) AS COUNT
+                    ,[users].[username] AS NAME
+                  FROM [calls]
+                  INNER JOIN [users] ON [users].[id] = [calls].[attributed_to]
+                  GROUP BY all [users].[username]
+                  ORDER BY [users].[username]  DESC
+                    ");
+
+        $quantResolved = $connection
+                ->execute("SELECT TOP 10 COUNT([calls].[id]) AS COUNT
+                    ,[users].[username] AS NAME
+                  FROM [calls]
+                  INNER JOIN [users] ON [users].[id] = [calls].[attributed_to]
+                  WHERE [calls].[status] = 'Solucionado'
+                  GROUP BY all [users].[username]
+                  ORDER BY [users].[username]  DESC
+                    ");
+
+        $this->set(compact('quantResolved','quantByTech','quantByCategory'));
+        $this->set('_serialize', ['quantResolved','quantByTech','quantByCategory']);
+    }
+
+    public function dashboardFilter(){
+
+        $year = $this->request->data['year'];
+        
+        $connection = ConnectionManager::get('default');
+
+        $quantByCategory = $connection
+                ->execute("SELECT TOP 10 COUNT([calls].[category]) as COUNT
+                      ,[calls_categories].[name] as NAME
+                  FROM [calls]
+                  INNER JOIN [calls_categories] ON [calls].[category] = [calls_categories].[id]
+                  WHERE year([calls].created) = '$year'
+                  GROUP BY [calls_categories].[name], [calls].[category]
+                  ORDER BY COUNT DESC
+                    ");
+
+        $quantByTech = $connection
+                ->execute("SELECT TOP 10 COUNT([calls].[id]) AS COUNT
+                    ,[users].[username] AS NAME
+                  FROM [calls]
+                  INNER JOIN [users] ON [users].[id] = [calls].[attributed_to]
+                  WHERE year([calls].created) = '$year'
+                  GROUP BY [users].[username]
+                  ORDER BY [users].[username] DESC
+                    ");
+
+        $quantResolved = $connection
+                ->execute("SELECT TOP 10 COUNT([calls].[id]) AS COUNT
+                    ,[users].[username] AS NAME
+                  FROM [calls]
+                  INNER JOIN [users] ON [users].[id] = [calls].[attributed_to]
+                  WHERE [calls].[status] = 'Solucionado' AND year([calls].created) = '$year'
+                  GROUP BY all [users].[username]
+                  ORDER BY [users].[username]  DESC
+                    ");
+
+        $this->set(compact('year','quantResolved','quantByTech','quantByCategory'));
+        $this->set('_serialize', ['year','quantResolved','quantByTech','quantByCategory']);
+    }
+
     public function findStatus($id = null) {
 
         $calls = $this->Calls->find()
