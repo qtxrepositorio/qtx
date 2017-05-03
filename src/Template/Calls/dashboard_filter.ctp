@@ -1,7 +1,5 @@
 <?php
 
-$date = getdate();
-
 $labels_category = [];
 $count_category = [];
 foreach ($quantByCategory as $key => $value) {
@@ -61,7 +59,7 @@ foreach ($quantResolved as $key => $value) {
                                         <?php
                                         $x = null;
                                         echo $this->Form->create($x, ['url' => ['controller' => 'Calls', 'action' => 'dashboardFilter']]);
-                                        echo $this->Form->input('year', ['default' => $date['year'], 'disabled' => FALSE, 'label' => 'Informe o ano:']);
+                                        echo $this->Form->input('year', ['default' => $year, 'disabled' => FALSE, 'label' => 'Informe o ano:']);
                                         ?>
                                     </div> 
                                     <div class="col-md-2"></div>
