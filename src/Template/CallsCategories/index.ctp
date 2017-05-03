@@ -46,5 +46,7 @@
             </div>
         </div>
     </div>
+</section>
 
+<section class="content">
 </section>
