@@ -369,6 +369,23 @@ class CallsController extends AppController {
         $this->set('_serialize', ['calls', 'callsCountCategory', 'callsCountStatus']);
     }
 
+    public function dashboard(){
+        
+        $connection = ConnectionManager::get('default');
+
+        $quantByCategory = $connection
+                ->execute("SELECT COUNT([calls].[category]) as COUNT
+                      ,[calls_categories].[name] as NAME
+                  FROM [calls]
+                  INNER JOIN [calls_categories] ON [calls].[category] = [calls_categories].[id]
+                  GROUP BY [calls_categories].[name], [calls].[category]
+                  ORDER BY COUNT DESC
+                    ");
+
+        $this->set(compact('quantByCategory'));
+        $this->set('_serialize', ['quantByCategory']);
+    }
+
     public function findStatus($id = null) {
 
         $calls = $this->Calls->find()
