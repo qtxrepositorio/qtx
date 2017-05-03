@@ -374,7 +374,7 @@ class CallsController extends AppController {
         $connection = ConnectionManager::get('default');
 
         $quantByCategory = $connection
-                ->execute("SELECT COUNT([calls].[category]) as COUNT
+                ->execute("SELECT TOP 10 COUNT([calls].[category]) as COUNT
                       ,[calls_categories].[name] as NAME
                   FROM [calls]
                   INNER JOIN [calls_categories] ON [calls].[category] = [calls_categories].[id]
@@ -382,8 +382,17 @@ class CallsController extends AppController {
                   ORDER BY COUNT DESC
                     ");
 
-        $this->set(compact('quantByCategory'));
-        $this->set('_serialize', ['quantByCategory']);
+        $quantByTech = $connection
+                ->execute("SELECT TOP 10 COUNT([calls].[id]) AS COUNT
+                    ,[users].[username] AS NAME
+                  FROM [calls]
+                  INNER JOIN [users] ON [users].[id] = [calls].[attributed_to]
+                  GROUP BY [users].[username]
+                  ORDER BY COUNT DESC
+                    ");
+
+        $this->set(compact('quantByTech','quantByCategory'));
+        $this->set('_serialize', ['quantByTech','quantByCategory']);
     }
 
     public function findStatus($id = null) {

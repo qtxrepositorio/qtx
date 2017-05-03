@@ -1,13 +1,22 @@
 <?php
 $date = getdate();
 
-$labels = [];
-$count = [];
+$labels_category = [];
+$count_category = [];
 foreach ($quantByCategory as $key => $value) {
   # code...
-  $labels[] = $value['NAME'];
-  $count[] = $value['COUNT'];
+  $labels_category[] = $value['NAME'];
+  $count_category[] = $value['COUNT'];
 }
+
+$labels_tech = [];
+$count_tech = [];
+foreach ($quantByTech as $key => $value) {
+  # code...
+  $labels_tech[] = $value['NAME'];
+  $count_tech[] = $value['COUNT'];
+}
+
 
 
 ?> 
@@ -23,7 +32,7 @@ foreach ($quantByCategory as $key => $value) {
     <div class="row">
 
         <div class="col-md-4">
-            <div height="80" class="box box-primary">
+            <div class="box box-primary">
                 <div class="box-header with-border">
                     <h3 class="box-title">Configurar ano de referência:</b></h3>
                     <div class="box-tools pull-right">
@@ -62,7 +71,36 @@ foreach ($quantByCategory as $key => $value) {
             </div>
         </div>
 
-        <div class="col-md-8">
+        
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+            <div class="box box-success">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Técnicos mais acionadas:</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                            <i class="fa fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-box-tool" data-widget="remove">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div align="right">
+                        <h5 id="title-01"></h5>
+                        <button class="btn btn-success" id="save-btn-02">Gerar imagem</button>
+
+                    </div>
+                    <div class="chart">          
+                        <canvas id="barChart2" ></canvas>    
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
             <div class="box box-success">
                 <div class="box-header with-border">
                     <h3 class="box-title">Categorias mais acionadas:</h3>
@@ -82,7 +120,7 @@ foreach ($quantByCategory as $key => $value) {
 
                     </div>
                     <div class="chart">          
-                        <canvas id="barChart" height="80"></canvas>    
+                        <canvas id="barChart"></canvas>    
                     </div>
                 </div>
             </div>
@@ -95,18 +133,65 @@ foreach ($quantByCategory as $key => $value) {
 <?php $this->start('scriptBotton'); ?>
 <script>
 
-    var labels = JSON.parse( '<?php echo json_encode($labels) ?>' );
-    var count = JSON.parse( '<?php echo json_encode($count) ?>' );
+    var labels_category = JSON.parse( '<?php echo json_encode($labels_category) ?>' );
+    var count_category = JSON.parse( '<?php echo json_encode($count_category) ?>' );
 
     ctx = document.getElementById("barChart");
     myChart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: labels,
+            labels: labels_category,
             datasets: [
                 {
-                    label: 'Custo de hora extra per capita',
-                    data: count,
+                    label: 'Categorias mais acionadas',
+                    data: count_category,
+                    backgroundColor: [
+                        'rgba(54, 162, 235, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(54, 162, 235, 0.2)',
+                        'rgba(54, 162, 235, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(54, 162, 235, 0.2)',
+                        'rgba(54, 162, 235, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(54, 162, 235, 0.2)',
+                        'rgba(54, 162, 235, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(54, 162, 235, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(54, 162, 235, 1)', 'rgba(54, 162, 235, 1)', 'rgba(54, 162, 235, 1)',
+                        'rgba(54, 162, 235, 1)', 'rgba(54, 162, 235, 1)', 'rgba(54, 162, 235, 1)',
+                        'rgba(54, 162, 235, 1)', 'rgba(54, 162, 235, 1)', 'rgba(54, 162, 235, 1)',
+                        'rgba(54, 162, 235, 1)', 'rgba(54, 162, 235, 1)', 'rgba(54, 162, 235, 1)'
+                    ],
+                    borderWidth: 1
+                }
+            ]
+        },
+        options: {
+            tooltips: {
+                callbacks: {
+                    label: function (tooltipItem, data) {
+                        var aux = 'Quantidade: ' + parseFloat(data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index]);
+                        return aux.toLocaleString();
+                    }
+                }
+            },
+            scales: {
+                yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+            }
+        }
+    });
+
+    var labels_tech = JSON.parse( '<?php echo json_encode($labels_tech) ?>' );
+    var count_tech = JSON.parse( '<?php echo json_encode($count_tech) ?>' );
+
+    ctx = document.getElementById("barChart2");
+    myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels_tech,
+            datasets: [
+                {
+                    label: 'Técnicos mais acionados',
+                    data: count_tech,
                     backgroundColor: [
                         'rgba(54, 162, 235, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(54, 162, 235, 0.2)',
                         'rgba(54, 162, 235, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(54, 162, 235, 0.2)',
@@ -150,7 +235,13 @@ foreach ($quantByCategory as $key => $value) {
 
     $("#save-btn-01").click(function () {
         $("#barChart").get(0).toBlob(function (blob) {
-            saveAs(blob, "categoria_de_chamados.png");
+            saveAs(blob, "categoria_de_chamados_acionadas.png");
+        });
+    });
+
+    $("#save-btn-02").click(function () {
+        $("#barChart2").get(0).toBlob(function (blob) {
+            saveAs(blob, "tecnicos_mais_acionados.png");
         });
     });
 
