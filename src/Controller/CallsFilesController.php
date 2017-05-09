@@ -90,7 +90,7 @@ class CallsFilesController extends AppController
 
                 $this->Flash->success(__('O arquivo foi salvo com sucesso!'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['controller'=>'calls','action' => 'view', $callsFile['call_id']]);
             } else {
                 $this->Flash->error(__('O arquivo não pode ser salvo!'));
             }
@@ -140,41 +140,20 @@ class CallsFilesController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $callsFile = $this->CallsFiles->get($id);
         if ($this->CallsFiles->delete($callsFile)) {
+
+            echo unlink(getcwd() 
+                        . '/files/calls_files/'
+                        . strval($callsFile['call_id'])
+                        . '/' . strval($callsFile['files']));
+
             $this->Flash->success(__('O arquivo foi apagado com sucesso!.'));
         } else {
             $this->Flash->error(__('O arquivo não pode ser apagado!'));
         }
 
-        return $this->redirect(['action' => 'index']);
+        return $this->redirect(['controller'=>'calls','action' => 'view', $callsFile['call_id']]);
     }
 
-    public function download($id = null)
-    {
-
-        $callsFile = $this->CallsFiles->get($id, [
-            'contain' => ['Calls']
-        ]);
-
-        $aquivoNome = $callsFile['files']; 
-        $arquivoLocal = getcwd() . '/files/calls_files/' . strval($callsFile['call_id']) .'/' . $aquivoNome; 
-
-        set_time_limit(0);
-
-        header('Content-Description: File Transfer');
-        header('Content-Disposition: attachment; filename="'.$aquivoNome.'"');
-        header('Content-Type: application/octet-stream');
-        header('Content-Transfer-Encoding: binary');
-        header('Content-Length: ' . filesize($aquivoNome));
-        header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
-        header('Pragma: public');
-        header('Expires: 0');
-
-        ob_end_clean(); //essas duas linhas antes do readfile
-        flush();
-
-        // Envia o arquivo para o cliente
-        readfile($aquivoNome);
-
-    }
+    
 
 }
