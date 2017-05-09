@@ -158,6 +158,8 @@ class CallsFilesController extends AppController
         $aquivoNome = $callsFile['files']; 
         $arquivoLocal = getcwd() . '/files/calls_files/' . strval($callsFile['call_id']) .'/' . $aquivoNome; 
 
+        set_time_limit(0);
+
         header('Content-Description: File Transfer');
         header('Content-Disposition: attachment; filename="'.$aquivoNome.'"');
         header('Content-Type: application/octet-stream');
@@ -166,6 +168,10 @@ class CallsFilesController extends AppController
         header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
         header('Pragma: public');
         header('Expires: 0');
+
+        ob_end_clean(); //essas duas linhas antes do readfile
+        flush();
+
         // Envia o arquivo para o cliente
         readfile($aquivoNome);
 

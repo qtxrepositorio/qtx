@@ -131,7 +131,7 @@
     <div class="col-md-12" align="">
         <div class="box box-success">
             <div class="box-header with-border">
-                <h3 class="box-title"><b>Imagens do chamado: </b></h3>
+                <h3 class="box-title"><b>Anexos do chamado: </b></h3>
             </div>
             <div class="box-body">
             <div align="right">
@@ -155,8 +155,14 @@
 
                                 <td align="center" class="actions">
 
-                                    <?php echo $this->Html->link(__('<i class="glyphicon glyphicon-download-alt"></i>'), array('controller'=>'callsFiles','action' => 'download', $key['id']), array('class' => 'btn btn-primary btn-xs', 'escape' => false, 'data-toggle'=>'tooltip', 'title' => 'Baixar')); ?>
+                                <?php
 
+                                $local = '../../webroot/files/calls_files/' . strval($key['call_id']) .'/' . $key['files'];
+
+                                ?>
+                                    
+                                    <a data-toggle="tooltip" title="Download" class="glyphicon glyphicon-download-alt btn btn-primary btn-xs" href="<?php echo $local; ?>" download></a>
+                                    
                                     <?php echo $this->Html->link(__('<i class="glyphicon glyphicon-pencil"></i>'), array('controller'=>'callsFiles','action' => 'edit', $key['id']), array('class' => 'btn btn-warning btn-xs', 'escape' => false, 'data-toggle'=>'tooltip', 'title' => 'Editar')); ?>
 
                                     <?php echo $this->Form->postLink(__('<i class="glyphicon glyphicon-trash"></i>'), array('controller'=>'callsFiles','action' => 'delete', $key['id']), array('class' => 'btn btn-danger btn-xs', 'escape' => false, 'data-toggle'=>'tooltip', 'title' => 'Deletar', 'confirm' => __('Tem certeza de que deseja excluir # {0}?', $key['id']))); ?>
