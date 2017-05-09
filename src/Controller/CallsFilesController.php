@@ -90,7 +90,7 @@ class CallsFilesController extends AppController
 
                 $this->Flash->success(__('O arquivo foi salvo com sucesso!'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['controller'=>'calls','action' => 'view', $callsFile['call_id']]);
             } else {
                 $this->Flash->error(__('O arquivo não pode ser salvo!'));
             }
@@ -151,7 +151,7 @@ class CallsFilesController extends AppController
             $this->Flash->error(__('O arquivo não pode ser apagado!'));
         }
 
-        return $this->redirect(['action' => 'index']);
+        return $this->redirect(['controller'=>'calls','action' => 'view', $callsFile['call_id']]);
     }
 
 }
