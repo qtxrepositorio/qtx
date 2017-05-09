@@ -33,6 +33,7 @@ class CallsController extends AppController {
         $this->loadModel('Roles');
         $this->loadModel('CallsResponses');
         $this->loadModel('CallsCategories');
+        $this->loadModel('CallsFiles');
 
         $authenticatedUser = $this->Auth->user();
 
@@ -103,6 +104,17 @@ class CallsController extends AppController {
             }
 
             $call['created_by'] = $created_by_name;
+
+            $callFiles = $this->CallsFiles->find()
+                ->where([
+                'call_id' => $call['id']    
+            ]);
+
+
+            $call['files'] = $callFiles;
+
+            //debug($callImages);
+
         }else{
             
             $this->Flash->error(__('Você só tem acesso a chamados atribuídos ou criados para/por você, a menos que faça parte dos grupos de gerenciamento de chamados!'));

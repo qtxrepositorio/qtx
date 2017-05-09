@@ -81,6 +81,14 @@ CREATE TABLE calls_responses(
 	created DATETIME2 DEFAULT NULL 
 );
 
+CREATE TABLE calls_files(
+	id INT IDENTITY(1,1) CONSTRAINT pk_calls_files PRIMARY KEY,
+	text VARCHAR(500),
+	files VARCHAR(500),
+	call_id INT NOT NULL CONSTRAINT fk_call_files_key FOREIGN KEY (call_id) REFERENCES calls(id), 
+	created DATETIME2 DEFAULT NULL 
+);
+
 
 
 

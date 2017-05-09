@@ -223,6 +223,8 @@ Type::build('datetime')
 //Plugin::load('FileSaver');
 //Plugin::load('CanvasToBlob');
 
+Plugin::load('Josegonzalez/Upload');
+
 Plugin::load('AdminLTE', ['bootstrap' => true, 'routes' => true]);
 
 Configure::write('Theme', [
