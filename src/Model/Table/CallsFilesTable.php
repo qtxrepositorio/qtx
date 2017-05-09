@@ -5,6 +5,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\Datasource\ConnectionManager;
 
 /**
  * CallsFiles Model
@@ -80,4 +81,24 @@ class CallsFilesTable extends Table
 
         return $rules;
     }
+
+    public function deleteFiles($call_id)
+    {
+
+        $connection = ConnectionManager::get('default');
+        $callsFiles = $connection->execute("SELECT * FROM calls_files WHERE call_id = '$call_id'");
+
+        $x = $connection->execute("DELETE
+                FROM [calls_files]
+                WHERE [call_id] = $call_id"); 
+
+        foreach ($callsFiles as $key) {
+            echo unlink(getcwd() 
+                . '/files/calls_files/'
+                . strval($key['call_id'])
+                . '/' . strval($key['files']));
+        }
+        
+    }
+
 }

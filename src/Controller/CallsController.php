@@ -294,6 +294,9 @@ class CallsController extends AppController {
             $this->loadModel('CallsResponses');
             $this->CallsResponses->deleteResponeses($call['id']);
 
+            $this->loadModel('CallsFiles');
+            $this->CallsFiles->deleteFiles($call['id']);
+
             if ($this->Calls->delete($call)) {
                 $this->Flash->success(__('O chamado foi apagado com sucesso!'));
 
