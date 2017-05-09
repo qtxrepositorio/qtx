@@ -140,6 +140,12 @@ class CallsFilesController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $callsFile = $this->CallsFiles->get($id);
         if ($this->CallsFiles->delete($callsFile)) {
+
+            echo unlink(getcwd() 
+                        . '/files/calls_files/'
+                        . strval($callsFile['call_id'])
+                        . '/' . strval($callsFile['files']));
+
             $this->Flash->success(__('O arquivo foi apagado com sucesso!.'));
         } else {
             $this->Flash->error(__('O arquivo não pode ser apagado!'));
