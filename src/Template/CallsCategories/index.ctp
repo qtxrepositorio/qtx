@@ -17,13 +17,13 @@
             <div class="box box-warning">
                 <div class="box-body">
 
-                    <table cellpadding="0" cellspacing="0" class="table table-bordered table-hover">
+                    <table id="example2" cellpadding="0" cellspacing="0" class="table table-bordered table-hover">
                         <thead>
                             <tr>
                                 <th>Id:</th>
                                 <th>Nome:</th>
                                 <th>Tempo:</th>
-                                
+                                <th>Ações:</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -54,3 +54,34 @@
 
 <section class="content">
 </section>
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css"></link>
+
+<?php
+$this->Html->script(['AdminLTE./plugins/fileSaver/FileSaver.js',], ['block' => 'script']);
+$this->Html->script(['AdminLTE./plugins/canvasToBlob/canvas-toBlob.js',], ['block' => 'script']);
+$this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block' => 'script']);
+$this->Html->script(['//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js',], ['block' => 'script']);
+?> 
+
+<script>
+$(document).ready(function(){
+    $('#example2').DataTable({      
+        "language": {
+            "lengthMenu": "Mostrando _MENU_ registros por página",
+            "zeroRecords": "Nada encontrado",
+            "info": "Mostrando página _PAGE_ de _PAGES_",
+            "infoEmpty": "Nenhum registro disponível",
+            "infoFiltered": "(Filtrado de _MAX_ total registros)",
+            "sSearch": "Buscar:",
+            "oPaginate": {
+                "sNext": "Próximo",
+                "sPrevious": "Anterior"
+            }
+        },"lengthMenu": [ 8, 10, 15 ]
+    });
+});
+</script>
