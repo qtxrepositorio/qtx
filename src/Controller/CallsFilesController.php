@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controller;
 
 use App\Controller\AppController;
@@ -8,16 +9,14 @@ use App\Controller\AppController;
  *
  * @property \App\Model\Table\CallsFilesTable $CallsFiles
  */
-class CallsFilesController extends AppController
-{
+class CallsFilesController extends AppController {
 
     /**
      * Index method
      *
      * @return \Cake\Network\Response|null
      */
-    public function index()
-    {
+    public function index() {
         $this->paginate = [
             'contain' => ['Calls']
         ];
@@ -34,8 +33,7 @@ class CallsFilesController extends AppController
      * @return \Cake\Network\Response|null
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view($id = null)
-    {
+    public function view($id = null) {
         $callsFile = $this->CallsFiles->get($id, [
             'contain' => ['Calls']
         ]);
@@ -49,52 +47,69 @@ class CallsFilesController extends AppController
      *
      * @return \Cake\Network\Response|void Redirects on successful add, renders view otherwise.
      */
-    public function add()
-    {
+    public function add() {
         $callsFile = $this->CallsFiles->newEntity();
         if ($this->request->is('post')) {
 
             //debug($this->request->data);
-            
             $callsFile['text'] = $this->request->data['text'];
             $callsFile['call_id'] = $this->request->data['call_id'];
             $callsFile['files'] = $this->request->data['files']['name'];
 
-            //$callsFile = $this->CallsFiles->patchEntity($callsFile, $this->request->data);
-            
-            if ($this->CallsFiles->save($callsFile)) {
+            $fieldsFull = true;
+            if ($callsFile['text'] == '' or $callsFile['files'] == '') {
+                $fieldsFull = false;
+            }
 
-                if (file_exists(getcwd() . '/files/calls_files/' . strval($callsFile['call_id']) .'/')) {
+            if ($fieldsFull) {
 
-                    $filepath = getcwd(). '/files/calls_files'. '/'. strval($callsFile['call_id']) . '/' . $this->request->data['files']['name'];
+                $existFind = $this->CallsFiles->find()
+                        ->where(['call_id' => $callsFile['call_id']])
+                        ->andWhere(['files' => $callsFile['files']]);
 
-                    $filename = $this->request->data['files']['name'];
-
-                    move_uploaded_file($this->request->data['files']['tmp_name'], $filepath);
-
-                }else{
-
-                    mkdir( getcwd() . '/files/calls_files/' . strval($callsFile['call_id'])  .'/', 0777, true);  
-
-                    $filepath = getcwd() 
-                        . '/files/calls_files/'
-                        . strval($callsFile['call_id'])
-                        . '/' . $this->request->data['files']['name'];
-
-                    $filename = $this->request->data['files']['name'];
-
-                    move_uploaded_file($this->request->data['files']['tmp_name'], $filepath); 
-
+                $exist = false;
+                foreach ($existFind as $key => $value) {
+                    $exist = true;
                 }
 
+                if (!$exist) {
+                    if ($this->CallsFiles->save($callsFile)) {
 
-                $this->Flash->success(__('O arquivo foi salvo com sucesso!'));
+                        if (file_exists(getcwd() . '/files/calls_files/' . strval($callsFile['call_id']) . '/')) {
 
-                return $this->redirect(['controller'=>'calls','action' => 'view', $callsFile['call_id']]);
+                            $filepath = getcwd() . '/files/calls_files' . '/' . strval($callsFile['call_id']) . '/' . $this->request->data['files']['name'];
+
+                            $filename = $this->request->data['files']['name'];
+
+                            move_uploaded_file($this->request->data['files']['tmp_name'], $filepath);
+                        } else {
+
+                            mkdir(getcwd() . '/files/calls_files/' . strval($callsFile['call_id']) . '/', 0777, true);
+
+                            $filepath = getcwd()
+                                    . '/files/calls_files/'
+                                    . strval($callsFile['call_id'])
+                                    . '/' . $this->request->data['files']['name'];
+
+                            $filename = $this->request->data['files']['name'];
+
+                            move_uploaded_file($this->request->data['files']['tmp_name'], $filepath);
+                        }
+
+                        $this->Flash->success(__('O arquivo foi salvo com sucesso!'));
+
+                        return $this->redirect(['controller' => 'calls', 'action' => 'view', $callsFile['call_id']]);
+                    } else {
+                        $this->Flash->error(__('O arquivo não pode ser salvo!'));
+                    }
+                } else {
+                    $this->Flash->error(__('Esse arquivo já foi anexado! Caso necessário enviar novamente, mude o nome do arquivo antes do envio ou apague o envio antigo!'));
+                    return $this->redirect(['controller' => 'calls', 'action' => 'view', $callsFile['call_id']]);
+                }
             } else {
-                $this->Flash->error(__('O arquivo não pode ser salvo!'));
+                $this->Flash->error(__('Os dois campos são obrigatórios!'));
+                return $this->redirect(['controller' => 'calls', 'action' => 'view', $callsFile['call_id']]);
             }
-            
         }
         $calls = $this->CallsFiles->Calls->find('list', ['limit' => 200]);
         $this->set(compact('callsFile', 'calls'));
@@ -108,8 +123,7 @@ class CallsFilesController extends AppController
      * @return \Cake\Network\Response|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
-    public function edit($id = null)
-    {
+    public function edit($id = null) {
         $callsFile = $this->CallsFiles->get($id, [
             'contain' => []
         ]);
@@ -135,25 +149,22 @@ class CallsFilesController extends AppController
      * @return \Cake\Network\Response|null Redirects to index.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function delete($id = null)
-    {
+    public function delete($id = null) {
         $this->request->allowMethod(['post', 'delete']);
         $callsFile = $this->CallsFiles->get($id);
         if ($this->CallsFiles->delete($callsFile)) {
 
-            echo unlink(getcwd() 
-                        . '/files/calls_files/'
-                        . strval($callsFile['call_id'])
-                        . '/' . strval($callsFile['files']));
+            echo unlink(getcwd()
+                    . '/files/calls_files/'
+                    . strval($callsFile['call_id'])
+                    . '/' . strval($callsFile['files']));
 
             $this->Flash->success(__('O arquivo foi apagado com sucesso!.'));
         } else {
             $this->Flash->error(__('O arquivo não pode ser apagado!'));
         }
 
-        return $this->redirect(['controller'=>'calls','action' => 'view', $callsFile['call_id']]);
+        return $this->redirect(['controller' => 'calls', 'action' => 'view', $callsFile['call_id']]);
     }
-
-    
 
 }
