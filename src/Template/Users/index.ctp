@@ -6,9 +6,7 @@
             <div class="roles form large-9 medium-8 columns content">
                 
                 <div align='right'>
-                    <h3 class="box-title">
                         <?php echo $this->Html->link(__('<i>Adicionar Usuário</i>'), array('action' => 'add'), array('class' => 'btn btn-success btn-xs', 'escape' => false)); ?>
-                    </h3>
                 </div>
                 <legend><?= __('Lista de usuários:') ?></legend>
                 <div class="box-body" align="center">
