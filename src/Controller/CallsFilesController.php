@@ -165,6 +165,5 @@ class CallsFilesController extends AppController {
         }
 
         return $this->redirect(['controller' => 'calls', 'action' => 'view', $callsFile['call_id']]);
-    }
-
+}
 }
