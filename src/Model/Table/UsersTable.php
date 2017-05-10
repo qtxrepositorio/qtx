@@ -65,6 +65,7 @@ class UsersTable extends Table
      */
     public function validationDefault(Validator $validator)
     {
+        
         $validator
             ->integer('id')
             ->allowEmpty('id', 'create');
@@ -93,7 +94,7 @@ class UsersTable extends Table
         $validator
             ->email('email')
             ->notEmpty('email');
-
+        
         return $validator;
     }
 
