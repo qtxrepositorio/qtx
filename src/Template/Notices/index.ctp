@@ -13,7 +13,12 @@
             <div class="box box-warning">
                        <div class="box-body">
 
-                    <div align='right'> <?= $this->Html->link(__('Ver Todos'), ['controller'=>'NoticesUsers','action'=>'index'])?> </div>
+                    <div align='right'>
+                        
+                        <?php echo $this->Html->link(__('<i>Ver Todos</i>'), array('controller' => 'NoticesUsers','action' => 'index'), array('class' => 'btn btn-primary btn-xs', 'escape' => false)); ?>
+                        
+                    </div>
+
                         <legend><?= __('Último(s) aviso(s) recebido(s):') ?></legend>  
                         <table id="example3" class="table table-bordered table-hover">
                             <thead>
@@ -62,7 +67,12 @@
 <div class="col-md-6">
             <div class="box box-warning">
                 <div class="box-body">
-                    <div align='right'> <?= $this->Html->link(__('Ver Todos'), ['controller'=>'NoticesRoles','action'=>'index'])?> </div>
+                    
+                    <div align='right'>
+                        
+                        <?php echo $this->Html->link(__('<i>Ver Todos</i>'), array('controller' => 'NoticesRoles','action' => 'index'), array('class' => 'btn btn-primary btn-xs', 'escape' => false)); ?>
+                        
+                    </div>
                         <legend><?= __('Último(s) aviso(s) recebido(s)  em grupo:') ?></legend>  
 
                         <table id="example1" class="table table-bordered table-hover">
@@ -124,7 +134,13 @@
     <div class="box box-info">
             <div class="box-body">
                 <div class="roles form large-9 medium-8 columns content">
-                    <div align='right'><?= $this->Html->link(__('Adicionar Aviso'),['controller'=>'Notices','action'=>'add'])?></div>
+                    
+                    <div align='right'>
+                        
+                        <?php echo $this->Html->link(__('<i>Adicionar Aviso</i>'), array('controller' => 'Notices','action' => 'add'), array('class' => 'btn btn-success btn-xs', 'escape' => false)); ?>
+                        
+                    </div>
+
                         <legend><?= __('Aviso(s) criado(s) por mim:') ?></legend>
                         <div class="box-body" align="center">
                             <table id="example2" class="table table-bordered table-hover">

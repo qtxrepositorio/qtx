@@ -6,7 +6,12 @@
     <div class="box box-success">
         <div class="box-body">
             <div class="roles form large-9 medium-8 columns content">
-                <div align='right'> <?= $this->Html->link(__('Adicionar Grupo'), ['controller'=>'Roles','action'=>'add'])?> </div>
+                
+                <div align='right'>
+                    <h3 class="box-title">
+                        <?php echo $this->Html->link(__('<i>Adicionar Grupo</i>'), array('action' => 'add'), array('class' => 'btn btn-success btn-xs', 'escape' => false)); ?>
+                    </h3>
+                </div>
                 <legend><?= __('Lista dos Grupos de usuários:') ?></legend>
                 <div class="box-body" align="center">
                     <table id="example2" class="table table-bordered table-hover">
