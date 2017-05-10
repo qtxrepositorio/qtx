@@ -9,8 +9,12 @@
                 <div class="col-md-12">
                     <div class="box box-info">
                         <div class="box-header with-border">
-                            <h3 class="box-title">Chamados </h3>(
-                            <?= $this->Html->link(__('Ver todos'), ['controller'=>'Calls','action'=>'index'])?>)
+                            <h3 class="box-title">
+                                Chamados
+                                <?php echo $this->Html->link(__('<i>Ver todos</i>'), array('controller' => 'Calls','action' => 'index'), array('class' => 'btn btn-primary btn-xs', 'escape' => false)); ?>
+                            </h3>
+                            
+                                    
                             <div class="box-tools pull-right">
                                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                                 </button>
@@ -114,8 +118,10 @@
                                     </table>
                                 </div>
                             </div>
+
+
                             <div align="center">
-                                <?= $this->Html->link(__('Ver todos'), ['controller'=>'Notices','action'=>'index'])?>    
+                                <?php echo $this->Html->link(__('<i>Ver todos</i>'), array('controller' => 'Notices','action' => 'index'), array('class' => 'btn btn-primary btn-xs', 'escape' => false)); ?>
                             </div>
                         </div>
                         
@@ -168,7 +174,7 @@
                                 </div>
                             </div>
                             <div align="center">
-                                <?= $this->Html->link(__('Ver todos'), ['controller'=>'Notices','action'=>'index'])?>    
+                                <?php echo $this->Html->link(__('<i>Ver todos</i>'), array('controller' => 'Notices','action' => 'index'), array('class' => 'btn btn-primary btn-xs', 'escape' => false)); ?>
                             </div>
                         </div>
                         

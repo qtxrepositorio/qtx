@@ -3,7 +3,13 @@
 <section class="content-header">
 
     <legend><?= __('Central de chamados:') ?></legend> 
-    <div align='right'> <?= $this->Html->link(__('Criar novo chamado'), ['action'=>'add'])?> </div>
+    <div align='right'>
+        <h3 class="box-title">
+            <?php echo $this->Html->link(__('<i>Adicionar Chamado</i>'), array('controller' => 'Calls','action' => 'add'), array('class' => 'btn btn-success btn-xs', 'escape' => false)); ?>
+        </h3>
+    </div>
+
+
 
 </section>
 

@@ -3,7 +3,11 @@
 <section class="content-header">
 
     <legend><?= __('Categorias:') ?></legend> 
-    <div align='right'> <?= $this->Html->link(__('Criar nova categoria'), ['action'=>'add'])?> </div>
+    <div align='right'>
+        <h3 class="box-title">
+            <?php echo $this->Html->link(__('<i>Adicionar Categoria</i>'), array('action' => 'add'), array('class' => 'btn btn-success btn-xs', 'escape' => false)); ?>
+        </h3>
+    </div>
 
 </section>
 
