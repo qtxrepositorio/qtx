@@ -14,9 +14,7 @@ use Cake\Datasource\ConnectionManager;
  */
 class NoticesController extends AppController 
 {
-   
-
-    /**
+     /**
      * Index method
      *
      * @return \Cake\Network\Response|null

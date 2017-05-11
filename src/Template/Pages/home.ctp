@@ -13,9 +13,7 @@
                                 Chamados
                                 <?php echo $this->Html->link(__('<i>Ver todos</i>'), array('controller' => 'Calls','action' => 'index'), array('class' => 'btn btn-primary btn-xs', 'escape' => false)); ?>
                                 <?php echo $this->Html->link(__('<i>Adicionar</i>'), array('controller' => 'Calls','action' => 'add'), array('class' => 'btn btn-success btn-xs', 'escape' => false)); ?>
-                            </h3>
-                            
-                                    
+                            </h3>   
                             <div class="box-tools pull-right">
                                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                                 </button>
@@ -120,7 +118,6 @@
                                 </div>
                             </div>
 
-
                             <div align="center">
                                 <?php echo $this->Html->link(__('<i>Ver todos</i>'), array('controller' => 'Notices','action' => 'index'), array('class' => 'btn btn-primary btn-xs', 'escape' => false)); ?>
                                 <?php echo $this->Html->link(__('<i>Adicionar</i>'), array('controller' => 'Notices','action' => 'add'), array('class' => 'btn btn-success btn-xs', 'escape' => false)); ?>
@@ -180,7 +177,6 @@
                                 <?php echo $this->Html->link(__('<i>Adicionar</i>'), array('controller' => 'Notices','action' => 'add'), array('class' => 'btn btn-success btn-xs', 'escape' => false)); ?>
                             </div>
                         </div>
-                        
                     </div>
                 </div>
             </div>
@@ -241,13 +237,10 @@
                                 </table>                        
                             </div>
                         </div>
-
                     </div>                    
                 </div>
             </div>
-
  
         </div>
-
 
 </section>

@@ -14,9 +14,7 @@ use Cake\Controller\Component\FlashComponent;
 class PagesController extends AppController
 {    
     public function open(){
-
         //exec("explorer.exe file://192.168.0.1/e$/D_SERV/"); 
-
     }
 
     public function display()
