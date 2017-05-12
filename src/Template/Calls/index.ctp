@@ -9,8 +9,6 @@
         </h3>
     </div>
 
-
-
 </section>
 
 <section class="content">

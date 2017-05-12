@@ -9,16 +9,16 @@
                         <fieldset>
                             <legend><?= __('Add Calls File') ?></legend>
                             <?php
-                                echo $this->Form->input('text', ['label'=>'Descrição:']);
-                                echo $this->Form->file('files', ['label'=>'Arquivo:']);
-                                echo $this->Form->input('call_id', ['label'=>'Chamado:','options' => $calls]);
+                            echo $this->Form->input('text', ['label' => 'Descrição:']);
+                            echo $this->Form->file('files', ['label' => 'Arquivo:']);
+                            echo $this->Form->input('call_id', ['label' => 'Chamado:', 'options' => $calls]);
                             ?>
                         </fieldset>
                         <?= $this->Form->button(__('Salvar')) ?>
                         <?= $this->Form->end() ?>
                     </div>
                 </div>
-             </div>
-             </div>
-             </div>
-             </section>
+            </div>
+        </div>
+    </div>
+</section>

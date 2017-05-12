@@ -34,7 +34,7 @@
         <div class="col-md-7">
 
             <div class="col-md-12">
-                <!-- DIRECT CHAT PRIMARY -->
+                
                 <div class="box box-primary direct-chat direct-chat-primary">
                     <div class="box-header with-border">
                         <h3 class="box-title">Acompanhamento do chamado:</h3>
@@ -43,9 +43,9 @@
 
                         </div>
                     </div>
-                    <!-- /.box-header -->
+                    
                     <div class="box-body">
-                        <!-- Conversations are loaded here -->
+                        
                         <div id="id" class="direct-chat-messages">
 
                             <?php foreach ($call['calls_responses'] as $key => $value): ?>
@@ -88,11 +88,9 @@
                             <?php endforeach ?>
 
                         </div>
-                        <!--/.direct-chat-messages-->
-
-                        <!-- /.direct-chat-pane -->
+                        
                     </div>
-                    <!-- /.box-body -->
+                    
                     <div class="box-footer">
                         <?php
                         $x = null;
@@ -113,11 +111,8 @@
                         </div>
                         <?php echo $this->Form->end(); ?>
                     </div>
-                    <!-- /.box-footer-->
                 </div>
-                <!--/.direct-chat -->
             </div>
-            <!-- /.col -->
 
         </div>
 

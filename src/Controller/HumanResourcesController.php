@@ -79,7 +79,7 @@ class HumanResourcesController extends AppController
         $connection = ConnectionManager::get('baseProtheus');
 
         foreach ($union as $key) {
-            # code...
+            
             if($key == 'TODOS')
             {
                 $unionsRs[] = $connection->execute("SELECT 
@@ -126,7 +126,6 @@ class HumanResourcesController extends AppController
         $connection = ConnectionManager::get('baseProtheus');       
 
         foreach ($timecardDepartament as $key) {
-            # code...
             if($key == 'TODOS')
             {
                 $timecardDepartamentRs[] = $connection->execute("SELECT 
@@ -165,8 +164,6 @@ class HumanResourcesController extends AppController
             }
         }    
         
-        //debug($timecardDepartament);
-
         $this->set(compact('timecardDepartamentRs','timecardEmployee','timelunch','month','year'));
         $this->set('_serialize', ['timecardEmployeeRs','timecardEmployee','timelunch','month','year']);
         $this->viewBuilder()->layout('ajax');
@@ -183,7 +180,7 @@ class HumanResourcesController extends AppController
         $connection = ConnectionManager::get('baseProtheus');
 
         foreach ($timecardEmployee as $key) {
-            # code...
+            
             if($key == 'TODOS')
             {
                 $timecardEmployeeRs[] = $connection->execute("SELECT 
@@ -422,7 +419,6 @@ class HumanResourcesController extends AppController
     {
         
         for ($i=1; $i < 16; $i++) { 
-            # code...
             $lines[$i] = $i; 
         }
        

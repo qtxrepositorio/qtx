@@ -41,7 +41,6 @@ class CallsController extends AppController {
             'contain' => ['Users', 'CallsResponses']
         ]);
 
-        ///
         $query = $this->RolesUsers->find()
                     ->where([
                 'user_id' => $authenticatedUser['id']
@@ -60,8 +59,7 @@ class CallsController extends AppController {
                 }
             }
         }
-        ///
-
+        
         if (($call['created_by'] == $authenticatedUser['id']) or ($call['attributed_to'] == $authenticatedUser['id']) or ($release == true)) {
 
             $connection = ConnectionManager::get('default');
@@ -69,12 +67,9 @@ class CallsController extends AppController {
                         SELECT name, time FROM CALLS_CATEGORIES WHERE ID = " . $call['category']);
 
             foreach ($category as $key) {
-                //debug($key);
                 $call['category'] = $key['name'];
                 $call['category_time'] = substr($key['time'],0,5);                
             }
-
-            //debug($category);
 
             $call['authenticatedUser'] = $authenticatedUser;
 
@@ -113,15 +108,11 @@ class CallsController extends AppController {
 
             $call['files'] = $callFiles;
 
-            //debug($callImages);
-
         }else{
             
             $this->Flash->error(__('Você só tem acesso a chamados atribuídos ou criados para/por você, a menos que faça parte dos grupos de gerenciamento de chamados!'));
             return $this->redirect(['action' => 'index']);
         }
-
-        
 
         $this->visualized($call['id']);
 
@@ -200,7 +191,6 @@ class CallsController extends AppController {
 
         $authenticatedUser = $this->Auth->user();
 
-        ///
         $query = $this->RolesUsers->find()
                     ->where([
                 'user_id' => $authenticatedUser['id']
@@ -219,8 +209,7 @@ class CallsController extends AppController {
                 }
             }
         }
-        ///
-
+        
         if (($call['created_by'] == $authenticatedUser['id']) or ($call['attributed_to'] == $authenticatedUser['id']) or ($release == true)) {
 
             $statusBeforeEdit = $this->findStatus($id);
@@ -491,7 +480,6 @@ class CallsController extends AppController {
         $callsResponse['visualized'] = 0;
 
         //$callsResponse = $this->CallsResponses->patchEntity($callsResponse);
-
         if ($this->CallsResponses->save($callsResponse)) {
             return $this->redirect(['controller' => 'Calls', 'action' => 'view', $call_id]);
         }

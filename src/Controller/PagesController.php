@@ -18,7 +18,7 @@ class PagesController extends AppController
     }
 
     public function display()
-    {        
+    {       
 
         $path = func_get_args();
 
@@ -55,7 +55,6 @@ class PagesController extends AppController
         $this->loadModel('RolesUsers'); 
         $this->loadModel('Calls');
         $this->loadModel('CallsResponses');
-
 
         $authenticatedUserId = $this->Auth->user('id');
 

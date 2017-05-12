@@ -235,9 +235,7 @@ class UsersController extends AppController
         {
             $this->Flash->error(__('Você só pode alterar o seu usuário! Por favor, não tente burlar o sistema! Beijos de luz! kkk'));
             return $this->redirect(['action' => '../']);
-        }
-      
-       
+        }       
         
     }
 

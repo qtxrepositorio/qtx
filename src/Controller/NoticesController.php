@@ -24,9 +24,7 @@ class NoticesController extends AppController
         $authenticatedUserId = $this->Auth->user('id');
         
         $notices = $this->paginate($this->Notices->find()
-                        ->where(['user_id' => $authenticatedUserId])
-                        
-        );
+                        ->where(['user_id' => $authenticatedUserId]));
 
         $noticesUsers = $this->Notices->find()                
                 ->select(['notices.id', 'notices.subject', 'notices.text', 'notices.created', 'users.name'])
