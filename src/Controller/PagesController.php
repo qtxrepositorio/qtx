@@ -14,13 +14,11 @@ use Cake\Controller\Component\FlashComponent;
 class PagesController extends AppController
 {    
     public function open(){
-
         //exec("explorer.exe file://192.168.0.1/e$/D_SERV/"); 
-
     }
 
     public function display()
-    {        
+    {       
 
         $path = func_get_args();
 
@@ -57,7 +55,6 @@ class PagesController extends AppController
         $this->loadModel('RolesUsers'); 
         $this->loadModel('Calls');
         $this->loadModel('CallsResponses');
-
 
         $authenticatedUserId = $this->Auth->user('id');
 

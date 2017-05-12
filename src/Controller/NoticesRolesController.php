@@ -12,7 +12,6 @@ use Cake\Controller\Component\FlashComponent;
  */
 class NoticesRolesController extends AppController
 {
-
     
     /**
      * Index method

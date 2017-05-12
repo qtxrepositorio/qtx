@@ -12,7 +12,6 @@ use Cake\Controller\Component\FlashComponent;
  */
 class RolesController extends AppController
 {
-
     
     /**
      * Index method

@@ -45,15 +45,6 @@
     </div>
 </section>
 
-
-
-
-
-
-
-
-
-
 <?php
 $this->Html->css([
     'AdminLTE./plugins/daterangepicker/daterangepicker-bs3',

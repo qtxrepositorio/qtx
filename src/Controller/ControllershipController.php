@@ -14,11 +14,8 @@ class ControllershipController extends AppController {
         $connection = ConnectionManager::get('baseProtheus');
         
         $year = $this->request->data['yearPdf'];
-              
         $cc = $this->request->data['ccPdf']; 
-        
         $ccpdf = $this->request->data['ccPdf']; 
-        
         $cc = substr($cc,0,2);
         
         if ($cc != 'TO'){
@@ -296,7 +293,6 @@ class ControllershipController extends AppController {
     public function TaxedExpensesFilter(){
         
         $year = $this->request->data['year'];
-        
         $connection = ConnectionManager::get('baseProtheus');
         
         $icms = $connection->execute("
@@ -578,11 +574,8 @@ class ControllershipController extends AppController {
         $connection = ConnectionManager::get('baseProtheus');
         
         $year = $this->request->data['yearPdf'];
-              
         $cc = $this->request->data['ccPdf']; 
-        
         $ccpdf = $this->request->data['ccPdf']; 
-        
         $cc = substr($cc,0,2);
         
         if ($cc != 'TO'){

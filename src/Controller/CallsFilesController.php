@@ -51,7 +51,6 @@ class CallsFilesController extends AppController {
         $callsFile = $this->CallsFiles->newEntity();
         if ($this->request->is('post')) {
 
-            //debug($this->request->data);
             $callsFile['text'] = $this->request->data['text'];
             $callsFile['call_id'] = $this->request->data['call_id'];
             $callsFile['files'] = $this->request->data['files']['name'];
