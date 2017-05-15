@@ -16,7 +16,8 @@ class CallsCategoriesControllerTest extends IntegrationTestCase
      * @var array
      */
     public $fixtures = [
-        'app.calls_categories'
+        'app.calls_categories',
+        'app.calls_areas'
     ];
 
     /**

@@ -1,21 +1,17 @@
 <?php ?>
 
-<section class="content-header">
-
-    <legend><?= __('Central de chamados:') ?></legend> 
-    <div align='right'>
-        <h3 class="box-title">
-            <?php echo $this->Html->link(__('<i>Adicionar Chamado</i>'), array('controller' => 'Calls','action' => 'add'), array('class' => 'btn btn-success btn-xs', 'escape' => false)); ?>
-        </h3>
-    </div>
-
-</section>
-
 <section class="content">
     <div class="row">
         <div class="col-md-12">
             <div class="box box-warning">
                 <div class="box-body">
+
+                    <legend><?= __('Central de chamados:') ?></legend> 
+                    <div align='right'>
+                        <h3 class="box-title">
+                            <?php echo $this->Html->link(__('<i>Adicionar Chamado</i>'), array('controller' => 'Calls','action' => 'add'), array('class' => 'btn btn-success btn-xs', 'escape' => false)); ?>
+                        </h3>
+                    </div>
 
                     <table id="example1" cellpadding="0" cellspacing="0" class="table table-bordered table-hover">
                         <thead>
@@ -31,15 +27,15 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($calls as $call): ?>
+                            <?php foreach ($calls as $call): // debug($call)?>
                             <tr>
-                                <td><?= $this->Number->format($call->id) ?></td>
-                                <td><?= h($call->subject) ?></td>
+                                <td><?= $this->Number->format($call['CALLS']['id']) ?></td>
+                                <td><?= h($call['CALLS']['SUBJECT']) ?></td>
                                 <!-- <td><?= h($call->text) ?></td> -->
-                                <td><?= h($call->urgency) ?></td>
+                                <td><?= h($call['CALLS_URGENCY']['title']) ?></td>
                                 <!-- <td><?= h($call->category) ?></td> -->
-                                <td><?= h($call->status) ?></td>
-                                <td><?= h($call->created) ?></td>
+                                <td><?= h($call['CALLS_STATUS']['title']) ?></td>
+                                <td><?= h($call['CALLS']['created']) ?></td>
                                 
                                 <td align="center" class="actions">
 

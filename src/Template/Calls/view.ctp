@@ -17,7 +17,7 @@
                     <p><b>Categoria: </b><?= h($call->category) ?></p>
                     <p><b>Tempo para realização (HH:MM): </b><?= h($call->category_time) ?></p>
                     <p><b>Status: </b><?= h($call->status) ?></p>
-                    <p><b>Atribuído para: </b><?= h($call->user->name) ?></p>
+                    <p><b>Atribuído para: </b><?= h($call->attributed_to) ?></p>
                     <p><b>Criado por: </b><?= h($call->created_by) ?></p>
                     <p><b>Criado em: </b><?= h($call->created) ?></p>
                     <p><b>Modificado em: </b><?= h($call->modified) ?></p>

@@ -1,24 +1,27 @@
-<?php ?>
-
-<section class="content">
-    <div class="row">
-        <div class="col-md-7">
-            <div class="box box-success">
-                <div class="box-body">
-                    <div class="callsCategories form large-9 medium-8 columns content">
-                        <?= $this->Form->create($callsCategory) ?>
-                        <fieldset>
-                            <legend><?= __('Editar Categoria') ?></legend>
-                            <?php
-                                echo $this->Form->input('name', ['label'=>'Nome:']);
-                                echo $this->Form->input('time', ['label'=>'Tempo para realização: ','empty' => false]);
-                            ?>
-                        </fieldset>
-                        <?= $this->Form->button(__('Salvar')) ?>
-                        <?= $this->Form->end() ?>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+<nav class="large-3 medium-4 columns" id="actions-sidebar">
+    <ul class="side-nav">
+        <li class="heading"><?= __('Actions') ?></li>
+        <li><?= $this->Form->postLink(
+                __('Delete'),
+                ['action' => 'delete', $callsCategory->id],
+                ['confirm' => __('Are you sure you want to delete # {0}?', $callsCategory->id)]
+            )
+        ?></li>
+        <li><?= $this->Html->link(__('List Calls Categories'), ['action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('List Calls Areas'), ['controller' => 'CallsAreas', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Calls Area'), ['controller' => 'CallsAreas', 'action' => 'add']) ?></li>
+    </ul>
+</nav>
+<div class="callsCategories form large-9 medium-8 columns content">
+    <?= $this->Form->create($callsCategory) ?>
+    <fieldset>
+        <legend><?= __('Edit Calls Category') ?></legend>
+        <?php
+            echo $this->Form->input('name');
+            echo $this->Form->input('description');
+            echo $this->Form->input('area_id', ['options' => $callsAreas]);
+        ?>
+    </fieldset>
+    <?= $this->Form->button(__('Submit')) ?>
+    <?= $this->Form->end() ?>
+</div>

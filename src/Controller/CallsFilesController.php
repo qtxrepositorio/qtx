@@ -53,10 +53,10 @@ class CallsFilesController extends AppController {
 
             $callsFile['text'] = $this->request->data['text'];
             $callsFile['call_id'] = $this->request->data['call_id'];
-            $callsFile['files'] = $this->request->data['files']['name'];
+            $callsFile['archive'] = $this->request->data['files']['name'];
 
             $fieldsFull = true;
-            if ($callsFile['text'] == '' or $callsFile['files'] == '') {
+            if ($callsFile['text'] == '' or $callsFile['archive'] == '') {
                 $fieldsFull = false;
             }
 
@@ -64,7 +64,7 @@ class CallsFilesController extends AppController {
 
                 $existFind = $this->CallsFiles->find()
                         ->where(['call_id' => $callsFile['call_id']])
-                        ->andWhere(['files' => $callsFile['files']]);
+                        ->andWhere(['archive' => $callsFile['archive']]);
 
                 $exist = false;
                 foreach ($existFind as $key => $value) {

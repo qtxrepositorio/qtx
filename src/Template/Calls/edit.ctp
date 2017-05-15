@@ -1,39 +1,28 @@
-<?php //debug($call); ?>
-
 <section class="content">
     <div class="row">
         <div class="col-md-7">
             <div class="box box-success">
                 <div class="box-body">
-                    <div class="roles form large-9 medium-8 columns content">
+                    <div class="calls form large-9 medium-8 columns content">
                         <?= $this->Form->create($call) ?>
                         <fieldset>
                             <legend><?= __('Editar Chamado') ?></legend>
                             <?php
-                                echo $this->Form->input('subject', ['disabled' => TRUE, 'label'=>'Assunto:']);
-                                echo $this->Form->input('text', ['label'=>'Descrição:', 'type' => 'textarea']);
-                                echo $this->Form->input('urgency', ['label'=>'Urgência:','options' => ['Baixa'=>'Baixa',
-                                        'Média'=>'Média',
-                                        'Alta'=>'Alta'] ]);
-                                echo $this->Form->input('category', ['class'=>'form-control select2','label'=>'Categoria:','options' => $categories ]);
+                                echo $this->Form->input('subject', ['label' => 'Assunto:']);
+                                echo $this->Form->input('text', ['label' => 'Descrição:', 'type' => 'textarea']);
+                                echo $this->Form->input('area_id', ['label' => 'Área:','class' => 'form-control select2', 'options' => $callsAreas]);
+                                echo $this->Form->input('category_id', ['label' => 'Categoria:','class' => 'form-control select2', 'options' => $callsCategories]);
+                                echo $this->Form->input('subcategory_id', ['label' => 'Sub Categoria:','class' => 'form-control select2', 'options' => $callsSubcategories]);
                                 if ($authenticatedUser['id'] == $call['attributed_to']) {
-                                    echo $this->Form->input('status', ['label'=>'Status:', 'options' => ['Novo'=>'Novo',
-                                     'Processando'=>'Processando',
-                                     'Pendente'=>'Pendente',
-                                     'Solucionado'=>'Solucionado',
-                                     'Fechado'=>'Fechado'] ]);  
-                                     echo $this->Form->input('attributed_to', ['class'=>'form-control select2','label'=>'Atribuído para:','options' => $users]); 
+                                    echo $this->Form->input('status_id', ['options' => $callsStatus]);
                                 }else{
-                                    echo $this->Form->input('status', ['disabled' => TRUE, 'label'=>'Status:', 'options' => ['Novo'=>'Novo',
-                                     'Processando'=>'Processando',
-                                     'Pendente'=>'Pendente',
-                                     'Solucionado'=>'Solucionado',
-                                     'Fechado'=>'Fechado'] ]);  
-                                    echo $this->Form->input('attributed_to', ['disabled' => TRUE, 'label'=>'Atribuído para:','options' => $users]);
+                                    echo $this->Form->input('status_id', ['disabled' => TRUE, 'options' => $callsStatus]);
                                 }
-                                
-                                
-                                echo $this->Form->input('visualized', ['type'=>'hidden','default' => 0]);
+                                echo $this->Form->input('urgency_id', ['label' => 'Urgência:','options' => $callsUrgency]);
+                                //echo $this->Form->input('solution_id', ['options' => $callsSolutions]);
+                                echo $this->Form->input('created_by', ['label' => 'Criado por:','disabled' => TRUE, 'options' => $callsUsers]);
+                                echo $this->Form->input('attributed_to', ['label' => 'Atribuído para:','options' => $callsUsers]);
+                                //echo $this->Form->input('visualized');
                             ?>
                         </fieldset>
                         <?= $this->Form->button(__('Salvar')) ?>
@@ -45,90 +34,3 @@
     </div>
 </section>
 
-<?php
-$this->Html->css([
-    'AdminLTE./plugins/daterangepicker/daterangepicker-bs3',
-    'AdminLTE./plugins/iCheck/all',
-    'AdminLTE./plugins/colorpicker/bootstrap-colorpicker.min',
-    'AdminLTE./plugins/timepicker/bootstrap-timepicker.min',
-    'AdminLTE./plugins/select2/select2.min',
-  ],
-  ['block' => 'css']);
-
-$this->Html->script([
-  'AdminLTE./plugins/select2/select2.full.min',
-  'AdminLTE./plugins/input-mask/jquery.inputmask',
-  'AdminLTE./plugins/input-mask/jquery.inputmask.date.extensions',
-  'AdminLTE./plugins/input-mask/jquery.inputmask.extensions',
-  'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js',
-  'AdminLTE./plugins/daterangepicker/daterangepicker',
-  'AdminLTE./plugins/colorpicker/bootstrap-colorpicker.min',
-  'AdminLTE./plugins/timepicker/bootstrap-timepicker.min',
-  'AdminLTE./plugins/iCheck/icheck.min',
-],
-['block' => 'script']);
-?>
-<?php $this->start('scriptBotton'); ?>
-<script>
-  $(function () {
-    //Initialize Select2 Elements
-    $(".select2").select2();
-
-    //Datemask dd/mm/yyyy
-    $("#datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
-    //Datemask2 mm/dd/yyyy
-    $("#datemask2").inputmask("mm/dd/yyyy", {"placeholder": "mm/dd/yyyy"});
-    //Money Euro
-    $("[data-mask]").inputmask();
-
-    //Date range picker
-    $('#reservation').daterangepicker();
-    //Date range picker with time picker
-    $('#reservationtime').daterangepicker({timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A'});
-    //Date range as a button
-    $('#daterange-btn').daterangepicker(
-        {
-          ranges: {
-            'Today': [moment(), moment()],
-            'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-            'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-            'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-            'This Month': [moment().startOf('month'), moment().endOf('month')],
-            'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-          },
-          startDate: moment().subtract(29, 'days'),
-          endDate: moment()
-        },
-        function (start, end) {
-          $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
-        }
-    );
-
-    //iCheck for checkbox and radio inputs
-    $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
-      checkboxClass: 'icheckbox_minimal-blue',
-      radioClass: 'iradio_minimal-blue'
-    });
-    //Red color scheme for iCheck
-    $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
-      checkboxClass: 'icheckbox_minimal-red',
-      radioClass: 'iradio_minimal-red'
-    });
-    //Flat red color scheme for iCheck
-    $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
-      checkboxClass: 'icheckbox_flat-green',
-      radioClass: 'iradio_flat-green'
-    });
-
-    //Colorpicker
-    $(".my-colorpicker1").colorpicker();
-    //color picker with addon
-    $(".my-colorpicker2").colorpicker();
-
-    //Timepicker
-    $(".timepicker").timepicker({
-      showInputs: false
-    });
-  });
-</script>
-<?php $this->end(); ?>

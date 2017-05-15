@@ -8,8 +8,12 @@ use Cake\ORM\Entity;
  *
  * @property int $id
  * @property string $name
- * @property \Cake\I18n\Time $time
+ * @property string $description
+ * @property int $area_id
  * @property \Cake\I18n\Time $created
+ * @property \Cake\I18n\Time $modified
+ *
+ * @property \App\Model\Entity\CallsArea $calls_area
  */
 class CallsCategory extends Entity
 {
