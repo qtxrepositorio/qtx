@@ -9,8 +9,6 @@ foreach ($callsAreas as $key => $value) {
 $callsCategoriesFull[0] = 'Selecione...';
 $callsSubcategoriesFull[0] = 'Selecione...';
 
-debug($authenticatedUser['id']);
-
 ?>
 
 <section class="content">

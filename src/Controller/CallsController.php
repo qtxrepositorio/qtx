@@ -24,13 +24,21 @@ class CallsController extends AppController {
      * @return \Cake\Network\Response|null
      */
     public function index() {
-        $this->paginate = [
-            'contain' => ['CallsAreas', 'CallsCategories', 'CallsSubcategories', 'CallsStatus', 'CallsUrgency', 'CallsSolutions']
-        ];
-        $calls = $this->paginate($this->Calls);
+        
+        $authenticatedUserId = $this->Auth->user('id');
+
+        $calls = $this->Calls->find()
+                ->select(['CALLS.id','CALLS.SUBJECT','CALLS_URGENCY.title','CALLS_STATUS.title','CALLS.created'])
+                ->innerJoin('CALLS_URGENCY', 'CALLS_URGENCY.id = CALLS.urgency_id')
+                ->innerJoin('CALLS_STATUS', 'CALLS_STATUS.id = CALLS.status_id')
+                ->where(['created_by' => $authenticatedUserId])
+                ->orWhere(['attributed_to' => $authenticatedUserId])
+                ->order(['Calls.id' => 'DESC']);
+
 
         $this->set(compact('calls'));
         $this->set('_serialize', ['calls']);
+
     }
 
     /**
