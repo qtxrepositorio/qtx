@@ -41,9 +41,95 @@ class CallsController extends AppController {
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function view($id = null) {
+
+        $this->loadModel('Users');
+        $this->loadModel('RolesUsers');
+        $this->loadModel('Roles');
+        $this->loadModel('CallsResponses');
+        $this->loadModel('CallsCategories');
+        $this->loadModel('CallsFiles');
+
+        $authenticatedUser = $this->Auth->user();
+        
         $call = $this->Calls->get($id, [
-            'contain' => ['CallsAreas', 'CallsCategories', 'CallsSubcategories', 'CallsStatus', 'CallsUrgency', 'CallsSolutions', 'CallsFiles', 'CallsResponses', 'Users']
+            'contain' => ['CallsResponses']
         ]);
+
+        $query = $this->RolesUsers->find()
+            ->where([
+                'user_id' => $authenticatedUser['id']
+            ]);
+        $currentUserGroups = $query->all();
+        $release = null;
+        foreach ($currentUserGroups as $key) {
+            $query = $this->Roles->find()
+                    ->where([
+                'id' => $key['role_id']
+            ]);
+        $correspondingFunction = $query->all();
+            foreach ($correspondingFunction as $key) {
+                if ($key['id'] == 25 or $key['id'] == 26 or $key['id'] == 01) {
+                    $release = true;
+                }
+            }
+        }
+
+        //debug($call);
+
+        if (($call['created_by'] == $authenticatedUser['id']) or ($call['attributed_to'] == $authenticatedUser['id']) or ($release == true)) {
+
+            $connection = ConnectionManager::get('default');
+            $category = $connection->execute("
+                        SELECT name FROM CALLS_CATEGORIES WHERE ID = " . $call['category_id']);
+
+            foreach ($category as $key) {
+                $call['category'] = $key['name'];               
+            }
+
+            $call['authenticatedUser'] = $authenticatedUser;
+
+            foreach ($call['calls_responses'] as $key => $value) {
+
+                $query = $this->Users->find()
+                        ->where([
+                    'id' => $value['created_by']
+                ]);
+
+                $created_by = $query->all();
+
+                foreach ($created_by as $key => $x) {
+                    $value['created_by'] = $x['name'];
+                }
+            }
+
+            $query = $this->Users->find()
+                    ->where([
+                'id' => $call['created_by']
+            ]);
+
+            $created_by = $query->all();
+
+            foreach ($created_by as $key) {
+                $created_by_name = $key['name'];
+            }
+
+            $call['created_by'] = $created_by_name;
+
+            $callFiles = $this->CallsFiles->find()
+                ->where([
+                'call_id' => $call['id']    
+            ]);
+
+
+            $call['files'] = $callFiles;
+
+        }else{
+            
+            $this->Flash->error(__('Você só tem acesso a chamados atribuídos ou criados para/por você, a menos que faça parte dos grupos de gerenciamento de chamados!'));
+            return $this->redirect(['action' => 'index']);
+        }
+
+        $this->visualized($call['id']);
 
         $this->set('call', $call);
         $this->set('_serialize', ['call']);
