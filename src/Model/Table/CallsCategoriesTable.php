@@ -9,6 +9,8 @@ use Cake\Validation\Validator;
 /**
  * CallsCategories Model
  *
+ * @property \Cake\ORM\Association\BelongsTo $CallsAreas
+ *
  * @method \App\Model\Entity\CallsCategory get($primaryKey, $options = [])
  * @method \App\Model\Entity\CallsCategory newEntity($data = null, array $options = [])
  * @method \App\Model\Entity\CallsCategory[] newEntities(array $data, array $options = [])
@@ -37,6 +39,11 @@ class CallsCategoriesTable extends Table
         $this->primaryKey('id');
 
         $this->addBehavior('Timestamp');
+
+        $this->belongsTo('CallsAreas', [
+            'foreignKey' => 'area_id',
+            'joinType' => 'INNER'
+        ]);
     }
 
     /**
@@ -52,12 +59,27 @@ class CallsCategoriesTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->allowEmpty('name');
+            ->requirePresence('name', 'create')
+            ->notEmpty('name');
 
         $validator
-            ->time('time')
-            ->allowEmpty('time');
+            ->requirePresence('description', 'create')
+            ->notEmpty('description');
 
         return $validator;
+    }
+
+    /**
+     * Returns a rules checker object that will be used for validating
+     * application integrity.
+     *
+     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
+     * @return \Cake\ORM\RulesChecker
+     */
+    public function buildRules(RulesChecker $rules)
+    {
+        $rules->add($rules->existsIn(['area_id'], 'CallsAreas'));
+
+        return $rules;
     }
 }

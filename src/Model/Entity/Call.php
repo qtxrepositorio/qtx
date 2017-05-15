@@ -9,16 +9,25 @@ use Cake\ORM\Entity;
  * @property int $id
  * @property string $subject
  * @property string $text
- * @property string $urgency
- * @property int $category
- * @property string $status
+ * @property int $area_id
+ * @property int $category_id
+ * @property int $subcategory_id
+ * @property int $status_id
+ * @property int $urgency_id
+ * @property int $solution_id
  * @property int $created_by
  * @property int $attributed_to
  * @property bool $visualized
  * @property \Cake\I18n\Time $created
  * @property \Cake\I18n\Time $modified
  *
- * @property \App\Model\Entity\User $user
+ * @property \App\Model\Entity\CallsArea $calls_area
+ * @property \App\Model\Entity\CallsCategory $calls_category
+ * @property \App\Model\Entity\CallsSubcategory $calls_subcategory
+ * @property \App\Model\Entity\CallsStatus $calls_status
+ * @property \App\Model\Entity\CallsUrgency $calls_urgency
+ * @property \App\Model\Entity\CallsSolution $calls_solution
+ * @property \App\Model\Entity\CallsFile[] $calls_files
  * @property \App\Model\Entity\CallsResponse[] $calls_responses
  */
 class Call extends Entity

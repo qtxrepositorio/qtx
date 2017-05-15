@@ -51,20 +51,79 @@ CREATE TABLE notices_roles(
 SEGUNDA FASE: Adicionar as tabelas do sistema de chamados.
 */
 
+CREATE TABLE calls_status(
+	id INT IDENTITY(1,1) CONSTRAINT pk_status PRIMARY KEY,
+	title VARCHAR(100) NOT NULL,
+	description VARCHAR(500) NOT NULL,
+	created DATETIME2 DEFAULT NULL,
+    modified DATETIME2 DEFAULT NULL  
+);
+
+CREATE TABLE calls_areas(
+	id INT IDENTITY(1,1) CONSTRAINT pk_areas PRIMARY KEY,
+	name VARCHAR(100) NOT NULL,
+	description VARCHAR(500) NOT NULL,
+	created DATETIME2 DEFAULT NULL,
+    modified DATETIME2 DEFAULT NULL  
+);  
+
 CREATE TABLE calls_categories(
 	id INT IDENTITY(1,1) CONSTRAINT pk_categories PRIMARY KEY,
-	name VARCHAR(200),
-	time time,
-	created DATETIME2 DEFAULT NULL 
+  	name VARCHAR(100) NOT NULL,
+  	description VARCHAR(500) NOT NULL,
+  	area_id INT NOT NULL CONSTRAINT fk_area_key FOREIGN KEY (area_id) REFERENCES calls_areas(id)
+  	created DATETIME2 DEFAULT NULL,
+    modified DATETIME2 DEFAULT NULL
+); 
+
+CREATE TABLE calls_subcategories(
+	id INT IDENTITY(1,1) CONSTRAINT pk_subcategories PRIMARY KEY,
+  	name VARCHAR(100) NOT NULL,
+  	description VARCHAR(500) NOT NULL,
+  	sla time  NOT NULL,
+  	categorie_id INT NOT NULL CONSTRAINT fk_categorie_key FOREIGN KEY (categorie_id) REFERENCES calls_categories(id)
+  	created DATETIME2 DEFAULT NULL,
+    modified DATETIME2 DEFAULT NULL
+);
+
+CREATE TABLE calls_solutions (
+	id INT IDENTITY(1,1) CONSTRAINT pk_solutions PRIMARY KEY,
+	title VARCHAR(100) NOT NULL,
+	description VARCHAR(500) NOT NULL,
+	subcategorie_id INT NOT NULL CONSTRAINT fk_subcategorie_key FOREIGN KEY (subcategorie_id) REFERENCES calls_subcategories(id)
+	created DATETIME2 DEFAULT NULL,
+    modified DATETIME2 DEFAULT NULL
+);
+
+CREATE TABLE solutions_files (
+  	id INT IDENTITY(1,1) CONSTRAINT pk_solutions_files PRIMARY KEY,
+  	text VARCHAR(500) NOT NULL,
+  	file VARCHAR(500) NOT NULL,
+  	solution_id INT NOT NULL CONSTRAINT fk_solutions_files_key FOREIGN KEY (solution_id) REFERENCES calls_solutions(id)
+  	created DATETIME2 DEFAULT NULL,
+    modified DATETIME2 DEFAULT NULL
+);
+
+CREATE TABLE calls_urgency (
+  	id INT IDENTITY(1,1) CONSTRAINT pk_urgency PRIMARY KEY,
+  	title VARCHAR(100) NOT NULL,
+  	description VARCHAR(500) NOT NULL,
+  	created DATETIME2 DEFAULT NULL,
+    modified DATETIME2 DEFAULT NULL  
 );
 
 CREATE TABLE calls(
 	id INT IDENTITY(1,1) CONSTRAINT pk_calls PRIMARY KEY,
 	subject VARCHAR(100) not null,
 	text VARCHAR(500),
-	urgency VARCHAR(50) not null,
-	category INT NOT NULL CONSTRAINT fk_categorie_key FOREIGN KEY (category) REFERENCES calls_categories(id),
-	status VARCHAR(50) not null,
+
+	area_id INT NOT NULL CONSTRAINT fk_call_area_key FOREIGN KEY (area_id) REFERENCES calls_areas(id),
+	category_id INT NOT NULL CONSTRAINT fk_call_categorie_key FOREIGN KEY (category_id) REFERENCES calls_categories(id),
+	subcategory_id INT NOT NULL CONSTRAINT fk_call_subcategorie_key FOREIGN KEY (subcategory_id) REFERENCES calls_subcategories(id),
+	status_id INT NOT NULL CONSTRAINT fk_call_status_key FOREIGN KEY (status_id) REFERENCES calls_status(id),
+	urgency_id INT NOT NULL CONSTRAINT fk_call_urgency_key FOREIGN KEY (urgency_id) REFERENCES calls_urgencies(id),
+	solution_id INT NOT NULL CONSTRAINT fk_call_solution_key FOREIGN KEY (solution_id) REFERENCES calls_solutions(id),
+
 	created_by INT NOT NULL CONSTRAINT fk_sender_call_key FOREIGN KEY (created_by) REFERENCES users(id),
 	attributed_to INT NOT NULL CONSTRAINT fk_receiver_call_key FOREIGN KEY (attributed_to) REFERENCES users(id),
 	visualized BIT,
@@ -78,15 +137,17 @@ CREATE TABLE calls_responses(
 	created_by INT NOT NULL CONSTRAINT fk_sender_response_key FOREIGN KEY (created_by) REFERENCES users(id),
 	call_id INT NOT NULL CONSTRAINT fk_call_key FOREIGN KEY (call_id) REFERENCES calls(id), 
 	visualized BIT,
-	created DATETIME2 DEFAULT NULL 
+	created DATETIME2 DEFAULT NULL,
+    modified DATETIME2 DEFAULT NULL
 );
 
 CREATE TABLE calls_files(
 	id INT IDENTITY(1,1) CONSTRAINT pk_calls_files PRIMARY KEY,
-	text VARCHAR(500),
-	files VARCHAR(500),
+	text VARCHAR(100),
+	file VARCHAR(500),
 	call_id INT NOT NULL CONSTRAINT fk_call_files_key FOREIGN KEY (call_id) REFERENCES calls(id), 
-	created DATETIME2 DEFAULT NULL 
+	created DATETIME2 DEFAULT NULL,
+    modified DATETIME2 DEFAULT NULL
 );
 
 

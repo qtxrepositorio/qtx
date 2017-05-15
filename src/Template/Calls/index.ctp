@@ -1,100 +1,79 @@
-<?php ?>
-
-<section class="content-header">
-
-    <legend><?= __('Central de chamados:') ?></legend> 
-    <div align='right'>
-        <h3 class="box-title">
-            <?php echo $this->Html->link(__('<i>Adicionar Chamado</i>'), array('controller' => 'Calls','action' => 'add'), array('class' => 'btn btn-success btn-xs', 'escape' => false)); ?>
-        </h3>
+<nav class="large-3 medium-4 columns" id="actions-sidebar">
+    <ul class="side-nav">
+        <li class="heading"><?= __('Actions') ?></li>
+        <li><?= $this->Html->link(__('New Call'), ['action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Calls Areas'), ['controller' => 'CallsAreas', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Calls Area'), ['controller' => 'CallsAreas', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Calls Categories'), ['controller' => 'CallsCategories', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Calls Category'), ['controller' => 'CallsCategories', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Calls Subcategories'), ['controller' => 'CallsSubcategories', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Calls Subcategory'), ['controller' => 'CallsSubcategories', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Calls Status'), ['controller' => 'CallsStatus', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Calls Status'), ['controller' => 'CallsStatus', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Calls Urgency'), ['controller' => 'CallsUrgency', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Calls Urgency'), ['controller' => 'CallsUrgency', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Calls Solutions'), ['controller' => 'CallsSolutions', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Calls Solution'), ['controller' => 'CallsSolutions', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Calls Files'), ['controller' => 'CallsFiles', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Calls File'), ['controller' => 'CallsFiles', 'action' => 'add']) ?></li>
+        <li><?= $this->Html->link(__('List Calls Responses'), ['controller' => 'CallsResponses', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('New Calls Response'), ['controller' => 'CallsResponses', 'action' => 'add']) ?></li>
+    </ul>
+</nav>
+<div class="calls index large-9 medium-8 columns content">
+    <h3><?= __('Calls') ?></h3>
+    <table cellpadding="0" cellspacing="0">
+        <thead>
+            <tr>
+                <th><?= $this->Paginator->sort('id') ?></th>
+                <th><?= $this->Paginator->sort('subject') ?></th>
+                <th><?= $this->Paginator->sort('text') ?></th>
+                <th><?= $this->Paginator->sort('area_id') ?></th>
+                <th><?= $this->Paginator->sort('category_id') ?></th>
+                <th><?= $this->Paginator->sort('subcategory_id') ?></th>
+                <th><?= $this->Paginator->sort('status_id') ?></th>
+                <th><?= $this->Paginator->sort('urgency_id') ?></th>
+                <th><?= $this->Paginator->sort('solution_id') ?></th>
+                <th><?= $this->Paginator->sort('created_by') ?></th>
+                <th><?= $this->Paginator->sort('attributed_to') ?></th>
+                <th><?= $this->Paginator->sort('visualized') ?></th>
+                <th><?= $this->Paginator->sort('created') ?></th>
+                <th><?= $this->Paginator->sort('modified') ?></th>
+                <th class="actions"><?= __('Actions') ?></th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($calls as $call): ?>
+            <tr>
+                <td><?= $this->Number->format($call->id) ?></td>
+                <td><?= h($call->subject) ?></td>
+                <td><?= h($call->text) ?></td>
+                <td><?= $call->has('calls_area') ? $this->Html->link($call->calls_area->name, ['controller' => 'CallsAreas', 'action' => 'view', $call->calls_area->id]) : '' ?></td>
+                <td><?= $call->has('calls_category') ? $this->Html->link($call->calls_category->name, ['controller' => 'CallsCategories', 'action' => 'view', $call->calls_category->id]) : '' ?></td>
+                <td><?= $call->has('calls_subcategory') ? $this->Html->link($call->calls_subcategory->name, ['controller' => 'CallsSubcategories', 'action' => 'view', $call->calls_subcategory->id]) : '' ?></td>
+                <td><?= $call->has('calls_status') ? $this->Html->link($call->calls_status->title, ['controller' => 'CallsStatus', 'action' => 'view', $call->calls_status->id]) : '' ?></td>
+                <td><?= $call->has('calls_urgency') ? $this->Html->link($call->calls_urgency->title, ['controller' => 'CallsUrgency', 'action' => 'view', $call->calls_urgency->id]) : '' ?></td>
+                <td><?= $call->has('calls_solution') ? $this->Html->link($call->calls_solution->title, ['controller' => 'CallsSolutions', 'action' => 'view', $call->calls_solution->id]) : '' ?></td>
+                <td><?= $this->Number->format($call->created_by) ?></td>
+                <td><?= $this->Number->format($call->attributed_to) ?></td>
+                <td><?= h($call->visualized) ?></td>
+                <td><?= h($call->created) ?></td>
+                <td><?= h($call->modified) ?></td>
+                <td class="actions">
+                    <?= $this->Html->link(__('View'), ['action' => 'view', $call->id]) ?>
+                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $call->id]) ?>
+                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $call->id], ['confirm' => __('Are you sure you want to delete # {0}?', $call->id)]) ?>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+    <div class="paginator">
+        <ul class="pagination">
+            <?= $this->Paginator->prev('< ' . __('previous')) ?>
+            <?= $this->Paginator->numbers() ?>
+            <?= $this->Paginator->next(__('next') . ' >') ?>
+        </ul>
+        <p><?= $this->Paginator->counter() ?></p>
     </div>
-
-</section>
-
-<section class="content">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="box box-warning">
-                <div class="box-body">
-
-                    <table id="example1" cellpadding="0" cellspacing="0" class="table table-bordered table-hover">
-                        <thead>
-                            <tr>
-                                <th>Id</th>
-                                <th>Assunto</th>
-                                <!-- <th>Descrição</th> -->
-                                <th>Urgência</th>
-                                <!-- <th>Categoria</th> -->
-                                <th>Status</th>
-                                <th>Criado em</th>
-                                <th class="actions">Ações</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($calls as $call): ?>
-                            <tr>
-                                <td><?= $this->Number->format($call->id) ?></td>
-                                <td><?= h($call->subject) ?></td>
-                                <!-- <td><?= h($call->text) ?></td> -->
-                                <td><?= h($call->urgency) ?></td>
-                                <!-- <td><?= h($call->category) ?></td> -->
-                                <td><?= h($call->status) ?></td>
-                                <td><?= h($call->created) ?></td>
-                                
-                                <td align="center" class="actions">
-
-                                <?php echo $this->Html->link(__('<i class="glyphicon glyphicon-eye-open"></i>'), array('action' => 'view', $call->id), array('class' => 'btn btn-primary btn-xs', 'escape' => false, 'data-toggle'=>'tooltip', 'title' => 'Visualizar')); ?>
-
-                                <?php echo $this->Html->link(__('<i class="glyphicon glyphicon-pencil"></i>'), array('action' => 'edit', $call->id), array('class' => 'btn btn-warning btn-xs', 'escape' => false, 'data-toggle'=>'tooltip', 'title' => 'Editar')); ?>
-
-                                <?php echo $this->Form->postLink(__('<i class="glyphicon glyphicon-trash"></i>'), array('action' => 'delete', $call->id), array('class' => 'btn btn-danger btn-xs', 'escape' => false, 'data-toggle'=>'tooltip', 'title' => 'Deletar', 'confirm' => __('Tem certeza de que deseja excluir # {0}?', $call->id))); ?>
-
-                                </td>
-
-                            </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
-
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="content">
-</section>
-
-
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css"></link>
-
-<?php
-$this->Html->script(['AdminLTE./plugins/fileSaver/FileSaver.js',], ['block' => 'script']);
-$this->Html->script(['AdminLTE./plugins/canvasToBlob/canvas-toBlob.js',], ['block' => 'script']);
-$this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block' => 'script']);
-$this->Html->script(['//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js',], ['block' => 'script']);
-?> 
-
-<script>
-    $(document).ready(function () {
-
-        $('#example1').DataTable({
-            "order": [[ 0, "desc" ]],
-            "language": {
-                "lengthMenu": "Mostrando _MENU_ registros por página",
-                "zeroRecords": "Nada encontrado",
-                "info": "Mostrando página _PAGE_ de _PAGES_",
-                "infoEmpty": "Nenhum registro disponível",
-                "infoFiltered": "(Filtrado de _MAX_ total registros)",
-                "sSearch": "Buscar:",
-                "oPaginate": {
-                    "sNext": "Próximo",
-                    "sPrevious": "Anterior"
-                }
-            }, "lengthMenu": [10, 15, 25]
-        });
-
-    });
-</script>
+</div>

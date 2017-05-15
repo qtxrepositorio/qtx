@@ -9,6 +9,13 @@ use Cake\Validation\Validator;
 /**
  * Calls Model
  *
+ * @property \Cake\ORM\Association\BelongsTo $CallsAreas
+ * @property \Cake\ORM\Association\BelongsTo $CallsCategories
+ * @property \Cake\ORM\Association\BelongsTo $CallsSubcategories
+ * @property \Cake\ORM\Association\BelongsTo $CallsStatus
+ * @property \Cake\ORM\Association\BelongsTo $CallsUrgency
+ * @property \Cake\ORM\Association\BelongsTo $CallsSolutions
+ * @property \Cake\ORM\Association\HasMany $CallsFiles
  * @property \Cake\ORM\Association\HasMany $CallsResponses
  *
  * @method \App\Model\Entity\Call get($primaryKey, $options = [])
@@ -40,20 +47,33 @@ class CallsTable extends Table
 
         $this->addBehavior('Timestamp');
 
-        $this->belongsTo('Users', [
-            'foreignKey' => 'created_by',
+        $this->belongsTo('CallsAreas', [
+            'foreignKey' => 'area_id',
             'joinType' => 'INNER'
         ]);
-
-        $this->belongsTo('Users', [
-            'foreignKey' => 'attributed_to',
+        $this->belongsTo('CallsCategories', [
+            'foreignKey' => 'category_id',
             'joinType' => 'INNER'
         ]);
-
-        $this->hasOne('CallsCategories', [
+        $this->belongsTo('CallsSubcategories', [
+            'foreignKey' => 'subcategory_id',
+            'joinType' => 'INNER'
+        ]);
+        $this->belongsTo('CallsStatus', [
+            'foreignKey' => 'status_id',
+            'joinType' => 'INNER'
+        ]);
+        $this->belongsTo('CallsUrgency', [
+            'foreignKey' => 'urgency_id',
+            'joinType' => 'INNER'
+        ]);
+        $this->belongsTo('CallsSolutions', [
+            'foreignKey' => 'solution_id',
+            'joinType' => 'INNER'
+        ]);
+        $this->hasMany('CallsFiles', [
             'foreignKey' => 'call_id'
         ]);
-
         $this->hasMany('CallsResponses', [
             'foreignKey' => 'call_id'
         ]);
@@ -79,19 +99,6 @@ class CallsTable extends Table
             ->allowEmpty('text');
 
         $validator
-            ->requirePresence('urgency', 'create')
-            ->notEmpty('urgency');
-
-        $validator
-            ->integer('category')
-            ->requirePresence('category', 'create')
-            ->notEmpty('category');
-
-        $validator
-            ->requirePresence('status', 'create')
-            ->notEmpty('status');
-
-        $validator
             ->integer('created_by')
             ->requirePresence('created_by', 'create')
             ->notEmpty('created_by');
@@ -106,5 +113,24 @@ class CallsTable extends Table
             ->allowEmpty('visualized');
 
         return $validator;
+    }
+
+    /**
+     * Returns a rules checker object that will be used for validating
+     * application integrity.
+     *
+     * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
+     * @return \Cake\ORM\RulesChecker
+     */
+    public function buildRules(RulesChecker $rules)
+    {
+        $rules->add($rules->existsIn(['area_id'], 'CallsAreas'));
+        $rules->add($rules->existsIn(['category_id'], 'CallsCategories'));
+        $rules->add($rules->existsIn(['subcategory_id'], 'CallsSubcategories'));
+        $rules->add($rules->existsIn(['status_id'], 'CallsStatus'));
+        $rules->add($rules->existsIn(['urgency_id'], 'CallsUrgency'));
+        $rules->add($rules->existsIn(['solution_id'], 'CallsSolutions'));
+
+        return $rules;
     }
 }

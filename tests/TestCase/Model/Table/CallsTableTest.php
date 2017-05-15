@@ -25,12 +25,13 @@ class CallsTableTest extends TestCase
      */
     public $fixtures = [
         'app.calls',
-        'app.users',
-        'app.notices',
-        'app.notices_users',
-        'app.roles',
-        'app.notices_roles',
-        'app.roles_users',
+        'app.calls_areas',
+        'app.calls_categories',
+        'app.calls_subcategories',
+        'app.calls_status',
+        'app.calls_urgency',
+        'app.calls_solutions',
+        'app.calls_files',
         'app.calls_responses'
     ];
 
@@ -74,6 +75,16 @@ class CallsTableTest extends TestCase
      * @return void
      */
     public function testValidationDefault()
+    {
+        $this->markTestIncomplete('Not implemented yet.');
+    }
+
+    /**
+     * Test buildRules method
+     *
+     * @return void
+     */
+    public function testBuildRules()
     {
         $this->markTestIncomplete('Not implemented yet.');
     }
