@@ -21,12 +21,12 @@
             <td><?= h($callsSubcategory->description) ?></td>
         </tr>
         <tr>
-            <th><?= __('Calls Category') ?></th>
-            <td><?= $callsSubcategory->has('calls_category') ? $this->Html->link($callsSubcategory->calls_category->name, ['controller' => 'CallsCategories', 'action' => 'view', $callsSubcategory->calls_category->id]) : '' ?></td>
-        </tr>
-        <tr>
             <th><?= __('Id') ?></th>
             <td><?= $this->Number->format($callsSubcategory->id) ?></td>
+        </tr>
+        <tr>
+            <th><?= __('Category Id') ?></th>
+            <td><?= $this->Number->format($callsSubcategory->category_id) ?></td>
         </tr>
         <tr>
             <th><?= __('Sla') ?></th>

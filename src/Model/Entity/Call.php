@@ -29,6 +29,7 @@ use Cake\ORM\Entity;
  * @property \App\Model\Entity\CallsSolution $calls_solution
  * @property \App\Model\Entity\CallsFile[] $calls_files
  * @property \App\Model\Entity\CallsResponse[] $calls_responses
+ * @property \App\Model\Entity\User[] $users
  */
 class Call extends Entity
 {

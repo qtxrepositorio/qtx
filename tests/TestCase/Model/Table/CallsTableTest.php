@@ -32,7 +32,13 @@ class CallsTableTest extends TestCase
         'app.calls_urgency',
         'app.calls_solutions',
         'app.calls_files',
-        'app.calls_responses'
+        'app.calls_responses',
+        'app.users',
+        'app.notices',
+        'app.notices_users',
+        'app.roles',
+        'app.notices_roles',
+        'app.roles_users'
     ];
 
     /**

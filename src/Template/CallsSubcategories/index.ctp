@@ -15,7 +15,7 @@
                 <th><?= $this->Paginator->sort('name') ?></th>
                 <th><?= $this->Paginator->sort('description') ?></th>
                 <th><?= $this->Paginator->sort('sla') ?></th>
-                <th><?= $this->Paginator->sort('categorie_id') ?></th>
+                <th><?= $this->Paginator->sort('category_id') ?></th>
                 <th><?= $this->Paginator->sort('created') ?></th>
                 <th><?= $this->Paginator->sort('modified') ?></th>
                 <th class="actions"><?= __('Actions') ?></th>
@@ -28,7 +28,7 @@
                 <td><?= h($callsSubcategory->name) ?></td>
                 <td><?= h($callsSubcategory->description) ?></td>
                 <td><?= h($callsSubcategory->sla) ?></td>
-                <td><?= $callsSubcategory->has('calls_category') ? $this->Html->link($callsSubcategory->calls_category->name, ['controller' => 'CallsCategories', 'action' => 'view', $callsSubcategory->calls_category->id]) : '' ?></td>
+                <td><?= $this->Number->format($callsSubcategory->category_id) ?></td>
                 <td><?= h($callsSubcategory->created) ?></td>
                 <td><?= h($callsSubcategory->modified) ?></td>
                 <td class="actions">

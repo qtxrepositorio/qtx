@@ -19,8 +19,8 @@
         <?php
             echo $this->Form->input('name');
             echo $this->Form->input('description');
-            echo $this->Form->input('sla', ['empty' => true]);
-            echo $this->Form->input('categorie_id', ['options' => $callsCategories]);
+            echo $this->Form->input('sla');
+            echo $this->Form->input('category_id');
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

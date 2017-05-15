@@ -41,7 +41,7 @@ class CallsSubcategoriesTable extends Table
         $this->addBehavior('Timestamp');
 
         $this->belongsTo('CallsCategories', [
-            'foreignKey' => 'categorie_id',
+            'foreignKey' => 'category_id',
             'joinType' => 'INNER'
         ]);
     }
@@ -68,7 +68,8 @@ class CallsSubcategoriesTable extends Table
 
         $validator
             ->time('sla')
-            ->allowEmpty('sla');
+            ->requirePresence('sla', 'create')
+            ->notEmpty('sla');
 
         return $validator;
     }
@@ -82,7 +83,7 @@ class CallsSubcategoriesTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->existsIn(['categorie_id'], 'CallsCategories'));
+        $rules->add($rules->existsIn(['category_id'], 'CallsCategories'));
 
         return $rules;
     }

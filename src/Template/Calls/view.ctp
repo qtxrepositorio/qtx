@@ -21,6 +21,8 @@
         <li><?= $this->Html->link(__('New Calls File'), ['controller' => 'CallsFiles', 'action' => 'add']) ?> </li>
         <li><?= $this->Html->link(__('List Calls Responses'), ['controller' => 'CallsResponses', 'action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New Calls Response'), ['controller' => 'CallsResponses', 'action' => 'add']) ?> </li>
+        <li><?= $this->Html->link(__('List Users'), ['controller' => 'Users', 'action' => 'index']) ?> </li>
+        <li><?= $this->Html->link(__('New User'), ['controller' => 'Users', 'action' => 'add']) ?> </li>
     </ul>
 </nav>
 <div class="calls view large-9 medium-8 columns content">
@@ -141,6 +143,43 @@
                     <?= $this->Html->link(__('View'), ['controller' => 'CallsResponses', 'action' => 'view', $callsResponses->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['controller' => 'CallsResponses', 'action' => 'edit', $callsResponses->id]) ?>
                     <?= $this->Form->postLink(__('Delete'), ['controller' => 'CallsResponses', 'action' => 'delete', $callsResponses->id], ['confirm' => __('Are you sure you want to delete # {0}?', $callsResponses->id)]) ?>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </table>
+        <?php endif; ?>
+    </div>
+    <div class="related">
+        <h4><?= __('Related Users') ?></h4>
+        <?php if (!empty($call->users)): ?>
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+                <th><?= __('Id') ?></th>
+                <th><?= __('Name') ?></th>
+                <th><?= __('Cpf') ?></th>
+                <th><?= __('Username') ?></th>
+                <th><?= __('Password') ?></th>
+                <th><?= __('Status') ?></th>
+                <th><?= __('Created') ?></th>
+                <th><?= __('Modified') ?></th>
+                <th><?= __('Email') ?></th>
+                <th class="actions"><?= __('Actions') ?></th>
+            </tr>
+            <?php foreach ($call->users as $users): ?>
+            <tr>
+                <td><?= h($users->id) ?></td>
+                <td><?= h($users->name) ?></td>
+                <td><?= h($users->cpf) ?></td>
+                <td><?= h($users->username) ?></td>
+                <td><?= h($users->password) ?></td>
+                <td><?= h($users->status) ?></td>
+                <td><?= h($users->created) ?></td>
+                <td><?= h($users->modified) ?></td>
+                <td><?= h($users->email) ?></td>
+                <td class="actions">
+                    <?= $this->Html->link(__('View'), ['controller' => 'Users', 'action' => 'view', $users->id]) ?>
+                    <?= $this->Html->link(__('Edit'), ['controller' => 'Users', 'action' => 'edit', $users->id]) ?>
+                    <?= $this->Form->postLink(__('Delete'), ['controller' => 'Users', 'action' => 'delete', $users->id], ['confirm' => __('Are you sure you want to delete # {0}?', $users->id)]) ?>
                 </td>
             </tr>
             <?php endforeach; ?>

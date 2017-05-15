@@ -68,14 +68,19 @@ class CallsTable extends Table
             'joinType' => 'INNER'
         ]);
         $this->belongsTo('CallsSolutions', [
-            'foreignKey' => 'solution_id',
-            'joinType' => 'INNER'
+            'foreignKey' => 'solution_id'
         ]);
         $this->hasMany('CallsFiles', [
             'foreignKey' => 'call_id'
         ]);
         $this->hasMany('CallsResponses', [
             'foreignKey' => 'call_id'
+        ]);
+        $this->hasMany('Users', [
+            'foreignKey' => 'created_by'
+        ]);
+        $this->hasMany('Users', [
+            'foreignKey' => 'attributed_to'
         ]);
     }
 
