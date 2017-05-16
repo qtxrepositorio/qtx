@@ -73,7 +73,7 @@
                     
                     <div class="box-body">
                         
-                        <div id="id" class="direct-chat-messages">
+                        <div id="idx" class="direct-chat-messages">
 
                             <?php foreach ($call['calls_responses'] as $key => $value): ?>
 
@@ -196,7 +196,7 @@
                     </tbody>
                 </table>
 
-            </div></div>
+            </div>
         </div>
 
     </div>
@@ -252,7 +252,7 @@
 
 <script type="text/javascript">
 
-    var div = document.getElementById("id");
+    var div = document.getElementById("idx");
     div.scrollTop = div.scrollHeight - div.clientHeight;
 
 </script>

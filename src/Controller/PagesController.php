@@ -60,7 +60,8 @@ class PagesController extends AppController
 
         $calls = $this->Calls->find()
             ->limit(5)
-            ->select(['calls.id', 'calls.subject', 'calls.created_by', 'calls.status_id'])
+            ->select(['calls.id', 'calls.subject', 'calls.created_by', 'CALLS_STATUS.title'])
+            ->innerJoin('CALLS_STATUS', 'CALLS_STATUS.id = calls.status_id')
             ->where(['created_by' => $authenticatedUserId])
             ->orWhere(['attributed_to' => $authenticatedUserId])
             ->order(['calls.id' => 'DESC']);
