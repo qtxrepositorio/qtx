@@ -56,7 +56,7 @@
                                                 <?php endif ?>
                                                     
                                                 </td> 
-                                                <td><?php echo $key['calls']['status']; ?></td>
+                                                <td><?php echo $key['CALLS_STATUS']['title']; ?></td>
                                                 <td class="actions"  align="center">
                                                         <?php echo $this->Html->link(__('<i class="glyphicon glyphicon-eye-open"></i>'), array('controller'=> 'Calls','action' => 'view', $key['calls']['id']), array('class' => 'btn btn-primary btn-xs', 'escape' => false, 'data-toggle'=>'tooltip', 'title' => 'Visualizar')); ?>
                                                     </td>

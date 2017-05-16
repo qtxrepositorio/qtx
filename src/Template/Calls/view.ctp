@@ -1,4 +1,4 @@
-<?php  $x = 0; ?>
+<?php  $x = 0; //debug($call['authenticatedUser']); ?>
 <section class="content">
 
     <div class="row">
@@ -14,14 +14,41 @@
                     <p><b>Assunto: </b><?= h($call->subject) ?></p> 
                     <p><b>Descrição: </b><?= h($call->text) ?></p>
                     <p><b>Urgência: </b><?= h($call->urgency) ?></p>
+                    <p><b>Área: </b><?= h($call->area) ?></p>
                     <p><b>Categoria: </b><?= h($call->category) ?></p>
-                    <p><b>Tempo para realização (HH:MM): </b><?= h($call->category_time) ?></p>
-                    <p><b>Status: </b><?= h($call->status) ?></p>
+                    <p><b>Sub Categoria: </b><?= h($call->subcategory) ?></p>
+                    <p><b>Tempo para realização (HH:MM): </b><?= h($call->sla) ?></p>
                     <p><b>Atribuído para: </b><?= h($call->attributed_to) ?></p>
                     <p><b>Criado por: </b><?= h($call->created_by) ?></p>
                     <p><b>Criado em: </b><?= h($call->created) ?></p>
                     <p><b>Modificado em: </b><?= h($call->modified) ?></p>
                     <p><b>Vizualidado pelo técnico: </b><?= $call->visualized ? __('Sim') : __('Não'); ?></p>
+
+                    <hr>
+                    <?= $this->Form->create($call, ['url' => ['controller' => 'Calls', 'action' => 'editStatus']]) ?>
+                        <fieldset>
+                            <?php
+                                echo $this->Form->input('id', ['type'=>'hidden']);
+                                
+                                if ($call['authenticatedUser']['name'] != $call->attributed_to) {
+                                    echo $this->Form->input('status_id', ['disabled'=>true,'label' => 'Status:', 'default' => $call->status, 'options' => $call['callsStatus']]); 
+                                }else{
+                                    echo $this->Form->input('status_id', ['label' => 'Status:', 'default' => $call->status, 'options' => $call['callsStatus']]);
+                                }                                
+                            ?>
+                        </fieldset>
+                        <?php
+                            if($call['authenticatedUser']['name'] == $call->attributed_to){
+                        ?>        
+                                <?= $this->Form->button(__('<i class="glyphicon glyphicon-ok"></i>'), array('class' => 'btn btn-success btn-xs', 'escape' => false, 'data-toggle' => 'tooltip', 'title' => 'Salvar'))  
+                                ?> 
+                        <?php 
+                            }
+                        ?>
+                    <?= $this->Form->end() ?>
+                    <hr>
+
+                    <p><b>Outras ações: </b></p>
 
                     <?php echo $this->Html->link(__('<i class="glyphicon glyphicon-pencil"></i>'), array('action' => 'edit', $call->id), array('class' => 'btn btn-warning btn-xs', 'escape' => false, 'data-toggle' => 'tooltip', 'title' => 'Editar')); ?>
 
@@ -46,7 +73,7 @@
                     
                     <div class="box-body">
                         
-                        <div id="id" class="direct-chat-messages">
+                        <div id="idx" class="direct-chat-messages">
 
                             <?php foreach ($call['calls_responses'] as $key => $value): ?>
 
@@ -169,7 +196,7 @@
                     </tbody>
                 </table>
 
-            </div></div>
+            </div>
         </div>
 
     </div>
@@ -225,7 +252,7 @@
 
 <script type="text/javascript">
 
-    var div = document.getElementById("id");
+    var div = document.getElementById("idx");
     div.scrollTop = div.scrollHeight - div.clientHeight;
 
 </script>

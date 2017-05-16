@@ -24,13 +24,15 @@ class CallsController extends AppController {
      * @return \Cake\Network\Response|null
      */
     public function index() {
-        
+
         $authenticatedUserId = $this->Auth->user('id');
 
         $calls = $this->Calls->find()
-                ->select(['CALLS.id','CALLS.SUBJECT','CALLS_URGENCY.title','CALLS_STATUS.title','CALLS.created'])
+                ->select(['CALLS.id', 'CALLS.SUBJECT', 'CALLS_URGENCY.title', 'CALLS_STATUS.title', 'CALLS.created', 'CALLS_SUBCATEGORIES.name'])
                 ->innerJoin('CALLS_URGENCY', 'CALLS_URGENCY.id = CALLS.urgency_id')
                 ->innerJoin('CALLS_STATUS', 'CALLS_STATUS.id = CALLS.status_id')
+                ->innerJoin('CALLS_CATEGORIES', 'CALLS_CATEGORIES.id = CALLS.category_id')
+                ->innerJoin('CALLS_SUBCATEGORIES', 'CALLS_SUBCATEGORIES.id = CALLS.subcategory_id')
                 ->where(['created_by' => $authenticatedUserId])
                 ->orWhere(['attributed_to' => $authenticatedUserId])
                 ->order(['Calls.id' => 'DESC']);
@@ -38,7 +40,6 @@ class CallsController extends AppController {
 
         $this->set(compact('calls'));
         $this->set('_serialize', ['calls']);
-
     }
 
     /**
@@ -58,15 +59,15 @@ class CallsController extends AppController {
         $this->loadModel('CallsFiles');
 
         $authenticatedUser = $this->Auth->user();
-        
+
         $call = $this->Calls->get($id, [
             'contain' => ['CallsResponses']
         ]);
 
         $query = $this->RolesUsers->find()
-            ->where([
-                'user_id' => $authenticatedUser['id']
-            ]);
+                ->where([
+            'user_id' => $authenticatedUser['id']
+        ]);
         $currentUserGroups = $query->all();
         $release = null;
         foreach ($currentUserGroups as $key) {
@@ -74,7 +75,7 @@ class CallsController extends AppController {
                     ->where([
                 'id' => $key['role_id']
             ]);
-        $correspondingFunction = $query->all();
+            $correspondingFunction = $query->all();
             foreach ($correspondingFunction as $key) {
                 if ($key['id'] == 25 or $key['id'] == 26 or $key['id'] == 01) {
                     $release = true;
@@ -82,16 +83,40 @@ class CallsController extends AppController {
             }
         }
 
-        //debug($call);
-
-        if (($call['created_by'] == $authenticatedUser['id']) or ($call['attributed_to'] == $authenticatedUser['id']) or ($release == true)) {
+        if (($call['created_by'] == $authenticatedUser['id']) or ( $call['attributed_to'] == $authenticatedUser['id']) or ( $release == true)) {
 
             $connection = ConnectionManager::get('default');
-            $category = $connection->execute("
-                        SELECT name FROM CALLS_CATEGORIES WHERE ID = " . $call['category_id']);
 
-            foreach ($category as $key) {
-                $call['category'] = $key['name'];               
+            $area = $connection->execute("
+                SELECT * FROM CALLS_AREAS WHERE ID = " . $call['area_id']);
+            foreach ($area as $key => $value) {
+                $call['area'] = $value['name'];
+            }
+
+            $category = $connection->execute("
+                SELECT * FROM CALLS_CATEGORIES WHERE ID = " . $call['category_id']);
+            foreach ($category as $key => $value) {
+                $call['category'] = $value['name'];
+            }
+
+            $subcategory = $connection->execute("
+                SELECT * FROM CALLS_SUBCATEGORIES WHERE ID = " . $call['subcategory_id']);
+            foreach ($subcategory as $key => $value) {
+                $call['subcategory'] = $value['name'];
+                $call['sla'] = substr($value['sla'], 0, 5);
+                ;
+            }
+
+            $status = $connection->execute("
+                SELECT * FROM CALLS_STATUS WHERE ID = " . $call['status_id']);
+            foreach ($status as $key => $value) {
+                $call['status'] = $value['title'];
+            }
+
+            $urgency = $connection->execute("
+                SELECT title FROM CALLS_URGENCY WHERE ID = " . $call['urgency_id']);
+            foreach ($urgency as $key) {
+                $call['urgency'] = $key['title'];
             }
 
             $call['authenticatedUser'] = $authenticatedUser;
@@ -114,28 +139,38 @@ class CallsController extends AppController {
                     ->where([
                 'id' => $call['created_by']
             ]);
-
             $created_by = $query->all();
-
             foreach ($created_by as $key) {
                 $created_by_name = $key['name'];
             }
-
             $call['created_by'] = $created_by_name;
 
+            $query = $this->Users->find()
+                    ->where([
+                'id' => $call['attributed_to']
+            ]);
+            $attributed_to = $query->all();
+            foreach ($attributed_to as $key) {
+                $attributed_to = $key['name'];
+            }
+            $call['attributed_to'] = $attributed_to;
+
             $callFiles = $this->CallsFiles->find()
-                ->where([
-                'call_id' => $call['id']    
+                    ->where([
+                'call_id' => $call['id']
             ]);
 
 
             $call['files'] = $callFiles;
+        } else {
 
-        }else{
-            
             $this->Flash->error(__('Você só tem acesso a chamados atribuídos ou criados para/por você, a menos que faça parte dos grupos de gerenciamento de chamados!'));
             return $this->redirect(['action' => 'index']);
         }
+
+        $callsStatus = $this->Calls->CallsStatus->find('list', ['limit' => 200]);
+
+        $call['callsStatus'] = $callsStatus;
 
         $this->visualized($call['id']);
 
@@ -252,7 +287,8 @@ class CallsController extends AppController {
                     $this->Flash->success(__('O chamado foi atualizado com sucesso!'));
                     if ($call['status_id'] != $statusBeforeEdit) {
 
-                        $this->saveNewStatus($id, $call['status'], $authenticatedUser['id']);
+                        $status_id = $call['status_id']; 
+                        $this->saveNewStatus($id, $status_id, $authenticatedUser['id']);
 
                         $this->loadModel('Users');
                         $query = $this->Users->find()
@@ -333,6 +369,90 @@ class CallsController extends AppController {
                 ->order(['users.name' => 'ASC']);
         $this->set(compact('call', 'callsAreas', 'callsCategories', 'callsSubcategories', 'callsStatus', 'callsUrgency', 'callsSolutions', 'authenticatedUser', 'callsUsers'));
         $this->set('_serialize', ['call', 'authenticatedUser', 'callsUsers']);
+    }
+
+    public function editStatus($id = null) {
+
+        $authenticatedUser = $this->Auth->user();
+
+        $this->loadModel('RolesUsers');
+        $this->loadModel('Roles');
+
+        $call = $this->Calls->get($id, [
+            'contain' => []
+        ]);
+
+        $statusBeforeEdit = $this->findStatus($id);
+
+        if ($statusBeforeEdit != $this->request->data['status_id']) {
+            if ($this->request->is(['patch', 'post', 'put'])) {
+                $call = $this->Calls->patchEntity($call, $this->request->data);
+                if ($this->Calls->save($call)) {
+
+                    $this->Flash->success(__('O chamado foi atualizado com sucesso!'));
+
+                    $this->saveNewStatus($id, $call['status_id'], $authenticatedUser['id']);
+
+                    $this->loadModel('Users');
+                    $query = $this->Users->find()
+                            ->where(['id' => $call['created_by']])
+                            ->orWhere(['id' => $call['attributed_to']]);
+                    $emails = $query->all();
+
+                    foreach ($emails as $key => $value) {
+                        if ($value['id'] == $call['created_by']) {
+                            $call['created_by'] = $value['name'];
+                        } elseif ($value['id'] == $call['attributed_to']) {
+                            $call['attributed_to'] = $value['name'];
+                        }
+                    }
+
+                    $connection = ConnectionManager::get('default');
+
+                    $area = $connection->execute("
+                            SELECT * FROM CALLS_AREAS WHERE ID = " . $call['area_id']);
+                    foreach ($area as $key => $value) {
+                        $call['area'] = $value['name'];
+                    }
+
+                    $category = $connection->execute("
+                            SELECT * FROM CALLS_CATEGORIES WHERE ID = " . $call['category_id']);
+                    foreach ($category as $key => $value) {
+                        $call['category'] = $value['name'];
+                    }
+
+                    $subcategory = $connection->execute("
+                            SELECT * FROM CALLS_SUBCATEGORIES WHERE ID = " . $call['subcategory_id']);
+                    foreach ($subcategory as $key => $value) {
+                        $call['subcategory'] = $value['name'];
+                        $call['sla'] = substr($value['sla'], 0, 5);
+                        ;
+                    }
+
+                    $status = $connection->execute("
+                            SELECT * FROM CALLS_STATUS WHERE ID = " . $call['status_id']);
+                    foreach ($status as $key => $value) {
+                        $call['status'] = $value['title'];
+                    }
+
+                    $urgency = $connection->execute("
+                            SELECT * FROM CALLS_URGENCY WHERE ID = " . $call['urgency_id']);
+                    foreach ($urgency as $key => $value) {
+                        $call['urgency'] = $value['title'];
+                    }
+
+                    foreach ($emails as $key => $value) {
+                        if ($value['email'] != '') {
+
+                            $this->getMailer('Call')->send('editCall', [$call, $value['email']]);
+                        }
+                    }
+                }
+            }
+        } else {
+            $this->Flash->error(__('O status do chamado não foi modificao, por isso não foi salvo!'));
+            return $this->redirect(['controller' => 'Calls', 'action' => 'view', $id]);
+        }
     }
 
     /**
@@ -566,13 +686,20 @@ class CallsController extends AppController {
         return $status;
     }
 
-    public function saveNewStatus($call_id = null, $status = null, $created_by = null) {
+    public function saveNewStatus($call_id = null, $status_id = null, $created_by = null) {
 
         $this->loadModel('CallsResponses');
 
         $callsResponse = $this->CallsResponses->newEntity();
 
-        if ($status != 'Solucionado') {
+        $connection = ConnectionManager::get('default');
+        $status = $connection->execute("
+            SELECT title FROM CALLS_STATUS WHERE ID = " . $status_id);
+        foreach ($status as $key => $value) {
+            $status = $value['title'];
+        }
+
+        if ($status != 2) {
             $callsResponse['text'] = 'O status do chamado foi alteradao para: ' . $status . '.';
         } else {
             $callsResponse['text'] = 'O chamado foi solucionado!';

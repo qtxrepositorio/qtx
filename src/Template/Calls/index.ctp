@@ -18,9 +18,8 @@
                             <tr>
                                 <th>Id</th>
                                 <th>Assunto</th>
-                                <!-- <th>Descrição</th> -->
+                                <th>Sub Categoria</th>
                                 <th>Urgência</th>
-                                <!-- <th>Categoria</th> -->
                                 <th>Status</th>
                                 <th>Criado em</th>
                                 <th class="actions">Ações</th>
@@ -31,19 +30,18 @@
                             <tr>
                                 <td><?= $this->Number->format($call['CALLS']['id']) ?></td>
                                 <td><?= h($call['CALLS']['SUBJECT']) ?></td>
-                                <!-- <td><?= h($call->text) ?></td> -->
+                                <td><?= h($call['CALLS_SUBCATEGORIES']['name']) ?></td>
                                 <td><?= h($call['CALLS_URGENCY']['title']) ?></td>
-                                <!-- <td><?= h($call->category) ?></td> -->
                                 <td><?= h($call['CALLS_STATUS']['title']) ?></td>
-                                <td><?= h($call['CALLS']['created']) ?></td>
+                                <td><?= h(substr($call['CALLS']['created'],0,16)) ?></td>
                                 
                                 <td align="center" class="actions">
 
-                                <?php echo $this->Html->link(__('<i class="glyphicon glyphicon-eye-open"></i>'), array('action' => 'view', $call->id), array('class' => 'btn btn-primary btn-xs', 'escape' => false, 'data-toggle'=>'tooltip', 'title' => 'Visualizar')); ?>
+                                <?php echo $this->Html->link(__('<i class="glyphicon glyphicon-eye-open"></i>'), array('action' => 'view', $call['CALLS']['id']), array('class' => 'btn btn-primary btn-xs', 'escape' => false, 'data-toggle'=>'tooltip', 'title' => 'Visualizar')); ?>
 
-                                <?php echo $this->Html->link(__('<i class="glyphicon glyphicon-pencil"></i>'), array('action' => 'edit', $call->id), array('class' => 'btn btn-warning btn-xs', 'escape' => false, 'data-toggle'=>'tooltip', 'title' => 'Editar')); ?>
+                                <?php echo $this->Html->link(__('<i class="glyphicon glyphicon-pencil"></i>'), array('action' => 'edit', $call['CALLS']['id']), array('class' => 'btn btn-warning btn-xs', 'escape' => false, 'data-toggle'=>'tooltip', 'title' => 'Editar')); ?>
 
-                                <?php echo $this->Form->postLink(__('<i class="glyphicon glyphicon-trash"></i>'), array('action' => 'delete', $call->id), array('class' => 'btn btn-danger btn-xs', 'escape' => false, 'data-toggle'=>'tooltip', 'title' => 'Deletar', 'confirm' => __('Tem certeza de que deseja excluir # {0}?', $call->id))); ?>
+                                <?php echo $this->Form->postLink(__('<i class="glyphicon glyphicon-trash"></i>'), array('action' => 'delete', $call['CALLS']['id']), array('class' => 'btn btn-danger btn-xs', 'escape' => false, 'data-toggle'=>'tooltip', 'title' => 'Deletar', 'confirm' => __('Tem certeza de que deseja excluir # {0}?', $call['CALLS']['id']))); ?>
 
                                 </td>
 
