@@ -11,8 +11,8 @@
                         <fieldset>
                             <legend><?= __('Editar Área') ?></legend>
                             <?php
-                                echo $this->Form->input('name');
-                                echo $this->Form->input('description');
+                                echo $this->Form->input('name'['label'=>'Nome:']);
+                                echo $this->Form->input('description',['label'=>'Descrição:']);
                             ?>
                         </fieldset>
                         <?= $this->Form->button(__('Submit')) ?>
