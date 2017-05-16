@@ -172,14 +172,14 @@
                         <?php foreach ($call['files'] as $key): ?>
                             <tr>
                                 <td><?= $this->Number->format($key['id']) ?></td>
-                                <td><?php echo $key['files']; ?></td>
+                                <td><?php echo $key['archive']; ?></td>
                                 <td><?php echo $key['text'] ?></td>
 
                                 <td align="center" class="actions">
 
                                 <?php
 
-                                $local = '../../webroot/files/calls_files/' . strval($key['call_id']) .'/' . $key['files'];
+                                $local = '../../webroot/files/calls_files/' . strval($key['call_id']) .'/' . $key['archive'];
 
                                 ?>
                                     

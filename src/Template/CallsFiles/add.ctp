@@ -10,7 +10,7 @@
                             <legend><?= __('Add Calls File') ?></legend>
                             <?php
                             echo $this->Form->input('text', ['label' => 'Descrição:']);
-                            echo $this->Form->file('files', ['label' => 'Arquivo:']);
+                            echo $this->Form->file('archive', ['label' => 'Arquivo:']);
                             echo $this->Form->input('call_id', ['label' => 'Chamado:', 'options' => $calls]);
                             ?>
                         </fieldset>
