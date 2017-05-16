@@ -28,9 +28,11 @@ class CallsController extends AppController {
         $authenticatedUserId = $this->Auth->user('id');
 
         $calls = $this->Calls->find()
-                ->select(['CALLS.id','CALLS.SUBJECT','CALLS_URGENCY.title','CALLS_STATUS.title','CALLS.created'])
+                ->select(['CALLS.id','CALLS.SUBJECT','CALLS_URGENCY.title','CALLS_STATUS.title','CALLS.created','CALLS_SUBCATEGORIES.name'])
                 ->innerJoin('CALLS_URGENCY', 'CALLS_URGENCY.id = CALLS.urgency_id')
                 ->innerJoin('CALLS_STATUS', 'CALLS_STATUS.id = CALLS.status_id')
+                ->innerJoin('CALLS_CATEGORIES', 'CALLS_CATEGORIES.id = CALLS.category_id')
+                ->innerJoin('CALLS_SUBCATEGORIES', 'CALLS_SUBCATEGORIES.id = CALLS.subcategory_id')
                 ->where(['created_by' => $authenticatedUserId])
                 ->orWhere(['attributed_to' => $authenticatedUserId])
                 ->order(['Calls.id' => 'DESC']);
