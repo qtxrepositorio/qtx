@@ -20,7 +20,6 @@
                                 <th>Assunto</th>
                                 <th>Sub Categoria</th>
                                 <th>Urgência</th>
-                                <!-- <th>Categoria</th> -->
                                 <th>Status</th>
                                 <th>Criado em</th>
                                 <th class="actions">Ações</th>
@@ -33,7 +32,6 @@
                                 <td><?= h($call['CALLS']['SUBJECT']) ?></td>
                                 <td><?= h($call['CALLS_SUBCATEGORIES']['name']) ?></td>
                                 <td><?= h($call['CALLS_URGENCY']['title']) ?></td>
-                                <!-- <td><?= h($call->category) ?></td> -->
                                 <td><?= h($call['CALLS_STATUS']['title']) ?></td>
                                 <td><?= h(substr($call['CALLS']['created'],0,16)) ?></td>
                                 
