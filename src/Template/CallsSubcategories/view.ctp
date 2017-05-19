@@ -1,44 +1,31 @@
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('Edit Calls Subcategory'), ['action' => 'edit', $callsSubcategory->id]) ?> </li>
-        <li><?= $this->Form->postLink(__('Delete Calls Subcategory'), ['action' => 'delete', $callsSubcategory->id], ['confirm' => __('Are you sure you want to delete # {0}?', $callsSubcategory->id)]) ?> </li>
-        <li><?= $this->Html->link(__('List Calls Subcategories'), ['action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Calls Subcategory'), ['action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Calls Categories'), ['controller' => 'CallsCategories', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Calls Category'), ['controller' => 'CallsCategories', 'action' => 'add']) ?> </li>
-    </ul>
-</nav>
-<div class="callsSubcategories view large-9 medium-8 columns content">
-    <h3><?= h($callsSubcategory->name) ?></h3>
-    <table class="vertical-table">
-        <tr>
-            <th><?= __('Name') ?></th>
-            <td><?= h($callsSubcategory->name) ?></td>
-        </tr>
-        <tr>
-            <th><?= __('Description') ?></th>
-            <td><?= h($callsSubcategory->description) ?></td>
-        </tr>
-        <tr>
-            <th><?= __('Id') ?></th>
-            <td><?= $this->Number->format($callsSubcategory->id) ?></td>
-        </tr>
-        <tr>
-            <th><?= __('Category Id') ?></th>
-            <td><?= $this->Number->format($callsSubcategory->category_id) ?></td>
-        </tr>
-        <tr>
-            <th><?= __('Sla') ?></th>
-            <td><?= h($callsSubcategory->sla) ?></td>
-        </tr>
-        <tr>
-            <th><?= __('Created') ?></th>
-            <td><?= h($callsSubcategory->created) ?></td>
-        </tr>
-        <tr>
-            <th><?= __('Modified') ?></th>
-            <td><?= h($callsSubcategory->modified) ?></td>
-        </tr>
-    </table>
-</div>
+<?php ?>
+
+<section class="content">
+
+    <div class="row">
+
+        <div class="col-md-5" align="center">
+            <div class="box box-success">
+                <div class="box-header with-border">
+                    <h3 class="box-title"><b>Informações sobre a sub categoria:</b></h3>
+                </div>
+                <div class="box-body">
+
+                    <p><b>ID: </b><?= $this->Number->format($callsSubcategory->id) ?></p>
+                    <p><b>Nome: </b><?= h($callsSubcategory->name) ?></p>
+                    <p><b>Descrição: </b><?= h($callsSubcategory->description) ?></p>
+                    <p><b>Categoria: </b><?= h($callsSubcategory->category_id) ?></p>
+                    <p><b>sla: </b><?= h($callsSubcategory->sla) ?></p>
+                    <p><b>Criado em: </b><?= h($callsSubcategory->created) ?></p>
+                    <p><b>Modificado em: </b><?= h($callsSubcategory->modified) ?></p>
+
+                    <?php echo $this->Html->link(__('<i class="glyphicon glyphicon-pencil"></i>'), array('action' => 'edit', $callsSubcategory->id), array('class' => 'btn btn-warning btn-xs', 'escape' => false, 'data-toggle'=>'tooltip', 'title' => 'Editar')); ?>
+
+                    <?php echo $this->Form->postLink(__('<i class="glyphicon glyphicon-trash"></i>'), array('action' => 'delete', $callsSubcategory->id), array('class' => 'btn btn-danger btn-xs', 'escape' => false, 'data-toggle'=>'tooltip', 'title' => 'Deletar', 'confirm' => __('Tem certeza de que deseja excluir # {0}?', $callsSubcategory->id))); ?>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

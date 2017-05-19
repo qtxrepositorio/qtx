@@ -1,34 +1,29 @@
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('Edit Calls Status'), ['action' => 'edit', $callsStatus->id]) ?> </li>
-        <li><?= $this->Form->postLink(__('Delete Calls Status'), ['action' => 'delete', $callsStatus->id], ['confirm' => __('Are you sure you want to delete # {0}?', $callsStatus->id)]) ?> </li>
-        <li><?= $this->Html->link(__('List Calls Status'), ['action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Calls Status'), ['action' => 'add']) ?> </li>
-    </ul>
-</nav>
-<div class="callsStatus view large-9 medium-8 columns content">
-    <h3><?= h($callsStatus->title) ?></h3>
-    <table class="vertical-table">
-        <tr>
-            <th><?= __('Title') ?></th>
-            <td><?= h($callsStatus->title) ?></td>
-        </tr>
-        <tr>
-            <th><?= __('Description') ?></th>
-            <td><?= h($callsStatus->description) ?></td>
-        </tr>
-        <tr>
-            <th><?= __('Id') ?></th>
-            <td><?= $this->Number->format($callsStatus->id) ?></td>
-        </tr>
-        <tr>
-            <th><?= __('Created') ?></th>
-            <td><?= h($callsStatus->created) ?></td>
-        </tr>
-        <tr>
-            <th><?= __('Modified') ?></th>
-            <td><?= h($callsStatus->modified) ?></td>
-        </tr>
-    </table>
-</div>
+<?php ?>
+
+<section class="content">
+
+    <div class="row">
+        <div class="col-md-5" align="center">
+            <div class="box box-success">
+                <div class="box-header with-border">
+                    <h3 class="box-title"><b>Informações sobre o status:</b></h3>
+                </div>
+                <div class="box-body">
+
+                    <p><b>ID: </b><?= $this->Number->format($callsStatus->id) ?></p>
+                    <p><b>Titulo: </b><?= h($callsStatus->title) ?></p>
+                    <p><b>Descrição: </b><?= h($callsStatus->description) ?></p>
+                    <p><b>Criado em: </b><?= h($callsStatus->created) ?></p>
+                    <p><b>Modificado em: </b><?= h($callsStatus->modified) ?></p>
+
+                    <?php echo $this->Html->link(__('<i class="glyphicon glyphicon-pencil"></i>'), array('action' => 'edit', $callsStatus->id), array('class' => 'btn btn-warning btn-xs', 'escape' => false, 'data-toggle'=>'tooltip', 'title' => 'Editar')); ?>
+
+                    <?php echo $this->Form->postLink(__('<i class="glyphicon glyphicon-trash"></i>'), array('action' => 'delete', $callsStatus->id), array('class' => 'btn btn-danger btn-xs', 'escape' => false, 'data-toggle'=>'tooltip', 'title' => 'Deletar', 'confirm' => __('Tem certeza de que deseja excluir # {0}?', $callsStatus->id))); ?>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</section>
+

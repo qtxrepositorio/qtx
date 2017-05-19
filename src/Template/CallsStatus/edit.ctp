@@ -5,7 +5,7 @@
             <div class="box box-success">
                 <div class="box-body">
 <div class="callsUrgency form large-9 medium-8 columns content">
-    <?= $this->Form->create($callsUrgency) ?>
+    <?= $this->Form->create($callsStatus) ?>
     <fieldset>
         <legend><?= __('Editar Urgência') ?></legend>
         <?php
