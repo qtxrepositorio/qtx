@@ -9,7 +9,6 @@
                     <h3 class="box-title"><b>Informações sobre o chamado:</b></h3>
                 </div>
                 <div class="box-body">
-
                     <p><b>Id do Chamado: </b><?= $this->Number->format($call->id) ?></p> 
                     <p><b>Assunto: </b><?= h($call->subject) ?></p> 
                     <p><b>Descrição: </b><?= h($call->text) ?></p>
@@ -59,20 +58,15 @@
         </div>
 
         <div class="col-md-7">
-
-            <div class="col-md-12">
-                
+            <div class="col-md-12">                
                 <div class="box box-primary direct-chat direct-chat-primary">
                     <div class="box-header with-border">
                         <h3 class="box-title">Acompanhamento do chamado:</h3>
-
                         <div class="box-tools pull-right">
 
                         </div>
-                    </div>
-                    
+                    </div>                    
                     <div class="box-body">
-                        
                         <div id="idx" class="direct-chat-messages">
 
                             <?php foreach ($call['calls_responses'] as $key => $value): ?>
@@ -109,13 +103,9 @@
                                             <?php echo $value['text']; ?></span>
                                         </div>
                                     </div>
-
                                 <?php endif ?>                          
-
                             <?php endforeach ?>
-
                         </div>
-                        
                     </div>
                     
                     <div class="box-footer">
@@ -153,7 +143,7 @@
     <div class="col-md-12" align="">
         <div class="box box-success">
             <div class="box-header with-border">
-                <h3 class="box-title"><b>Anexos do chamado: </b></h3>
+                <h3 class="box-title">Anexos do chamado: </h3>
             </div>
             <div class="box-body">
             <div align="right">
@@ -174,7 +164,6 @@
                                 <td><?= $this->Number->format($key['id']) ?></td>
                                 <td><?php echo $key['archive']; ?></td>
                                 <td><?php echo $key['text'] ?></td>
-
                                 <td align="center" class="actions">
 
                                 <?php
@@ -190,8 +179,7 @@
                                     <?php echo $this->Form->postLink(__('<i class="glyphicon glyphicon-trash"></i>'), array('controller'=>'callsFiles','action' => 'delete', $key['id']), array('class' => 'btn btn-danger btn-xs', 'escape' => false, 'data-toggle'=>'tooltip', 'title' => 'Deletar', 'confirm' => __('Tem certeza de que deseja excluir # {0}?', $key['id']))); ?>
 
                                 </td>
-                            </tr>
-                            
+                            </tr>                            
                         <?php endforeach ?>
                     </tbody>
                 </table>
@@ -230,11 +218,9 @@
                                         echo $this->Form->file('files');
                                         echo $this->Form->input('call_id', ['type'=>'hidden','default' => $call->id]);
                                     ?>
-                                </fieldset>
-                            
+                                </fieldset>                            
                         </div>
                         <div class="modal-footer">
-
                             <button type="button" class="btn btn-default" data-dismiss="modal">
                                 Fechar
                             </button> 

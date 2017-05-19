@@ -345,7 +345,8 @@ class CallsController extends AppController {
                             }
                         }
                     }
-                    return $this->redirect(['action' => 'index']);
+                    return $this->redirect(['controller' => 'Calls', 'action' => 'view', $call_id]);
+                    //return $this->redirect(['action' => 'index']);
                 } else {
                     $this->Flash->error(__('O chamado não pode ser atualizado, tente novamente!'));
                 }
@@ -449,6 +450,7 @@ class CallsController extends AppController {
                     }
                 }
             }
+            return $this->redirect(['controller' => 'Calls', 'action' => 'view', $call['id']]);
         } else {
             $this->Flash->error(__('O status do chamado não foi modificao, por isso não foi salvo!'));
             return $this->redirect(['controller' => 'Calls', 'action' => 'view', $id]);
@@ -711,7 +713,7 @@ class CallsController extends AppController {
 
         //$callsResponse = $this->CallsResponses->patchEntity($callsResponse);
         if ($this->CallsResponses->save($callsResponse)) {
-            return $this->redirect(['controller' => 'Calls', 'action' => 'view', $call_id]);
+            return ;//$this->redirect(['controller' => 'Calls', 'action' => 'view', $call_id]);
         }
     }
 
