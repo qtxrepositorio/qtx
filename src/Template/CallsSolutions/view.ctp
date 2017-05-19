@@ -57,7 +57,7 @@
 
                                     <?php
 
-                                    $local = '../../webroot/files/calls_files/' . strval($key['call_id']) .'/' . $key['archive'];
+                                    $local = '../../webroot/files/solutions_files/' . strval($key['solution_id']) .'/' . $key['archive'];
 
                                     ?>
                                         
