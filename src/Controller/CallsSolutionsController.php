@@ -36,9 +36,17 @@ class CallsSolutionsController extends AppController
      */
     public function view($id = null)
     {
+
+        $this->loadModel('SolutionsFiles');
+
         $callsSolution = $this->CallsSolutions->get($id, [
             'contain' => ['CallsSubcategories']
         ]);
+
+        $callsSolution['archives'] = $this->SolutionsFiles->find()
+            ->where(['solution_id' => $callsSolution['id']]);
+
+        //debug($callsSolution);
 
         $this->set('callsSolution', $callsSolution);
         $this->set('_serialize', ['callsSolution']);

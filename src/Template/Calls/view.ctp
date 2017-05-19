@@ -141,7 +141,7 @@
 <section class="content">
 
     <div class="col-md-12" align="">
-        <div class="box box-success">
+        <div class="box box-default">
             <div class="box-header with-border">
                 <h3 class="box-title">Anexos do chamado: </h3>
             </div>

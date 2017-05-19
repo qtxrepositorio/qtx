@@ -25,7 +25,7 @@ class CallMailer extends Mailer
            ->template('call')
             ->layout('call/add')
             ->viewVars(['call' => $call])
-            ->subject('Novo chamado cadastraddo com ID: ' . $call['id'] .'.');
+            ->subject('Novo chamado cadastrado com ID: ' . $call['id'] .'.');
         
     }
 
