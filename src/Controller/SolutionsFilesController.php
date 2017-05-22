@@ -111,6 +111,68 @@ class SolutionsFilesController extends AppController
         $this->set('_serialize', ['solutionsFile']);
     }
 
+    public function addIntoCall()
+    {
+        $solutionsFile = $this->SolutionsFiles->newEntity();
+        if ($this->request->is('post')) {
+
+            $solutionsFile['text'] = $this->request->data['text'];
+            $solutionsFile['solution_id'] = $this->request->data['solution_id'];
+            $solutionsFile['archive'] = $this->request->data['archive']['name'];
+
+            $existFind = $this->SolutionsFiles->find()
+                ->where(['solution_id' => $solutionsFile['solution_id']])
+                ->andWhere(['archive' => $solutionsFile['archive']]);
+
+            $exist = false;
+            foreach ($existFind as $key => $value) {
+                $exist = true;
+            }
+
+            if (!$exist) {
+
+                if ($this->SolutionsFiles->save($solutionsFile)) {
+
+                    if (file_exists(getcwd() . '/files/solutions_files/' . strval($solutionsFile['solution_id']) . '/')) {
+
+                        $filepath = getcwd() . '/files/solutions_files' . '/' . strval($solutionsFile['solution_id']) . '/' . $this->request->data['archive']['name'];
+
+                        $filename = $this->request->data['archive']['name'];
+
+                        move_uploaded_file($this->request->data['archive']['tmp_name'], $filepath);
+                    } else {
+
+                        mkdir(getcwd() . '/files/solutions_files/' . strval($solutionsFile['solution_id']) . '/', 0777, true);
+
+                        $filepath = getcwd()
+                                . '/files/solutions_files/'
+                                . strval($solutionsFile['solution_id'])
+                                . '/' . $this->request->data['archive']['name'];
+
+                        $filename = $this->request->data['archive']['name'];
+
+                        move_uploaded_file($this->request->data['archive']['tmp_name'], $filepath);
+                    }
+
+                    $this->Flash->success(__('O anexo foi salvo com sucesso!'));
+                    
+                } else {
+
+                    $this->Flash->error(__('O anexo não pode ser salvo!'));
+                    
+                }
+            }else{
+                $this->Flash->error(__('O anexo não pode ser salvo pois o arquivo já foi anexado anteriormente, mude o nome do arquivo e tente novamente!'));    
+            }
+
+            return $this->redirect(['controller'=>'calls','action' => 'view',$this->request->data['call_id']]);
+            
+        }
+        
+        $this->set(compact('solutionsFile', 'callsSolutions'));
+        $this->set('_serialize', ['solutionsFile']);
+    }
+
     /**
      * Edit method
      *

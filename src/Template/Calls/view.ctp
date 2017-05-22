@@ -60,7 +60,7 @@ foreach ($call['callsSolutions'] as $key => $value) {
                         <?php 
 
                         echo $this->Form->input('id', ['type'=>'hidden', 'default' => $call->id]);
-                        echo $this->Form->input('solution_id', ['label' => 'Buscar solução:', 'default' => $call->solution_id, 'options' => $callsSolutionsFull]);
+                        echo $this->Form->input('solution_id', ['label' => 'Solução:', 'default' => $call->solution_id, 'options' => $callsSolutionsFull]);
                         
                         ?>
 
@@ -159,21 +159,94 @@ foreach ($call['callsSolutions'] as $key => $value) {
                 </div>
             </div>
 
-            <div class="col-md-12">
-                <div class="box box-warning">
-                    <div class="box-header with-border">
-                    <h3 class="box-title">Solução:</h3>
-                </div>
+            <?php if ($call->solution_id != null): ?>
+                <div class="col-md-12">
+                    <div class="box box-warning">
+                        <div class="box-header with-border">
+                        <h3 class="box-title">Solução:</h3>
+                    </div>
 
-                <div class="box-body">
-                    <div class="col-md-6">
-                    
+                    <div class="box-body">
+                        <div class="col-md-12">
+
+                            <div class="box-body">
+
+                            <?php foreach ($call['callSolutionView'] as $key): //debug($key);?>
+
+                                <p><b>Titulo:</b> <?= h($key['title']) ?>  </p>     
+                                <p><b>Descrição:</b> <?= h($key['description']) ?> </p>
+
+                            <?php endforeach ?>
+
+                            </div>
+
+                            <div class="box-body">
+
+                            <div align="right">
+                                <a id="modal-01" href="#modal-container-03" role="submit" class="btn btn-success btn-xs" data-toggle="modal">Adicionar arquivo</a>   
+                                <br><br> 
+                            </div>
+                            
+
+                            <table id="tbArchivesCall" cellpadding="0" cellspacing="0" class="table table-bordered table-hover">
+                                <thead>
+                                    <th>Id</th>
+                                    <th>Arquivo</th>
+                                    <th>Descrição</th>
+                                    <th class="actions">Ações</th>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($call['callSolutionFiles'] as $key): ?>
+                                        <tr>
+                                            <td><?= $this->Number->format($key['id']) ?></td>
+                                            <td><?php echo $key['archive']; ?></td>
+                                            <td><?php echo $key['text'] ?></td>
+                                            <td align="center" class="actions">
+
+                                            <?php
+
+                                            $local = '../../webroot/files/solutions_files/' . strval($key['solution_id']) .'/' . $key['archive'];
+
+                                            ?>
+                                                
+                                                <a data-toggle="tooltip" title="Download" class="glyphicon glyphicon-download-alt btn btn-primary btn-xs" href="<?php echo $local; ?>" download></a>
+                                                
+                                                <?php echo $this->Html->link(__('<i class="glyphicon glyphicon-pencil"></i>'), array('controller'=>'SolutionsFiles','action' => 'edit', $key['id']), array('class' => 'btn btn-warning btn-xs', 'escape' => false, 'data-toggle'=>'tooltip', 'title' => 'Editar')); ?>
+
+                                                <?php echo $this->Form->postLink(__('<i class="glyphicon glyphicon-trash"></i>'), array('controller'=>'SolutionsFiles','action' => 'delete', $key['id']), array('class' => 'btn btn-danger btn-xs', 'escape' => false, 'data-toggle'=>'tooltip', 'title' => 'Deletar', 'confirm' => __('Tem certeza de que deseja excluir # {0}?', $key['id']))); ?>
+
+                                            </td>
+                                        </tr>                            
+                                    <?php endforeach ?>
+                                </tbody>
+                            </table>
+
+                            </div>
+                        
+                        </div>
+                    </div>
+
                     </div>
                 </div>
+            <?php else: ?>  
 
-                </div>
-            </div>
+                <div class="col-md-12">
+                    <div class="box box-warning">
+                        <div class="box-header with-border">
+                        <h3 class="box-title">Solução:</h3>
+                    </div>
 
+                    <div class="box-body">
+                        <div class="col-md-6">
+                            <div align="center">
+                                <h5>O chamado não tem solução associada!</h5>
+                            </div>
+                        </div>
+                    </div>
+
+                    </div>
+                </div>  
+            <?php endif ?>
 
         </div>
 
@@ -319,6 +392,84 @@ foreach ($call['callsSolutions'] as $key => $value) {
         </div>
     </div>
 </div>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="modal fade" id="modal-container-03" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">                           
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                ×
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel">
+                                Informe os dados solicitados:
+                            </h4>
+                        </div>
+                        <div class="modal-body">                            
+
+                            <?= $this->Form->create($x, ['type' => 'file','url' => ['controller' => 'SolutionsFiles', 'action' => 'addIntoCall']]) ?> 
+                                <fieldset>
+                                    <?php
+                                        echo $this->Form->input('call_id', ['type'=>'hidden', 'default'=>$call->id]);
+                                        echo $this->Form->input('text', ['label'=>'Descrição:']);
+                                        echo $this->Form->file('archive');
+                                        echo $this->Form->input('solution_id', ['type'=>'hidden','default' => $call->solution_id]);
+                                    ?>
+                                </fieldset>                            
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">
+                                Fechar
+                            </button> 
+                            <?= $this->Form->button(__('Salvar')) ?>
+                            <?= $this->Form->end() ?>
+                        </div>
+                    </div>                  
+                </div>              
+            </div>          
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css"></link>
+
+<?php
+$this->Html->script(['AdminLTE./plugins/fileSaver/FileSaver.js',], ['block' => 'script']);
+$this->Html->script(['AdminLTE./plugins/canvasToBlob/canvas-toBlob.js',], ['block' => 'script']);
+$this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block' => 'script']);
+$this->Html->script(['//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js',], ['block' => 'script']);
+?> 
+
+<script>
+    $(document).ready(function () {
+
+        $('#tbArchivesCall').DataTable({
+            "order": [[ 0, "desc" ]],
+            "language": {
+                "lengthMenu": "Mostrando _MENU_ registros por página",
+                "zeroRecords": "Nada encontrado",
+                "info": "Mostrando página _PAGE_ de _PAGES_",
+                "infoEmpty": "Nenhum registro disponível",
+                "infoFiltered": "(Filtrado de _MAX_ total registros)",
+                "sSearch": "Buscar:",
+                "oPaginate": {
+                    "sNext": "Próximo",
+                    "sPrevious": "Anterior"
+                }
+            }, "lengthMenu": [3, 5, 10]
+        });
+
+    });
+</script>
+
 
 
 

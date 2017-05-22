@@ -59,6 +59,7 @@ class CallsController extends AppController {
         $this->loadModel('CallsSubcategories');
         $this->loadModel('CallsFiles');
         $this->loadModel('CallsSolutions');
+        $this->loadModel('SolutionsFiles');
 
         $authenticatedUser = $this->Auth->user();
 
@@ -172,11 +173,22 @@ class CallsController extends AppController {
         $callsStatus = $this->Calls->CallsStatus->find('list', ['limit' => 200]);
         $call['callsStatus'] = $callsStatus;
 
-        $callsSolutions = $this->Calls->CallsSolutions->find('list', ['limit' => 200])
+        $callsSolutions = $this->Calls->CallsSolutions->find('list')
             ->where(['subcategorie_id' => $call['subcategory_id']]);
         $call['callsSolutions'] = $callsSolutions;
 
-        $callsSubcategories = $this->Calls->CallsSubcategories->find('list', ['limit' => 200])
+        if ($call['solution_id']) {
+            # code...
+            $callSolutionView = $this->Calls->CallsSolutions->find()
+                ->where(['id' => $call['solution_id']]);
+            $call['callSolutionView'] = $callSolutionView;
+        }
+
+        $callSolutionFiles = $this->SolutionsFiles->find()
+                ->where(['solution_id' => $call['solution_id']]);
+        $call['callSolutionFiles'] = $callSolutionFiles;
+
+        $callsSubcategories = $this->Calls->CallsSubcategories->find('list')
             ->where(['category_id' => $call['category_id']]);
         $call['callsSubcategories'] = $callsSubcategories;
 
@@ -392,7 +404,7 @@ class CallsController extends AppController {
             $call = $this->Calls->patchEntity($call, $this->request->data);
             $call['solution_id'] = $this->request->data['solution_id'];
             $this->Calls->save($call);
-            
+
             $this->Flash->success(__('O chamado foi atualizado com sucesso!'));
 
         }
