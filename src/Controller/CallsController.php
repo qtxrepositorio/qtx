@@ -56,7 +56,9 @@ class CallsController extends AppController {
         $this->loadModel('Roles');
         $this->loadModel('CallsResponses');
         $this->loadModel('CallsCategories');
+        $this->loadModel('CallsSubcategories');
         $this->loadModel('CallsFiles');
+        $this->loadModel('CallsSolutions');
 
         $authenticatedUser = $this->Auth->user();
 
@@ -160,7 +162,6 @@ class CallsController extends AppController {
                 'call_id' => $call['id']
             ]);
 
-
             $call['files'] = $callFiles;
         } else {
 
@@ -169,8 +170,15 @@ class CallsController extends AppController {
         }
 
         $callsStatus = $this->Calls->CallsStatus->find('list', ['limit' => 200]);
-
         $call['callsStatus'] = $callsStatus;
+
+        $callsSolutions = $this->Calls->CallsSolutions->find('list', ['limit' => 200])
+            ->where(['subcategorie_id' => $call['subcategory_id']]);
+        $call['callsSolutions'] = $callsSolutions;
+
+        $callsSubcategories = $this->Calls->CallsSubcategories->find('list', ['limit' => 200])
+            ->where(['category_id' => $call['category_id']]);
+        $call['callsSubcategories'] = $callsSubcategories;
 
         $this->visualized($call['id']);
 
@@ -345,7 +353,7 @@ class CallsController extends AppController {
                             }
                         }
                     }
-                    return $this->redirect(['controller' => 'Calls', 'action' => 'view', $call_id]);
+                    return $this->redirect(['controller' => 'Calls', 'action' => 'view', $call['id']]);
                     //return $this->redirect(['action' => 'index']);
                 } else {
                     $this->Flash->error(__('O chamado não pode ser atualizado, tente novamente!'));
@@ -370,6 +378,26 @@ class CallsController extends AppController {
                 ->order(['users.name' => 'ASC']);
         $this->set(compact('call', 'callsAreas', 'callsCategories', 'callsSubcategories', 'callsStatus', 'callsUrgency', 'callsSolutions', 'authenticatedUser', 'callsUsers'));
         $this->set('_serialize', ['call', 'authenticatedUser', 'callsUsers']);
+    }
+
+    public function editIntoCall($id = null) {
+
+        $id = $this->request->data['id'];
+        $call = $this->Calls->get($id, [
+            'contain' => []
+        ]);
+
+        if ($this->request->is(['patch', 'post', 'put'])) {
+
+            $call = $this->Calls->patchEntity($call, $this->request->data);
+            $call['solution_id'] = $this->request->data['solution_id'];
+            $this->Calls->save($call);
+            
+            $this->Flash->success(__('O chamado foi atualizado com sucesso!'));
+
+        }
+
+        return $this->redirect(['controller' => 'Calls', 'action' => 'view', $id]);
     }
 
     public function editStatus($id = null) {

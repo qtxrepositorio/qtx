@@ -1,4 +1,13 @@
-<?php  $x = 0; //debug($call['authenticatedUser']); ?>
+<?php  
+$x = 0;
+
+$callsSolutionsFull[0] = 'Selecione...';
+foreach ($call['callsSolutions'] as $key => $value) {
+    # code...
+    $callsSolutionsFull[$key] = $value;
+}
+
+?>
 <section class="content">
 
     <div class="row">
@@ -44,6 +53,25 @@
                         <?php 
                             }
                         ?>
+                    <?= $this->Form->end() ?>
+                    <hr>
+
+                    <?= $this->Form->create($call, ['url' => ['controller' => 'calls', 'action' => 'editIntoCall']]) ?>
+                        <?php 
+
+                        echo $this->Form->input('id', ['type'=>'hidden', 'default' => $call->id]);
+                        echo $this->Form->input('solution_id', ['label' => 'Buscar solução:', 'default' => $call->solution_id, 'options' => $callsSolutionsFull]);
+                        
+                        ?>
+
+                        <p align="center">
+                            <?= $this->Form->button(__('<i class="glyphicon glyphicon-ok"></i>'), array('class' => 'btn btn-success btn-xs', 'escape' => false, 'data-toggle' => 'tooltip', 'title' => 'Salvar')) ?>
+                            
+                            ou
+                            
+                            <a id="modal-01" href="#modal-container-02" role="submit" data-toggle="modal" title="Adicionar uma solução" class="glyphicon glyphicon-plus btn btn-primary btn-xs" href="<?php echo ''//$local; ?>"></a>
+
+                        </p> 
                     <?= $this->Form->end() ?>
                     <hr>
 
@@ -131,6 +159,22 @@
                 </div>
             </div>
 
+            <div class="col-md-12">
+                <div class="box box-warning">
+                    <div class="box-header with-border">
+                    <h3 class="box-title">Solução:</h3>
+                </div>
+
+                <div class="box-body">
+                    <div class="col-md-6">
+                    
+                    </div>
+                </div>
+
+                </div>
+            </div>
+
+
         </div>
 
     </div>
@@ -140,15 +184,17 @@
 
 <section class="content">
 
-    <div class="col-md-12" align="">
+    <div class="row">
+    <div class="col-md-12" >
         <div class="box box-default">
             <div class="box-header with-border">
                 <h3 class="box-title">Anexos do chamado: </h3>
+                
+                <a id="modal-01" href="#modal-container-01" role="submit" class="btn btn-success btn-xs" data-toggle="modal">Adicionar arquivo</a>
+
             </div>
             <div class="box-body">
-            <div align="right">
-                <a id="modal-01" href="#modal-container-01" role="submit" class="btn btn-success" data-toggle="modal">Adicionar arquivo</a>
-            </div>
+
             <div class="box-body">   
 
                 <table id="example" cellpadding="0" cellspacing="0" class="table table-bordered table-hover">
@@ -186,7 +232,7 @@
 
             </div>
         </div>
-
+    </div>
     </div>
 
 </section>
@@ -234,6 +280,46 @@
     </div>
 </div>
 
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="modal fade" id="modal-container-02" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">                           
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                ×
+                            </button>
+                            <h4 class="modal-title" id="myModalLabel">
+                                Adicionar Solução para a categoria do chamado atual:
+                            </h4>
+                        </div>
+                        <div class="modal-body">                            
+                            <?= $this->Form->create($x, ['url' => ['controller' => 'CallsSolutions', 'action' => 'addIntoCall']]) ?>
+                            <fieldset>
+                                <?php
+                                    echo $this->Form->input('call_id',['type'=>'hidden','label'=>'Título:', 'default'=> $call->id]);
+                                    echo $this->Form->input('title',['label'=>'Título:']);
+                                    echo $this->Form->input('description',['label'=>'Descrição:']);
+                                    echo $this->Form->input('subcategorie_id', ['type'=>'hidden','label'=>'Sub Categoria:', 'default'=> $call->subcategory_id, 'options'=> $call['callsSubcategories']]);
+
+                                ?>
+                            </fieldset>                                                      
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">
+                                Fechar
+                            </button> 
+                            <?= $this->Form->button(__('Salvar e aplicar')) ?>
+                            <?= $this->Form->end() ?>
+                        </div>
+                    </div>                  
+                </div>              
+            </div>          
+        </div>
+    </div>
+</div>
+
 
 
 <script type="text/javascript">
@@ -269,7 +355,7 @@ $this->Html->script(['//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js',
                     "sNext": "Próximo",
                     "sPrevious": "Anterior"
                 }
-            }, "lengthMenu": [5, 15, 25]
+            }, "lengthMenu": [5, 10, 15]
         });
 
     });
