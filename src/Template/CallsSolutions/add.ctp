@@ -4,20 +4,19 @@
         <div class="col-md-6">
             <div class="box box-success">
                 <div class="box-body">
-<div class="callsSolutions form large-9 medium-8 columns content">
-    <?= $this->Form->create($callsSolution) ?>
-    <fieldset>
-        <legend><?= __('Adicionar Solução') ?></legend>
-        <?php
-            echo $this->Form->input('title',['label'=>'Título:']);
-            echo $this->Form->input('description',['label'=>'Descrição:']);
-            echo $this->Form->input('subcategorie_id', ['label'=>'Sub Categoria:','options' => $callsSubcategories]);
-        ?>
-    </fieldset>
-    <?= $this->Form->button(__('Salvar')) ?>
-    <?= $this->Form->end() ?>
-</div>
-
+                    <div class="callsSolutions form large-9 medium-8 columns content">
+                        <?= $this->Form->create($callsSolution) ?>
+                        <fieldset>
+                            <legend><?= __('Adicionar Solução') ?></legend>
+                            <?php
+                                echo $this->Form->input('title',['label'=>'Título:']);
+                                echo $this->Form->input('description',['label'=>'Descrição:']);
+                                echo $this->Form->input('subcategorie_id', ['label'=>'Sub Categoria:','options' => $callsSubcategories]);
+                            ?>
+                        </fieldset>
+                        <?= $this->Form->button(__('Salvar')) ?>
+                        <?= $this->Form->end() ?>
+                    </div>
                 </div>
             </div>
         </div>

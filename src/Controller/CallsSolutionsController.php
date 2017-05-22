@@ -75,6 +75,28 @@ class CallsSolutionsController extends AppController
         $this->set('_serialize', ['callsSolution']);
     }
 
+    public function addIntoCall()
+    {   
+        $call_id = $this->request->data['call_id'];
+
+        $callsSolution = $this->CallsSolutions->newEntity();
+        if ($this->request->is('post')) {
+            $callsSolution = $this->CallsSolutions->patchEntity($callsSolution, $this->request->data);
+            $callsSolution['subcategorie_id'] = $this->request->data['subcategorie_id'];
+            if ($this->CallsSolutions->save($callsSolution)) {
+                $this->Flash->success(__('The calls solution has been saved.'));
+
+            } else {
+                $this->Flash->error(__('The calls solution could not be saved. Please, try again.'));
+            }
+            return $this->redirect(['controller'=>'calls','action' => 'view', $call_id]);
+        }
+        
+        $callsSubcategories = $this->CallsSolutions->CallsSubcategories->find('list', ['limit' => 200]);
+        $this->set(compact('callsSolution', 'callsSubcategories'));
+        $this->set('_serialize', ['callsSolution']);
+    }
+
     /**
      * Edit method
      *
