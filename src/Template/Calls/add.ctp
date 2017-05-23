@@ -19,7 +19,7 @@ $callsSubcategoriesFull[0] = 'Selecione...';
                     <div class="calls form large-12 medium-9 columns content">
                         <?= $this->Form->create($call) ?>
                         <fieldset>
-                            <legend><?= __('Adicionar Categoria') ?></legend>
+                            <legend><?= __('Adicionar Chamado') ?></legend>
                             <?php
                                 echo $this->Form->input('subject', ['label' => 'Assunto:']);
                                 echo $this->Form->input('text', ['label' => 'Descrição:', 'type' => 'textarea']);

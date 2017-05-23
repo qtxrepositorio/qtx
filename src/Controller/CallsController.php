@@ -388,8 +388,12 @@ class CallsController extends AppController {
                 ->innerJoin('roles_users', 'users.id = roles_users.user_id')
                 ->where(['roles_users.role_id' => 26])
                 ->order(['users.name' => 'ASC']);
-        $this->set(compact('call', 'callsAreas', 'callsCategories', 'callsSubcategories', 'callsStatus', 'callsUrgency', 'callsSolutions', 'authenticatedUser', 'callsUsers'));
-        $this->set('_serialize', ['call', 'authenticatedUser', 'callsUsers']);
+
+        $callsCategoriesForJs = $this->Calls->CallsCategories->find();
+        $callsSubcategoriesForJs = $this->Calls->CallsSubcategories->find();
+
+        $this->set(compact('call', 'callsAreas', 'callsCategories', 'callsSubcategories', 'callsStatus', 'callsUrgency', 'callsSolutions', 'callsUsers', 'authenticatedUser', 'callsCategoriesForJs', 'callsSubcategoriesForJs'));
+        $this->set('_serialize', ['call', 'authenticatedUser']);
     }
 
     public function editIntoCall($id = null) {
