@@ -171,7 +171,7 @@ class RolesController extends AppController
             {
                 //$this->Flash->error(__('VC É ADM')); 
                 if(in_array($this->action, array('index','add','edit','delete','view')))
-                return true;            
+                    return true;            
             }
         }
         else
