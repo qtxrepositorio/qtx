@@ -9,9 +9,9 @@
                         <fieldset>
                             <legend><?= __('Editar Anexo') ?></legend>
                             <?php
-                                echo $this->Form->input('text');
-                                echo $this->Form->input('archive');
-                                echo $this->Form->input('solution_id', ['options' => $callsSolutions]);
+                                echo $this->Form->input('text', ['label'=>'Descrição:']);
+                                echo $this->Form->input('archive', ['disabled'=>true, 'label'=>'Arquivo:']);
+                                echo $this->Form->input('solution_id', ['disabled'=>true, 'label'=>'Solução:','options' => $callsSolutions]);
                             ?>
                         </fieldset>
                         <?= $this->Form->button(__('Salvar')) ?>

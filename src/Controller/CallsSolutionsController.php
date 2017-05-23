@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Datasource\ConnectionManager;
 
 /**
  * CallsSolutions Controller
@@ -84,10 +85,14 @@ class CallsSolutionsController extends AppController
             $callsSolution = $this->CallsSolutions->patchEntity($callsSolution, $this->request->data);
             $callsSolution['subcategorie_id'] = $this->request->data['subcategorie_id'];
             if ($this->CallsSolutions->save($callsSolution)) {
-                $this->Flash->success(__('The calls solution has been saved.'));
+                $this->Flash->success(__('A solução foi salva e aplicada com sucesso!'));
+
+                $connection = ConnectionManager::get('default');
+                $callsCountCategory = $connection
+                        ->execute("UPDATE CALLS SET SOLUTION_ID =" . $callsSolution['id'] . " WHERE ID = ". $call_id);
 
             } else {
-                $this->Flash->error(__('The calls solution could not be saved. Please, try again.'));
+                $this->Flash->error(__('A solução não foi salva e aplicada.'));
             }
             return $this->redirect(['controller'=>'calls','action' => 'view', $call_id]);
         }
@@ -112,11 +117,11 @@ class CallsSolutionsController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $callsSolution = $this->CallsSolutions->patchEntity($callsSolution, $this->request->data);
             if ($this->CallsSolutions->save($callsSolution)) {
-                $this->Flash->success(__('The calls solution has been saved.'));
+                $this->Flash->success(__('A solução foi salva e aplicada com sucesso!'));
 
                 return $this->redirect(['action' => 'index']);
             } else {
-                $this->Flash->error(__('The calls solution could not be saved. Please, try again.'));
+                $this->Flash->error(__('A solução não foi salva e aplicada.'));
             }
         }
         $callsSubcategories = $this->CallsSolutions->CallsSubcategories->find('list', ['limit' => 200]);
