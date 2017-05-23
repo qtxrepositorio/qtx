@@ -762,7 +762,7 @@ class CallsController extends AppController {
         // Allow users to register and logout.
         // You should not add the "login" action to allow list. Doing so would
         // cause problems with normal functioning of AuthComponent.
-        //$this->Auth->allow(['index', 'add', 'edit', 'delete', 'view']);
+        $this->Auth->allow(['index', 'add', 'edit', 'delete', 'view']);
     }
 
     public function isAuthorized($user) {
