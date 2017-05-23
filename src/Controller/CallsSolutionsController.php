@@ -193,12 +193,10 @@ class CallsSolutionsController extends AppController
                 }
             }
             if ($release == false) {
-                $this->Flash->error(__('Você não tem autorização para acessar esta área do sistema. Caso necessário, favor entrar em contato com o setor TI.'));
-                $this->redirect($this->Auth->redirectUrl());
+                $this->Flash->error(__('Para realizar modificações nas soluções, você precisa fazer parte dos grupos relacionados ao modulo de chamados.')); 
+                return false;
             } else {
-                //$this->Flash->error(__('VC É ADM')); 
-                if (in_array($this->action, array('dash')))
-                    return true;
+                return true;                    
             }
         }
         else {
@@ -206,4 +204,5 @@ class CallsSolutionsController extends AppController
         }
         return parent::isAuthorized($user);
     }
+
 }

@@ -270,13 +270,10 @@ class SolutionsFilesController extends AppController
                 }
             }
             if ($release == false) {
-                $this->Flash->error(__('Você não tem autorização para acessar esta área do sistema. Caso necessário, favor entrar em contato com o setor TI.'));
-                
+                $this->Flash->error(__('Para realizar modificações nas soluções, você precisa fazer parte dos grupos relacionados ao modulo de chamados.')); 
+                return false;
             } else {
-                //$this->Flash->error(__('VC É ADM')); 
-                if (in_array($this->action, array(['index', 'add', 'addIntoCall', 'edit', 'editIntoCall', 'delete', 'view'])))
-                    return true;
-                    return parent::isAuthorized($user);
+                return true;                    
             }
         }
         else {
