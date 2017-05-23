@@ -232,7 +232,7 @@ class SolutionsFilesController extends AppController
         // Allow users to register and logout.
         // You should not add the "login" action to allow list. Doing so would
         // cause problems with normal functioning of AuthComponent.
-        //$this->Auth->allow(['index', 'add', 'edit', 'delete', 'view']);
+        // $this->Auth->allow(['index', 'add', 'addIntoCall', 'edit', 'editIntoCall', 'delete', 'view']);
     }
 
     public function isAuthorized($user) {
@@ -271,17 +271,18 @@ class SolutionsFilesController extends AppController
             }
             if ($release == false) {
                 $this->Flash->error(__('Você não tem autorização para acessar esta área do sistema. Caso necessário, favor entrar em contato com o setor TI.'));
-                $this->redirect($this->Auth->redirectUrl());
+                
             } else {
                 //$this->Flash->error(__('VC É ADM')); 
-                if (in_array($this->action, array('dash')))
+                if (in_array($this->action, array(['index', 'add', 'addIntoCall', 'edit', 'editIntoCall', 'delete', 'view'])))
                     return true;
+                    return parent::isAuthorized($user);
             }
         }
         else {
             $this->redirect($this->Auth->logout());
         }
-        return parent::isAuthorized($user);
+        //return parent::isAuthorized($user);
     }
 
 }

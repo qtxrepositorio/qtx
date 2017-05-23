@@ -39,7 +39,7 @@ foreach ($call['callsSolutions'] as $key => $value) {
                                 echo $this->Form->input('id', ['type'=>'hidden']);
                                 
                                 if ($call['authenticatedUser']['name'] != $call->attributed_to) {
-                                    echo $this->Form->input('status_id', ['disabled'=>true,'label' => 'Status:', 'default' => $call->status, 'options' => $call['callsStatus']]); 
+                                    echo $this->Form->input('status_id', ['disabled'=>true, 'default' => $call->status, 'options' => $call['callsStatus']]); 
                                 }else{
                                     echo $this->Form->input('status_id', ['label' => 'Status:', 'default' => $call->status, 'options' => $call['callsStatus']]);
                                 }                                
@@ -58,13 +58,17 @@ foreach ($call['callsSolutions'] as $key => $value) {
 
                     <?= $this->Form->create($call, ['url' => ['controller' => 'calls', 'action' => 'editIntoCall']]) ?>
                         <?php 
-
-                        echo $this->Form->input('id', ['type'=>'hidden', 'default' => $call->id]);
-                        echo $this->Form->input('solution_id', ['label' => 'Solução:', 'default' => $call->solution_id, 'options' => $callsSolutionsFull]);
                         
-                        ?>
+                        if ($call['authenticatedUser']['name'] != $call->attributed_to) {
+                            echo $this->Form->input('id', ['disabled'=>true, 'type'=>'hidden', 'default' => $call->id]);
+                            echo $this->Form->input('solution_id', ['disabled'=>true, 'label' => 'Solução:', 'default' => $call->solution_id, 'options' => $callsSolutionsFull]);
 
-                        <p align="center">
+                        }else{
+                            echo $this->Form->input('id', ['type'=>'hidden', 'default' => $call->id]);
+                            echo $this->Form->input('solution_id', ['label' => 'Solução:', 'default' => $call->solution_id, 'options' => $callsSolutionsFull]);   
+                            ?>
+
+                            <p align="center">
                             <?= $this->Form->button(__('<i class="glyphicon glyphicon-ok"></i>'), array('class' => 'btn btn-success btn-xs', 'escape' => false, 'data-toggle' => 'tooltip', 'title' => 'Salvar')) ?>
                             
                             ou
@@ -72,6 +76,13 @@ foreach ($call['callsSolutions'] as $key => $value) {
                             <a id="modal-01" href="#modal-container-02" role="submit" data-toggle="modal" title="Adicionar uma solução" class="glyphicon glyphicon-plus btn btn-primary btn-xs" href="<?php echo ''//$local; ?>"></a>
 
                         </p> 
+
+                            <?php
+                        }
+                        
+                        ?>
+
+                        
                     <?= $this->Form->end() ?>
                     <hr>
 
