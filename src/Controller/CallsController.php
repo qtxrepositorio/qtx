@@ -586,7 +586,7 @@ class CallsController extends AppController {
             return $this->redirect(['action' => 'index']);
         } else {
             $this->Flash->error(__('Chamados que já tiveram o status alterado não podem ser apagados!'));
-            return $this->redirect(['action' => 'index']);
+            return $this->redirect(['action' => 'view', $id]);
         }
     }
 
