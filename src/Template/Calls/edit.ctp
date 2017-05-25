@@ -42,8 +42,6 @@ foreach ($callsSubcategories as $key => $value) {
                                     echo $this->Form->input('status_id', ['disabled'=>true, 'class' => 'form-control select2', 'label' => 'Status:', 'options' => $callsStatus]);
                                 }
 
-                                echo $this->Form->input('status_id', ['class' => 'form-control select2', 'label' => 'Status:', 'options' => $callsStatus]);
-                                
                                 echo $this->Form->input('urgency_id', ['class' => 'form-control select2','label' => 'Urgência:', 'options' => $callsUrgency]);
                                 echo $this->Form->input('solution_id', ['type'=>'hidden', 'default' => null]);
                                 echo $this->Form->input('created_by', ['type' => 'hidden', 'label' => 'Criado Por:', 'options' => $callsUsers]);
