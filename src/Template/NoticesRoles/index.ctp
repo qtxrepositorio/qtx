@@ -2,8 +2,6 @@
 
 <section class="content">
 
-
-
     <div class="box box-success">
         <div class="box-body">
             <div class="roles form large-9 medium-8 columns content">

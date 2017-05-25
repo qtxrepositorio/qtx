@@ -23,19 +23,32 @@ $callsSubcategoriesFull[0] = 'Selecione...';
                             <?php
                                 echo $this->Form->input('subject', ['label' => 'Assunto:']);
                                 echo $this->Form->input('text', ['label' => 'Descrição:', 'type' => 'textarea']);
-                                echo $this->Form->input('area_id', ['class' => 'form-control select2', 'label' => 'Área:','id'=>'area_id', 'options' => $callsAreasFull]);
-                                echo $this->Form->input('category_id', ['class' => 'form-control select2', 'label' => 'Categoria:','id'=>'category_id', 'disabled'=>true, 'options' => $callsCategoriesFull]);
-                                echo $this->Form->input('subcategory_id', ['class' => 'form-control select2', 'label' => 'Sub categoria:', 'id'=>'subcategory_id', 'disabled'=>true, 'options' => $callsSubcategoriesFull]);
+                                echo $this->Form->input('area_id', ['class' => 'form-control', 'label' => 'Área:','id'=>'area_id', 'options' => $callsAreasFull]);
+                                echo $this->Form->input('category_id', ['label' => 'Categoria:','id'=>'category_id', 'disabled'=>true, 'options' => $callsCategoriesFull]);
+                                echo $this->Form->input('subcategory_id', ['class' => 'form-control', 'label' => 'Sub categoria:', 'id'=>'subcategory_id', 'disabled'=>true, 'options' => $callsSubcategoriesFull]);
                                 echo $this->Form->input('status_id', ['type' => 'hidden', 'label' => 'Status:', 'default' => 1, 'options' => $callsStatus]);
-                                echo $this->Form->input('urgency_id', ['class' => 'form-control select2','label' => 'Urgência:', 'options' => $callsUrgency]);
+                                echo $this->Form->input('urgency_id', ['class' => 'form-control','label' => 'Urgência:', 'options' => $callsUrgency]);
                                 echo $this->Form->input('solution_id', ['type'=>'hidden', 'default' => null]);
                                 echo $this->Form->input('created_by', ['type' => 'hidden', 'label' => 'Criado Por:', 'default' => $authenticatedUser['id'], 'options' => $callsUsers]);
-                                echo $this->Form->input('attributed_to', ['class' => 'form-control select2','label' => 'Atribuído para:','options' => $callsUsers]);
+                                echo $this->Form->input('attributed_to', ['class' => 'form-control','label' => 'Atribuído para:','options' => $callsUsers]);
                                 //echo $this->Form->input('visualized');
                             ?>
                         </fieldset>
-                        <?= $this->Form->button(__('Salvar')) ?>
+
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <?= $this->Html->link(__('Voltar'), ['controller' => 'Calls', 'action' => 'index'], array('class' => 'btn btn-primary')) ?>
+                                </div>
+                                <div align="right" class="col-md-6">
+                                    <?= $this->Form->button(__('Salvar'), ['align'=>'center','class' => 'form-group']) ?>
+                        
+                                </div>
+                            </div>
+                        </div>
+
                         <?= $this->Form->end() ?>
+                       
                     </div>
                 </div>
             </div>
@@ -56,7 +69,7 @@ $callsSubcategoriesFull[0] = 'Selecione...';
 
             category_id.disabled = false;
 
-            html = '<select name="category_id" id="category_id" class="form-control">';
+            html = '<select name="category_id" id="category_id">';
             html += '<option value="0">Selecione...</option>';
             for (var i = 0; i < callsCategoriesForJs.length; i++) {
                 if (area_id.value == callsCategoriesForJs[i]['area_id']) {
@@ -66,7 +79,7 @@ $callsSubcategoriesFull[0] = 'Selecione...';
             html += '</select>';
 
             category_id.innerHTML = html;
-            subcategory_id.innerHTML = '<select name="category_id" id="category_id" class="form-control">' + '<option value="0">Selecione...</option>';
+            subcategory_id.innerHTML = '<select name="subcategory_id" id="subcategory_id" class="form-control">' + '<option value="0">Selecione...</option> </select>';
 
             category_id.focus();
             subcategory_id.disabled = true;

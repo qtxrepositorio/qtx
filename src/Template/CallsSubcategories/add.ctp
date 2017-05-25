@@ -4,20 +4,32 @@
         <div class="col-md-6">
             <div class="box box-success">
                 <div class="box-body">
-<div class="callsSubcategories form large-9 medium-8 columns content">
-    <?= $this->Form->create($callsSubcategory) ?>
-    <fieldset>
-        <legend><?= __('Adiconar Sub categoria') ?></legend>
-        <?php
-            echo $this->Form->input('name',['label'=>'Nome:']);
-            echo $this->Form->input('description',['label'=>'Descrição:']);
-            echo $this->Form->input('sla');
-            echo $this->Form->input('category_id', ['label'=>'Categoria:','options'=>$callsCategories]);
-        ?>
-    </fieldset>
-    <?= $this->Form->button(__('Salvar')) ?>
-    <?= $this->Form->end() ?>
-</div>
+                    <div class="callsSubcategories form large-9 medium-8 columns content">
+                        <?= $this->Form->create($callsSubcategory) ?>
+                        <fieldset>
+                            <legend><?= __('Adiconar Sub categoria') ?></legend>
+                            <?php
+                                echo $this->Form->input('name',['label'=>'Nome:']);
+                                echo $this->Form->input('description',['label'=>'Descrição:']);
+                                echo $this->Form->input('sla');
+                                echo $this->Form->input('category_id', ['label'=>'Categoria:','options'=>$callsCategories]);
+                            ?>
+                        </fieldset>
+                        
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <?= $this->Html->link(__('Voltar'), ['controller' => 'callsSubcategories', 'action' => 'index'], array('class' => 'btn btn-primary')) ?>
+                                </div>
+                                <div align="right" class="col-md-6">
+                                    <?= $this->Form->button(__('Salvar'), ['align'=>'center','class' => 'form-group']) ?>
+                        
+                                </div>
+                            </div>
+                        </div>
+
+                        <?= $this->Form->end() ?>
+                    </div>
 
                 </div>
             </div>
