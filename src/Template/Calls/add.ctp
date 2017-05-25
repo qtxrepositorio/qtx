@@ -34,8 +34,21 @@ $callsSubcategoriesFull[0] = 'Selecione...';
                                 //echo $this->Form->input('visualized');
                             ?>
                         </fieldset>
-                        <?= $this->Form->button(__('Salvar')) ?>
+
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <?= $this->Html->link(__('Voltar'), ['controller' => 'Calls', 'action' => 'index'], array('class' => 'btn btn-primary')) ?>
+                                </div>
+                                <div align="right" class="col-md-6">
+                                    <?= $this->Form->button(__('Salvar'), ['align'=>'center','class' => 'form-group']) ?>
+                        
+                                </div>
+                            </div>
+                        </div>
+
                         <?= $this->Form->end() ?>
+                       
                     </div>
                 </div>
             </div>

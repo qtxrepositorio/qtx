@@ -5,16 +5,26 @@
             <div class="box box-success">
                 <div class="box-body">
                     <div class="callsStatus form large-9 medium-8 columns content">
-    <?= $this->Form->create($callsStatus) ?>
-                        <fieldset>
-                            <legend><?= __('Adicionar Status') ?></legend>
-        <?php
-            echo $this->Form->input('title',['label'=>'Título:']);
-            echo $this->Form->input('description',['label'=>'Descrição:']);
-        ?>
-                        </fieldset>
-    <?= $this->Form->button(__('Salvar')) ?>
-    <?= $this->Form->end() ?>
+                        <?= $this->Form->create($callsStatus) ?>
+                                            <fieldset>
+                                                <legend><?= __('Adicionar Status') ?></legend>
+                            <?php
+                                echo $this->Form->input('title',['label'=>'Título:']);
+                                echo $this->Form->input('description',['label'=>'Descrição:']);
+                            ?>
+                                            </fieldset>
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <?= $this->Html->link(__('Voltar'), ['controller' => 'callsStatus', 'action' => 'index'], array('class' => 'btn btn-primary')) ?>
+                                </div>
+                                <div align="right" class="col-md-6">
+                                    <?= $this->Form->button(__('Salvar'), ['align'=>'center','class' => 'form-group']) ?>
+                        
+                                </div>
+                            </div>
+                        </div>
+                        <?= $this->Form->end() ?>
                     </div>
 
                 </div>

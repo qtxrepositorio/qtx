@@ -14,7 +14,19 @@
                                 echo $this->Form->input('area_id', ['label'=>'Área:','options' => $callsAreas]);
                             ?>
                         </fieldset>
-                        <?= $this->Form->button(__('Salvar')) ?>
+                        
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <?= $this->Html->link(__('Voltar'), ['controller' => 'callsCategories', 'action' => 'index'], array('class' => 'btn btn-primary')) ?>
+                                </div>
+                                <div align="right" class="col-md-6">
+                                    <?= $this->Form->button(__('Salvar'), ['align'=>'center','class' => 'form-group']) ?>
+                        
+                                </div>
+                            </div>
+                        </div>
+
                         <?= $this->Form->end() ?>
                     </div>
 

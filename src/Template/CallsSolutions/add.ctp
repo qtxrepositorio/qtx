@@ -14,7 +14,17 @@
                                 echo $this->Form->input('subcategorie_id', ['label'=>'Sub Categoria:','options' => $callsSubcategories]);
                             ?>
                         </fieldset>
-                        <?= $this->Form->button(__('Salvar')) ?>
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <?= $this->Html->link(__('Voltar'), ['controller' => 'callsSolutions', 'action' => 'index'], array('class' => 'btn btn-primary')) ?>
+                                </div>
+                                <div align="right" class="col-md-6">
+                                    <?= $this->Form->button(__('Salvar'), ['align'=>'center','class' => 'form-group']) ?>
+                        
+                                </div>
+                            </div>
+                        </div>
                         <?= $this->Form->end() ?>
                     </div>
                 </div>
