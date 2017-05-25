@@ -7,7 +7,16 @@ foreach ($callsAreas as $key => $value) {
 }
 
 $callsCategoriesFull[0] = 'Selecione...';
+foreach ($callsCategories as $key => $value) {
+    # code...
+    $callsCategoriesFull[$key] = $value;
+}
+
 $callsSubcategoriesFull[0] = 'Selecione...';
+foreach ($callsSubcategories as $key => $value) {
+    # code...
+    $callsSubcategoriesFull[$key] = $value;
+}
 
 ?>
 
@@ -24,12 +33,20 @@ $callsSubcategoriesFull[0] = 'Selecione...';
                                 echo $this->Form->input('subject', ['label' => 'Assunto:']);
                                 echo $this->Form->input('text', ['label' => 'Descrição:', 'type' => 'textarea']);
                                 echo $this->Form->input('area_id', ['class' => 'form-control select2', 'label' => 'Área:','id'=>'area_id', 'options' => $callsAreasFull]);
-                                echo $this->Form->input('category_id', ['class' => 'form-control select2', 'label' => 'Categoria:','id'=>'category_id', 'disabled'=>true, 'options' => $callsCategoriesFull]);
+                                echo $this->Form->input('category_id', ['class'=>'form-control select2', 'label'=>'Categoria:','id'=>'category_id', 'disabled'=>true, 'options'=>$callsCategoriesFull]);
                                 echo $this->Form->input('subcategory_id', ['class' => 'form-control select2', 'label' => 'Sub categoria:', 'id'=>'subcategory_id', 'disabled'=>true, 'options' => $callsSubcategoriesFull]);
-                                echo $this->Form->input('status_id', ['type' => 'hidden', 'label' => 'Status:', 'default' => 1, 'options' => $callsStatus]);
+                                
+                                if ($call['attributed_to'] == $authenticatedUser['id']) {
+                                    echo $this->Form->input('status_id', ['class' => 'form-control select2', 'label' => 'Status:', 'options' => $callsStatus]);
+                                }else{
+                                    echo $this->Form->input('status_id', ['disabled'=>true, 'class' => 'form-control select2', 'label' => 'Status:', 'options' => $callsStatus]);
+                                }
+
+                                echo $this->Form->input('status_id', ['class' => 'form-control select2', 'label' => 'Status:', 'options' => $callsStatus]);
+                                
                                 echo $this->Form->input('urgency_id', ['class' => 'form-control select2','label' => 'Urgência:', 'options' => $callsUrgency]);
                                 echo $this->Form->input('solution_id', ['type'=>'hidden', 'default' => null]);
-                                echo $this->Form->input('created_by', ['type' => 'hidden', 'label' => 'Criado Por:', 'default' => $authenticatedUser['id'], 'options' => $callsUsers]);
+                                echo $this->Form->input('created_by', ['type' => 'hidden', 'label' => 'Criado Por:', 'options' => $callsUsers]);
                                 echo $this->Form->input('attributed_to', ['class' => 'form-control select2','label' => 'Atribuído para:','options' => $callsUsers]);
                                 //echo $this->Form->input('visualized');
                             ?>
