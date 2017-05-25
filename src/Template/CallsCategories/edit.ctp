@@ -7,14 +7,30 @@
                     <div class="callsCategories form large-9 medium-8 columns content">
                         <?= $this->Form->create($callsCategory) ?>
                         <fieldset>
-                            <legend><?= __('Edit Calls Category') ?></legend>
+                            <legend><?= __('Editar categoria') ?></legend>
                             <?php
-                                echo $this->Form->input('name');
-                                echo $this->Form->input('description');
+                                echo $this->Form->input('name',['label'=>'Nome:']);
+                                echo $this->Form->input('description',['label'=>'Descrição:']);
+
                                 echo $this->Form->input('area_id', ['options' => $callsAreas]);
                             ?>
                         </fieldset>
-                        <?= $this->Form->button(__('Salvar')) ?>
+                        
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-6">
+
+                                    <?= $this->Html->link(__('Ver todas'), ['controller' => 'callsCategories', 'action' => 'index'], array('class' => 'btn btn-default')) ?>
+                                    
+                                    <?= $this->Html->link(__('Voltar a categoria'), ['controller' => 'callsCategories', 'action' => 'view', $callsCategory['id']], array('class' => 'btn btn-primary')) ?>
+
+                                </div>
+                                <div align="right" class="col-md-6">
+                                    <?= $this->Form->button(__('Salvar'), ['align'=>'center','class' => 'form-group']) ?>
+                                </div>
+                            </div>
+                        </div>
+
                         <?= $this->Form->end() ?>
                     </div>
                 </div>

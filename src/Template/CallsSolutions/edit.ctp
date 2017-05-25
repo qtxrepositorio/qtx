@@ -4,19 +4,34 @@
         <div class="col-md-6">
             <div class="box box-success">
                 <div class="box-body">
-<div class="callsSolutions form large-9 medium-8 columns content">
-    <?= $this->Form->create($callsSolution) ?>
-    <fieldset>
-        <legend><?= __('Editar Solução') ?></legend>
-        <?php
-            echo $this->Form->input('title',['label'=>'Título:']);
-            echo $this->Form->input('description',['label'=>'Descrição:']);
-            echo $this->Form->input('subcategorie_id', ['label'=>'Sub Categoria:','options' => $callsSubcategories]);
-        ?>
-    </fieldset>
-    <?= $this->Form->button(__('Salvar')) ?>
-    <?= $this->Form->end() ?>
-</div>
+                    <div class="callsSolutions form large-9 medium-8 columns content">
+                        <?= $this->Form->create($callsSolution) ?>
+                        <fieldset>
+                            <legend><?= __('Editar Solução') ?></legend>
+                            <?php
+                                echo $this->Form->input('title',['label'=>'Título:']);
+                                echo $this->Form->input('description',['label'=>'Descrição:']);
+                                echo $this->Form->input('subcategorie_id', ['label'=>'Sub Categoria:','options' => $callsSubcategories]);
+                            ?>
+                        </fieldset>
+                        
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-6">
+
+                                    <?= $this->Html->link(__('Ver todas'), ['controller' => 'callsSolutions', 'action' => 'index'], array('class' => 'btn btn-default')) ?>
+                                    
+                                    <?= $this->Html->link(__('Voltar a solução'), ['controller' => 'callsSolutions', 'action' => 'view', $callsSolution['id']], array('class' => 'btn btn-primary')) ?>
+
+                                </div>
+                                <div align="right" class="col-md-6">
+                                    <?= $this->Form->button(__('Salvar'), ['align'=>'center','class' => 'form-group']) ?>
+                                </div>
+                            </div>
+                        </div>
+
+                        <?= $this->Form->end() ?>
+                    </div>
 
                 </div>
             </div>

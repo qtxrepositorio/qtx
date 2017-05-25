@@ -11,11 +11,26 @@
                         <fieldset>
                             <legend><?= __('Editar Área') ?></legend>
                             <?php
-                                echo $this->Form->input('name'['label'=>'Nome:']);
+                                echo $this->Form->input('name',['label'=>'Nome:']);
                                 echo $this->Form->input('description',['label'=>'Descrição:']);
                             ?>
                         </fieldset>
-                        <?= $this->Form->button(__('Submit')) ?>
+                    
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-6">
+
+                                    <?= $this->Html->link(__('Ver todas'), ['controller' => 'callsAreas', 'action' => 'index'], array('class' => 'btn btn-default')) ?>
+                                    
+                                    <?= $this->Html->link(__('Voltar a área'), ['controller' => 'callsAreas', 'action' => 'view', $callsArea['id']], array('class' => 'btn btn-primary')) ?>
+
+                                </div>
+                                <div align="right" class="col-md-6">
+                                    <?= $this->Form->button(__('Salvar'), ['align'=>'center','class' => 'form-group']) ?>
+                                </div>
+                            </div>
+                        </div>
+
                         <?= $this->Form->end() ?>
                     </div>
 
