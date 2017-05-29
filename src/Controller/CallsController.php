@@ -657,6 +657,40 @@ class CallsController extends AppController {
         }
     }
 
+    public function dashboard(){
+
+        $connection = ConnectionManager::get('default');
+
+        $forArea = $connection->execute("
+            SELECT TOP 5 COUNT([calls].id) as count, [calls_areas].name
+                FROM [calls]
+                INNER JOIN [calls_areas] ON [calls_areas].id = [calls].area_id
+                    GROUP BY [calls_areas].name")->fetchAll('assoc');
+
+        $forCategories = $connection->execute("
+            SELECT TOP 5 
+                COUNT([calls].id) as count, 
+                [calls_categories].name as calls_categories_name, 
+                [calls_areas].name as calls_areas_name
+              FROM [calls]
+                INNER JOIN [calls_categories] ON [calls_categories].id = [calls].area_id
+                INNER JOIN [calls_areas] ON [calls_areas].id = [calls].area_id
+                GROUP BY [calls_categories].name, [calls_areas].name")->fetchAll('assoc');
+
+        $forTech = $connection->execute("
+            SELECT COUNT([calls].id) as count
+                ,[users].username as users_username
+                FROM [calls]
+                    INNER JOIN [users] on calls.[attributed_to] = [users].id
+                GROUP BY [users].username
+                ORDER BY count
+            ")->fetchAll('assoc');
+
+        $this->set(compact('forArea','forCategories','forTech'));
+        $this->set('_serialize', ['forArea','forCategories','forTech']);
+
+    }
+
     public function beforeFilter(Event $event) {
         parent::beforeFilter($event);
         // Allow users to register and logout.
