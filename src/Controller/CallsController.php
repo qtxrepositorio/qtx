@@ -659,35 +659,113 @@ class CallsController extends AppController {
 
     public function dashboard(){
 
+        $date = getdate();
+        $year = $date['year'];
+        $month = strval($date['mon']);
+
         $connection = ConnectionManager::get('default');
 
-        $forArea = $connection->execute("
-            SELECT TOP 5 COUNT([calls].id) as count, [calls_areas].name
-                FROM [calls]
-                INNER JOIN [calls_areas] ON [calls_areas].id = [calls].area_id
-                    GROUP BY [calls_areas].name")->fetchAll('assoc');
+        if ($this->request->is('post')) {
 
-        $forCategories = $connection->execute("
-            SELECT TOP 5 
-                COUNT([calls].id) as count, 
-                [calls_categories].name as calls_categories_name, 
-                [calls_areas].name as calls_areas_name
-              FROM [calls]
-                INNER JOIN [calls_categories] ON [calls_categories].id = [calls].area_id
-                INNER JOIN [calls_areas] ON [calls_areas].id = [calls].area_id
-                GROUP BY [calls_categories].name, [calls_areas].name")->fetchAll('assoc');
+            $year = $this->request->data['year'];
+            $month = $this->request->data['month'];
 
-        $forTech = $connection->execute("
-            SELECT COUNT([calls].id) as count
-                ,[users].username as users_username
-                FROM [calls]
+            if ($this->request->data['month'] == '0') {
+
+                $forArea = $connection->execute("
+                    SELECT TOP 5 COUNT([calls].id) as count, [calls_areas].name
+                        FROM [calls]
+                            INNER JOIN [calls_areas] ON [calls_areas].id = [calls].area_id
+                        WHERE year([calls].created) = '$year'
+                        GROUP BY [calls_areas].name")->fetchAll('assoc');
+
+                $forCategories = $connection->execute("
+                    SELECT TOP 5 
+                        COUNT([calls].id) as count, 
+                        [calls_categories].name as calls_categories_name, 
+                        [calls_areas].name as calls_areas_name
+                      FROM [calls]
+                        INNER JOIN [calls_categories] ON [calls_categories].id = [calls].area_id
+                        INNER JOIN [calls_areas] ON [calls_areas].id = [calls].area_id
+                        WHERE year([calls].created) = '$year'
+                        GROUP BY [calls_categories].name, [calls_areas].name")->fetchAll('assoc');
+
+                $forTech = $connection->execute("
+                    SELECT COUNT([calls].id) as count
+                        ,[users].username as users_username
+                        FROM [calls]
+                            INNER JOIN [users] on calls.[attributed_to] = [users].id
+                        WHERE year([calls].created) = '$year'
+                        GROUP BY [users].username
+                        ORDER BY count
+                    ")->fetchAll('assoc'); 
+
+            }else{
+
+                $forArea = $connection->execute("
+                    SELECT TOP 5 COUNT([calls].id) as count, [calls_areas].name
+                        FROM [calls]
+                            INNER JOIN [calls_areas] ON [calls_areas].id = [calls].area_id
+                        WHERE year([calls].created) = '$year' and month([calls].created) = '$month' 
+                        GROUP BY [calls_areas].name")->fetchAll('assoc');
+
+                $forCategories = $connection->execute("
+                    SELECT TOP 5 
+                        COUNT([calls].id) as count, 
+                        [calls_categories].name as calls_categories_name, 
+                        [calls_areas].name as calls_areas_name
+                      FROM [calls]
+                        INNER JOIN [calls_categories] ON [calls_categories].id = [calls].area_id
+                        INNER JOIN [calls_areas] ON [calls_areas].id = [calls].area_id
+                        WHERE year([calls].created) = '$year' and month([calls].created) = '$month' 
+                        GROUP BY [calls_categories].name, [calls_areas].name")->fetchAll('assoc');
+
+                $forTech = $connection->execute("
+                    SELECT COUNT([calls].id) as count
+                        ,[users].username as users_username
+                        FROM [calls]
+                            INNER JOIN [users] on calls.[attributed_to] = [users].id
+                        WHERE year([calls].created) = '$year' and month([calls].created) = '$month' 
+                        GROUP BY [users].username
+                        ORDER BY count
+                    ")->fetchAll('assoc'); 
+            }            
+
+        }else{
+
+            $forArea = $connection->execute("
+                    SELECT TOP 5 COUNT([calls].id) as count, [calls_areas].name
+                        FROM [calls]
+                            INNER JOIN [calls_areas] ON [calls_areas].id = [calls].area_id
+                        WHERE year([calls].created) = '$year' and month([calls].created) = '$month' 
+                        GROUP BY [calls_areas].name")->fetchAll('assoc');
+
+            $forCategories = $connection->execute("
+                SELECT TOP 5 
+                    COUNT([calls].id) as count, 
+                    [calls_categories].name as calls_categories_name, 
+                    [calls_areas].name as calls_areas_name
+                    FROM [calls]
+                        INNER JOIN [calls_categories] ON [calls_categories].id = [calls].area_id
+                        INNER JOIN [calls_areas] ON [calls_areas].id = [calls].area_id
+                    WHERE year([calls].created) = '$year' and month([calls].created) = '$month' 
+                    GROUP BY [calls_categories].name, [calls_areas].name")->fetchAll('assoc');
+
+            $forTech = $connection->execute("
+                SELECT COUNT([calls].id) as count
+                    ,[users].username as users_username
+                    FROM [calls]
                     INNER JOIN [users] on calls.[attributed_to] = [users].id
-                GROUP BY [users].username
-                ORDER BY count
-            ")->fetchAll('assoc');
+                    WHERE year([calls].created) = '$year' and month([calls].created) = '$month' 
+                    GROUP BY [users].username
+                    ORDER BY count
+                ")->fetchAll('assoc'); 
 
-        $this->set(compact('forArea','forCategories','forTech'));
-        $this->set('_serialize', ['forArea','forCategories','forTech']);
+            
+        }
+
+        $this->set(compact('forArea','forCategories','forTech','year','month'));
+        $this->set('_serialize', ['forArea','forCategories','forTech','year','month']);
 
     }
 
