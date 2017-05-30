@@ -87,7 +87,7 @@ $this->Html->script(['//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js',
                     "sNext": "Próximo",
                     "sPrevious": "Anterior"
                 }
-            }, "lengthMenu": [10, 15, 25]
+            }, "lengthMenu": [5, 10, 25]
         });
 
     });
