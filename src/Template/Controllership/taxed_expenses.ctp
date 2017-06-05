@@ -194,7 +194,7 @@ $fecoepMonths[] = $valorTotal;
                                     <div class="col-md-4">
                                         <?php
                                             $x = null;
-                                            echo $this->Form->create($x,['url' => ['controller'=>'Controllership','action' => 'TaxedExpensesFilter']]);
+                                            echo $this->Form->create($x,['url' => ['controller'=>'Controllership','action' => 'TaxedExpenses']]);
                                             echo $this->Form->input('year', ['default' => '2017' ,'disabled' => FALSE,'label'=>' ']);
                                         ?>
                                     </div> 

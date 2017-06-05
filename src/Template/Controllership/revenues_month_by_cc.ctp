@@ -234,7 +234,7 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                     <div class="col-md-4">
                                         <?php
                                             $x = null;
-                                            echo $this->Form->create($x,['url' => ['controller'=>'Controllership','action' => 'RevenuesMonthByCcFilter']]);
+                                            echo $this->Form->create($x,['url' => ['controller'=>'Controllership','action' => 'RevenuesMonthByCc']]);
                                             echo $this->Form->input('year', ['default' => '2017' ,'disabled' => FALSE,'label'=>' ']);
                                         ?>
                                     </div> 

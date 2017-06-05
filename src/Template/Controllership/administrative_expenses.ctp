@@ -154,7 +154,7 @@ $othersMonths[] = $valorTotal;
                                     <div class="col-md-4">
                                         <?php
                                             $x = null;
-                                            echo $this->Form->create($x,['url' => ['controller'=>'Controllership','action' => 'AdministrativeExpensesFilter']]);
+                                            echo $this->Form->create($x,['url' => ['controller'=>'Controllership','action' => 'AdministrativeExpenses']]);
                                             echo $this->Form->input('year', ['default' => '2017' ,'disabled' => FALSE,'label'=>' ']);
                                         ?>
                                     </div> 
