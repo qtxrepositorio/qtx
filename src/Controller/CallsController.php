@@ -642,7 +642,7 @@ class CallsController extends AppController {
         }
 
         if ($status != 2) {
-            $callsResponse['text'] = 'O status do chamado foi alteradao para: ' . $status . '.';
+            $callsResponse['text'] = 'O status do chamado foi alterado para: ' . $status . '.';
         } else {
             $callsResponse['text'] = 'O chamado foi solucionado!';
         }
