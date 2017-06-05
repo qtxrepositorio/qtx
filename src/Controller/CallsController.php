@@ -865,16 +865,4 @@ class CallsController extends AppController {
         return parent::isAuthorized($user);
     }
 
-    /*
-    public function isAuthorized($user) {
-
-        $connection = ConnectionManager::get('default');
-
-        $teste = $this->action;
-
-        $this->Flash->error(__(strval($this->request->params['action']))); 
-
-    }
-    */
-
 }
