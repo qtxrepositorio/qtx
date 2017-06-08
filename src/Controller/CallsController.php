@@ -174,13 +174,13 @@ class CallsController extends AppController {
         $call['callsStatus'] = $callsStatus;
 
         $callsSolutions = $this->Calls->CallsSolutions->find('list')
-            ->where(['subcategorie_id' => $call['subcategory_id']]);
+                ->where(['subcategorie_id' => $call['subcategory_id']]);
         $call['callsSolutions'] = $callsSolutions;
 
         if ($call['solution_id']) {
             # code...
             $callSolutionView = $this->Calls->CallsSolutions->find()
-                ->where(['id' => $call['solution_id']]);
+                    ->where(['id' => $call['solution_id']]);
             $call['callSolutionView'] = $callSolutionView;
         }
 
@@ -189,7 +189,7 @@ class CallsController extends AppController {
         $call['callSolutionFiles'] = $callSolutionFiles;
 
         $callsSubcategories = $this->Calls->CallsSubcategories->find('list')
-            ->where(['category_id' => $call['category_id']]);
+                ->where(['category_id' => $call['category_id']]);
         $call['callsSubcategories'] = $callsSubcategories;
 
         $this->visualized($call['id']);
@@ -206,6 +206,7 @@ class CallsController extends AppController {
     use MailerAwareTrait;
 
     public function add() {
+
         $authenticatedUser = $this->Auth->user();
 
         $call = $this->Calls->newEntity();
@@ -235,7 +236,11 @@ class CallsController extends AppController {
                     }
                 }
 
-                return $this->redirect(['action' => 'index']);
+                foreach ($this->request->data['archives'] as $key => $archive) {
+                    $this->addCallFiles($call['id'], $archive);
+                }
+
+                return $this->redirect(['action' => 'view', $call['id']]);
             } else {
                 $this->Flash->error(__('O chamado não pode ser salvo, tente novamente!'));
             }
@@ -258,6 +263,70 @@ class CallsController extends AppController {
 
         $this->set(compact('call', 'callsAreas', 'callsCategories', 'callsSubcategories', 'callsStatus', 'callsUrgency', 'callsSolutions', 'callsUsers', 'authenticatedUser', 'callsCategoriesForJs', 'callsSubcategoriesForJs'));
         $this->set('_serialize', ['call', 'authenticatedUser']);
+    }
+
+    public function addCallFiles($call_id = null, $archive = null) {
+
+        $this->loadModel('CallsFiles');
+        $callsFile = $this->CallsFiles->newEntity();
+        if ($this->request->is('post')) {
+
+            $callsFile['text'] = 'n/a';
+            $callsFile['call_id'] = $call_id;
+            $callsFile['archive'] = $archive['name'];
+
+            $fieldsFull = true;
+            if ($callsFile['text'] == '' or $callsFile['archive'] == '') {
+                $fieldsFull = false;
+            } 
+
+            $existFind = $this->CallsFiles->find()
+                    ->where(['call_id' => $callsFile['call_id']])
+                    ->andWhere(['archive' => $callsFile['archive']]);
+
+            $exist = false;
+            foreach ($existFind as $key => $value) {
+                $exist = true;
+            }
+
+            if (!$exist) {
+                if ($this->CallsFiles->save($callsFile)) {
+
+                    if (file_exists(getcwd() . '/files/calls_files/' . strval($callsFile['call_id']) . '/')) {
+
+                        $filepath = getcwd() . '/files/calls_files' . '/' . strval($callsFile['call_id']) . '/' . $archive['name'];
+
+                        $filename = $archive['name'];
+
+                        move_uploaded_file($archive['tmp_name'], $filepath);
+                    } else {
+
+                        mkdir(getcwd() . '/files/calls_files/' . strval($callsFile['call_id']) . '/', 0777, true);
+
+                        $filepath = getcwd()
+                                . '/files/calls_files/'
+                                . strval($callsFile['call_id'])
+                                . '/' . $archive['name'];
+
+                        $filename = $archive['name'];
+
+                        move_uploaded_file($archive['tmp_name'], $filepath);
+                    }
+
+                    //$this->Flash->success(__('O arquivo foi salvo com sucesso!'));
+
+                    return $this->redirect(['controller' => 'calls', 'action' => 'view', $callsFile['call_id']]);
+                } else {
+                    //$this->Flash->error(__('O arquivo não pode ser salvo!'));
+                }
+            } else {
+                $this->Flash->error(__('Esse arquivo já foi anexado! Caso necessário enviar novamente, mude o nome do arquivo antes do envio ou apague o envio antigo!'));
+                return $this->redirect(['controller' => 'calls', 'action' => 'view', $callsFile['call_id']]);
+            }
+        }
+        $calls = $this->CallsFiles->Calls->find('list', ['limit' => 200]);
+        $this->set(compact('callsFile', 'calls'));
+        $this->set('_serialize', ['callsFile']);
     }
 
     /**
@@ -307,7 +376,7 @@ class CallsController extends AppController {
                     $this->Flash->success(__('O chamado foi atualizado com sucesso!'));
                     if ($call['status_id'] != $statusBeforeEdit) {
 
-                        $status_id = $call['status_id']; 
+                        $status_id = $call['status_id'];
                         $this->saveNewStatus($id, $status_id, $authenticatedUser['id']);
 
                         $this->loadModel('Users');
@@ -396,108 +465,99 @@ class CallsController extends AppController {
         $this->set('_serialize', ['call', 'authenticatedUser']);
     }
 
-    public function editIntoCall($id = null) {
+    public function editIntoView($id = null) {
 
-        $id = $this->request->data['id'];
-        $call = $this->Calls->get($id, [
-            'contain' => []
-        ]);
-
-        if ($this->request->is(['patch', 'post', 'put'])) {
-
-            $call = $this->Calls->patchEntity($call, $this->request->data);
-            $call['solution_id'] = $this->request->data['solution_id'];
-            $this->Calls->save($call);
-
-            $this->Flash->success(__('O chamado foi atualizado com sucesso!'));
-
-        }
-
-        return $this->redirect(['controller' => 'Calls', 'action' => 'view', $id]);
-    }
-
-    public function editStatus($id = null) {
+        //$id = $this->request->data['id'];
+        $status_id = $this->request->data['status_id'];
+        $solution_id = $this->request->data['solution_id'];
 
         $authenticatedUser = $this->Auth->user();
 
-        $this->loadModel('RolesUsers');
-        $this->loadModel('Roles');
-
         $call = $this->Calls->get($id, [
             'contain' => []
         ]);
 
+        $call = $this->Calls->patchEntity($call, $this->request->data);
+
         $statusBeforeEdit = $this->findStatus($id);
 
-        if ($statusBeforeEdit != $this->request->data['status_id']) {
-            if ($this->request->is(['patch', 'post', 'put'])) {
-                $call = $this->Calls->patchEntity($call, $this->request->data);
-                if ($this->Calls->save($call)) {
-
-                    $this->Flash->success(__('O chamado foi atualizado com sucesso!'));
-
-                    $this->saveNewStatus($id, $call['status_id'], $authenticatedUser['id']);
-
-                    $this->loadModel('Users');
-                    $query = $this->Users->find()
-                            ->where(['id' => $call['created_by']])
-                            ->orWhere(['id' => $call['attributed_to']]);
-                    $emails = $query->all();
-
-                    foreach ($emails as $key => $value) {
-                        if ($value['id'] == $call['created_by']) {
-                            $call['created_by'] = $value['name'];
-                        } elseif ($value['id'] == $call['attributed_to']) {
-                            $call['attributed_to'] = $value['name'];
-                        }
-                    }
-
-                    $connection = ConnectionManager::get('default');
-
-                    $area = $connection->execute("
-                            SELECT * FROM CALLS_AREAS WHERE ID = " . $call['area_id']);
-                    foreach ($area as $key => $value) {
-                        $call['area'] = $value['name'];
-                    }
-
-                    $category = $connection->execute("
-                            SELECT * FROM CALLS_CATEGORIES WHERE ID = " . $call['category_id']);
-                    foreach ($category as $key => $value) {
-                        $call['category'] = $value['name'];
-                    }
-
-                    $subcategory = $connection->execute("
-                            SELECT * FROM CALLS_SUBCATEGORIES WHERE ID = " . $call['subcategory_id']);
-                    foreach ($subcategory as $key => $value) {
-                        $call['subcategory'] = $value['name'];
-                        $call['sla'] = substr($value['sla'], 0, 5);
-                        ;
-                    }
-
-                    $status = $connection->execute("
-                            SELECT * FROM CALLS_STATUS WHERE ID = " . $call['status_id']);
-                    foreach ($status as $key => $value) {
-                        $call['status'] = $value['title'];
-                    }
-
-                    $urgency = $connection->execute("
-                            SELECT * FROM CALLS_URGENCY WHERE ID = " . $call['urgency_id']);
-                    foreach ($urgency as $key => $value) {
-                        $call['urgency'] = $value['title'];
-                    }
-
-                    foreach ($emails as $key => $value) {
-                        if ($value['email'] != '') {
-
-                            $this->getMailer('Call')->send('editCall', [$call, $value['email']]);
-                        }
-                    }
-                }
+        if ($status_id == 2 and $solution_id != null) {
+            $this->Calls->save($call);
+            if ($status_id != $statusBeforeEdit) {
+                $this->saveNewStatus($id, $call['status_id'], $authenticatedUser['id']);
+                $this->chargeAndSendEmail($call);
             }
-            return $this->redirect(['controller' => 'Calls', 'action' => 'view', $call['id']]);
-        } else {
-            $this->Flash->error(__('O status do chamado não foi modificao, por isso não foi salvo!'));
+            $this->Flash->success(__('O chamado foi atualizado com sucesso!'));
             return $this->redirect(['controller' => 'Calls', 'action' => 'view', $id]);
+        } else if ($status_id != 2) {
+            $this->Calls->save($call);
+            if ($status_id != $statusBeforeEdit) {
+                $this->saveNewStatus($id, $call['status_id'], $authenticatedUser['id']);
+                $this->chargeAndSendEmail($call);
+            }
+            $this->Flash->success(__('O chamado foi atualizado com sucesso!'));
+            return $this->redirect(['controller' => 'Calls', 'action' => 'view', $id]);
+        } else if ($status_id == 2 and $solution_id == null) {
+            $this->Flash->error(__('Para solucionar um chamado, é necessário informar a solução utilizada! Informe os dados e tente novamante.'));
+            return $this->redirect(['controller' => 'Calls', 'action' => 'view', $id]);
+        }
+    }
+
+    public function chargeAndSendEmail($call = null) {
+
+        $this->loadModel('Users');
+        $query = $this->Users->find()
+                ->where(['id' => $call['created_by']])
+                ->orWhere(['id' => $call['attributed_to']]);
+        $emails = $query->all();
+
+        foreach ($emails as $key => $value) {
+            if ($value['id'] == $call['created_by']) {
+                $call['created_by'] = $value['name'];
+            } elseif ($value['id'] == $call['attributed_to']) {
+                $call['attributed_to'] = $value['name'];
+            }
+        }
+
+        $connection = ConnectionManager::get('default');
+
+        $area = $connection->execute("
+                                SELECT * FROM CALLS_AREAS WHERE ID = " . $call['area_id']);
+        foreach ($area as $key => $value) {
+            $call['area'] = $value['name'];
+        }
+
+        $category = $connection->execute("
+                                SELECT * FROM CALLS_CATEGORIES WHERE ID = " . $call['category_id']);
+        foreach ($category as $key => $value) {
+            $call['category'] = $value['name'];
+        }
+
+        $subcategory = $connection->execute("
+                                SELECT * FROM CALLS_SUBCATEGORIES WHERE ID = " . $call['subcategory_id']);
+        foreach ($subcategory as $key => $value) {
+            $call['subcategory'] = $value['name'];
+            $call['sla'] = substr($value['sla'], 0, 5);
+            ;
+        }
+
+        $status = $connection->execute("
+                                SELECT * FROM CALLS_STATUS WHERE ID = " . $call['status_id']);
+        foreach ($status as $key => $value) {
+            $call['status'] = $value['title'];
+        }
+
+        $urgency = $connection->execute("
+                                SELECT * FROM CALLS_URGENCY WHERE ID = " . $call['urgency_id']);
+        foreach ($urgency as $key => $value) {
+            $call['urgency'] = $value['title'];
+        }
+
+        foreach ($emails as $key => $value) {
+            if ($value['email'] != '') {
+
+                $this->getMailer('Call')->send('editCall', [$call, $value['email']]);
+            }
         }
     }
 
@@ -653,11 +713,11 @@ class CallsController extends AppController {
 
         //$callsResponse = $this->CallsResponses->patchEntity($callsResponse);
         if ($this->CallsResponses->save($callsResponse)) {
-            return ;//$this->redirect(['controller' => 'Calls', 'action' => 'view', $call_id]);
+            return; //$this->redirect(['controller' => 'Calls', 'action' => 'view', $call_id]);
         }
     }
 
-    public function dashboard(){
+    public function dashboard() {
 
         $date = getdate();
         $year = $date['year'];
@@ -710,9 +770,8 @@ class CallsController extends AppController {
                         WHERE year([calls].created) = '$year'
                         GROUP BY [users].username
                         ORDER BY count
-                    ")->fetchAll('assoc'); 
-
-            }else{
+                    ")->fetchAll('assoc');
+            } else {
 
                 $quantStatusFinished = $connection->execute("
                     SELECT TOP 5 COUNT([calls].id) as count
@@ -753,10 +812,9 @@ class CallsController extends AppController {
                         WHERE year([calls].created) = '$year' and month([calls].created) = '$month' 
                         GROUP BY [users].username
                         ORDER BY count
-                    ")->fetchAll('assoc'); 
-            }            
-
-        }else{
+                    ")->fetchAll('assoc');
+            }
+        } else {
 
             $quantStatusFinished = $connection->execute("
                     SELECT TOP 5 COUNT([calls].id) as count
@@ -797,14 +855,11 @@ class CallsController extends AppController {
                     WHERE year([calls].created) = '$year' and month([calls].created) = '$month' 
                     GROUP BY [users].username
                     ORDER BY count
-                ")->fetchAll('assoc'); 
-
-            
+                ")->fetchAll('assoc');
         }
 
-        $this->set(compact('quantStatusFinished','forArea','forCategories','forTech','year','month'));
-        $this->set('_serialize', ['quantStatusFinished','forArea','forCategories','forTech','year','month']);
-
+        $this->set(compact('quantStatusFinished', 'forArea', 'forCategories', 'forTech', 'year', 'month'));
+        $this->set('_serialize', ['quantStatusFinished', 'forArea', 'forCategories', 'forTech', 'year', 'month']);
     }
 
     public function beforeFilter(Event $event) {
@@ -850,16 +905,15 @@ class CallsController extends AppController {
                 }
             }
             if ($release == false) {
-                if(in_array($this->request->params['action'], array('view','add','edit','index','delete'))){
-                    return true;  
-                }else{
-                    return false;      
+                if (in_array($this->request->params['action'], array('view', 'add', 'edit', 'index', 'delete'))) {
+                    return true;
+                } else {
+                    return false;
                 }
             } else {
-                return true;                    
+                return true;
             }
-        }
-        else {
+        } else {
             $this->redirect($this->Auth->logout());
         }
         return parent::isAuthorized($user);
