@@ -33,56 +33,33 @@ foreach ($call['callsSolutions'] as $key => $value) {
                     <p><b>Vizualidado pelo técnico: </b><?= $call->visualized ? __('Sim') : __('Não'); ?></p>
 
                     <hr>
-                    <?= $this->Form->create($call, ['url' => ['controller' => 'Calls', 'action' => 'editStatus']]) ?>
+                    <?= $this->Form->create($call, ['url' => ['controller' => 'Calls', 'action' => 'editIntoView']]) ?>
                         <fieldset>
                             <?php
                                 echo $this->Form->input('id', ['type'=>'hidden']);
                                 
                                 if ($call['authenticatedUser']['name'] != $call->attributed_to) {
                                     echo $this->Form->input('status_id', ['disabled'=>true, 'default' => $call->status, 'options' => $call['callsStatus']]); 
+                                    echo $this->Form->input('solution_id', ['disabled'=>true, 'label' => 'Solução:', 'default' => $call->solution_id, 'options' => $callsSolutionsFull]);
                                 }else{
                                     echo $this->Form->input('status_id', ['label' => 'Status:', 'default' => $call->status, 'options' => $call['callsStatus']]);
+                                    echo $this->Form->input('solution_id', ['label' => 'Solução:', 'default' => $call->solution_id, 'options' => $callsSolutionsFull]);   
                                 }                                
                             ?>
                         </fieldset>
                         <?php
                             if($call['authenticatedUser']['name'] == $call->attributed_to){
                         ?>        
-                                <?= $this->Form->button(__('<i class="glyphicon glyphicon-ok"></i>'), array('class' => 'btn btn-success btn-xs', 'escape' => false, 'data-toggle' => 'tooltip', 'title' => 'Salvar'))  
-                                ?> 
+                                <p align="center">
+                                    <?= $this->Form->button(__('<i class="glyphicon glyphicon-ok"></i>'), array('class' => 'btn btn-success btn-xs', 'escape' => false, 'data-toggle' => 'tooltip', 'title' => 'Salvar')) ?>
+                                    
+                                    ou
+                                    
+                                    <a id="modal-01" href="#modal-container-02" role="submit" data-toggle="modal" title="Adicionar uma solução" class="glyphicon glyphicon-plus btn btn-primary btn-xs" href="<?php echo ''//$local; ?>"></a>
+                                </p>
                         <?php 
                             }
                         ?>
-                    <?= $this->Form->end() ?>
-                    <hr>
-
-                    <?= $this->Form->create($call, ['url' => ['controller' => 'calls', 'action' => 'editIntoCall']]) ?>
-                        <?php 
-                        
-                        if ($call['authenticatedUser']['name'] != $call->attributed_to) {
-                            echo $this->Form->input('id', ['disabled'=>true, 'type'=>'hidden', 'default' => $call->id]);
-                            echo $this->Form->input('solution_id', ['disabled'=>true, 'label' => 'Solução:', 'default' => $call->solution_id, 'options' => $callsSolutionsFull]);
-
-                        }else{
-                            echo $this->Form->input('id', ['type'=>'hidden', 'default' => $call->id]);
-                            echo $this->Form->input('solution_id', ['label' => 'Solução:', 'default' => $call->solution_id, 'options' => $callsSolutionsFull]);   
-                            ?>
-
-                            <p align="center">
-                            <?= $this->Form->button(__('<i class="glyphicon glyphicon-ok"></i>'), array('class' => 'btn btn-success btn-xs', 'escape' => false, 'data-toggle' => 'tooltip', 'title' => 'Salvar')) ?>
-                            
-                            ou
-                            
-                            <a id="modal-01" href="#modal-container-02" role="submit" data-toggle="modal" title="Adicionar uma solução" class="glyphicon glyphicon-plus btn btn-primary btn-xs" href="<?php echo ''//$local; ?>"></a>
-
-                        </p> 
-
-                            <?php
-                        }
-                        
-                        ?>
-
-                        
                     <?= $this->Form->end() ?>
                     <hr>
 
@@ -379,12 +356,16 @@ foreach ($call['callsSolutions'] as $key => $value) {
                             </h4>
                         </div>
                         <div class="modal-body">                            
-                            <?= $this->Form->create($x, ['url' => ['controller' => 'CallsSolutions', 'action' => 'addIntoCall']]) ?>
+                            <?= $this->Form->create($x, ['type'=>'file','multiple'=>'multiple','url' => ['controller' => 'CallsSolutions', 'action' => 'addIntoCall']]) ?>
                             <fieldset>
                                 <?php
                                     echo $this->Form->input('call_id',['type'=>'hidden','label'=>'Título:', 'default'=> $call->id]);
                                     echo $this->Form->input('title',['label'=>'Título:']);
                                     echo $this->Form->input('description',['label'=>'Descrição:']);
+                                    echo $this->Form->input('changeStatus',['label'=>'Mudar o status do chamado para solucionado?','options'=> ['Sim','Não']]);
+
+                                    echo $this->Form->file('archives[]', ['type' => 'file', 'multiple' => 'true','label' => 'Arquivo:']);
+
                                     echo $this->Form->input('subcategorie_id', ['type'=>'hidden','label'=>'Sub Categoria:', 'default'=> $call->subcategory_id, 'options'=> $call['callsSubcategories']]);
 
                                 ?>
