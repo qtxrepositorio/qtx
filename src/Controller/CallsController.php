@@ -206,6 +206,7 @@ class CallsController extends AppController {
     use MailerAwareTrait;
 
     public function add() {
+
         $authenticatedUser = $this->Auth->user();
 
         $call = $this->Calls->newEntity();
@@ -235,7 +236,11 @@ class CallsController extends AppController {
                     }
                 }
 
-                return $this->redirect(['action' => 'index']);
+                foreach ($this->request->data['archives'] as $key => $archive) {
+                    $this->addCallFiles($call['id'], $archive);
+                }
+
+                return $this->redirect(['action' => 'view', $call['id']]);
             } else {
                 $this->Flash->error(__('O chamado não pode ser salvo, tente novamente!'));
             }
@@ -258,6 +263,70 @@ class CallsController extends AppController {
 
         $this->set(compact('call', 'callsAreas', 'callsCategories', 'callsSubcategories', 'callsStatus', 'callsUrgency', 'callsSolutions', 'callsUsers', 'authenticatedUser', 'callsCategoriesForJs', 'callsSubcategoriesForJs'));
         $this->set('_serialize', ['call', 'authenticatedUser']);
+    }
+
+    public function addCallFiles($call_id = null, $archive = null) {
+
+        $this->loadModel('CallsFiles');
+        $callsFile = $this->CallsFiles->newEntity();
+        if ($this->request->is('post')) {
+
+            $callsFile['text'] = 'n/a';
+            $callsFile['call_id'] = $call_id;
+            $callsFile['archive'] = $archive['name'];
+
+            $fieldsFull = true;
+            if ($callsFile['text'] == '' or $callsFile['archive'] == '') {
+                $fieldsFull = false;
+            } 
+
+            $existFind = $this->CallsFiles->find()
+                    ->where(['call_id' => $callsFile['call_id']])
+                    ->andWhere(['archive' => $callsFile['archive']]);
+
+            $exist = false;
+            foreach ($existFind as $key => $value) {
+                $exist = true;
+            }
+
+            if (!$exist) {
+                if ($this->CallsFiles->save($callsFile)) {
+
+                    if (file_exists(getcwd() . '/files/calls_files/' . strval($callsFile['call_id']) . '/')) {
+
+                        $filepath = getcwd() . '/files/calls_files' . '/' . strval($callsFile['call_id']) . '/' . $archive['name'];
+
+                        $filename = $archive['name'];
+
+                        move_uploaded_file($archive['tmp_name'], $filepath);
+                    } else {
+
+                        mkdir(getcwd() . '/files/calls_files/' . strval($callsFile['call_id']) . '/', 0777, true);
+
+                        $filepath = getcwd()
+                                . '/files/calls_files/'
+                                . strval($callsFile['call_id'])
+                                . '/' . $archive['name'];
+
+                        $filename = $archive['name'];
+
+                        move_uploaded_file($archive['tmp_name'], $filepath);
+                    }
+
+                    //$this->Flash->success(__('O arquivo foi salvo com sucesso!'));
+
+                    return $this->redirect(['controller' => 'calls', 'action' => 'view', $callsFile['call_id']]);
+                } else {
+                    //$this->Flash->error(__('O arquivo não pode ser salvo!'));
+                }
+            } else {
+                $this->Flash->error(__('Esse arquivo já foi anexado! Caso necessário enviar novamente, mude o nome do arquivo antes do envio ou apague o envio antigo!'));
+                return $this->redirect(['controller' => 'calls', 'action' => 'view', $callsFile['call_id']]);
+            }
+        }
+        $calls = $this->CallsFiles->Calls->find('list', ['limit' => 200]);
+        $this->set(compact('callsFile', 'calls'));
+        $this->set('_serialize', ['callsFile']);
     }
 
     /**
@@ -420,7 +489,7 @@ class CallsController extends AppController {
             }
             $this->Flash->success(__('O chamado foi atualizado com sucesso!'));
             return $this->redirect(['controller' => 'Calls', 'action' => 'view', $id]);
-        }else if ($status_id != 2) {
+        } else if ($status_id != 2) {
             $this->Calls->save($call);
             if ($status_id != $statusBeforeEdit) {
                 $this->saveNewStatus($id, $call['status_id'], $authenticatedUser['id']);
@@ -428,11 +497,10 @@ class CallsController extends AppController {
             }
             $this->Flash->success(__('O chamado foi atualizado com sucesso!'));
             return $this->redirect(['controller' => 'Calls', 'action' => 'view', $id]);
-        }else if ($status_id == 2 and $solution_id == null) {
+        } else if ($status_id == 2 and $solution_id == null) {
             $this->Flash->error(__('Para solucionar um chamado, é necessário informar a solução utilizada! Informe os dados e tente novamante.'));
             return $this->redirect(['controller' => 'Calls', 'action' => 'view', $id]);
         }
-        
     }
 
     public function chargeAndSendEmail($call = null) {

@@ -17,7 +17,7 @@ $callsSubcategoriesFull[0] = 'Selecione...';
             <div class="box box-success">
                 <div class="box-body">
                     <div class="calls form large-12 medium-9 columns content">
-                        <?= $this->Form->create($call) ?>
+                        <?= $this->Form->create($call, ['type'=>'file','multiple'=>'multiple']) ?>
                         <fieldset>
                             <legend><?= __('Adicionar Chamado') ?></legend>
                             <?php
@@ -31,8 +31,18 @@ $callsSubcategoriesFull[0] = 'Selecione...';
                                 echo $this->Form->input('solution_id', ['type'=>'hidden', 'default' => null]);
                                 echo $this->Form->input('created_by', ['type' => 'hidden', 'label' => 'Criado Por:', 'default' => $authenticatedUser['id'], 'options' => $callsUsers]);
                                 echo $this->Form->input('attributed_to', ['class' => 'form-control','label' => 'Atribuído para:','options' => $callsUsers]);
+                            ?>
+
+                            <br>
+
+                            <?php
+
+                                echo $this->Form->file('archives[]', ['type' => 'file', 'multiple' => 'true','label' => 'Arquivo:']);
+
                                 //echo $this->Form->input('visualized');
                             ?>
+
+                            <br>
                         </fieldset>
 
                         <div class="container-fluid">
