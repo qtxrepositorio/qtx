@@ -56,11 +56,11 @@ class CallsSubcategoriesController extends AppController
         if ($this->request->is('post')) {
             $callsSubcategory = $this->CallsSubcategories->patchEntity($callsSubcategory, $this->request->data);
             if ($this->CallsSubcategories->save($callsSubcategory)) {
-                $this->Flash->success(__('The calls subcategory has been saved.'));
+                $this->Flash->success(__('A subcategoria foi salva!'));
 
                 return $this->redirect(['action' => 'index']);
             } else {
-                $this->Flash->error(__('The calls subcategory could not be saved. Please, try again.'));
+                $this->Flash->error(__('A subcategoria não foi salva!'));
             }
         }
         $callsCategories = $this->CallsSubcategories->CallsCategories->find('list', ['limit' => 200]);
@@ -83,11 +83,11 @@ class CallsSubcategoriesController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $callsSubcategory = $this->CallsSubcategories->patchEntity($callsSubcategory, $this->request->data);
             if ($this->CallsSubcategories->save($callsSubcategory)) {
-                $this->Flash->success(__('The calls subcategory has been saved.'));
+                $this->Flash->success(__('A subcategoria foi salva!'));
 
                 return $this->redirect(['action' => 'index']);
             } else {
-                $this->Flash->error(__('The calls subcategory could not be saved. Please, try again.'));
+                $this->Flash->error(__('A subcategoria não foi salva!'));
             }
         }
         $callsCategories = $this->CallsSubcategories->CallsCategories->find('list', ['limit' => 200]);
@@ -107,9 +107,9 @@ class CallsSubcategoriesController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $callsSubcategory = $this->CallsSubcategories->get($id);
         if ($this->CallsSubcategories->delete($callsSubcategory)) {
-            $this->Flash->success(__('The calls subcategory has been deleted.'));
+            $this->Flash->success(__('A subcategoria foi apagada!'));
         } else {
-            $this->Flash->error(__('The calls subcategory could not be deleted. Please, try again.'));
+            $this->Flash->error(__('A subcategoria não foi apagada!'));
         }
 
         return $this->redirect(['action' => 'index']);

@@ -53,11 +53,11 @@ class CallsAreasController extends AppController
         if ($this->request->is('post')) {
             $callsArea = $this->CallsAreas->patchEntity($callsArea, $this->request->data);
             if ($this->CallsAreas->save($callsArea)) {
-                $this->Flash->success(__('The calls area has been saved.'));
+                $this->Flash->success(__('A area foi salva com sucesso!'));
 
                 return $this->redirect(['action' => 'index']);
             } else {
-                $this->Flash->error(__('The calls area could not be saved. Please, try again.'));
+                $this->Flash->error(__('A area não pode ser salva.'));
             }
         }
         $this->set(compact('callsArea'));
@@ -79,11 +79,11 @@ class CallsAreasController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $callsArea = $this->CallsAreas->patchEntity($callsArea, $this->request->data);
             if ($this->CallsAreas->save($callsArea)) {
-                $this->Flash->success(__('The calls area has been saved.'));
+                $this->Flash->success(__('A area foi salva com sucesso!'));
 
                 return $this->redirect(['action' => 'index']);
             } else {
-                $this->Flash->error(__('The calls area could not be saved. Please, try again.'));
+                $this->Flash->error(__('A area não pode ser salva.'));
             }
         }
         $this->set(compact('callsArea'));
@@ -102,9 +102,9 @@ class CallsAreasController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $callsArea = $this->CallsAreas->get($id);
         if ($this->CallsAreas->delete($callsArea)) {
-            $this->Flash->success(__('The calls area has been deleted.'));
+            $this->Flash->success(__('A area foi apagada!'));
         } else {
-            $this->Flash->error(__('The calls area could not be deleted. Please, try again.'));
+            $this->Flash->error(__('A area não pode ser apagada!'));
         }
 
         return $this->redirect(['action' => 'index']);

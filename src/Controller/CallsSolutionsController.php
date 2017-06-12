@@ -65,11 +65,11 @@ class CallsSolutionsController extends AppController {
         if ($this->request->is('post')) {
             $callsSolution = $this->CallsSolutions->patchEntity($callsSolution, $this->request->data);
             if ($this->CallsSolutions->save($callsSolution)) {
-                $this->Flash->success(__('The calls solution has been saved.'));
+                $this->Flash->success(__('A solução foi salva!'));
 
                 return $this->redirect(['action' => 'index']);
             } else {
-                $this->Flash->error(__('The calls solution could not be saved. Please, try again.'));
+                $this->Flash->error(__('A solução não pode ser salva!'));
             }
         }
         $callsSubcategories = $this->CallsSolutions->CallsSubcategories->find('list', ['limit' => 200]);
@@ -296,9 +296,9 @@ class CallsSolutionsController extends AppController {
         $this->request->allowMethod(['post', 'delete']);
         $callsSolution = $this->CallsSolutions->get($id);
         if ($this->CallsSolutions->delete($callsSolution)) {
-            $this->Flash->success(__('The calls solution has been deleted.'));
+            $this->Flash->success(__('A solução foi apagada!'));
         } else {
-            $this->Flash->error(__('The calls solution could not be deleted. Please, try again.'));
+            $this->Flash->error(__('A solução não pode ser apagada!'));
         }
 
         return $this->redirect(['action' => 'index']);
