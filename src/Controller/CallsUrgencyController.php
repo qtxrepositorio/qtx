@@ -53,11 +53,11 @@ class CallsUrgencyController extends AppController
         if ($this->request->is('post')) {
             $callsUrgency = $this->CallsUrgency->patchEntity($callsUrgency, $this->request->data);
             if ($this->CallsUrgency->save($callsUrgency)) {
-                $this->Flash->success(__('The calls urgency has been saved.'));
+                $this->Flash->success(__('A urgência foi salva!'));
 
                 return $this->redirect(['action' => 'index']);
             } else {
-                $this->Flash->error(__('The calls urgency could not be saved. Please, try again.'));
+                $this->Flash->error(__('A urgência não foi salva!'));
             }
         }
         $this->set(compact('callsUrgency'));
@@ -79,11 +79,11 @@ class CallsUrgencyController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $callsUrgency = $this->CallsUrgency->patchEntity($callsUrgency, $this->request->data);
             if ($this->CallsUrgency->save($callsUrgency)) {
-                $this->Flash->success(__('The calls urgency has been saved.'));
+                $this->Flash->success(__('A urgência foi salva!'));
 
                 return $this->redirect(['action' => 'index']);
             } else {
-                $this->Flash->error(__('The calls urgency could not be saved. Please, try again.'));
+                $this->Flash->error(__('A urgência não foi salva!'));
             }
         }
         $this->set(compact('callsUrgency'));
@@ -102,9 +102,9 @@ class CallsUrgencyController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $callsUrgency = $this->CallsUrgency->get($id);
         if ($this->CallsUrgency->delete($callsUrgency)) {
-            $this->Flash->success(__('The calls urgency has been deleted.'));
+            $this->Flash->success(__('A urgência foi apagada!'));
         } else {
-            $this->Flash->error(__('The calls urgency could not be deleted. Please, try again.'));
+            $this->Flash->error(__('A urgência não foi apagada!'));
         }
 
         return $this->redirect(['action' => 'index']);

@@ -56,11 +56,11 @@ class CallsCategoriesController extends AppController
         if ($this->request->is('post')) {
             $callsCategory = $this->CallsCategories->patchEntity($callsCategory, $this->request->data);
             if ($this->CallsCategories->save($callsCategory)) {
-                $this->Flash->success(__('The calls category has been saved.'));
+                $this->Flash->success(__('A categoria foi salva!'));
 
                 return $this->redirect(['action' => 'index']);
             } else {
-                $this->Flash->error(__('The calls category could not be saved. Please, try again.'));
+                $this->Flash->error(__('A categoria não pode ser salva.'));
             }
         }
         $callsAreas = $this->CallsCategories->CallsAreas->find('list', ['limit' => 200]);
@@ -83,11 +83,11 @@ class CallsCategoriesController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $callsCategory = $this->CallsCategories->patchEntity($callsCategory, $this->request->data);
             if ($this->CallsCategories->save($callsCategory)) {
-                $this->Flash->success(__('The calls category has been saved.'));
+                $this->Flash->success(__('A categoria foi salva!'));
 
                 return $this->redirect(['action' => 'index']);
             } else {
-                $this->Flash->error(__('The calls category could not be saved. Please, try again.'));
+                $this->Flash->error(__('A categoria não pode ser salva.'));
             }
         }
         $callsAreas = $this->CallsCategories->CallsAreas->find('list', ['limit' => 200]);
@@ -107,9 +107,9 @@ class CallsCategoriesController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $callsCategory = $this->CallsCategories->get($id);
         if ($this->CallsCategories->delete($callsCategory)) {
-            $this->Flash->success(__('The calls category has been deleted.'));
+            $this->Flash->success(__('A categoria foi apagada!'));
         } else {
-            $this->Flash->error(__('The calls category could not be deleted. Please, try again.'));
+            $this->Flash->error(__('A categoria não pode ser apagada.'));
         }
 
         return $this->redirect(['action' => 'index']);
