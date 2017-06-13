@@ -178,7 +178,6 @@ class CallsController extends AppController {
         $call['callsSolutions'] = $callsSolutions;
 
         if ($call['solution_id']) {
-            # code...
             $callSolutionView = $this->Calls->CallsSolutions->find()
                     ->where(['id' => $call['solution_id']]);
             $call['callSolutionView'] = $callSolutionView;
@@ -278,7 +277,7 @@ class CallsController extends AppController {
             $fieldsFull = true;
             if ($callsFile['text'] == '' or $callsFile['archive'] == '') {
                 $fieldsFull = false;
-            } 
+            }
 
             $existFind = $this->CallsFiles->find()
                     ->where(['call_id' => $callsFile['call_id']])
@@ -312,8 +311,6 @@ class CallsController extends AppController {
 
                         move_uploaded_file($archive['tmp_name'], $filepath);
                     }
-
-                    //$this->Flash->success(__('O arquivo foi salvo com sucesso!'));
 
                     return $this->redirect(['controller' => 'calls', 'action' => 'view', $callsFile['call_id']]);
                 } else {
@@ -467,7 +464,6 @@ class CallsController extends AppController {
 
     public function editIntoView($id = null) {
 
-        //$id = $this->request->data['id'];
         $status_id = $this->request->data['status_id'];
         $solution_id = $this->request->data['solution_id'];
 
@@ -711,7 +707,6 @@ class CallsController extends AppController {
         $callsResponse['call_id'] = $call_id;
         $callsResponse['visualized'] = 0;
 
-        //$callsResponse = $this->CallsResponses->patchEntity($callsResponse);
         if ($this->CallsResponses->save($callsResponse)) {
             return; //$this->redirect(['controller' => 'Calls', 'action' => 'view', $call_id]);
         }
@@ -738,8 +733,8 @@ class CallsController extends AppController {
                         FROM [calls]
                             INNER JOIN [users] on calls.[attributed_to] = [users].id
                             INNER JOIN [calls_status] on [calls].status_id = [calls_status].id
-                        WHERE year([calls].created) = '$year' 
-                            and [calls].status_id = 2                       
+                        WHERE year([calls].created) = '$year'
+                            and [calls].status_id = 2
                         GROUP BY [users].username
                         ORDER BY count
                     ")->fetchAll('assoc');
@@ -752,9 +747,9 @@ class CallsController extends AppController {
                         GROUP BY [calls_areas].name")->fetchAll('assoc');
 
                 $forCategories = $connection->execute("
-                    SELECT TOP 5 
-                        COUNT([calls].id) as count, 
-                        [calls_categories].name as calls_categories_name, 
+                    SELECT TOP 5
+                        COUNT([calls].id) as count,
+                        [calls_categories].name as calls_categories_name,
                         [calls_areas].name as calls_areas_name
                       FROM [calls]
                         INNER JOIN [calls_categories] ON [calls_categories].id = [calls].area_id
@@ -779,9 +774,9 @@ class CallsController extends AppController {
                         FROM [calls]
                             INNER JOIN [users] on calls.[attributed_to] = [users].id
                             INNER JOIN [calls_status] on [calls].status_id = [calls_status].id
-                        WHERE year([calls].created) = '$year' 
-                            and month([calls].created) = '$month' 
-                            and [calls].status_id = 2                       
+                        WHERE year([calls].created) = '$year'
+                            and month([calls].created) = '$month'
+                            and [calls].status_id = 2
                         GROUP BY [users].username
                         ORDER BY count
                     ")->fetchAll('assoc');
@@ -790,18 +785,18 @@ class CallsController extends AppController {
                     SELECT TOP 5 COUNT([calls].id) as count, [calls_areas].name
                         FROM [calls]
                             INNER JOIN [calls_areas] ON [calls_areas].id = [calls].area_id
-                        WHERE year([calls].created) = '$year' and month([calls].created) = '$month' 
+                        WHERE year([calls].created) = '$year' and month([calls].created) = '$month'
                         GROUP BY [calls_areas].name")->fetchAll('assoc');
 
                 $forCategories = $connection->execute("
-                    SELECT TOP 5 
-                        COUNT([calls].id) as count, 
-                        [calls_categories].name as calls_categories_name, 
+                    SELECT TOP 5
+                        COUNT([calls].id) as count,
+                        [calls_categories].name as calls_categories_name,
                         [calls_areas].name as calls_areas_name
                       FROM [calls]
                         INNER JOIN [calls_categories] ON [calls_categories].id = [calls].area_id
                         INNER JOIN [calls_areas] ON [calls_areas].id = [calls].area_id
-                        WHERE year([calls].created) = '$year' and month([calls].created) = '$month' 
+                        WHERE year([calls].created) = '$year' and month([calls].created) = '$month'
                         GROUP BY [calls_categories].name, [calls_areas].name")->fetchAll('assoc');
 
                 $forTech = $connection->execute("
@@ -809,7 +804,7 @@ class CallsController extends AppController {
                         ,[users].username as users_username
                         FROM [calls]
                             INNER JOIN [users] on calls.[attributed_to] = [users].id
-                        WHERE year([calls].created) = '$year' and month([calls].created) = '$month' 
+                        WHERE year([calls].created) = '$year' and month([calls].created) = '$month'
                         GROUP BY [users].username
                         ORDER BY count
                     ")->fetchAll('assoc');
@@ -822,9 +817,9 @@ class CallsController extends AppController {
                         FROM [calls]
                             INNER JOIN [users] on calls.[attributed_to] = [users].id
                             INNER JOIN [calls_status] on [calls].status_id = [calls_status].id
-                        WHERE year([calls].created) = '$year' 
-                            and month([calls].created) = '$month' 
-                            and [calls].status_id = 2                       
+                        WHERE year([calls].created) = '$year'
+                            and month([calls].created) = '$month'
+                            and [calls].status_id = 2
                         GROUP BY [users].username
                         ORDER BY count
                     ")->fetchAll('assoc');
@@ -833,18 +828,18 @@ class CallsController extends AppController {
                     SELECT TOP 5 COUNT([calls].id) as count, [calls_areas].name
                         FROM [calls]
                             INNER JOIN [calls_areas] ON [calls_areas].id = [calls].area_id
-                        WHERE year([calls].created) = '$year' and month([calls].created) = '$month' 
+                        WHERE year([calls].created) = '$year' and month([calls].created) = '$month'
                         GROUP BY [calls_areas].name")->fetchAll('assoc');
 
             $forCategories = $connection->execute("
-                SELECT TOP 5 
-                    COUNT([calls].id) as count, 
-                    [calls_categories].name as calls_categories_name, 
+                SELECT TOP 5
+                    COUNT([calls].id) as count,
+                    [calls_categories].name as calls_categories_name,
                     [calls_areas].name as calls_areas_name
                     FROM [calls]
                         INNER JOIN [calls_categories] ON [calls_categories].id = [calls].area_id
                         INNER JOIN [calls_areas] ON [calls_areas].id = [calls].area_id
-                    WHERE year([calls].created) = '$year' and month([calls].created) = '$month' 
+                    WHERE year([calls].created) = '$year' and month([calls].created) = '$month'
                     GROUP BY [calls_categories].name, [calls_areas].name")->fetchAll('assoc');
 
             $forTech = $connection->execute("
@@ -852,7 +847,7 @@ class CallsController extends AppController {
                     ,[users].username as users_username
                     FROM [calls]
                     INNER JOIN [users] on calls.[attributed_to] = [users].id
-                    WHERE year([calls].created) = '$year' and month([calls].created) = '$month' 
+                    WHERE year([calls].created) = '$year' and month([calls].created) = '$month'
                     GROUP BY [users].username
                     ORDER BY count
                 ")->fetchAll('assoc');
