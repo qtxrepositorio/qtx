@@ -57,11 +57,11 @@ class RolesUsersController extends AppController
         if ($this->request->is('post')) {
             $rolesUser = $this->RolesUsers->patchEntity($rolesUser, $this->request->data);
             if ($this->RolesUsers->save($rolesUser)) {
-                $this->Flash->success(__('The roles user has been saved.'));
+                $this->Flash->success(__('O grupo foi salvo com sucesso!'));
 
                 return $this->redirect(['action' => 'index']);
             } else {
-                $this->Flash->error(__('The roles user could not be saved. Please, try again.'));
+                $this->Flash->error(__('O grupo não foi salvo!'));
             }
         }
         $roles = $this->RolesUsers->Roles->find('list', ['limit' => 200]);
@@ -85,11 +85,11 @@ class RolesUsersController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $rolesUser = $this->RolesUsers->patchEntity($rolesUser, $this->request->data);
             if ($this->RolesUsers->save($rolesUser)) {
-                $this->Flash->success(__('The roles user has been saved.'));
+                $this->Flash->success(__('O grupo foi salvo com sucesso!'));
 
                 return $this->redirect(['action' => 'index']);
             } else {
-                $this->Flash->error(__('The roles user could not be saved. Please, try again.'));
+                $this->Flash->error(__('O grupo não foi salvo, tente novamente!'));
             }
         }
         $roles = $this->RolesUsers->Roles->find('list', ['limit' => 200]);
@@ -110,9 +110,9 @@ class RolesUsersController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $rolesUser = $this->RolesUsers->get($id);
         if ($this->RolesUsers->delete($rolesUser)) {
-            $this->Flash->success(__('The roles user has been deleted.'));
+            $this->Flash->success(__('O grupo foi apagado com sucesso!'));
         } else {
-            $this->Flash->error(__('The roles user could not be deleted. Please, try again.'));
+            $this->Flash->error(__('O grupo não pode se apagado!'));
         }
 
         return $this->redirect(['action' => 'index']);
@@ -125,17 +125,17 @@ class RolesUsersController extends AppController
         // You should not add the "login" action to allow list. Doing so would
         // cause problems with normal functioning of AuthComponent.
 
-        //$this->Auth->allow(['logout','login']);  
+        //$this->Auth->allow(['logout','login']);
     }
 
     public function isAuthorized($user)
     {
-        $this->loadModel('Users'); 
-        $this->loadModel('Roles'); 
+        $this->loadModel('Users');
+        $this->loadModel('Roles');
         $authenticatedUserId = $this->Auth->user('id');
         $query = $this->Users->find()
             ->where([
-                'id'=> $authenticatedUserId            
+                'id'=> $authenticatedUserId
             ]);
         $statusArray = $query->all();
         $status = null;
@@ -145,32 +145,32 @@ class RolesUsersController extends AppController
         if($status == true){
             $query = $this->RolesUsers->find()
                 ->where([
-                    'user_id'=> $authenticatedUserId            
-                ]);    
-            $currentUserGroups = $query->all();    
-            $release = null;    
+                    'user_id'=> $authenticatedUserId
+                ]);
+            $currentUserGroups = $query->all();
+            $release = null;
             foreach ($currentUserGroups as $key) {
                 $query = $this->Roles->find()
                 ->where([
-                    'id'=> $key['role_id']           
-                ]);    
-                $correspondingFunction = $query->all();  
+                    'id'=> $key['role_id']
+                ]);
+                $correspondingFunction = $query->all();
                 foreach ($correspondingFunction as $key) {
                     if($key['id'] == 1){
-                        $release = true;        
+                        $release = true;
                     }
                 }
             }
             if($release == false){
-                $this->redirect($this->Auth->redirectUrl());               
+                $this->redirect($this->Auth->redirectUrl());
             }
             else{
-                //$this->Flash->error(__('VC É ADM')); 
+                //$this->Flash->error(__('VC É ADM'));
                 if(in_array($this->action, array('index','add','edit','delete','view')))
-                    return true;            
+                    return true;
             }
         }else{
-            $this->redirect($this->Auth->logout());        
+            $this->redirect($this->Auth->logout());
         }
         return parent::isAuthorized($user);
     }
