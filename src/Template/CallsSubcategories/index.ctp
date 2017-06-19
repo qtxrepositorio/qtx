@@ -27,7 +27,7 @@
                                 <td><?= $this->Number->format($callsSubcategory->id) ?></td>
                                 <td><?= h($callsSubcategory->name) ?></td>
                                 <td><?= h($callsSubcategory->description) ?></td>
-                                <td><?= h($callsSubcategory->sla) ?></td>
+                                <td><?= h(substr($callsSubcategory->sla->jsonSerialize(),11,5) ); ?></td>
 
                                 <td><?= $callsSubcategory->has('calls_category') ? $this->Html->link($callsSubcategory->calls_category->name, ['controller' => 'CallsCategories', 'action' => 'view', $callsSubcategory->calls_category->id]) : '' ?></td>
 

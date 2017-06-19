@@ -15,7 +15,7 @@
                     <p><b>Nome: </b><?= h($callsSubcategory->name) ?></p>
                     <p><b>Descrição: </b><?= h($callsSubcategory->description) ?></p>
                     <p><b>Categoria: </b><?= $callsSubcategory->has('calls_category') ? $this->Html->link($callsSubcategory->calls_category->name, ['controller' => 'CallsCategories', 'action' => 'view', $callsSubcategory->calls_category->id]) : '' ?></p>
-                    <p><b>sla: </b><?= h($callsSubcategory->sla) ?></p>
+                    <p><b>sla: </b><?= h(substr($callsSubcategory->sla->jsonSerialize(),11,5) ); ?></p>
                     <p><b>Criado em: </b><?= h($callsSubcategory->created) ?></p>
                     <p><b>Modificado em: </b><?= h($callsSubcategory->modified) ?></p>
 
