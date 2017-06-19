@@ -374,8 +374,8 @@ foreach ($call['callsSolutions'] as $key => $value) {
                                 ?>
                                 <p><b>Incluir arquivos:</b></p>
                                 <?php
-                                    echo $this->Form->file('archives[]', ['type' => 'file', 'multiple' => 'true','label' => 'Arquivo:']);
 
+                                    echo $this->Form->file('archives[]', ['type' => 'file', 'multiple' => 'true','label' => 'Arquivo:']);
                                     echo $this->Form->input('subcategorie_id', ['type'=>'hidden','label'=>'Sub Categoria:', 'default'=> $call->subcategory_id, 'options'=> $call['callsSubcategories']]);
 
                                 ?>

@@ -65,6 +65,9 @@ class CallsSolutionsController extends AppController {
         if ($this->request->is('post')) {
             $callsSolution = $this->CallsSolutions->patchEntity($callsSolution, $this->request->data);
             if ($this->CallsSolutions->save($callsSolution)) {
+                foreach ($this->request->data['archives'] as $key => $archive) {
+                    $this->addSolutionsFiles($callsSolution['id'], $archive);
+                }
                 $this->Flash->success(__('A solução foi salva!'));
 
                 return $this->redirect(['action' => 'index']);

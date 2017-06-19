@@ -17,7 +17,7 @@ $callsSubcategoriesFull[0] = 'Selecione...';
             <div class="box box-success">
                 <div class="box-body">
                     <div class="callsSolutions form large-9 medium-8 columns content">
-                        <?= $this->Form->create($callsSolution) ?>
+                        <?= $this->Form->create($callsSolution, ['type'=>'file','multiple'=>'multiple','url' => ['controller' => 'CallsSolutions', 'action' => 'add']]) ?>
                         <fieldset>
                             <legend><?= __('Adicionar Solução') ?></legend>
                             <?php
@@ -27,6 +27,12 @@ $callsSubcategoriesFull[0] = 'Selecione...';
                                 echo $this->Form->input('title',['label'=>'Título:']);
                                 echo $this->Form->input('description',['label'=>'Descrição:', 'type' => 'textarea']);
                             ?>
+                                <p><b>Incluir arquivos:</b></p>
+                                <?php
+                                    echo $this->Form->file('archives[]', ['type' => 'file', 'multiple' => 'true','label' => 'Arquivo:']);
+
+                            ?>
+                            <br>
                         </fieldset>
                         <div class="container-fluid">
                             <div class="row">
