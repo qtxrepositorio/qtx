@@ -1,39 +1,29 @@
-<?php
-$callsAreasFull[0] = 'Selecione...';
-foreach ($callsAreas as $key => $value) {
-    # code...
-    $callsAreasFull[$key] = $value;
-}
-
-$callsCategoriesFull[0] = 'Selecione...';
-
-?>
+<?php ?>
 <section class="content">
     <div class="row">
         <div class="col-md-6">
             <div class="box box-success">
                 <div class="box-body">
-                    <div class="callsSubcategories form large-9 medium-8 columns content">
-                        <?= $this->Form->create($callsSubcategory) ?>
+                    <div class="callsSolutions form large-9 medium-8 columns content">
+                        <?= $this->Form->create($callsSolution) ?>
                         <fieldset>
-                            <legend><?= __('Adiconar Sub categoria') ?></legend>
+                            <legend><?= __('Editar Solução') ?></legend>
                             <?php
-                                echo $this->Form->input('name',['label'=>'Nome:']);
+                                echo $this->Form->input('title',['label'=>'Título:']);
                                 echo $this->Form->input('description',['label'=>'Descrição:', 'type' => 'textarea']);
-                                echo $this->Form->input('sla');
-                                echo $this->Form->input('area_id', ['class' => 'form-control', 'label' => 'Área:','id'=>'area_id', 'options' => $callsAreasFull]);
-                                echo $this->Form->input('category_id', ['label'=>'Categoria:','options'=>$callsCategoriesFull, 'id'=>'category_id']);
+                                echo $this->Form->input('subcategorie_id', ['label'=>'Sub Categoria:','options' => $callsSubcategories]);
                             ?>
                         </fieldset>
 
                         <div class="container-fluid">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <?= $this->Html->link(__('Voltar'), ['controller' => 'callsSubcategories', 'action' => 'index'], array('class' => 'btn btn-primary')) ?>
+
+                                    <?= $this->Html->link(__('Voltar ao chamado'), ['controller' => 'calls', 'action' => 'view', $call->id], array('class' => 'btn btn-primary')) ?>
+
                                 </div>
                                 <div align="right" class="col-md-6">
                                     <?= $this->Form->button(__('Salvar'), ['align'=>'center','class' => 'form-group']) ?>
-
                                 </div>
                             </div>
                         </div>
@@ -46,54 +36,28 @@ $callsCategoriesFull[0] = 'Selecione...';
         </div>
 </section>
 
-
-<script type="text/javascript">
-
-    var area_id = document.getElementById('area_id');
-    var category_id = document.getElementById('category_id');
-
-    var callsCategoriesForJs = JSON.parse('<?php echo json_encode($callsCategoriesForJs) ?>');
-
-    document.getElementById('area_id').onchange = function () {
-
-        html = '<select name="category_id" id="category_id">';
-        html += '<option value="0">Selecione...</option>';
-        for (var i = 0; i < callsCategoriesForJs.length; i++) {
-            if (area_id.value == callsCategoriesForJs[i]['area_id']) {
-                html += '<option value="' + callsCategoriesForJs[i]['id'] + '">' + callsCategoriesForJs[i]['name'] + '</option>';
-            }
-        }
-        html += '</select>';
-
-        category_id.innerHTML = html;
-        category_id.focus();
-    }
-
-
-
-</script>
-
-
 <?php
 $this->Html->css([
-'AdminLTE./plugins/daterangepicker/daterangepicker-bs3',
-'AdminLTE./plugins/iCheck/all',
-'AdminLTE./plugins/colorpicker/bootstrap-colorpicker.min',
-'AdminLTE./plugins/timepicker/bootstrap-timepicker.min',
-'AdminLTE./plugins/select2/select2.min',
-    ], ['block' => 'css']);
+    'AdminLTE./plugins/daterangepicker/daterangepicker-bs3',
+    'AdminLTE./plugins/iCheck/all',
+    'AdminLTE./plugins/colorpicker/bootstrap-colorpicker.min',
+    'AdminLTE./plugins/timepicker/bootstrap-timepicker.min',
+    'AdminLTE./plugins/select2/select2.min',
+  ],
+  ['block' => 'css']);
 
 $this->Html->script([
-'AdminLTE./plugins/select2/select2.full.min',
-'AdminLTE./plugins/input-mask/jquery.inputmask',
-'AdminLTE./plugins/input-mask/jquery.inputmask.date.extensions',
-'AdminLTE./plugins/input-mask/jquery.inputmask.extensions',
-'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js',
-'AdminLTE./plugins/daterangepicker/daterangepicker',
-'AdminLTE./plugins/colorpicker/bootstrap-colorpicker.min',
-'AdminLTE./plugins/timepicker/bootstrap-timepicker.min',
-'AdminLTE./plugins/iCheck/icheck.min',
-    ], ['block' => 'script']);
+  'AdminLTE./plugins/select2/select2.full.min',
+  'AdminLTE./plugins/input-mask/jquery.inputmask',
+  'AdminLTE./plugins/input-mask/jquery.inputmask.date.extensions',
+  'AdminLTE./plugins/input-mask/jquery.inputmask.extensions',
+  'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js',
+  'AdminLTE./plugins/daterangepicker/daterangepicker',
+  'AdminLTE./plugins/colorpicker/bootstrap-colorpicker.min',
+  'AdminLTE./plugins/timepicker/bootstrap-timepicker.min',
+  'AdminLTE./plugins/iCheck/icheck.min',
+],
+['block' => 'script']);
 ?>
 <?php $this->start('scriptBotton'); ?>
 <script>

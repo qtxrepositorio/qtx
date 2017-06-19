@@ -94,18 +94,18 @@ class SolutionsFilesController extends AppController
                     }
 
                     $this->Flash->success(__('O anexo foi salvo com sucesso!'));
-                    
+
                 } else {
 
                     $this->Flash->error(__('O anexo não pode ser salvo!'));
-                    
+
                 }
             }else{
-                $this->Flash->error(__('O anexo não pode ser salvo pois o arquivo já foi anexado anteriormente, mude o nome do arquivo e tente novamente!'));    
+                $this->Flash->error(__('O anexo não pode ser salvo pois o arquivo já foi anexado anteriormente, mude o nome do arquivo e tente novamente!'));
             }
 
             return $this->redirect(['controller'=>'callsSolutions','action' => 'view',$this->request->data['solution_id']]);
-            
+
         }
         $callsSolutions = $this->SolutionsFiles->CallsSolutions->find('list', ['limit' => 200]);
         $this->set(compact('solutionsFile', 'callsSolutions'));
@@ -156,20 +156,20 @@ class SolutionsFilesController extends AppController
                     }
 
                     $this->Flash->success(__('O anexo foi salvo com sucesso!'));
-                    
+
                 } else {
 
                     $this->Flash->error(__('O anexo não pode ser salvo!'));
-                    
+
                 }
             }else{
-                $this->Flash->error(__('O anexo não pode ser salvo pois o arquivo já foi anexado anteriormente, mude o nome do arquivo e tente novamente!'));    
+                $this->Flash->error(__('O anexo não pode ser salvo pois o arquivo já foi anexado anteriormente, mude o nome do arquivo e tente novamente!'));
             }
 
             return $this->redirect(['controller'=>'calls','action' => 'view',$this->request->data['call_id']]);
-            
+
         }
-        
+
         $this->set(compact('solutionsFile', 'callsSolutions'));
         $this->set('_serialize', ['solutionsFile']);
     }
@@ -189,7 +189,7 @@ class SolutionsFilesController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $solutionsFile = $this->SolutionsFiles->patchEntity($solutionsFile, $this->request->data);
             if ($this->SolutionsFiles->save($solutionsFile)) {
-                
+
                 $this->Flash->success(__('O anexo foi editado com sucesso!'));
                 return $this->redirect(['controller'=>'callsSolutions','action' => 'view',$this->request->data['solution_id']]);
             } else {
@@ -200,6 +200,33 @@ class SolutionsFilesController extends AppController
         }
         $callsSolutions = $this->SolutionsFiles->CallsSolutions->find('list', ['limit' => 200]);
         $this->set(compact('solutionsFile', 'callsSolutions'));
+        $this->set('_serialize', ['solutionsFile']);
+    }
+
+    public function editIntoCall($ids = null)
+    {
+        $explode = explode("-", $ids);
+
+        $call_id = (int) $explode[1];
+        $file_solution_id = (int) $explode[0];
+
+        $solutionsFile = $this->SolutionsFiles->get($file_solution_id, [
+            'contain' => []
+        ]);
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $solutionsFile = $this->SolutionsFiles->patchEntity($solutionsFile, $this->request->data);
+            if ($this->SolutionsFiles->save($solutionsFile)) {
+
+                $this->Flash->success(__('O anexo foi editado com sucesso!'));
+                return $this->redirect(['controller'=>'calls','action' => 'view',$call_id]);
+            } else {
+
+                $this->Flash->error(__('O anexo nao pode ser foi editado!'));
+                return $this->redirect(['controller'=>'calls','action' => 'view',$call_id]);
+            }
+        }
+        $callsSolutions = $this->SolutionsFiles->CallsSolutions->find('list', ['limit' => 200]);
+        $this->set(compact('solutionsFile', 'callsSolutions','call_id'));
         $this->set('_serialize', ['solutionsFile']);
     }
 
@@ -225,6 +252,29 @@ class SolutionsFilesController extends AppController
         }
 
         return $this->redirect(['controller'=>'callsSolutions','action' => 'view', $solutionsFile['solution_id']]);
+    }
+
+    public function deleteIntoCall($ids)
+    {
+        $explode = explode("-", $ids);
+
+        $call_id = (int) $explode[1];
+        $file_solution_id = (int) $explode[0];
+
+        $this->request->allowMethod(['post', 'delete']);
+        $solutionsFile = $this->SolutionsFiles->get($file_solution_id);
+        if ($this->SolutionsFiles->delete($solutionsFile)) {
+            echo unlink(getcwd()
+                    . '/files/solutions_files/'
+                    . strval($solutionsFile['solution_id'])
+                    . '/' . strval($solutionsFile['archive']));
+            $this->Flash->success(__('O anexo da solução foi apagado.'));
+        } else {
+            $this->Flash->error(__('O anexo da solução não pode ser apagado.'));
+        }
+
+        return $this->redirect(['controller'=>'calls','action' => 'view', $call_id]);
+
     }
 
     public function beforeFilter(Event $event) {
@@ -270,10 +320,10 @@ class SolutionsFilesController extends AppController
                 }
             }
             if ($release == false) {
-                $this->Flash->error(__('Para realizar modificações nas soluções, você precisa fazer parte dos grupos relacionados ao modulo de chamados.')); 
+                $this->Flash->error(__('Para realizar modificações nas soluções, você precisa fazer parte dos grupos relacionados ao modulo de chamados.'));
                 return false;
             } else {
-                return true;                    
+                return true;
             }
         }
         else {

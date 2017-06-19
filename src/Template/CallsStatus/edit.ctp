@@ -10,16 +10,16 @@
                             <legend><?= __('Editar Urgência') ?></legend>
                             <?php
                                 echo $this->Form->input('title',['label'=>'Título:']);
-                                echo $this->Form->input('description',['label'=>'Descrição:']);
+                                echo $this->Form->input('description',['label'=>'Descrição:', 'type' => 'textarea']);
                             ?>
                         </fieldset>
-                        
+
                         <div class="container-fluid">
                             <div class="row">
                                 <div class="col-md-6">
 
                                     <?= $this->Html->link(__('Ver Todos'), ['controller' => 'callsStatus', 'action' => 'index'], array('class' => 'btn btn-default')) ?>
-                                    
+
                                     <?= $this->Html->link(__('Voltar ao status'), ['controller' => 'callsStatus', 'action' => 'view', $callsStatus['id']], array('class' => 'btn btn-primary')) ?>
 
                                 </div>
@@ -124,5 +124,3 @@ $this->Html->script([
     });
 </script>
 <?php $this->end(); ?>
-
-

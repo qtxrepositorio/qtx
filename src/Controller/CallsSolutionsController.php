@@ -72,8 +72,13 @@ class CallsSolutionsController extends AppController {
                 $this->Flash->error(__('A solução não pode ser salva!'));
             }
         }
-        $callsSubcategories = $this->CallsSolutions->CallsSubcategories->find('list', ['limit' => 200]);
-        $this->set(compact('callsSolution', 'callsSubcategories'));
+        $this->loadModel('Calls');
+        $callsAreas = $this->Calls->CallsAreas->find('list', ['limit' => 200]);
+        $callsCategories = $this->Calls->CallsCategories->find('list', ['limit' => 200]);
+        $callsSubcategories = $this->Calls->CallsSubcategories->find('list', ['limit' => 200]);
+        $callsCategoriesForJs = $this->Calls->CallsCategories->find();
+        $callsSubcategoriesForJs = $this->Calls->CallsSubcategories->find();
+        $this->set(compact('callsSolution', 'callsSubcategories','callsAreas','callsCategories','callsSubcategories','callsCategoriesForJs','callsSubcategoriesForJs'));
         $this->set('_serialize', ['callsSolution']);
     }
 
@@ -282,6 +287,31 @@ class CallsSolutionsController extends AppController {
         }
         $callsSubcategories = $this->CallsSolutions->CallsSubcategories->find('list', ['limit' => 200]);
         $this->set(compact('callsSolution', 'callsSubcategories'));
+        $this->set('_serialize', ['callsSolution']);
+    }
+
+    public function editIntoCall($id = null) {
+
+        $this->loadModel('Calls');
+        $call = $this->Calls->get($id, [
+            'contain' => []
+        ]);
+
+        $callsSolution = $this->CallsSolutions->get($call->solution_id, [
+            'contain' => []
+        ]);
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $callsSolution = $this->CallsSolutions->patchEntity($callsSolution, $this->request->data);
+            if ($this->CallsSolutions->save($callsSolution)) {
+                $this->Flash->success(__('A solução foi salva e aplicada com sucesso!'));
+
+                return $this->redirect(['controller' => 'calls', 'action' => 'view', $call->id]);
+            } else {
+                $this->Flash->error(__('A solução não foi salva.'));
+            }
+        }
+        $callsSubcategories = $this->CallsSolutions->CallsSubcategories->find('list', ['limit' => 200]);
+        $this->set(compact('callsSolution', 'callsSubcategories','call'));
         $this->set('_serialize', ['callsSolution']);
     }
 

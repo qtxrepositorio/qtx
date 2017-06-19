@@ -142,6 +142,32 @@ class CallsFilesController extends AppController {
         $this->set('_serialize', ['callsFile']);
     }
 
+    public function editIntoCall($id = null) {
+
+        $callsFile = $this->CallsFiles->get($id, [
+            'contain' => []
+        ]);
+
+        $this->loadModel('Calls');
+        $call = $this->Calls->get($callsFile->call_id, [
+            'contain' => []
+        ]);
+
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $callsFile = $this->CallsFiles->patchEntity($callsFile, $this->request->data);
+            if ($this->CallsFiles->save($callsFile)) {
+                $this->Flash->success(__('O arquivo foi salvo com sucesso!'));
+
+                return $this->redirect(['controller' => 'calls', 'action' => 'view', $callsFile->call_id]);
+            } else {
+                $this->Flash->error(__('O arquivo não pode ser salvo!'));
+            }
+        }
+        $calls = $this->CallsFiles->Calls->find('list', ['limit' => 200]);
+        $this->set(compact('callsFile', 'calls'));
+        $this->set('_serialize', ['callsFile']);
+    }
+
     /**
      * Delete method
      *
