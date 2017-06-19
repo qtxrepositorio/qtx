@@ -12,16 +12,16 @@
                             <legend><?= __('Editar Área') ?></legend>
                             <?php
                                 echo $this->Form->input('name',['label'=>'Nome:']);
-                                echo $this->Form->input('description',['label'=>'Descrição:']);
+                                echo $this->Form->input('description',['label'=>'Descrição:', 'type' => 'textarea']);
                             ?>
                         </fieldset>
-                    
+
                         <div class="container-fluid">
                             <div class="row">
                                 <div class="col-md-6">
 
                                     <?= $this->Html->link(__('Ver todas'), ['controller' => 'callsAreas', 'action' => 'index'], array('class' => 'btn btn-default')) ?>
-                                    
+
                                     <?= $this->Html->link(__('Voltar a área'), ['controller' => 'callsAreas', 'action' => 'view', $callsArea['id']], array('class' => 'btn btn-primary')) ?>
 
                                 </div>
@@ -126,6 +126,3 @@ $this->Html->script([
     });
 </script>
 <?php $this->end(); ?>
-
-
-

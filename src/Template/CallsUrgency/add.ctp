@@ -10,10 +10,10 @@
                             <legend><?= __('Adicionar Urgência') ?></legend>
                             <?php
                                 echo $this->Form->input('title',['label'=>'Título:']);
-                                echo $this->Form->input('description',['label'=>'Descrição:']);
+                                echo $this->Form->input('description',['label'=>'Descrição:', 'type' => 'textarea']);
                             ?>
                         </fieldset>
-                        
+
                         <div class="container-fluid">
                             <div class="row">
                                 <div class="col-md-6">
@@ -21,7 +21,7 @@
                                 </div>
                                 <div align="right" class="col-md-6">
                                     <?= $this->Form->button(__('Salvar'), ['align'=>'center','class' => 'form-group']) ?>
-                        
+
                                 </div>
                             </div>
                         </div>
@@ -121,5 +121,3 @@ $this->Html->script([
     });
 </script>
 <?php $this->end(); ?>
-
-

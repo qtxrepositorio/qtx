@@ -30,12 +30,14 @@ foreach ($callsSubcategories as $key => $value) {
                         <fieldset>
                             <legend><?= __('Editar Chamado') ?></legend>
                             <?php
-                                echo $this->Form->input('subject', ['label' => 'Assunto:']);
-                                echo $this->Form->input('text', ['label' => 'Descrição:', 'type' => 'textarea']);
+
                                 echo $this->Form->input('area_id', ['class' => 'form-control', 'label' => 'Área:','id'=>'area_id', 'options' => $callsAreasFull]);
                                 echo $this->Form->input('category_id', ['class'=>'form-control', 'label'=>'Categoria:','id'=>'category_id', 'disabled'=>true, 'options'=>$callsCategoriesFull]);
                                 echo $this->Form->input('subcategory_id', ['class' => 'form-control', 'label' => 'Sub categoria:', 'id'=>'subcategory_id', 'disabled'=>true, 'options' => $callsSubcategoriesFull]);
-                                
+
+                                echo $this->Form->input('subject', ['label' => 'Assunto:']);
+                                echo $this->Form->input('text', ['label' => 'Descrição:', 'type' => 'textarea']);
+
                                 if ($call['attributed_to'] == $authenticatedUser['id']) {
                                     echo $this->Form->input('status_id', ['class' => 'form-control', 'label' => 'Status:', 'options' => $callsStatus]);
                                 }else{
@@ -55,7 +57,7 @@ foreach ($callsSubcategories as $key => $value) {
                                 <div class="col-md-6">
 
                                     <?= $this->Html->link(__('Ver todos'), ['controller' => 'calls', 'action' => 'index'], array('class' => 'btn btn-default')) ?>
-                                    
+
                                     <?= $this->Html->link(__('Voltar ao chamado'), ['controller' => 'calls', 'action' => 'view', $call['id']], array('class' => 'btn btn-primary')) ?>
 
                                 </div>

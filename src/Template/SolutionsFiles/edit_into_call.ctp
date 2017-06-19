@@ -4,35 +4,25 @@
         <div class="col-md-6">
             <div class="box box-success">
                 <div class="box-body">
-                    <div class="callsSolutions form large-9 medium-8 columns content">
-                        <?= $this->Form->create($callsSolution) ?>
+                    <div class="solutionsFiles form large-9 medium-8 columns content">
+                        <?= $this->Form->create($solutionsFile) ?>
                         <fieldset>
-                            <legend><?= __('Editar Solução') ?></legend>
+                            <legend><?= __('Editar Anexo') ?></legend>
                             <?php
-                                echo $this->Form->input('title',['label'=>'Título:']);
-                                echo $this->Form->input('description',['label'=>'Descrição:', 'type' => 'textarea']);
-                                echo $this->Form->input('subcategorie_id', ['label'=>'Sub Categoria:','options' => $callsSubcategories]);
+                                echo $this->Form->input('text', ['label'=>'Descrição:']);
+                                echo $this->Form->input('archive', ['disabled'=>true, 'label'=>'Arquivo:']);
+                                echo $this->Form->input('solution_id', ['disabled'=>true, 'label'=>'Solução:','options' => $callsSolutions]);
                             ?>
                         </fieldset>
 
-                        <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-md-6">
-
-                                    <?= $this->Html->link(__('Ver todas'), ['controller' => 'callsSolutions', 'action' => 'index'], array('class' => 'btn btn-default')) ?>
-
-                                    <?= $this->Html->link(__('Voltar a solução'), ['controller' => 'callsSolutions', 'action' => 'view', $callsSolution['id']], array('class' => 'btn btn-primary')) ?>
-
-                                </div>
-                                <div align="right" class="col-md-6">
-                                    <?= $this->Form->button(__('Salvar'), ['align'=>'center','class' => 'form-group']) ?>
-                                </div>
-                            </div>
+                        <div class="col-md-6">
+                            <?= $this->Html->link(__('Voltar ao chamado'), ['controller' => 'calls', 'action' => 'view', $call_id], array('class' => 'btn btn-primary')) ?>
                         </div>
-
+                        <div align="right" class="col-md-6">
+                            <?= $this->Form->button(__('Salvar')) ?>
+                        </div>
                         <?= $this->Form->end() ?>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -61,6 +51,7 @@ $this->Html->script([
 ],
 ['block' => 'script']);
 ?>
+
 <?php $this->start('scriptBotton'); ?>
 <script>
     $(function () {

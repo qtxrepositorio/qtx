@@ -1,4 +1,4 @@
-<?php  
+<?php
 $x = 0;
 
 $callsSolutionsFull[0] = 'Selecione...';
@@ -15,11 +15,11 @@ foreach ($call['callsSolutions'] as $key => $value) {
         <div class="col-md-5" align="center">
             <div class="box box-success">
                 <div class="box-header with-border">
-                    <h3 class="box-title"><b>Informações sobre o chamado:</b></h3>
+                    <h3 class="box-title"><b>Informações sobre o chamado</b></h3>
                 </div>
                 <div class="box-body">
-                    <p><b>Id do Chamado: </b><?= $this->Number->format($call->id) ?></p> 
-                    <p><b>Assunto: </b><?= h($call->subject) ?></p> 
+                    <p><b>Id do Chamado: </b><?= $this->Number->format($call->id) ?></p>
+                    <p><b>Assunto: </b><?= h($call->subject) ?></p>
                     <p><b>Descrição: </b><?= h($call->text) ?></p>
                     <p><b>Urgência: </b><?= h($call->urgency) ?></p>
                     <p><b>Área: </b><?= h($call->area) ?></p>
@@ -37,27 +37,27 @@ foreach ($call['callsSolutions'] as $key => $value) {
                         <fieldset>
                             <?php
                                 echo $this->Form->input('id', ['type'=>'hidden']);
-                                
+
                                 if ($call['authenticatedUser']['name'] != $call->attributed_to) {
-                                    echo $this->Form->input('status_id', ['disabled'=>true, 'default' => $call->status, 'options' => $call['callsStatus']]); 
+                                    echo $this->Form->input('status_id', ['disabled'=>true, 'default' => $call->status, 'options' => $call['callsStatus']]);
                                     echo $this->Form->input('solution_id', ['disabled'=>true, 'label' => 'Solução:', 'default' => $call->solution_id, 'options' => $callsSolutionsFull]);
                                 }else{
                                     echo $this->Form->input('status_id', ['label' => 'Status:', 'default' => $call->status, 'options' => $call['callsStatus']]);
-                                    echo $this->Form->input('solution_id', ['label' => 'Solução:', 'default' => $call->solution_id, 'options' => $callsSolutionsFull]);   
-                                }                                
+                                    echo $this->Form->input('solution_id', ['label' => 'Solução:', 'default' => $call->solution_id, 'options' => $callsSolutionsFull]);
+                                }
                             ?>
                         </fieldset>
                         <?php
                             if($call['authenticatedUser']['name'] == $call->attributed_to){
-                        ?>        
+                        ?>
                                 <p align="center">
                                     <?= $this->Form->button(__('<i class="glyphicon glyphicon-ok"></i>'), array('class' => 'btn btn-success btn-xs', 'escape' => false, 'data-toggle' => 'tooltip', 'title' => 'Salvar')) ?>
-                                    
+
                                     ou
-                                    
+
                                     <a id="modal-01" href="#modal-container-02" role="submit" data-toggle="modal" title="Adicionar uma solução" class="glyphicon glyphicon-plus btn btn-primary btn-xs" href="<?php echo ''//$local; ?>"></a>
                                 </p>
-                        <?php 
+                        <?php
                             }
                         ?>
                     <?= $this->Form->end() ?>
@@ -74,14 +74,14 @@ foreach ($call['callsSolutions'] as $key => $value) {
         </div>
 
         <div class="col-md-7">
-            <div class="col-md-12">                
+            <div class="col-md-12">
                 <div class="box box-primary direct-chat direct-chat-primary">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Acompanhamento do chamado:</h3>
+                        <h3 class="box-title">Acompanhamento do chamado</h3>
                         <div class="box-tools pull-right">
 
                         </div>
-                    </div>                    
+                    </div>
                     <div class="box-body">
                         <div id="idx" class="direct-chat-messages">
 
@@ -96,7 +96,7 @@ foreach ($call['callsSolutions'] as $key => $value) {
                                             </span>
                                             <span class="direct-chat-timestamp pull-left">
                                                 <?php echo $value['created']; ?>
-                                            </span>   
+                                            </span>
                                         </div>
                                         <?php //echo $this->Html->image('user3-128x128.jpg', ['alt' => 'Message User Image', 'class' => 'direct-chat-img']);  ?>
                                         <div class="direct-chat-text">
@@ -119,11 +119,11 @@ foreach ($call['callsSolutions'] as $key => $value) {
                                             <?php echo $value['text']; ?></span>
                                         </div>
                                     </div>
-                                <?php endif ?>                          
+                                <?php endif ?>
                             <?php endforeach ?>
                         </div>
                     </div>
-                    
+
                     <div class="box-footer">
                         <?php
                         $x = null;
@@ -147,94 +147,54 @@ foreach ($call['callsSolutions'] as $key => $value) {
                 </div>
             </div>
 
-            <?php if ($call->solution_id != null): ?>
-                <div class="col-md-12">
-                    <div class="box box-warning">
-                        <div class="box-header with-border">
-                        <h3 class="box-title">Solução:</h3>
+            <div class="col-md-12" >
+                <div class="box box-warning">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Anexos do chamado </h3>
+
+                        <a id="modal-01" href="#modal-container-01" role="submit" class="btn btn-success btn-xs" data-toggle="modal">Adicionar arquivo</a>
+
                     </div>
+                    <div class="box-body">
 
                     <div class="box-body">
-                        <div class="col-md-12">
 
-                            <div class="box-body">
+                        <table id="example" cellpadding="0" cellspacing="0" class="table table-bordered table-hover">
+                            <thead>
+                                <th>Id</th>
+                                <th>Arquivo</th>
+                                <th>Descrição</th>
+                                <th class="actions">Ações</th>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($call['files'] as $key): ?>
+                                    <tr>
+                                        <td><?= $this->Number->format($key['id']) ?></td>
+                                        <td><?php echo $key['archive']; ?></td>
+                                        <td><?php echo $key['text'] ?></td>
+                                        <td align="center" class="actions">
 
-                            <?php foreach ($call['callSolutionView'] as $key): //debug($key);?>
+                                        <?php
 
-                                <p><b>Titulo:</b> <?= h($key['title']) ?>  </p>     
-                                <p><b>Descrição:</b> <?= h($key['description']) ?> </p>
+                                        $local = '../../webroot/files/calls_files/' . strval($key['call_id']) .'/' . $key['archive'];
 
-                            <?php endforeach ?>
+                                        ?>
 
-                            </div>
+                                            <a data-toggle="tooltip" title="Download" class="glyphicon glyphicon-download-alt btn btn-primary btn-xs" href="<?php echo $local; ?>" download></a>
 
-                            <div class="box-body">
+                                            <?php echo $this->Html->link(__('<i class="glyphicon glyphicon-pencil"></i>'), array('controller'=>'callsFiles','action' => 'edit-into-call', $key['id']), array('class' => 'btn btn-warning btn-xs', 'escape' => false, 'data-toggle'=>'tooltip', 'title' => 'Editar')); ?>
 
-                            <div align="right">
-                                <a id="modal-01" href="#modal-container-03" role="submit" class="btn btn-success btn-xs" data-toggle="modal">Adicionar arquivo</a>   
-                                <br><br> 
-                            </div>
-                            
+                                            <?php echo $this->Form->postLink(__('<i class="glyphicon glyphicon-trash"></i>'), array('controller'=>'callsFiles','action' => 'delete', $key['id']), array('class' => 'btn btn-danger btn-xs', 'escape' => false, 'data-toggle'=>'tooltip', 'title' => 'Deletar', 'confirm' => __('Tem certeza de que deseja excluir # {0}?', $key['id']))); ?>
 
-                            <table id="tbArchivesCall" cellpadding="0" cellspacing="0" class="table table-bordered table-hover">
-                                <thead>
-                                    <th>Id</th>
-                                    <th>Arquivo</th>
-                                    <th>Descrição</th>
-                                    <th class="actions">Ações</th>
-                                </thead>
-                                <tbody>
-                                    <?php foreach ($call['callSolutionFiles'] as $key): ?>
-                                        <tr>
-                                            <td><?= $this->Number->format($key['id']) ?></td>
-                                            <td><?php echo $key['archive']; ?></td>
-                                            <td><?php echo $key['text'] ?></td>
-                                            <td align="center" class="actions">
-
-                                            <?php
-
-                                            $local = '../../webroot/files/solutions_files/' . strval($key['solution_id']) .'/' . $key['archive'];
-
-                                            ?>
-                                                
-                                                <a data-toggle="tooltip" title="Download" class="glyphicon glyphicon-download-alt btn btn-primary btn-xs" href="<?php echo $local; ?>" download></a>
-                                                
-                                                <?php echo $this->Html->link(__('<i class="glyphicon glyphicon-pencil"></i>'), array('controller'=>'SolutionsFiles','action' => 'edit', $key['id']), array('class' => 'btn btn-warning btn-xs', 'escape' => false, 'data-toggle'=>'tooltip', 'title' => 'Editar')); ?>
-
-                                                <?php echo $this->Form->postLink(__('<i class="glyphicon glyphicon-trash"></i>'), array('controller'=>'SolutionsFiles','action' => 'delete', $key['id']), array('class' => 'btn btn-danger btn-xs', 'escape' => false, 'data-toggle'=>'tooltip', 'title' => 'Deletar', 'confirm' => __('Tem certeza de que deseja excluir # {0}?', $key['id']))); ?>
-
-                                            </td>
-                                        </tr>                            
-                                    <?php endforeach ?>
-                                </tbody>
-                            </table>
-
-                            </div>
-                        
-                        </div>
-                    </div>
+                                        </td>
+                                    </tr>
+                                <?php endforeach ?>
+                            </tbody>
+                        </table>
 
                     </div>
                 </div>
-            <?php else: ?>  
-
-                <div class="col-md-12">
-                    <div class="box box-warning">
-                        <div class="box-header with-border">
-                        <h3 class="box-title">Solução:</h3>
-                    </div>
-
-                    <div class="box-body">
-                        <div class="col-md-6">
-                            <div align="center">
-                                <h5>O chamado não tem solução associada!</h5>
-                            </div>
-                        </div>
-                    </div>
-
-                    </div>
-                </div>  
-            <?php endif ?>
+            </div>
 
         </div>
 
@@ -246,54 +206,102 @@ foreach ($call['callsSolutions'] as $key => $value) {
 <section class="content">
 
     <div class="row">
-    <div class="col-md-12" >
-        <div class="box box-default">
-            <div class="box-header with-border">
-                <h3 class="box-title">Anexos do chamado: </h3>
-                
-                <a id="modal-01" href="#modal-container-01" role="submit" class="btn btn-success btn-xs" data-toggle="modal">Adicionar arquivo</a>
 
-            </div>
-            <div class="box-body">
+        <?php if ($call->solution_id != null): ?>
+            <div class="col-md-12">
+                <div class="box box-default">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Solução</h3>
+                        <?php echo $this->Html->link(__('<i class="">Editar</i>'), array('controller' => 'CallsSolutions','action' => 'edit-into-call', $call->id), array('class' => 'btn btn-warning btn-xs', 'escape' => false, 'data-toggle' => 'tooltip', 'title' => 'Editar')); ?>
 
-            <div class="box-body">   
 
-                <table id="example" cellpadding="0" cellspacing="0" class="table table-bordered table-hover">
-                    <thead>
-                        <th>Id</th>
-                        <th>Arquivo</th>
-                        <th>Descrição</th>
-                        <th class="actions">Ações</th>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($call['files'] as $key): ?>
-                            <tr>
-                                <td><?= $this->Number->format($key['id']) ?></td>
-                                <td><?php echo $key['archive']; ?></td>
-                                <td><?php echo $key['text'] ?></td>
-                                <td align="center" class="actions">
+                </div>
 
-                                <?php
+                <div class="box-body">
+                    <div class="col-md-12">
 
-                                $local = '../../webroot/files/calls_files/' . strval($key['call_id']) .'/' . $key['archive'];
+                        <div class="box-body">
 
-                                ?>
-                                    
-                                    <a data-toggle="tooltip" title="Download" class="glyphicon glyphicon-download-alt btn btn-primary btn-xs" href="<?php echo $local; ?>" download></a>
-                                    
-                                    <?php echo $this->Html->link(__('<i class="glyphicon glyphicon-pencil"></i>'), array('controller'=>'callsFiles','action' => 'edit', $key['id']), array('class' => 'btn btn-warning btn-xs', 'escape' => false, 'data-toggle'=>'tooltip', 'title' => 'Editar')); ?>
+                        <?php foreach ($call['callSolutionView'] as $key): //debug($key);?>
 
-                                    <?php echo $this->Form->postLink(__('<i class="glyphicon glyphicon-trash"></i>'), array('controller'=>'callsFiles','action' => 'delete', $key['id']), array('class' => 'btn btn-danger btn-xs', 'escape' => false, 'data-toggle'=>'tooltip', 'title' => 'Deletar', 'confirm' => __('Tem certeza de que deseja excluir # {0}?', $key['id']))); ?>
+                            <p><b>Titulo:</b> <?= h($key['title']) ?>  </p>
+                            <p><b>Descrição:</b> <?= h($key['description']) ?> </p>
 
-                                </td>
-                            </tr>                            
                         <?php endforeach ?>
-                    </tbody>
-                </table>
 
+                        </div>
+
+                        <div class="box-body">
+
+                        <div align="right">
+                            <a id="modal-01" href="#modal-container-03" role="submit" class="btn btn-success btn-xs" data-toggle="modal">Adicionar arquivo</a>
+                            <br><br>
+                        </div>
+
+
+                        <table id="tbArchivesCall" cellpadding="0" cellspacing="0" class="table table-bordered table-hover">
+                            <thead>
+                                <th>Id</th>
+                                <th>Arquivo</th>
+                                <th>Descrição</th>
+                                <th class="actions">Ações</th>
+                            </thead>
+                            <tbody>
+                                <?php foreach ($call['callSolutionFiles'] as $key): ?>
+                                    <tr>
+                                        <?php
+                                            $key['full'] = $key['id'] .'-'. $call->id;
+                                        ?>
+                                        <td><?= $this->Number->format($key['id']) ?></td>
+                                        <td><?php echo $key['archive']; ?></td>
+                                        <td><?php echo $key['text'] ?></td>
+                                        <td align="center" class="actions">
+
+                                        <?php
+
+                                        $local = '../../webroot/files/solutions_files/' . strval($key['solution_id']) .'/' . $key['archive'];
+
+                                        ?>
+
+                                            <a data-toggle="tooltip" title="Download" class="glyphicon glyphicon-download-alt btn btn-primary btn-xs" href="<?php echo $local; ?>" download></a>
+
+                                            <?php echo $this->Html->link(__('<i class="glyphicon glyphicon-pencil"></i>'), array('controller'=>'SolutionsFiles','action' => 'edit-into-call', $key['full']), array('class' => 'btn btn-warning btn-xs', 'escape' => false, 'data-toggle'=>'tooltip', 'title' => 'Editar')); ?>
+
+                                            <?php echo $this->Form->postLink(__('<i class="glyphicon glyphicon-trash"></i>'), array('controller'=>'SolutionsFiles','action' => 'delete-into-call', $key['full']), array('class' => 'btn btn-danger btn-xs', 'escape' => false, 'data-toggle'=>'tooltip', 'title' => 'Deletar', 'confirm' => __('Tem certeza de que deseja excluir # {0}?', $key['id']))); ?>
+
+                                        </td>
+                                    </tr>
+                                <?php endforeach ?>
+                            </tbody>
+                        </table>
+
+                        </div>
+
+                    </div>
+                </div>
+
+                </div>
             </div>
-        </div>
-    </div>
+        <?php else: ?>
+
+            <div class="col-md-12">
+                <div class="box box-default">
+                    <div class="box-header with-border">
+                    <h3 class="box-title">Solução:</h3>
+                </div>
+
+                <div class="box-body">
+                    <div class="col-md-6">
+                        <div align="center">
+                            <h5>O chamado não tem solução associada!</h5>
+                        </div>
+                    </div>
+                </div>
+
+                </div>
+            </div>
+        <?php endif ?>
+
     </div>
 
 </section>
@@ -308,7 +316,7 @@ foreach ($call['callsSolutions'] as $key => $value) {
             <div class="modal fade" id="modal-container-01" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
-                        <div class="modal-header">                           
+                        <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                                 ×
                             </button>
@@ -316,27 +324,27 @@ foreach ($call['callsSolutions'] as $key => $value) {
                                 Informe os dados solicitados:
                             </h4>
                         </div>
-                        <div class="modal-body">                            
+                        <div class="modal-body">
 
-                            <?= $this->Form->create($x, ['type' => 'file','url' => ['controller' => 'CallsFiles', 'action' => 'add']]) ?> 
+                            <?= $this->Form->create($x, ['type' => 'file','url' => ['controller' => 'CallsFiles', 'action' => 'add']]) ?>
                                 <fieldset>
                                     <?php
                                         echo $this->Form->input('text', ['label'=>'Descrição:']);
                                         echo $this->Form->file('files');
                                         echo $this->Form->input('call_id', ['type'=>'hidden','default' => $call->id]);
                                     ?>
-                                </fieldset>                            
+                                </fieldset>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">
                                 Fechar
-                            </button> 
+                            </button>
                             <?= $this->Form->button(__('Salvar')) ?>
                             <?= $this->Form->end() ?>
                         </div>
-                    </div>                  
-                </div>              
-            </div>          
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -347,7 +355,7 @@ foreach ($call['callsSolutions'] as $key => $value) {
             <div class="modal fade" id="modal-container-02" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
-                        <div class="modal-header">                           
+                        <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                                 ×
                             </button>
@@ -355,7 +363,7 @@ foreach ($call['callsSolutions'] as $key => $value) {
                                 Adicionar Solução para a categoria do chamado atual:
                             </h4>
                         </div>
-                        <div class="modal-body">                            
+                        <div class="modal-body">
                             <?= $this->Form->create($x, ['type'=>'file','multiple'=>'multiple','url' => ['controller' => 'CallsSolutions', 'action' => 'addIntoCall']]) ?>
                             <fieldset>
                                 <?php
@@ -363,24 +371,26 @@ foreach ($call['callsSolutions'] as $key => $value) {
                                     echo $this->Form->input('title',['label'=>'Título:']);
                                     echo $this->Form->input('description',['label'=>'Descrição:']);
                                     echo $this->Form->input('changeStatus',['label'=>'Mudar o status do chamado para solucionado?','options'=> ['Sim','Não']]);
-
+                                ?>
+                                <p><b>Incluir arquivos:</b></p>
+                                <?php
                                     echo $this->Form->file('archives[]', ['type' => 'file', 'multiple' => 'true','label' => 'Arquivo:']);
 
                                     echo $this->Form->input('subcategorie_id', ['type'=>'hidden','label'=>'Sub Categoria:', 'default'=> $call->subcategory_id, 'options'=> $call['callsSubcategories']]);
 
                                 ?>
-                            </fieldset>                                                      
+                            </fieldset>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">
                                 Fechar
-                            </button> 
+                            </button>
                             <?= $this->Form->button(__('Salvar e aplicar')) ?>
                             <?= $this->Form->end() ?>
                         </div>
-                    </div>                  
-                </div>              
-            </div>          
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -392,7 +402,7 @@ foreach ($call['callsSolutions'] as $key => $value) {
             <div class="modal fade" id="modal-container-03" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
-                        <div class="modal-header">                           
+                        <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                                 ×
                             </button>
@@ -400,9 +410,9 @@ foreach ($call['callsSolutions'] as $key => $value) {
                                 Informe os dados solicitados:
                             </h4>
                         </div>
-                        <div class="modal-body">                            
+                        <div class="modal-body">
 
-                            <?= $this->Form->create($x, ['type' => 'file','url' => ['controller' => 'SolutionsFiles', 'action' => 'addIntoCall']]) ?> 
+                            <?= $this->Form->create($x, ['type' => 'file','url' => ['controller' => 'SolutionsFiles', 'action' => 'addIntoCall']]) ?>
                                 <fieldset>
                                     <?php
                                         echo $this->Form->input('call_id', ['type'=>'hidden', 'default'=>$call->id]);
@@ -410,18 +420,18 @@ foreach ($call['callsSolutions'] as $key => $value) {
                                         echo $this->Form->file('archive');
                                         echo $this->Form->input('solution_id', ['type'=>'hidden','default' => $call->solution_id]);
                                     ?>
-                                </fieldset>                            
+                                </fieldset>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">
                                 Fechar
-                            </button> 
+                            </button>
                             <?= $this->Form->button(__('Salvar')) ?>
                             <?= $this->Form->end() ?>
                         </div>
-                    </div>                  
-                </div>              
-            </div>          
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -438,7 +448,7 @@ $this->Html->script(['AdminLTE./plugins/fileSaver/FileSaver.js',], ['block' => '
 $this->Html->script(['AdminLTE./plugins/canvasToBlob/canvas-toBlob.js',], ['block' => 'script']);
 $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block' => 'script']);
 $this->Html->script(['//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js',], ['block' => 'script']);
-?> 
+?>
 
 <script>
     $(document).ready(function () {
@@ -480,7 +490,7 @@ $this->Html->script(['AdminLTE./plugins/fileSaver/FileSaver.js',], ['block' => '
 $this->Html->script(['AdminLTE./plugins/canvasToBlob/canvas-toBlob.js',], ['block' => 'script']);
 $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block' => 'script']);
 $this->Html->script(['//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js',], ['block' => 'script']);
-?> 
+?>
 
 <script>
     $(document).ready(function () {

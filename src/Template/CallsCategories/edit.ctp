@@ -10,18 +10,18 @@
                             <legend><?= __('Editar categoria') ?></legend>
                             <?php
                                 echo $this->Form->input('name',['label'=>'Nome:']);
-                                echo $this->Form->input('description',['label'=>'Descrição:']);
+                                echo $this->Form->input('description',['label'=>'Descrição:', 'type' => 'textarea']);
 
                                 echo $this->Form->input('area_id', ['options' => $callsAreas]);
                             ?>
                         </fieldset>
-                        
+
                         <div class="container-fluid">
                             <div class="row">
                                 <div class="col-md-6">
 
                                     <?= $this->Html->link(__('Ver todas'), ['controller' => 'callsCategories', 'action' => 'index'], array('class' => 'btn btn-default')) ?>
-                                    
+
                                     <?= $this->Html->link(__('Voltar a categoria'), ['controller' => 'callsCategories', 'action' => 'view', $callsCategory['id']], array('class' => 'btn btn-primary')) ?>
 
                                 </div>
@@ -127,6 +127,3 @@ $this->Html->script([
     });
 </script>
 <?php $this->end(); ?>
-
-
-

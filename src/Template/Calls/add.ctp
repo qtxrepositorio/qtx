@@ -21,11 +21,11 @@ $callsSubcategoriesFull[0] = 'Selecione...';
                         <fieldset>
                             <legend><?= __('Adicionar Chamado') ?></legend>
                             <?php
-                                echo $this->Form->input('subject', ['label' => 'Assunto:']);
-                                echo $this->Form->input('text', ['label' => 'Descrição:', 'type' => 'textarea']);
                                 echo $this->Form->input('area_id', ['class' => 'form-control', 'label' => 'Área:','id'=>'area_id', 'options' => $callsAreasFull]);
                                 echo $this->Form->input('category_id', ['label' => 'Categoria:','id'=>'category_id', 'disabled'=>true, 'options' => $callsCategoriesFull]);
                                 echo $this->Form->input('subcategory_id', ['class' => 'form-control', 'label' => 'Sub categoria:', 'id'=>'subcategory_id', 'disabled'=>true, 'options' => $callsSubcategoriesFull]);
+                                echo $this->Form->input('subject', ['label' => 'Assunto:']);
+                                echo $this->Form->input('text', ['label' => 'Descrição:', 'type' => 'textarea']);
                                 echo $this->Form->input('status_id', ['type' => 'hidden', 'label' => 'Status:', 'default' => 1, 'options' => $callsStatus]);
                                 echo $this->Form->input('urgency_id', ['class' => 'form-control','label' => 'Urgência:', 'options' => $callsUrgency]);
                                 echo $this->Form->input('solution_id', ['type'=>'hidden', 'default' => null]);
@@ -35,9 +35,11 @@ $callsSubcategoriesFull[0] = 'Selecione...';
 
                             <br>
 
+                            <p><b>Incluir anexos:</b></p>
+
                             <?php
 
-                                echo $this->Form->file('archives[]', ['type' => 'file', 'multiple' => 'true','label' => 'Arquivo:']);
+                                echo $this->Form->file('archives[]', ['type' => 'file', 'multiple' => 'true']);
 
                                 //echo $this->Form->input('visualized');
                             ?>
@@ -52,13 +54,13 @@ $callsSubcategoriesFull[0] = 'Selecione...';
                                 </div>
                                 <div align="right" class="col-md-6">
                                     <?= $this->Form->button(__('Salvar'), ['align'=>'center','class' => 'form-group']) ?>
-                        
+
                                 </div>
                             </div>
                         </div>
 
                         <?= $this->Form->end() ?>
-                       
+
                     </div>
                 </div>
             </div>

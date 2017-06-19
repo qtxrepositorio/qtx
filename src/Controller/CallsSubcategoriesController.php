@@ -19,10 +19,8 @@ class CallsSubcategoriesController extends AppController
      */
     public function index()
     {
-        $this->paginate = [
-            'contain' => ['CallsCategories']
-        ];
-        $callsSubcategories = $this->paginate($this->CallsSubcategories);
+
+        $callsSubcategories = $this->CallsSubcategories->find();
 
         $this->set(compact('callsSubcategories'));
         $this->set('_serialize', ['callsSubcategories']);
@@ -63,8 +61,13 @@ class CallsSubcategoriesController extends AppController
                 $this->Flash->error(__('A subcategoria não foi salva!'));
             }
         }
+        $this->loadModel('Calls');
+        $callsAreas = $this->Calls->CallsAreas->find('list', ['limit' => 200]);
         $callsCategories = $this->CallsSubcategories->CallsCategories->find('list', ['limit' => 200]);
-        $this->set(compact('callsSubcategory', 'callsCategories'));
+
+        $callsCategoriesForJs = $this->CallsSubcategories->CallsCategories->find();
+
+        $this->set(compact('callsSubcategory', 'callsCategories','callsAreas','callsCategoriesForJs'));
         $this->set('_serialize', ['callsSubcategory']);
     }
 
@@ -90,8 +93,13 @@ class CallsSubcategoriesController extends AppController
                 $this->Flash->error(__('A subcategoria não foi salva!'));
             }
         }
+
+        $this->loadModel('Calls');
+        $callsAreas = $this->Calls->CallsAreas->find('list', ['limit' => 200]);
         $callsCategories = $this->CallsSubcategories->CallsCategories->find('list', ['limit' => 200]);
-        $this->set(compact('callsSubcategory', 'callsCategories'));
+        $callsCategoriesForJs = $this->CallsSubcategories->CallsCategories->find();
+
+        $this->set(compact('callsSubcategory', 'callsCategories','callsAreas','callsCategoriesForJs'));
         $this->set('_serialize', ['callsSubcategory']);
     }
 
@@ -161,7 +169,7 @@ class CallsSubcategoriesController extends AppController
                 $this->Flash->error(__('Você não tem autorização para acessar esta área do sistema. Caso necessário, favor entrar em contato com o setor TI.'));
                 $this->redirect($this->Auth->redirectUrl());
             } else {
-                //$this->Flash->error(__('VC É ADM')); 
+                //$this->Flash->error(__('VC É ADM'));
                 if (in_array($this->action, array('dash')))
                     return true;
             }

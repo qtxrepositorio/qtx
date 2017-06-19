@@ -84,21 +84,19 @@ class CallsFilesTable extends Table
 
     public function deleteFiles($call_id)
     {
-
         $connection = ConnectionManager::get('default');
         $callsFiles = $connection->execute("SELECT * FROM calls_files WHERE call_id = '$call_id'");
 
         $x = $connection->execute("DELETE
                 FROM [calls_files]
-                WHERE [call_id] = $call_id"); 
+                WHERE [call_id] = $call_id");
 
         foreach ($callsFiles as $key) {
-            echo unlink(getcwd() 
+            echo unlink(getcwd()
                 . '/files/calls_files/'
                 . strval($key['call_id'])
-                . '/' . strval($key['files']));
+                . '/' . strval($key['archive']));
         }
-        
     }
 
 }
