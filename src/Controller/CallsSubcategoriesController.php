@@ -19,13 +19,9 @@ class CallsSubcategoriesController extends AppController
      */
     public function index()
     {
-
-        //$callsSubcategories = $this->CallsSubcategories->find();
-
-        $this->paginate = [
-            'contain' => ['CallsCategories']
-        ];
-        $callsSubcategories = $this->paginate($this->CallsSubcategories);
+        
+        $callsSubcategories = $this->CallsSubcategories->find('all',[
+            'contain' => ['CallsCategories']]);
 
         $this->set(compact('callsSubcategories'));
         $this->set('_serialize', ['callsSubcategories']);

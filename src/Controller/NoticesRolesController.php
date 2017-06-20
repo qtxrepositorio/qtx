@@ -12,7 +12,7 @@ use Cake\Controller\Component\FlashComponent;
  */
 class NoticesRolesController extends AppController
 {
-    
+
     /**
      * Index method
      *
@@ -20,7 +20,7 @@ class NoticesRolesController extends AppController
      */
     public function index()
     {
-        $this->loadModel('Notices');  
+        $this->loadModel('Notices');
         $this->loadModel('RolesUsers');
 
         $authenticatedUserId = $this->Auth->user('id');
@@ -29,12 +29,12 @@ class NoticesRolesController extends AppController
             ->select('user_id')
             ->where(['user_id' => $authenticatedUserId]);
 
-        $noticesRoles = $this->paginate($this->Notices->find('all',['notices_roles.role_id' => $rolesUsers])
+        $noticesRoles = $this->Notices->find('all',['notices_roles.role_id' => $rolesUsers])
             ->select(['notices.id', 'notices.subject', 'notices.text', 'notices.created', 'users.name'])
             ->distinct(['notices.id'])
             ->innerJoin('notices_roles', 'notices.id = notices_roles.notice_id')
             ->innerJoin('users', 'users.id = notices.user_id')
-            ->order(['notices.id' => 'DESC']));
+            ->order(['notices.id' => 'DESC']);
 
         $this->set(compact('noticesRoles'));
         $this->set('_serialize', ['noticesRoles']);
@@ -136,18 +136,18 @@ class NoticesRolesController extends AppController
         // You should not add the "login" action to allow list. Doing so would
         // cause problems with normal functioning of AuthComponent.
 
-        //$this->Auth->allow(['logout','login']);  
+        //$this->Auth->allow(['logout','login']);
     }
 
     public function isAuthorized($user)
     {
-        $this->loadModel('Users'); 
-        $this->loadModel('Roles'); 
-        $this->loadModel('RolesUsers'); 
+        $this->loadModel('Users');
+        $this->loadModel('Roles');
+        $this->loadModel('RolesUsers');
         $authenticatedUserId = $this->Auth->user('id');
         $query = $this->Users->find()
             ->where([
-                'id'=> $authenticatedUserId            
+                'id'=> $authenticatedUserId
             ]);
         $statusArray = $query->all();
         $status = null;
@@ -157,32 +157,32 @@ class NoticesRolesController extends AppController
         if($status == true){
             $query = $this->RolesUsers->find()
                 ->where([
-                    'user_id'=> $authenticatedUserId            
-                ]);    
-            $currentUserGroups = $query->all();    
-            $release = null;    
+                    'user_id'=> $authenticatedUserId
+                ]);
+            $currentUserGroups = $query->all();
+            $release = null;
             foreach ($currentUserGroups as $key) {
                 $query = $this->Roles->find()
                 ->where([
-                    'id'=> $key['role_id']           
-                ]);    
-                $correspondingFunction = $query->all();  
+                    'id'=> $key['role_id']
+                ]);
+                $correspondingFunction = $query->all();
                 foreach ($correspondingFunction as $key) {
                     if($key['id'] == 1){
-                        $release = true;        
+                        $release = true;
                     }
                 }
             }
             if($release == false){
-                $this->redirect($this->Auth->redirectUrl());               
+                $this->redirect($this->Auth->redirectUrl());
             }
             else{
-                //$this->Flash->error(__('VC É ADM')); 
+                //$this->Flash->error(__('VC É ADM'));
                 if(in_array($this->action, array('index','add','edit','delete','view')))
-                    return true;            
+                    return true;
             }
         }else{
-            $this->redirect($this->Auth->logout());        
+            $this->redirect($this->Auth->logout());
         }
         return parent::isAuthorized($user);
     }

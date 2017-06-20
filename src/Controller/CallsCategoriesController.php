@@ -19,10 +19,11 @@ class CallsCategoriesController extends AppController
      */
     public function index()
     {
-        $this->paginate = [
-            'contain' => ['CallsAreas']
-        ];
-        $callsCategories = $this->paginate($this->CallsCategories);
+        $callsCategories = $this->CallsCategories->find('all', 
+            [
+                'contain' => ['CallsAreas']
+            ]
+        ));
 
         $this->set(compact('callsCategories'));
         $this->set('_serialize', ['callsCategories']);
@@ -161,7 +162,7 @@ class CallsCategoriesController extends AppController
                 $this->Flash->error(__('Você não tem autorização para acessar esta área do sistema. Caso necessário, favor entrar em contato com o setor TI.'));
                 $this->redirect($this->Auth->redirectUrl());
             } else {
-                //$this->Flash->error(__('VC É ADM')); 
+                //$this->Flash->error(__('VC É ADM'));
                 if (in_array($this->action, array('dash')))
                     return true;
             }
