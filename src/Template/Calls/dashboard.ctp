@@ -236,7 +236,5 @@ new Chart(ctx, {
     type: 'line'
 });
 
-
-
 </script>
 <?php $this->end(); ?>
