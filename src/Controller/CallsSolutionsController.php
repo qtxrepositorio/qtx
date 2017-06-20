@@ -22,10 +22,12 @@ class CallsSolutionsController extends AppController {
      * @return \Cake\Network\Response|null
      */
     public function index() {
-        $this->paginate = [
-            'contain' => ['CallsSubcategories']
-        ];
-        $callsSolutions = $this->paginate($this->CallsSolutions);
+        
+        $callsSolutions = $this->CallsSolutions->find('all',
+            [
+                'contain' => ['CallsSubcategories']
+            ]
+        );
 
         $this->set(compact('callsSolutions'));
         $this->set('_serialize', ['callsSolutions']);

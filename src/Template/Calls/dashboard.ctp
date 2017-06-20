@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 
 ?>
@@ -24,21 +24,21 @@
                             <div class="col-md-4"></div>
                             <div class="col-md-4">
                                 <?php
-                                    $x = null;
-                                    echo $this->Form->create();
-                                    echo $this->Form->input('year', ['default' => $year,'disabled' => FALSE,'label'=>'Ano:']);
-                                    echo $this->Form->input('month', ['default' => $month,'disabled' => FALSE,'label'=>'Mês:','options' => ['TODOS','01','02','03','04','05','06','07','08','09','10','11','12']])
+                                $x = null;
+                                echo $this->Form->create();
+                                echo $this->Form->input('year', ['default' => $year,'disabled' => FALSE,'label'=>'Ano:']);
+                                echo $this->Form->input('month', ['default' => $month,'disabled' => FALSE,'label'=>'Mês:','options' => ['TODOS','01','02','03','04','05','06','07','08','09','10','11','12']])
                                 ?>
-                            </div> 
+                            </div>
                             <div class="col-md-4"></div>
-                        </fieldset>  
-                        
+                        </fieldset>
+
                         <div align="center">
                             <?= $this->Form->button(__('Refinar')) ?>
                         </div>
-                                                
+
                         <?php echo $this->Form->end();   ?>
-                    </div>    
+                    </div>
                 </div>
             </div>
         </div>
@@ -54,13 +54,13 @@
                     </div>
                 </div>
                 <div class="box-body">
-                    <canvas id="barChartForTech" style="height:250px"></canvas>   
+                    <canvas id="barChartForTech" style="height:250px"></canvas>
                 </div>
-            </div>      
+            </div>
         </div>
 
     </div>
-                        
+
 
     <div class="row">
 
@@ -91,9 +91,9 @@
                     </div>
                 </div>
                 <div class="box-body">
-                    <canvas id="lineChartForCategories" style="height:250px"></canvas>   
+                    <canvas id="lineChartForCategories" style="height:250px"></canvas>
                 </div>
-            </div>      
+            </div>
         </div>
 
     </div>
@@ -111,13 +111,13 @@
                     </div>
                 </div>
                 <div class="box-body">
-                    <canvas id="lineChartForTechFinished" style="height:250px"></canvas>   
+                    <canvas id="lineChartForTechFinished" style="height:250px"></canvas>
                 </div>
-            </div>      
+            </div>
         </div>
 
     </div>
-    
+
 </section>
 
 <?php
@@ -145,7 +145,7 @@ data = {
         data: data,
         backgroundColor: backgroundColor
     }],
-        labels: labels
+    labels: labels
 };
 
 var ctx = document.getElementById("barChartForArea");
@@ -173,7 +173,7 @@ data = {
         data: data,
         backgroundColor: backgroundColor
     }],
-        labels: labels
+    labels: labels
 };
 
 var ctx = document.getElementById("lineChartForCategories");
@@ -191,8 +191,8 @@ var data = [];
 var labels = [];
 
 for (var i = 0; i < forTech.length; i++) {
-    data.push(forTech[i]['count']);  
-    labels.push(forTech[i]['users_username']);      
+    data.push(forTech[i]['count']);
+    labels.push(forTech[i]['users_username']);
 }
 
 data = {
@@ -200,7 +200,7 @@ data = {
         data: data,
         backgroundColor: backgroundColor
     }],
-        labels: labels
+    labels: labels
 };
 
 var ctx = document.getElementById("barChartForTech");
@@ -218,8 +218,8 @@ var data = [];
 var labels = [];
 
 for (var i = 0; i < quantStatusFinished.length; i++) {
-    data.push(quantStatusFinished[i]['count']);  
-    labels.push(quantStatusFinished[i]['users_username']);      
+    data.push(quantStatusFinished[i]['count']);
+    labels.push(quantStatusFinished[i]['users_username']);
 }
 
 data = {
@@ -227,7 +227,7 @@ data = {
         data: data,
         backgroundColor: backgroundColor
     }],
-        labels: labels
+    labels: labels
 };
 
 var ctx = document.getElementById("lineChartForTechFinished");
@@ -236,9 +236,5 @@ new Chart(ctx, {
     type: 'line'
 });
 
-
-
 </script>
 <?php $this->end(); ?>
-
-

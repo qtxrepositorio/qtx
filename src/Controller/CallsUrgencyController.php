@@ -19,7 +19,7 @@ class CallsUrgencyController extends AppController
      */
     public function index()
     {
-        $callsUrgency = $this->paginate($this->CallsUrgency);
+        $callsUrgency = $this->CallsUrgency-find();
 
         $this->set(compact('callsUrgency'));
         $this->set('_serialize', ['callsUrgency']);
@@ -156,7 +156,7 @@ class CallsUrgencyController extends AppController
                 $this->Flash->error(__('Você não tem autorização para acessar esta área do sistema. Caso necessário, favor entrar em contato com o setor TI.'));
                 $this->redirect($this->Auth->redirectUrl());
             } else {
-                //$this->Flash->error(__('VC É ADM')); 
+                //$this->Flash->error(__('VC É ADM'));
                 if (in_array($this->action, array('dash')))
                     return true;
             }

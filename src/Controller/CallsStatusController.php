@@ -19,7 +19,7 @@ class CallsStatusController extends AppController
      */
     public function index()
     {
-        $callsStatus = $this->paginate($this->CallsStatus);
+        $callsStatus = $this->CallsStatus->find();
 
         $this->set(compact('callsStatus'));
         $this->set('_serialize', ['callsStatus']);
@@ -156,7 +156,7 @@ class CallsStatusController extends AppController
                 $this->Flash->error(__('Você não tem autorização para acessar esta área do sistema. Caso necessário, favor entrar em contato com o setor TI.'));
                 $this->redirect($this->Auth->redirectUrl());
             } else {
-                //$this->Flash->error(__('VC É ADM')); 
+                //$this->Flash->error(__('VC É ADM'));
                 if (in_array($this->action, array('dash')))
                     return true;
             }

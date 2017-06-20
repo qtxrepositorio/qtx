@@ -19,7 +19,7 @@ class CallsAreasController extends AppController
   */
   public function index()
   {
-    $callsAreas = $this->paginate($this->CallsAreas);
+    $callsAreas = $this->CallsAreas->find();
 
     $this->set(compact('callsAreas'));
     $this->set('_serialize', ['callsAreas']);
