@@ -13,7 +13,6 @@ use Cake\Auth\DefaultPasswordHasher;
  */
 class UsersController extends AppController
 {
-    
     /**
      * Index method
      *
@@ -23,7 +22,7 @@ class UsersController extends AppController
     {
         $users = $this->paginate($this->Users);
         $this->set(compact('users'));
-        $this->set('_serialize', ['users']);        
+        $this->set('_serialize', ['users']);
     }
 
     /**
@@ -54,7 +53,6 @@ class UsersController extends AppController
             $user = $this->Users->patchEntity($user, $this->request->data);
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('O usuário foi salvo!'));
-
                 return $this->redirect(['action' => 'index']);
             } else {
                 $this->Flash->error(__('O usuário não pôde ser salvo. Por favor, tente novamente.'));
@@ -118,23 +116,21 @@ class UsersController extends AppController
         // Allow users to register and logout.
         // You should not add the "login" action to allow list. Doing so would
         // cause problems with normal functioning of AuthComponent.
-
-        $this->Auth->allow(['logout','login']);  
+        $this->Auth->allow(['logout','login']);
     }
 
-    
     public function isAuthorized($user)
     {
-        $this->loadModel('Roles'); 
-        $this->loadModel('RolesUsers'); 
+        $this->loadModel('Roles');
+        $this->loadModel('RolesUsers');
         $authenticatedUserId = $this->Auth->user('id');
         $query = $this->Users->find()
             ->where([
-                'id'=> $authenticatedUserId            
+                'id'=> $authenticatedUserId
             ]);
         $statusArray = $query->all();
         $status = null;
-        foreach ($statusArray as $key) 
+        foreach ($statusArray as $key)
         {
             $status = $key['status'];
         }
@@ -142,44 +138,44 @@ class UsersController extends AppController
         {
             $query = $this->RolesUsers->find()
                 ->where([
-                    'user_id'=> $authenticatedUserId            
-                ]);    
-            $currentUserGroups = $query->all();    
-            $release = null;    
-            foreach ($currentUserGroups as $key) 
+                    'user_id'=> $authenticatedUserId
+                ]);
+            $currentUserGroups = $query->all();
+            $release = null;
+            foreach ($currentUserGroups as $key)
             {
                 $query = $this->Roles->find()
                 ->where([
-                    'id'=> $key['role_id']           
-                ]);    
-                $correspondingFunction = $query->all();  
-                foreach ($correspondingFunction as $key) 
+                    'id'=> $key['role_id']
+                ]);
+                $correspondingFunction = $query->all();
+                foreach ($correspondingFunction as $key)
                 {
                     if($key['id'] == 1)
                     {
-                        $release = true;        
+                        $release = true;
                     }
                 }
             }
             if($release == false)
             {
                 $this->Flash->error(__('Você não tem autorização para acessar esta área do sistema. Caso necessário, favor entrar em contato com o setor TI.'));
-                $this->redirect($this->Auth->redirectUrl());               
+                $this->redirect($this->Auth->redirectUrl());
             }
             else
             {
-                //$this->Flash->error(__('VC É ADM')); 
+                //$this->Flash->error(__('VC É ADM'));
                 if(in_array($this->action, array('index','add','edit','delete','view')))
-                    return true;            
+                    return true;
             }
         }
         else
         {
-            $this->redirect($this->Auth->logout());        
+            $this->redirect($this->Auth->logout());
         }
         return parent::isAuthorized($user);
     }
-    
+
 
     public function login()
     {
@@ -198,30 +194,29 @@ class UsersController extends AppController
     public function logout()
     {
         //debug($this->redirect($this->Auth->logout()));
-        $this->Flash->success(__('Agora você está desconectado.'));
+        //$this->Flash->success(__('Agora você está desconectado.'));
         return $this->redirect($this->Auth->logout());
     }
-    
+
     public function changePassword($id = null)
     {
-
         $user = $this->Users->get($id, [
             'contain' => ['Notices', 'Roles']
         ]);
-        
+
         $owneruser = $this->Users->patchEntity($user, $this->request->data);
-        
+
         if ($owneruser['id'] == $this->Auth->user('id'))
         {
-            if ($this->request->is(['patch', 'post', 'put'])) 
+            if ($this->request->is(['patch', 'post', 'put']))
             {
                 $user = $this->Users->patchEntity($user, $this->request->data);
-                if ($this->Users->save($user)) 
+                if ($this->Users->save($user))
                 {
                     $this->Flash->success(__('O usuário foi salvo!'));
                     return $this->redirect(['action' => '../']);
-                } 
-                else 
+                }
+                else
                 {
                     $this->Flash->error(__('O usuário não pôde ser salvo. Por favor, tente novamente.'));
                 }
@@ -235,8 +230,7 @@ class UsersController extends AppController
         {
             $this->Flash->error(__('Você só pode alterar o seu usuário! Por favor, não tente burlar o sistema! Beijos de luz! kkk'));
             return $this->redirect(['action' => '../']);
-        }       
-        
+        }
     }
 
 }
