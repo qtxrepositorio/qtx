@@ -369,7 +369,7 @@ foreach ($call['callsSolutions'] as $key => $value) {
                                 <?php
                                     echo $this->Form->input('call_id',['type'=>'hidden','label'=>'Título:', 'default'=> $call->id]);
                                     echo $this->Form->input('title',['label'=>'Título:']);
-                                    echo $this->Form->input('description',['label'=>'Descrição:']);
+                                    echo $this->Form->input('description',['label'=>'Descrição:', 'type'=>'textarea']);
                                     echo $this->Form->input('changeStatus',['label'=>'Mudar o status do chamado para solucionado?','options'=> ['Sim','Não']]);
                                 ?>
                                 <p><b>Incluir arquivos:</b></p>
