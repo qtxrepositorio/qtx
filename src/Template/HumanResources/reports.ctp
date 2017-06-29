@@ -16,7 +16,7 @@
                     <i class="ion-printer"></i>
                 </a>
             </span>
-            <div class="info-box-content">               
+            <div class="info-box-content">
                 <span class="info-box-number">01</span>
                 <span >Autorização para desconto em folha</span>
 
@@ -31,7 +31,7 @@
                     <i class="ion-printer"></i>
                 </a>
             </span>
-            <div class="info-box-content">               
+            <div class="info-box-content">
                 <span class="info-box-number">02</span>
                 <span >Aniversariantes do mês</span>
 
@@ -46,7 +46,7 @@
                     <i class="ion-printer"></i>
                 </a>
             </span>
-            <div class="info-box-content">               
+            <div class="info-box-content">
                 <span class="info-box-number">03</span>
                 <span >Declaração de confidencialidade</span>
 
@@ -61,7 +61,7 @@
                     <i class="ion-printer"></i>
                 </a>
             </span>
-            <div class="info-box-content">               
+            <div class="info-box-content">
                 <span class="info-box-number">04</span>
                 <span >Assinatura CTPS</span>
 
@@ -76,7 +76,7 @@
                     <i class="ion-printer"></i>
                 </a>
             </span>
-            <div class="info-box-content">               
+            <div class="info-box-content">
                 <span class="info-box-number">05</span>
                 <span >Cartão de Assinatura</span>
 
@@ -91,7 +91,7 @@
                     <i class="ion-printer"></i>
                 </a>
             </span>
-            <div class="info-box-content">               
+            <div class="info-box-content">
                 <span class="info-box-number">06</span>
                 <span >Identificação da pasta</span>
 
@@ -106,7 +106,7 @@
                     <i class="ion-printer"></i>
                 </a>
             </span>
-            <div class="info-box-content">               
+            <div class="info-box-content">
                 <span class="info-box-number">07</span>
                 <span >Cartão de ponto por Funcionário</span>
 
@@ -121,7 +121,7 @@
                     <i class="ion-printer"></i>
                 </a>
             </span>
-            <div class="info-box-content">               
+            <div class="info-box-content">
                 <span class="info-box-number">08</span>
                 <span >Cartão de ponto por Departamento</span>
 
@@ -136,7 +136,7 @@
                     <i class="ion-printer"></i>
                 </a>
             </span>
-            <div class="info-box-content">               
+            <div class="info-box-content">
                 <span class="info-box-number">09</span>
                 <span >Componentes por tempo de serv. e sindi.</span>
 
@@ -151,7 +151,7 @@
                     <i class="ion-printer"></i>
                 </a>
             </span>
-            <div class="info-box-content">               
+            <div class="info-box-content">
                 <span class="info-box-number">10</span>
                 <span >Endereços do POOL</span>
 
@@ -164,7 +164,7 @@
 <!-- modal 01 -->
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-12">      
+        <div class="col-md-12">
             <div class="modal fade" id="modal-container-01" href="#modal-container-01" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -190,7 +190,7 @@
 
                                         echo $this->Form->create($officialAuthorizedDebit,['url' => ['controller'=>'HumanResources','action' => 'DebitAuthorizationSheet']]);
 
-                                        echo $this->Form->input('officialAuthorizedDebit', ['style'=>'width: 100%;','class'=>'form-control select2','options' => $listOfEmployeesNames, 'label' => 'Selecione o funcionário:']);                                      
+                                        echo $this->Form->input('officialAuthorizedDebit', ['style'=>'width: 100%;','class'=>'form-control select2','options' => $listOfEmployeesNames, 'label' => 'Selecione o funcionário:']);
                                     ?>
                                     <div align="left">
                                     <?php
@@ -199,16 +199,16 @@
                                         echo $this->Form->input('lifeInsurance', ['type' => 'checkbox', 'label' => 'Seguro de Vida']);
                                         echo $this->Form->input('healthCare', ['type' => 'checkbox', 'label' => 'Assistência Médica']);
                                         echo $this->Form->input('dentalCare', ['type' => 'checkbox', 'label' => 'Assistência Odontólogica']);
-                                        
+
 
                                     ?>
 
                                     </div>
-                                    
+
                                     <br><br>
 
                                     <button class="btn btn-success" type="submit" formtarget="_blank"><?php echo __('Gerar Relatório'); ?></button>
-                                            
+
                                     <?php echo $this->Form->end();   ?>
                                     </div>
                                     <div class="col-md-3">
@@ -232,7 +232,7 @@ $months = array('Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','A
 ?>
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-12">      
+        <div class="col-md-12">
             <div class="modal fade" id="modal-container-02" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -254,10 +254,10 @@ $months = array('Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','A
                                     <?php
                                         echo $this->Form->create($monthForPDF,['url' => ['controller'=>'HumanResources','action' => 'BirthdaysOfTheMonth']]);
                                         echo $this->Form->input('monthForPDF', ['options' => $months, 'label' => 'Mês desejado:']);
-                                    ?>                                       
+                                    ?>
 
                                     <button class="btn btn-success" type="submit" formtarget="_blank"><?php echo __('Gerar Relatório'); ?></button>
-                                            
+
                                     <?php echo $this->Form->end();   ?>
                                     </div>
                                     <div class="col-md-4">
@@ -275,7 +275,7 @@ $months = array('Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','A
 <!-- modal 03-->
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-12">      
+        <div class="col-md-12">
             <div class="modal fade" id="modal-container-03" href="#modal-container-03" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -299,11 +299,11 @@ $months = array('Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','A
 
                                         echo $this->Form->create($officialconfidential,['url' => ['controller'=>'HumanResources','action' => 'DeclarationOfConfidentiality']]);
 
-                                        echo $this->Form->input('officialconfidential', ['style'=>'width: 100%;','class'=>'form-control select2','options' => $listOfEmployeesNames, 'label' => 'Selecione o funcionário:']);                                      
+                                        echo $this->Form->input('officialconfidential', ['style'=>'width: 100%;','class'=>'form-control select2','options' => $listOfEmployeesNames, 'label' => 'Selecione o funcionário:']);
                                     ?>
-                                  
+
                                     <button class="btn btn-success" type="submit" formtarget="_blank"><?php echo __('Gerar Relatório'); ?></button>
-                                            
+
                                     <?php echo $this->Form->end();   ?>
                                     </div>
                                     <div class="col-md-3">
@@ -321,7 +321,7 @@ $months = array('Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','A
 <!-- modal 04-->
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-12">      
+        <div class="col-md-12">
             <div class="modal fade" id="modal-container-04" href="#modal-container-04" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -345,11 +345,11 @@ $months = array('Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','A
 
                                         echo $this->Form->create($signatureCTPS,['url' => ['controller'=>'HumanResources','action' => 'SignatureCtps']]);
 
-                                        echo $this->Form->input('signatureCTPS', ['style'=>'width: 100%;','class'=>'form-control select2','options' => $listOfEmployeesNames, 'label' => 'Selecione o funcionário:']);                                      
+                                        echo $this->Form->input('signatureCTPS', ['style'=>'width: 100%;','class'=>'form-control select2','options' => $listOfEmployeesNames, 'label' => 'Selecione o funcionário:']);
                                     ?>
-                                  
+
                                     <button class="btn btn-success" type="submit" formtarget="_blank"><?php echo __('Gerar Relatório'); ?></button>
-                                            
+
                                     <?php echo $this->Form->end();   ?>
                                     </div>
                                     <div class="col-md-3">
@@ -367,7 +367,7 @@ $months = array('Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','A
 <!-- modal 05-->
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-12">      
+        <div class="col-md-12">
             <div class="modal fade" id="modal-container-05" href="#modal-container-05" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -391,11 +391,11 @@ $months = array('Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','A
 
                                         echo $this->Form->create($autographCard,['url' => ['controller'=>'HumanResources','action' => 'AutographCard']]);
 
-                                        echo $this->Form->input('autographCard', ['style'=>'width: 100%;','class'=>'form-control select2','options' => $listOfEmployeesNames, 'label' => 'Selecione o funcionário:']);                                      
+                                        echo $this->Form->input('autographCard', ['style'=>'width: 100%;','class'=>'form-control select2','options' => $listOfEmployeesNames, 'label' => 'Selecione o funcionário:']);
                                     ?>
-                                  
+
                                     <button class="btn btn-success" type="submit" formtarget="_blank"><?php echo __('Gerar Relatório'); ?></button>
-                                            
+
                                     <?php echo $this->Form->end();   ?>
                                     </div>
                                     <div class="col-md-3">
@@ -413,7 +413,7 @@ $months = array('Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','A
 <!-- modal 06-->
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-12">      
+        <div class="col-md-12">
             <div class="modal fade" id="modal-container-06" href="#modal-container-06" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -437,11 +437,11 @@ $months = array('Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','A
 
                                         echo $this->Form->create($folderIdentification,['url' => ['controller'=>'HumanResources','action' => 'FolderIdentification']]);
 
-                                        echo $this->Form->input('folderIdentification', ['style'=>'width: 100%;','class'=>'form-control select2','options' => $listOfEmployeesNames, 'label' => 'Selecione o funcionário:']);                                      
+                                        echo $this->Form->input('folderIdentification', ['style'=>'width: 100%;','class'=>'form-control select2','options' => $listOfEmployeesNamesFull, 'label' => 'Selecione o funcionário:']);                                      
                                     ?>
-                                  
+
                                     <button class="btn btn-success" type="submit" formtarget="_blank"><?php echo __('Gerar Relatório'); ?></button>
-                                            
+
                                     <?php echo $this->Form->end();   ?>
                                     </div>
                                     <div class="col-md-3">
@@ -459,7 +459,7 @@ $months = array('Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','A
 <!-- modal 07-->
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-12">      
+        <div class="col-md-12">
             <div class="modal fade" id="modal-container-07" href="#modal-container-07" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -487,15 +487,15 @@ $months = array('Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','A
 
                                         echo $this->Form->input('timelunch', ['options' => ['UMA HORA','UMA HORA E VINTE'], 'label' => 'Tempo de almoço:']);
 
-                                        echo $this->Form->input('month', ['options' => $months, 'label' => 'Mês desejado:']);  
+                                        echo $this->Form->input('month', ['options' => $months, 'label' => 'Mês desejado:']);
 
-                                        echo $this->Form->input('year', ['label' => 'Ano desejado:']);  
+                                        echo $this->Form->input('year', ['label' => 'Ano desejado:']);
 
 
                                     ?>
-                                  
+
                                     <button class="btn btn-success" type="submit" formtarget="_blank"><?php echo __('Gerar Relatório'); ?></button>
-                                            
+
                                     <?php echo $this->Form->end();   ?>
                                     </div>
                                     <div class="col-md-3">
@@ -513,7 +513,7 @@ $months = array('Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','A
 <!-- modal 08-->
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-12">      
+        <div class="col-md-12">
             <div class="modal fade" id="modal-container-08" href="#modal-container-08" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -537,16 +537,16 @@ $months = array('Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','A
 
                                         echo $this->Form->create($timecardDepartament,['url' => ['controller'=>'HumanResources','action' => 'TimeCardDepartament']]);
 
-                                        echo $this->Form->input('timecardDepartament', ['multiple' => true,'options' => $listOfDepartamentsNames, 'label' => 'Selecione o Departamento:']);                                      
+                                        echo $this->Form->input('timecardDepartament', ['multiple' => true,'options' => $listOfDepartamentsNames, 'label' => 'Selecione o Departamento:']);
                                         echo $this->Form->input('timelunch', ['options' => ['UMA HORA','UMA HORA E VINTE'], 'label' => 'Tempo de almoço:']);
 
-                                        echo $this->Form->input('month', ['options' => $months, 'label' => 'Mês desejado:']);  
+                                        echo $this->Form->input('month', ['options' => $months, 'label' => 'Mês desejado:']);
 
                                         echo $this->Form->input('year', ['label' => 'Ano desejado:']);
                                     ?>
-                                  
+
                                     <button class="btn btn-success" type="submit" formtarget="_blank"><?php echo __('Gerar Relatório'); ?></button>
-                                            
+
                                     <?php echo $this->Form->end();   ?>
                                     </div>
                                     <div class="col-md-3">
@@ -564,7 +564,7 @@ $months = array('Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','A
 <!-- modal 09-->
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-12">      
+        <div class="col-md-12">
             <div class="modal fade" id="modal-container-09" href="#modal-container-09" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -588,11 +588,11 @@ $months = array('Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','A
 
                                         echo $this->Form->create($union,['url' => ['controller'=>'HumanResources','action' => 'ComponentsForTimeAndUnion']]);
 
-                                        echo $this->Form->input('unionName', ['multiple' => true,'options' => $listOfUnionsNames, 'label' => 'Selecione o Sindicato:']);                                     
+                                        echo $this->Form->input('unionName', ['multiple' => true,'options' => $listOfUnionsNames, 'label' => 'Selecione o Sindicato:']);
                                     ?>
-                                  
+
                                     <button class="btn btn-success" type="submit" formtarget="_blank"><?php echo __('Gerar Relatório'); ?></button>
-                                            
+
                                     <?php echo $this->Form->end();   ?>
                                     </div>
                                     <div class="col-md-3">
@@ -610,7 +610,7 @@ $months = array('Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','A
 <!-- modal 10-->
 <div class="container-fluid">
     <div class="row">
-        <div class="col-md-12">      
+        <div class="col-md-12">
             <div class="modal fade" id="modal-container-10" href="#modal-container-10" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -641,9 +641,9 @@ $months = array('Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','A
                                         echo $this->Form->input('status', ['multiple' => true,'options' => $status, 'label' => 'Selecione o Status:']);
 
                                     ?>
-                                  
+
                                     <button class="btn btn-success" type="submit" formtarget="_blank"><?php echo __('Gerar Relatório'); ?></button>
-                                            
+
                                     <?php echo $this->Form->end();   ?>
                                     </div>
                                     <div class="col-md-3">

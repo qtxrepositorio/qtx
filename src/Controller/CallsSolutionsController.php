@@ -22,7 +22,7 @@ class CallsSolutionsController extends AppController {
      * @return \Cake\Network\Response|null
      */
     public function index() {
-        
+
         $callsSolutions = $this->CallsSolutions->find('all',
             [
                 'contain' => ['CallsSubcategories']
@@ -116,7 +116,9 @@ class CallsSolutionsController extends AppController {
 
                 foreach ($this->request->data['archives'] as $key => $archive) {
                     debug($archive);
-                    $this->addSolutionsFiles($callsSolution['id'], $archive);
+                    if ($archive['name'] != '') {
+                        $this->addSolutionsFiles($callsSolution['id'], $archive);
+                    }
                 }
             } else {
                 $this->Flash->error(__('A solução não foi salva e aplicada.'));

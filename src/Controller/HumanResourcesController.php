@@ -12,7 +12,7 @@ class HumanResourcesController extends AppController
     {
         $connection = ConnectionManager::get('baseProtheus');
 
-        $peopleQquantityByLines = $connection->execute("SELECT 
+        $peopleQquantityByLines = $connection->execute("SELECT
                 COUNT([RA_MAT]) as COUNT_PEOPLE_BY_GROUPS
                 , [RA_XLINHA] as RA_XLINHA
             FROM [SRA010]
@@ -20,35 +20,35 @@ class HumanResourcesController extends AppController
                 GROUP BY [RA_XLINHA]")
             ->fetchAll('assoc');
 
-        $employeesBySexAndCC = $connection->execute("SELECT 
+        $employeesBySexAndCC = $connection->execute("SELECT
                 COUNT([RA_MAT]) as COUNT_RA_MAT
-                ,[CTT_DESC01] 
-                ,[RA_SEXO]  
+                ,[CTT_DESC01]
+                ,[RA_SEXO]
             FROM [SRA010]
-                INNER JOIN [CTT010] ON [CTT_CUSTO] = [RA_CC]  
+                INNER JOIN [CTT010] ON [CTT_CUSTO] = [RA_CC]
                 WHERE [RA_DEMISSA] = '' AND [SRA010].D_E_L_E_T_ = ''
                 GROUP BY [RA_SEXO],[CTT_DESC01] ")
             ->fetchAll('assoc');
 
-        $this->set(compact('peopleQquantityByLines','employeesBySexAndCC'));        
+        $this->set(compact('peopleQquantityByLines','employeesBySexAndCC'));
         $this->set('_serialize', ['peopleQquantityByLines','employeesBySexAndCC']);
     }
 
     public function AdressesPool()
     {
-        $lines = $this->request->data['line']; 
-        $locales = $this->request->data['locale']; 
-        $status = $this->request->data['status']; 
+        $lines = $this->request->data['line'];
+        $locales = $this->request->data['locale'];
+        $status = $this->request->data['status'];
 
         $connection = ConnectionManager::get('baseProtheus');
 
-        foreach ($lines as $keyLine) 
+        foreach ($lines as $keyLine)
         {
-            foreach ($locales as $keyLocale) 
+            foreach ($locales as $keyLocale)
             {
-                foreach ($status as $keyStatus) 
+                foreach ($status as $keyStatus)
                 {
-                    $adressesPoolRs[] = $connection->execute("SELECT 
+                    $adressesPoolRs[] = $connection->execute("SELECT
                             [RA_MAT]
                             ,[RA_NOME]
                             ,[RA_BAIRRO]
@@ -63,7 +63,7 @@ class HumanResourcesController extends AppController
                         ->fetchAll('assoc');
                 }
             }
-                
+
         }
 
         $this->set(compact('adressesPoolRs'));
@@ -74,15 +74,15 @@ class HumanResourcesController extends AppController
 
     public function ComponentsForTimeAndUnion()
     {
-        $union = $this->request->data['unionName']; 
+        $union = $this->request->data['unionName'];
 
         $connection = ConnectionManager::get('baseProtheus');
 
         foreach ($union as $key) {
-            
+
             if($key == 'TODOS')
             {
-                $unionsRs[] = $connection->execute("SELECT 
+                $unionsRs[] = $connection->execute("SELECT
                         [RA_MAT]
                         ,[RA_NOME]
                         ,[RA_ADMISSA]
@@ -96,7 +96,7 @@ class HumanResourcesController extends AppController
             }
             else
             {
-                $unionsRs[] = $connection->execute("SELECT 
+                $unionsRs[] = $connection->execute("SELECT
                         [RA_MAT]
                         ,[RA_NOME]
                         ,[RA_ADMISSA]
@@ -108,27 +108,27 @@ class HumanResourcesController extends AppController
                         ORDER BY [RCE_DESCRI], [QUANT_MONTHS] DESC")
                     ->fetchAll('assoc');
             }
-        }  
+        }
 
         $this->set(compact('unionsRs'));
         $this->set('_serialize', ['unionsRs']);
         $this->viewBuilder()->layout('ajax');
         $this->response->type('pdf');
-    }    
+    }
 
     public function TimeCardDepartament()
     {
-        $timecardDepartament = $this->request->data['timecardDepartament'];        
+        $timecardDepartament = $this->request->data['timecardDepartament'];
         $timelunch = $this->request->data['timelunch'];
         $month = $this->request->data['month'];
         $year = $this->request->data['year'];
 
-        $connection = ConnectionManager::get('baseProtheus');       
+        $connection = ConnectionManager::get('baseProtheus');
 
         foreach ($timecardDepartament as $key) {
             if($key == 'TODOS')
             {
-                $timecardDepartamentRs[] = $connection->execute("SELECT 
+                $timecardDepartamentRs[] = $connection->execute("SELECT
                         [RA_MAT]
                         ,[RA_NOME]
                         ,[Q3_DESCSUM]
@@ -138,15 +138,15 @@ class HumanResourcesController extends AppController
                         INNER JOIN [SQB010] ON [RA_DEPTO] = [QB_DEPTO]
                         INNER JOIN [SQ3010] ON [Q3_CARGO] = [RA_CARGO]
                         WHERE [RA_DEMISSA] = '' AND [RA_CATFUNC] != 'E'
-                        AND [SRA010].D_E_L_E_T_ = '' 
+                        AND [SRA010].D_E_L_E_T_ = ''
                         AND [SQ3010].[D_E_L_E_T_] = ''
                         AND [SQB010].[D_E_L_E_T_] = ''")
                 ->fetchAll('assoc');
             }
             else
             {
-                
-                $timecardDepartamentRs[] = $connection->execute("SELECT 
+
+                $timecardDepartamentRs[] = $connection->execute("SELECT
                     [RA_MAT]
                     ,[RA_NOME]
                     ,[Q3_DESCSUM]
@@ -155,15 +155,15 @@ class HumanResourcesController extends AppController
                 FROM [SRA010]
                 INNER JOIN [SQB010] ON [RA_DEPTO] = [QB_DEPTO]
                 INNER JOIN [SQ3010] ON [Q3_CARGO] = [RA_CARGO]
-                WHERE [QB_DESCRIC] = '". $key ."' 
+                WHERE [QB_DESCRIC] = '". $key ."'
                 AND [RA_DEMISSA] = '' AND [RA_CATFUNC] != 'E'
-                AND [SRA010].D_E_L_E_T_ = '' 
+                AND [SRA010].D_E_L_E_T_ = ''
                     AND [SQ3010].[D_E_L_E_T_] = ''
                     AND [SQB010].[D_E_L_E_T_] = ''")
-                ->fetchAll('assoc');  
+                ->fetchAll('assoc');
             }
-        }    
-        
+        }
+
         $this->set(compact('timecardDepartamentRs','timecardEmployee','timelunch','month','year'));
         $this->set('_serialize', ['timecardEmployeeRs','timecardEmployee','timelunch','month','year']);
         $this->viewBuilder()->layout('ajax');
@@ -172,7 +172,7 @@ class HumanResourcesController extends AppController
 
     public function TimeCardEmployee()
     {
-        $timecardEmployee = $this->request->data['timecardEmployee'];        
+        $timecardEmployee = $this->request->data['timecardEmployee'];
         $timelunch = $this->request->data['timelunch'];
         $month = $this->request->data['month'];
         $year = $this->request->data['year'];
@@ -180,10 +180,10 @@ class HumanResourcesController extends AppController
         $connection = ConnectionManager::get('baseProtheus');
 
         foreach ($timecardEmployee as $key) {
-            
+
             if($key == 'TODOS')
             {
-                $timecardEmployeeRs[] = $connection->execute("SELECT 
+                $timecardEmployeeRs[] = $connection->execute("SELECT
                     [RA_MAT]
                     ,[RA_NOME]
                     ,[Q3_DESCSUM]
@@ -193,14 +193,14 @@ class HumanResourcesController extends AppController
                 INNER JOIN [SQ3010] ON [Q3_CARGO] = [RA_CARGO]
                 INNER JOIN [SQB010] ON [RA_DEPTO] = [QB_DEPTO]
                 WHERE [RA_DEMISSA] = '' AND [RA_CATFUNC] != 'E'
-                AND [SRA010].D_E_L_E_T_ = '' 
+                AND [SRA010].D_E_L_E_T_ = ''
                 AND [SQ3010].[D_E_L_E_T_] = ''
                 AND [SQB010].[D_E_L_E_T_] = ''")
                 ->fetchAll('assoc');
             }
             else
             {
-                $timecardEmployeeRs[] = $connection->execute("SELECT 
+                $timecardEmployeeRs[] = $connection->execute("SELECT
                     [RA_MAT]
                     ,[RA_NOME]
                     ,[Q3_DESCSUM]
@@ -210,14 +210,14 @@ class HumanResourcesController extends AppController
                 INNER JOIN [SQ3010] ON [Q3_CARGO] = [RA_CARGO]
                 INNER JOIN [SQB010] ON [RA_DEPTO] = [QB_DEPTO]
                 WHERE [RA_NOME] = '". $key ."'
-                    AND [RA_DEMISSA] = '' AND [RA_CATFUNC] != 'E' 
-                    AND [SRA010].D_E_L_E_T_ = '' 
+                    AND [RA_DEMISSA] = '' AND [RA_CATFUNC] != 'E'
+                    AND [SRA010].D_E_L_E_T_ = ''
                     AND [SQ3010].[D_E_L_E_T_] = ''
                     AND [SQB010].[D_E_L_E_T_] = ''")
-                ->fetchAll('assoc');  
+                ->fetchAll('assoc');
             }
         }
-        
+
         $this->set(compact('timecardEmployeeRs','timecardEmployee','timelunch','month','year'));
         $this->set('_serialize', ['timecardEmployeeRs','timecardEmployee','timelunch','month','year']);
         $this->viewBuilder()->layout('ajax');
@@ -238,7 +238,7 @@ class HumanResourcesController extends AppController
         foreach ($folderIdentificationEmployee as $key)
         {
             $registry = $key['RA_MAT'];
-            $name = $key['RA_NOME'];            
+            $name = $key['RA_NOME'];
         }
         $this->set(compact('registry','name'));
         $this->set('_serialize', ['registry','name']);
@@ -251,7 +251,7 @@ class HumanResourcesController extends AppController
         $autographCard = $this->request->data['autographCard'];
 
         $connection = ConnectionManager::get('baseProtheus');
-        $signatureCTPSEmployee = $connection->execute("SELECT 
+        $signatureCTPSEmployee = $connection->execute("SELECT
                 [RA_MAT]
                 ,[RA_NOME]
                 ,[Q3_DESCSUM]
@@ -274,18 +274,18 @@ class HumanResourcesController extends AppController
         $this->set('_serialize', ['registry','name','department','role']);
         $this->viewBuilder()->layout('ajax');
         $this->response->type('pdf');
-    }    
+    }
 
     public function SignatureCtps()
     {
         $signatureCTPS = $this->request->data['signatureCTPS'];
 
         $connection = ConnectionManager::get('baseProtheus');
-        $signatureCTPSEmployee = $connection->execute("SELECT 
+        $signatureCTPSEmployee = $connection->execute("SELECT
                 [RA_MAT]
-                ,[RA_NOME]      
-                ,[RA_ADMISSA]  
-                ,[RJ_CODCBO]  
+                ,[RA_NOME]
+                ,[RA_ADMISSA]
+                ,[RJ_CODCBO]
                 ,[RJ_DESC]
                 ,[RA_SALARIO]
                 ,[RA_XSALEXT]
@@ -347,12 +347,12 @@ class HumanResourcesController extends AppController
         $this->set('_serialize', ['officialconfidential', 'dateConverted','cpf']);
         $this->viewBuilder()->layout('ajax');
         $this->response->type('pdf');
-    }    
+    }
 
     public function DebitAuthorizationSheet()
     {
         $officialAuthorizedDebit = null;
-                
+
         $officialAuthorizedDebit = $this->request->data['officialAuthorizedDebit'];
         $feeding = $this->request->data['feeding'];
         $transport = $this->request->data['transport'];
@@ -369,7 +369,7 @@ class HumanResourcesController extends AppController
         $dateConverted = $day.'/'.$mont.'/'.$year;
 
         $connection = ConnectionManager::get('baseProtheus');
-        $cpfRs = $connection->execute("SELECT 
+        $cpfRs = $connection->execute("SELECT
                 [RA_CIC]
             FROM [SRA010]
             WHERE [RA_NOME] = '". $officialAuthorizedDebit ."'")
@@ -387,9 +387,9 @@ class HumanResourcesController extends AppController
         $this->set('_serialize', ['officialAuthorizedDebit', 'feeding', 'transport', 'lifeInsurance', 'healthCare', 'dentalCare', 'dateConverted','cpf']);
         $this->viewBuilder()->layout('ajax');
         $this->response->type('pdf');
-    }    
+    }
 
-    public function BirthdaysOfTheMonth() 
+    public function BirthdaysOfTheMonth()
     {
         $birthdaysOfTheMonthForm = null;
         foreach ($this->request->data as $key) {
@@ -399,11 +399,11 @@ class HumanResourcesController extends AppController
         $birthdaysOfTheMonthForm = (string) $birthdaysOfTheMonthForm;
         $connection = ConnectionManager::get('baseProtheus');
         $birthdaysOfTheMonth = null;
-        $birthdaysOfTheMonth = $connection->execute("SELECT 
+        $birthdaysOfTheMonth = $connection->execute("SELECT
                 [RA_NOME]
-                ,CONVERT(varchar(10),(DAY([RA_NASC])))+'/'+CONVERT(varchar(10),(MONTH([RA_NASC])))+'/'+CONVERT(varchar(10),YEAR([RA_NASC])) 
+                ,CONVERT(varchar(10),(DAY([RA_NASC])))+'/'+CONVERT(varchar(10),(MONTH([RA_NASC])))+'/'+CONVERT(varchar(10),YEAR([RA_NASC]))
                 AS DataDeNascimento
-                ,[CTT_DESC01]      
+                ,[CTT_DESC01]
             FROM [SRA010]
             INNER JOIN [CTT010] ON [CTT_CUSTO] = [RA_CC]
             WHERE MONTH([RA_NASC]) = '$birthdaysOfTheMonthForm'
@@ -417,30 +417,30 @@ class HumanResourcesController extends AppController
 
     public function Reports()
     {
-        
-        for ($i=1; $i < 16; $i++) { 
-            $lines[$i] = $i; 
+
+        for ($i=1; $i < 16; $i++) {
+            $lines[$i] = $i;
         }
-       
+
         $locales['POLO'] = 'POLO';
         $locales['UCS'] = 'UCS';
-        
+
         $status['ATIVO'] = 'ATIVO';
         $status['INATIVO'] = 'INATIVO';
-        
+
         $connection = ConnectionManager::get('baseProtheus');
 
-        $listUnions = $connection->execute("SELECT 
+        $listUnions = $connection->execute("SELECT
                 [RCE_DESCRI]
             FROM [RCE010]")
             ->fetchAll('assoc');
 
-        $listOfUnionsNames['TODOS'] = 'TODOS'; 
+        $listOfUnionsNames['TODOS'] = 'TODOS';
         foreach ($listUnions as $key) {
             $listOfUnionsNames[$key['RCE_DESCRI']] = $key['RCE_DESCRI'];
         }
 
-        $listOfEmployees = $connection->execute("SELECT 
+        $listOfEmployees = $connection->execute("SELECT
                 [RA_NOME]
             FROM [SRA010]
             WHERE [RA_DEMISSA] = '' AND [RA_CATFUNC] != 'E'
@@ -453,7 +453,20 @@ class HumanResourcesController extends AppController
             $listOfEmployeesNames[$key['RA_NOME']] = $key['RA_NOME'];
         }
 
-        $listOfDepartaments = $connection->execute("SELECT 
+		$listOfEmployeesFull = $connection->execute("SELECT
+                [RA_NOME]
+            FROM [SRA010]
+            WHERE [RA_DEMISSA] = ''
+            ORDER BY [RA_NOME]")
+            ->fetchAll('assoc');
+
+        $listOfEmployeesNamesFull['TODOS'] = 'TODOS';
+        foreach ($listOfEmployeesFull as $key)
+        {
+            $listOfEmployeesNamesFull[$key['RA_NOME']] = $key['RA_NOME'];
+        }
+
+        $listOfDepartaments = $connection->execute("SELECT
                 [QB_DESCRIC]
             FROM [SQB010] WHERE [D_E_L_E_T_] = ''")
             ->fetchAll('assoc');
@@ -465,8 +478,8 @@ class HumanResourcesController extends AppController
             $listOfDepartamentsNames[$key['QB_DESCRIC']] = $key['QB_DESCRIC'];
         }
 
-        $this->set(compact('listOfEmployeesNames','listOfDepartamentsNames','listOfUnionsNames','lines','locales','status'));
-        $this->set(['listOfEmployeesNames','listOfDepartamentsNames','listOfUnionsNames','lines','locales','status']);
+        $this->set(compact('listOfEmployeesNamesFull','listOfEmployeesNames','listOfDepartamentsNames','listOfUnionsNames','lines','locales','status'));
+        $this->set(['listOfEmployeesNamesFull','listOfEmployeesNames','listOfDepartamentsNames','listOfUnionsNames','lines','locales','status']);
     }
 
     public function beforeFilter(Event $event)
@@ -476,65 +489,65 @@ class HumanResourcesController extends AppController
         // You should not add the "login" action to allow list. Doing so would
         // cause problems with normal functioning of AuthComponent.
 
-        //$this->Auth->allow(['logout','login']);  
+        //$this->Auth->allow(['logout','login']);
     }
 
     public function isAuthorized($user)
     {
-        $this->loadModel('Users'); 
+        $this->loadModel('Users');
         $this->loadModel('Roles');
-        $this->loadModel('RolesUsers'); 
+        $this->loadModel('RolesUsers');
         $authenticatedUserId = $this->Auth->user('id');
         $query = $this->Users->find()
             ->where([
-                'id'=> $authenticatedUserId            
+                'id'=> $authenticatedUserId
             ]);
         $statusArray = $query->all();
         $status = null;
         foreach ($statusArray as $key)
-        {            
+        {
             $status = $key['status'];
         }
         if($status == true)
         {
             $query = $this->RolesUsers->find()
                 ->where([
-                    'user_id'=> $authenticatedUserId            
-                ]);    
-            $currentUserGroups = $query->all();    
-            $release = null;    
+                    'user_id'=> $authenticatedUserId
+                ]);
+            $currentUserGroups = $query->all();
+            $release = null;
             foreach ($currentUserGroups as $key)
             {
                 $query = $this->Roles->find()
                 ->where([
-                    'id'=> $key['role_id']           
-                ]);    
-                $correspondingFunction = $query->all();  
+                    'id'=> $key['role_id']
+                ]);
+                $correspondingFunction = $query->all();
                 foreach ($correspondingFunction as $key)
                 {
-                    if($key['id'] == 22 or $key['id'] == 1) 
+                    if($key['id'] == 22 or $key['id'] == 1)
                     {
-                        $release = true;        
+                        $release = true;
                     }
                 }
             }
             if($release == false)
             {
                 $this->Flash->error(__('Você não tem autorização para acessar esta área do sistema. Caso necessário, favor entrar em contato com o setor TI.'));
-                $this->redirect($this->Auth->redirectUrl());              
+                $this->redirect($this->Auth->redirectUrl());
             }
             else
             {
-                //$this->Flash->error(__('VC É ADM')); 
+                //$this->Flash->error(__('VC É ADM'));
                 if(in_array($this->action, array('index','add','edit','delete','view')))
-                return true;            
+                return true;
             }
         }
         else
         {
-            $this->redirect($this->Auth->logout());        
+            $this->redirect($this->Auth->logout());
         }
         return parent::isAuthorized($user);
-    }   
+    }
 
 }
