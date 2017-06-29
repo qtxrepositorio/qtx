@@ -236,7 +236,9 @@ class CallsController extends AppController {
                 }
 
                 foreach ($this->request->data['archives'] as $key => $archive) {
-                    $this->addCallFiles($call['id'], $archive);
+                    if ($archive['name'] != '') {
+                        $this->addCallFiles($call['id'], $archive);
+                    }
                 }
 
                 return $this->redirect(['action' => 'view', $call['id']]);
