@@ -145,3 +145,7 @@ CREATE TABLE calls_files(
 	created DATETIME2 DEFAULT NULL,
     modified DATETIME2 DEFAULT NULL
 );
+
+/*
+TERCEIRA FASE: Adicionar as tabelas do sistema de controle de abastecimento.
+*/
