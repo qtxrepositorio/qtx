@@ -52,7 +52,7 @@ class AppController extends Controller
             ],
             'logoutRedirect' => [
                 'controller' => 'Users',
-                'action' => 'login'                                
+                'action' => 'login'
             ]
         ]);
     }
@@ -86,6 +86,6 @@ class AppController extends Controller
         // You should not add the "login" action to allow list. Doing so would
         // cause problems with normal functioning of AuthComponent.
 
-        $this->Auth->allow(['logout','login']);  
+        $this->Auth->allow(['logout','login']);
     }
 }
