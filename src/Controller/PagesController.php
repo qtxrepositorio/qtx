@@ -12,13 +12,9 @@ use Cake\Controller\Component\FlashComponent;
 
 
 class PagesController extends AppController
-{    
-    public function open(){
-        //exec("explorer.exe file://192.168.0.1/e$/D_SERV/"); 
-    }
-
+{
     public function display()
-    {       
+    {
 
         $path = func_get_args();
 
@@ -36,23 +32,23 @@ class PagesController extends AppController
         }
 
         $connection = ConnectionManager::get('baseProtheus');
-        $birthdaysOfTheMonth = $connection->execute("SELECT 
+        $birthdaysOfTheMonth = $connection->execute("SELECT
           [RA_NOME]
-          ,CONVERT(varchar(10),(DAY([RA_NASC])))+'/'+CONVERT(varchar(10),(MONTH([RA_NASC])))+'/'+CONVERT(varchar(10),YEAR([RA_NASC])) 
+          ,CONVERT(varchar(10),(DAY([RA_NASC])))+'/'+CONVERT(varchar(10),(MONTH([RA_NASC])))+'/'+CONVERT(varchar(10),YEAR([RA_NASC]))
             as DataDeNascimento
-          ,[CTT_DESC01]      
+          ,[CTT_DESC01]
           FROM [SRA010]
           INNER JOIN [CTT010] ON [CTT_CUSTO] = [RA_CC]
           WHERE MONTH([RA_NASC]) = MONTH(GETDATE())
           AND DAY([RA_NASC]) >= (DAY(GETDATE())-3)
-          AND DAY([RA_NASC]) <= (DAY(GETDATE())+3) 
+          AND DAY([RA_NASC]) <= (DAY(GETDATE())+3)
           AND [RA_SITFOLH] != 'D'
           AND [RA_DEMISSA] = ''
           AND [SRA010].[D_E_L_E_T_] = ''
           order by DAY([RA_NASC])");
 
-        $this->loadModel('Notices'); 
-        $this->loadModel('RolesUsers'); 
+        $this->loadModel('Notices');
+        $this->loadModel('RolesUsers');
         $this->loadModel('Calls');
         $this->loadModel('CallsResponses');
 
@@ -65,14 +61,14 @@ class PagesController extends AppController
             ->where(['created_by' => $authenticatedUserId])
             ->orWhere(['attributed_to' => $authenticatedUserId])
             ->order(['calls.id' => 'DESC']);
-        
+
         foreach ($calls as $call) {
             $quant = $noticesRoles = $connection->execute("SELECT count([id]) as count
-                FROM [integratedSystemQualitex].[dbo].[calls_responses] 
+                FROM [integratedSystemQualitex].[dbo].[calls_responses]
                 WHERE call_id = " . $call['calls']['id'] ." AND visualized = 0 AND created_by != $authenticatedUserId
             ");
             foreach ($quant as $value) {
-                $call['calls']['quantNotifications'] = $value['count']; 
+                $call['calls']['quantNotifications'] = $value['count'];
             }
         }
 
@@ -86,7 +82,7 @@ class PagesController extends AppController
 
         $connection = ConnectionManager::get('default');
         $noticesRoles = $connection->execute("
-        SELECT DISTINCT TOP 4 
+        SELECT DISTINCT TOP 4
              [notices].[id]
             ,[notices].[subject]
             ,[notices].[text]
@@ -109,5 +105,5 @@ class PagesController extends AppController
             }
             throw new NotFoundException();
         }
-    }    
+    }
 }
