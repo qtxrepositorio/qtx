@@ -1,6 +1,6 @@
 <?php
 
-?> 
+?>
 
 
 <?php
@@ -34,13 +34,16 @@ if (file_exists($file)) {
             </li>
             <li>
                 <a target="_blank" href="#"><i class="fa fa-circle-o text-red"></i> <span>Ultra LIMS</span></a>
+
             </li>
             <li>
                 <a target="_blank" href="http://192.168.0.6:8082"><i class="fa fa-circle-o text-yellow"></i> <span>Protheus WEB</span></a>
             </li>
+            <!--
             <li>
-                <?php echo $this->Html->link(__('<i class="fa fa-circle-o text-aqua"></i> <span>Servidor de aquivos</span>'), array('controller'=> 'Pages','action' => 'open'), array('escape' => false, 'data-toggle'=>'tooltip')); ?>
+                <?php //echo $this->Html->link(__('<i class="fa fa-circle-o text-aqua"></i> <span>Servidor de aquivos</span>'), array('controller'=> 'Pages','action' => 'open'), array('escape' => false, 'data-toggle'=>'tooltip')); ?>
             </li>
+            -->
             <li>
                 <?php echo $this->Html->link(__('<i class="ion-power"></i>'), array('controller'=> 'Users','action' => 'logout'), array('escape' => false, 'data-toggle'=>'tooltip')); ?>
             </li>
@@ -48,5 +51,3 @@ if (file_exists($file)) {
     </div>
 </nav>
 <?php } ?>
-
-
