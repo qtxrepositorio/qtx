@@ -722,6 +722,14 @@ class CallsController extends AppController {
 
     public function saveNewStatus($call_id = null, $status_id = null, $created_by = null) {
 
+        $call = $this->Calls->get($call_id, [
+            'contain' => []
+        ]);
+
+        $call['status_id'] = $status_id;
+
+        $this->Calls->save($call);
+
         $this->loadModel('CallsResponses');
 
         $callsResponse = $this->CallsResponses->newEntity();
