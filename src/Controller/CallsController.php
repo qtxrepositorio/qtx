@@ -229,6 +229,40 @@ class CallsController extends AppController {
                     }
                 }
 
+                $connection = ConnectionManager::get('default');
+
+                $area = $connection->execute("
+                            SELECT * FROM CALLS_AREAS WHERE ID = " . $call['area_id']);
+                foreach ($area as $key => $value) {
+                    $call['area'] = $value['name'];
+                }
+
+                $category = $connection->execute("
+                            SELECT * FROM CALLS_CATEGORIES WHERE ID = " . $call['category_id']);
+                foreach ($category as $key => $value) {
+                    $call['category'] = $value['name'];
+                }
+
+                $subcategory = $connection->execute("
+                            SELECT * FROM CALLS_SUBCATEGORIES WHERE ID = " . $call['subcategory_id']);
+                foreach ($subcategory as $key => $value) {
+                    $call['subcategory'] = $value['name'];
+                    $call['sla'] = substr($value['sla'], 0, 5);
+                    ;
+                }
+
+                $status = $connection->execute("
+                            SELECT * FROM CALLS_STATUS WHERE ID = " . $call['status_id']);
+                foreach ($status as $key => $value) {
+                    $call['status'] = $value['title'];
+                }
+
+                $urgency = $connection->execute("
+                            SELECT * FROM CALLS_URGENCY WHERE ID = " . $call['urgency_id']);
+                foreach ($urgency as $key => $value) {
+                    $call['urgency'] = $value['title'];
+                }
+
                 foreach ($emails as $key => $value) {
                     if ($value['email'] != '') {
                         $this->getMailer('Call')->send('newCall', [$call, $value['email']]);

@@ -40,8 +40,8 @@ class PagesController extends AppController
           FROM [SRA010]
           INNER JOIN [CTT010] ON [CTT_CUSTO] = [RA_CC]
           WHERE MONTH([RA_NASC]) = MONTH(GETDATE())
-          AND DAY([RA_NASC]) >= (DAY(GETDATE())-3)
-          AND DAY([RA_NASC]) <= (DAY(GETDATE())+3)
+          AND DAY([RA_NASC]) >= (DAY(GETDATE())-5)
+          AND DAY([RA_NASC]) <= (DAY(GETDATE())+5)
           AND [RA_SITFOLH] != 'D'
           AND [RA_DEMISSA] = ''
           AND [SRA010].[D_E_L_E_T_] = ''
