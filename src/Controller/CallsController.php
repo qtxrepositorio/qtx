@@ -979,7 +979,7 @@ class CallsController extends AppController {
                 ]);
                 $correspondingFunction = $query->all();
                 foreach ($correspondingFunction as $key) {
-                    if ($key['id'] == 25 or $key['id'] == 26 or $key['id'] == 01) {
+                    if ($key['id'] == 25 or $key['id'] == 01) {
                         $release = true;
                     }
                 }
