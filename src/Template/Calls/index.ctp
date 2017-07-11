@@ -1,12 +1,34 @@
-<?php ?>
+<?php 
+
+$callsAreasFull[0] = 'Todas...';
+foreach ($callsAreas as $key => $value) {
+    # code...
+    $callsAreasFull[$key] = $value;
+}
+
+?>
 
 <section class="content">
     <div class="row">
         <div class="col-md-12">
             <div class="box box-warning">
+
+                <legend><?= __('Central de chamados:') ?></legend> 
+                
                 <div class="box-body">
 
-                    <legend><?= __('Central de chamados:') ?></legend> 
+                    <div class="col-md-3">
+                        <?php $x = 0; ?>
+                        <?= $this->Form->create($x, ['id'=>'form']) ?>
+                        <fieldset>
+                            <?php
+                            echo $this->Form->input('area_id', ['label' => 'Área:', 'id' => 'area_id', 'options' => $callsAreasFull]);
+                            ?>
+                        </fieldset>
+                        <?= $this->Form->end() ?>
+                        <br>
+                    </div>
+
                     <div align='right'>
                         <h3 class="box-title">
                             <?php echo $this->Html->link(__('<i>Adicionar Chamado</i>'), array('controller' => 'Calls','action' => 'add'), array('class' => 'btn btn-success btn-xs', 'escape' => false)); ?>
@@ -61,6 +83,16 @@
 
 <section class="content">
 </section>
+
+<script type="text/javascript">
+    
+    document.getElementById('area_id').onchange = function () {
+
+        $("#form").submit(); 
+
+    }
+
+</script>
 
 
 
