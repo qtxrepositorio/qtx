@@ -18,7 +18,7 @@ class CallMailer extends Mailer
 
     public function newCall($call, $email){
 
-        //debug($key['email']);
+        debug($call);
         $this->to($email)
             ->profile('qtx')
             ->emailFormat('html')
