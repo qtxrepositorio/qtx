@@ -1,6 +1,6 @@
 <?php 
 
-$callsAreasFull[0] = 'Todas...';
+$callsAreasFull[0] = 'Selecione...';
 foreach ($callsAreas as $key => $value) {
     # code...
     $callsAreasFull[$key] = $value;
@@ -13,21 +13,20 @@ foreach ($callsAreas as $key => $value) {
         <div class="col-md-12">
             <div class="box box-warning">
 
-                <legend><?= __('Central de chamados:') ?></legend> 
+                <legend><?= __('Todos os chamados:') ?></legend> 
                 
                 <div class="box-body">
 
-                    <div class="col-md-3">
-                        <?php $x = 0; ?>
-                        <?= $this->Form->create($x, ['id'=>'form']) ?>
+                    <?php $x = 0;  ?>
+                    <?= $this->Form->create($x, ['id'=>'form']) ?>
                         <fieldset>
-                            <?php
-                            echo $this->Form->input('area_id', ['label' => 'Área:', 'id' => 'area_id', 'options' => $callsAreasFull]);
-                            ?>
+                            <div class="col-md-3">
+                                <?php
+                                    echo $this->Form->input('area_id', ['label' => 'Áreas:','id'=>'area_id', 'options' => $callsAreasFull]);
+                                ?>
+                            </div>
                         </fieldset>
-                        <?= $this->Form->end() ?>
-                        <br>
-                    </div>
+                    <?= $this->Form->end() ?>
 
                     <div align='right'>
                         <h3 class="box-title">
@@ -84,17 +83,6 @@ foreach ($callsAreas as $key => $value) {
 <section class="content">
 </section>
 
-<script type="text/javascript">
-    
-    document.getElementById('area_id').onchange = function () {
-
-        $("#form").submit(); 
-
-    }
-
-</script>
-
-
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css"></link>
@@ -105,6 +93,16 @@ $this->Html->script(['AdminLTE./plugins/canvasToBlob/canvas-toBlob.js',], ['bloc
 $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block' => 'script']);
 $this->Html->script(['//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js',], ['block' => 'script']);
 ?> 
+
+<script type="text/javascript">
+    
+    document.getElementById('area_id').onchange = function () {
+
+        $("#form").submit(); 
+
+    }
+
+</script>
 
 <script>
     $(document).ready(function () {
