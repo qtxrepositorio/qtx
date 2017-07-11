@@ -28,84 +28,59 @@ class CallsController extends AppController {
         $this->loadModel('RolesUsers');
         
         $authenticatedUserId = $this->Auth->user('id');
+        
+        $calls = $this->Calls->find()
+            ->select(['CALLS.id', 'CALLS.SUBJECT', 'CALLS_URGENCY.title', 'CALLS_STATUS.title', 'CALLS.created', 'CALLS_SUBCATEGORIES.name'])
+            ->innerJoin('CALLS_URGENCY', 'CALLS_URGENCY.id = CALLS.urgency_id')
+            ->innerJoin('CALLS_STATUS', 'CALLS_STATUS.id = CALLS.status_id')
+            ->innerJoin('CALLS_CATEGORIES', 'CALLS_CATEGORIES.id = CALLS.category_id')
+            ->innerJoin('CALLS_SUBCATEGORIES', 'CALLS_SUBCATEGORIES.id = CALLS.subcategory_id')
+            ->where(['created_by' => $authenticatedUserId])
+            ->orWhere(['attributed_to' => $authenticatedUserId])
+            ->order(['Calls.id' => 'DESC']);
+       
+        $this->set(compact('calls'));
+        $this->set('_serialize', ['calls']);
 
-        $query = $this->RolesUsers->find()
-            ->where([
-                'user_id'=> $authenticatedUserId
-            ]);
-        $currentUserGroups = $query->all();
+    }
 
-        $it_is_group = false;
-        foreach ($currentUserGroups as $key)
-        {
-            if ($key['role_id'] == 25 or $key['role_id'] == 26)
-            {
-                $it_is_group = true;
-            }
-        }
+    public function indexAdmin() {
+
+        $this->loadModel('RolesUsers');
+        
+        $authenticatedUserId = $this->Auth->user('id');
 
         if ($this->request->is('post')) {
 
             if ($this->request->data['area_id'] == 0) {
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['action' => 'index-admin']);
             }
 
-            if ($it_is_group){
-
-                $calls = $this->Calls->find()
-                    ->select(['CALLS.id', 'CALLS.SUBJECT', 'CALLS_URGENCY.title', 'CALLS_STATUS.title', 'CALLS.created', 'CALLS_SUBCATEGORIES.name'])
-                    ->innerJoin('CALLS_URGENCY', 'CALLS_URGENCY.id = CALLS.urgency_id')
-                    ->innerJoin('CALLS_STATUS', 'CALLS_STATUS.id = CALLS.status_id')
-                    ->innerJoin('CALLS_CATEGORIES', 'CALLS_CATEGORIES.id = CALLS.category_id')
-                    ->innerJoin('CALLS_SUBCATEGORIES', 'CALLS_SUBCATEGORIES.id = CALLS.subcategory_id')
-                    ->where(['Calls.area_id' => $this->request->data['area_id']])
-                    ->order(['Calls.id' => 'DESC']);  
-
-            }else{
-            
-                $calls = $this->Calls->find()
-                    ->select(['CALLS.id', 'CALLS.SUBJECT', 'CALLS_URGENCY.title', 'CALLS_STATUS.title', 'CALLS.created', 'CALLS_SUBCATEGORIES.name'])
-                    ->innerJoin('CALLS_URGENCY', 'CALLS_URGENCY.id = CALLS.urgency_id')
-                    ->innerJoin('CALLS_STATUS', 'CALLS_STATUS.id = CALLS.status_id')
-                    ->innerJoin('CALLS_CATEGORIES', 'CALLS_CATEGORIES.id = CALLS.category_id')
-                    ->innerJoin('CALLS_SUBCATEGORIES', 'CALLS_SUBCATEGORIES.id = CALLS.subcategory_id')
-                    ->where(['created_by' => $authenticatedUserId])
-                    ->orWhere(['attributed_to' => $authenticatedUserId])
-                    ->andWhere(['Calls.area_id' => $this->request->data['area_id']])
-                    ->order(['Calls.id' => 'DESC']);
-            }
+            $calls = $this->Calls->find()
+                ->select(['CALLS.id', 'CALLS.SUBJECT', 'CALLS_URGENCY.title', 'CALLS_STATUS.title', 'CALLS.created', 'CALLS_SUBCATEGORIES.name'])
+                ->innerJoin('CALLS_URGENCY', 'CALLS_URGENCY.id = CALLS.urgency_id')
+                ->innerJoin('CALLS_STATUS', 'CALLS_STATUS.id = CALLS.status_id')
+                ->innerJoin('CALLS_CATEGORIES', 'CALLS_CATEGORIES.id = CALLS.category_id')
+                ->innerJoin('CALLS_SUBCATEGORIES', 'CALLS_SUBCATEGORIES.id = CALLS.subcategory_id')
+                ->where(['Calls.area_id' => $this->request->data['area_id']])
+                ->order(['Calls.id' => 'DESC']);  
 
         }else{
 
-            if ($it_is_group){
-
-                $calls = $this->Calls->find()
-                    ->select(['CALLS.id', 'CALLS.SUBJECT', 'CALLS_URGENCY.title', 'CALLS_STATUS.title', 'CALLS.created', 'CALLS_SUBCATEGORIES.name'])
-                    ->innerJoin('CALLS_URGENCY', 'CALLS_URGENCY.id = CALLS.urgency_id')
-                    ->innerJoin('CALLS_STATUS', 'CALLS_STATUS.id = CALLS.status_id')
-                    ->innerJoin('CALLS_CATEGORIES', 'CALLS_CATEGORIES.id = CALLS.category_id')
-                    ->innerJoin('CALLS_SUBCATEGORIES', 'CALLS_SUBCATEGORIES.id = CALLS.subcategory_id')
-                    ->order(['Calls.id' => 'DESC']);  
-
-            }else{
-            
-                $calls = $this->Calls->find()
-                    ->select(['CALLS.id', 'CALLS.SUBJECT', 'CALLS_URGENCY.title', 'CALLS_STATUS.title', 'CALLS.created', 'CALLS_SUBCATEGORIES.name'])
-                    ->innerJoin('CALLS_URGENCY', 'CALLS_URGENCY.id = CALLS.urgency_id')
-                    ->innerJoin('CALLS_STATUS', 'CALLS_STATUS.id = CALLS.status_id')
-                    ->innerJoin('CALLS_CATEGORIES', 'CALLS_CATEGORIES.id = CALLS.category_id')
-                    ->innerJoin('CALLS_SUBCATEGORIES', 'CALLS_SUBCATEGORIES.id = CALLS.subcategory_id')
-                    ->where(['created_by' => $authenticatedUserId])
-                    ->orWhere(['attributed_to' => $authenticatedUserId])
-                    ->order(['Calls.id' => 'DESC']);
-            }
+            $calls = $this->Calls->find()
+                ->select(['CALLS.id', 'CALLS.SUBJECT', 'CALLS_URGENCY.title', 'CALLS_STATUS.title', 'CALLS.created', 'CALLS_SUBCATEGORIES.name'])
+                ->innerJoin('CALLS_URGENCY', 'CALLS_URGENCY.id = CALLS.urgency_id')
+                ->innerJoin('CALLS_STATUS', 'CALLS_STATUS.id = CALLS.status_id')
+                ->innerJoin('CALLS_CATEGORIES', 'CALLS_CATEGORIES.id = CALLS.category_id')
+                ->innerJoin('CALLS_SUBCATEGORIES', 'CALLS_SUBCATEGORIES.id = CALLS.subcategory_id')
+                ->order(['Calls.id' => 'DESC']);   
 
         }
-
+        
         $callsAreas = $this->Calls->CallsAreas->find('list', ['limit' => 200]);
         
-        $this->set(compact('calls', 'callsAreas'));
-        $this->set('_serialize', ['calls', 'callsAreas']);
+        $this->set(compact('calls','callsAreas'));
+        $this->set('_serialize', ['calls','callsAreas']);        
     }
 
     /**
@@ -1013,6 +988,7 @@ class CallsController extends AppController {
                 if (in_array($this->request->params['action'], array('view', 'add', 'edit', 'index', 'delete'))) {
                     return true;
                 } else {
+                    $this->Flash->error(__('Você não tem autorização para acessar esta área do sistema. Caso necessário, favor entrar em contato com o setor TI.'));
                     return false;
                 }
             } else {
