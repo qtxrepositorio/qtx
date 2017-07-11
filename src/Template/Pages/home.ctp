@@ -10,7 +10,7 @@
                     <div class="box box-info">
                         <div class="box-header with-border">
                             <h3 class="box-title">
-                                Chamados
+                                Meus chamados
                                 <?php echo $this->Html->link(__('<i>Ver todos</i>'), array('controller' => 'Calls','action' => 'index'), array('class' => 'btn btn-primary btn-xs', 'escape' => false)); ?>
                                 <?php echo $this->Html->link(__('<i>Adicionar</i>'), array('controller' => 'Calls','action' => 'add'), array('class' => 'btn btn-success btn-xs', 'escape' => false)); ?>
                             </h3>
