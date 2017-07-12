@@ -8,6 +8,12 @@ use Cake\Datasource\ConnectionManager;
 
 class HumanResourcesController extends AppController
 {
+
+	public function paycheck()
+	{
+
+	}
+
 	public function index()
     {
         $connection = ConnectionManager::get('baseProtheus');
@@ -533,8 +539,12 @@ class HumanResourcesController extends AppController
             }
             if($release == false)
             {
-                $this->Flash->error(__('Você não tem autorização para acessar esta área do sistema. Caso necessário, favor entrar em contato com o setor TI.'));
-                $this->redirect($this->Auth->redirectUrl());
+				if (in_array($this->request->params['action'], array('paycheck'))) {
+                    return true;
+                } else {
+                    $this->Flash->error(__('Você não tem autorização para acessar esta área do sistema. Caso necessário, favor entrar em contato com o setor TI.'));
+                    return false;
+                }
             }
             else
             {
