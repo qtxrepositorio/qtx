@@ -26,28 +26,51 @@ class CallsController extends AppController {
     public function index() {
 
         $this->loadModel('RolesUsers');
-        
+
         $authenticatedUserId = $this->Auth->user('id');
-        
-        $calls = $this->Calls->find()
-            ->select(['CALLS.id', 'CALLS.SUBJECT', 'CALLS_URGENCY.title', 'CALLS_STATUS.title', 'CALLS.created', 'CALLS_SUBCATEGORIES.name'])
-            ->innerJoin('CALLS_URGENCY', 'CALLS_URGENCY.id = CALLS.urgency_id')
-            ->innerJoin('CALLS_STATUS', 'CALLS_STATUS.id = CALLS.status_id')
-            ->innerJoin('CALLS_CATEGORIES', 'CALLS_CATEGORIES.id = CALLS.category_id')
-            ->innerJoin('CALLS_SUBCATEGORIES', 'CALLS_SUBCATEGORIES.id = CALLS.subcategory_id')
-            ->where(['created_by' => $authenticatedUserId])
-            ->orWhere(['attributed_to' => $authenticatedUserId])
-            ->order(['Calls.id' => 'DESC']);
-       
-        $this->set(compact('calls'));
-        $this->set('_serialize', ['calls']);
+
+        if ($this->request->is('post')) {
+
+            if ($this->request->data['area_id'] == 0) {
+                $calls = $this->Calls->find()
+                    ->select(['CALLS.id', 'CALLS.SUBJECT', 'CALLS_URGENCY.title', 'CALLS_STATUS.title', 'CALLS.created', 'CALLS_SUBCATEGORIES.name'])
+                    ->innerJoin('CALLS_URGENCY', 'CALLS_URGENCY.id = CALLS.urgency_id')
+                    ->innerJoin('CALLS_STATUS', 'CALLS_STATUS.id = CALLS.status_id')
+                    ->innerJoin('CALLS_CATEGORIES', 'CALLS_CATEGORIES.id = CALLS.category_id')
+                    ->innerJoin('CALLS_SUBCATEGORIES', 'CALLS_SUBCATEGORIES.id = CALLS.subcategory_id')
+                    ->order(['Calls.id' => 'DESC']);
+            }else{
+                $calls = $this->Calls->find()
+                    ->select(['CALLS.id', 'CALLS.SUBJECT', 'CALLS_URGENCY.title', 'CALLS_STATUS.title', 'CALLS.created', 'CALLS_SUBCATEGORIES.name'])
+                    ->innerJoin('CALLS_URGENCY', 'CALLS_URGENCY.id = CALLS.urgency_id')
+                    ->innerJoin('CALLS_STATUS', 'CALLS_STATUS.id = CALLS.status_id')
+                    ->innerJoin('CALLS_CATEGORIES', 'CALLS_CATEGORIES.id = CALLS.category_id')
+                    ->innerJoin('CALLS_SUBCATEGORIES', 'CALLS_SUBCATEGORIES.id = CALLS.subcategory_id')
+                    ->where(['CALLS.area_id' => $this->request->data['area_id']])
+                    ->order(['Calls.id' => 'DESC']);
+            }
+
+        }else {
+            $calls = $this->Calls->find()
+                ->select(['CALLS.id', 'CALLS.SUBJECT', 'CALLS_URGENCY.title', 'CALLS_STATUS.title', 'CALLS.created', 'CALLS_SUBCATEGORIES.name'])
+                ->innerJoin('CALLS_URGENCY', 'CALLS_URGENCY.id = CALLS.urgency_id')
+                ->innerJoin('CALLS_STATUS', 'CALLS_STATUS.id = CALLS.status_id')
+                ->innerJoin('CALLS_CATEGORIES', 'CALLS_CATEGORIES.id = CALLS.category_id')
+                ->innerJoin('CALLS_SUBCATEGORIES', 'CALLS_SUBCATEGORIES.id = CALLS.subcategory_id')
+                ->order(['Calls.id' => 'DESC']);
+        }
+
+        $callsAreas = $this->Calls->CallsAreas->find('list', ['limit' => 200]);
+
+        $this->set(compact('calls','callsAreas'));
+        $this->set('_serialize', ['calls','callsAreas']);
 
     }
 
     public function indexAdmin() {
 
         $this->loadModel('RolesUsers');
-        
+
         $authenticatedUserId = $this->Auth->user('id');
 
         if ($this->request->is('post')) {
@@ -63,7 +86,7 @@ class CallsController extends AppController {
                 ->innerJoin('CALLS_CATEGORIES', 'CALLS_CATEGORIES.id = CALLS.category_id')
                 ->innerJoin('CALLS_SUBCATEGORIES', 'CALLS_SUBCATEGORIES.id = CALLS.subcategory_id')
                 ->where(['Calls.area_id' => $this->request->data['area_id']])
-                ->order(['Calls.id' => 'DESC']);  
+                ->order(['Calls.id' => 'DESC']);
 
         }else{
 
@@ -73,14 +96,14 @@ class CallsController extends AppController {
                 ->innerJoin('CALLS_STATUS', 'CALLS_STATUS.id = CALLS.status_id')
                 ->innerJoin('CALLS_CATEGORIES', 'CALLS_CATEGORIES.id = CALLS.category_id')
                 ->innerJoin('CALLS_SUBCATEGORIES', 'CALLS_SUBCATEGORIES.id = CALLS.subcategory_id')
-                ->order(['Calls.id' => 'DESC']);   
+                ->order(['Calls.id' => 'DESC']);
 
         }
-        
+
         $callsAreas = $this->Calls->CallsAreas->find('list', ['limit' => 200]);
-        
+
         $this->set(compact('calls','callsAreas'));
-        $this->set('_serialize', ['calls','callsAreas']);        
+        $this->set('_serialize', ['calls','callsAreas']);
     }
 
     /**
@@ -127,7 +150,6 @@ class CallsController extends AppController {
             }
         }
 
-        if (($call['created_by'] == $authenticatedUser['id']) or ( $call['attributed_to'] == $authenticatedUser['id']) or ( $release == true)) {
 
             $connection = ConnectionManager::get('default');
 
@@ -205,11 +227,6 @@ class CallsController extends AppController {
             ]);
 
             $call['files'] = $callFiles;
-        } else {
-
-            $this->Flash->error(__('Você só tem acesso a chamados atribuídos ou criados para/por você, a menos que faça parte dos grupos de gerenciamento de chamados!'));
-            return $this->redirect(['action' => 'index']);
-        }
 
         $callsStatus = $this->Calls->CallsStatus->find('list', ['limit' => 200]);
         $call['callsStatus'] = $callsStatus;
@@ -428,15 +445,8 @@ class CallsController extends AppController {
         $currentUserGroups = $query->all();
         $release = null;
         foreach ($currentUserGroups as $key) {
-            $query = $this->Roles->find()
-                    ->where([
-                'id' => $key['role_id']
-            ]);
-            $correspondingFunction = $query->all();
-            foreach ($correspondingFunction as $key) {
-                if ($key['id'] == 25 or $key['id'] == 26 or $key['id'] == 01) {
+            if ($key['id'] == 26 or $key['id'] == 01) {
                     $release = true;
-                }
             }
         }
 
@@ -526,7 +536,8 @@ class CallsController extends AppController {
         $callsStatus = $this->Calls->CallsStatus->find('list', ['limit' => 200]);
         $callsUrgency = $this->Calls->CallsUrgency->find('list', ['limit' => 200]);
         $callsSolutions = $this->Calls->CallsSolutions->find('list', ['limit' => 200]);
-        $callsUsers = $this->Calls->Users->find('list', ['limit' => 200])
+        $callsUsers = $this->Calls->Users->find('list', ['limit' => 500]);
+        $callsUsersTech = $this->Calls->Users->find('list', ['limit' => 200])
                 ->select(['users.id', 'users.name'])
                 ->innerJoin('roles_users', 'users.id = roles_users.user_id')
                 ->where(['roles_users.role_id' => 26])
@@ -535,8 +546,8 @@ class CallsController extends AppController {
         $callsCategoriesForJs = $this->Calls->CallsCategories->find();
         $callsSubcategoriesForJs = $this->Calls->CallsSubcategories->find();
 
-        $this->set(compact('call', 'callsAreas', 'callsCategories', 'callsSubcategories', 'callsStatus', 'callsUrgency', 'callsSolutions', 'callsUsers', 'authenticatedUser', 'callsCategoriesForJs', 'callsSubcategoriesForJs'));
-        $this->set('_serialize', ['call', 'authenticatedUser']);
+        $this->set(compact('call', 'callsAreas', 'callsCategories', 'callsSubcategories', 'callsStatus', 'callsUrgency', 'callsSolutions', 'callsUsers', 'callsUsersTech', 'authenticatedUser', 'callsCategoriesForJs', 'callsSubcategoriesForJs'));
+        $this->set('_serialize', ['call', 'callsUsersTech', 'authenticatedUser']);
     }
 
     public function editIntoView($id = null) {

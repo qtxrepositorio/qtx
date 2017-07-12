@@ -329,9 +329,6 @@ if (file_exists($file)) {
                 <ul class="treeview-menu">
 
                     <li>
-                        <?php echo $this->Html->link(__('Todos os chamados'), array('controller' => 'Calls','action' => 'index_admin')); ?>
-                    </li>
-                    <li>
                         <?php echo $this->Html->link(__('Áreas'), array('controller' => 'CallsAreas','action' => 'index')); ?>
                     </li>
                     <li>

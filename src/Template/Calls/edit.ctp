@@ -45,9 +45,9 @@ foreach ($callsSubcategories as $key => $value) {
                                 }
 
                                 echo $this->Form->input('urgency_id', ['class' => 'form-control','label' => 'Urgência:', 'options' => $callsUrgency]);
-                                echo $this->Form->input('solution_id', ['type'=>'hidden', 'default' => null]);
-                                echo $this->Form->input('created_by', ['type' => 'hidden', 'label' => 'Criado Por:', 'options' => $callsUsers]);
-                                echo $this->Form->input('attributed_to', ['class' => 'form-control','label' => 'Atribuído para:','options' => $callsUsers]);
+                                echo $this->Form->input('solution_id', ['type'=>'hidden']);
+                                echo $this->Form->input('created_by', ['disabled'=>true, 'class' => 'form-control','label' => 'Criado Por:', 'options' => $callsUsers]);
+                                echo $this->Form->input('attributed_to', ['class' => 'form-control','label' => 'Atribuído para:','options' => $callsUsersTech]);
                                 //echo $this->Form->input('visualized');
                             ?>
                         </fieldset>
