@@ -661,72 +661,76 @@ class CallsController extends AppController {
 
             $authenticatedUser = $this->Auth->user();
 
-            $this->loadModel('CallsResponses');
-            $this->CallsResponses->deleteResponeses($call['id']);
+            if (($call['created_by'] == $authenticatedUser['id'])) {
 
-            $this->loadModel('CallsFiles');
-            $this->CallsFiles->deleteFiles($call['id']);
+                $this->loadModel('CallsResponses');
+                $this->CallsResponses->deleteResponeses($call['id']);
 
-            if ($this->Calls->delete($call)) {
-                $this->Flash->success(__('O chamado foi apagado com sucesso!'));
+                $this->loadModel('CallsFiles');
+                $this->CallsFiles->deleteFiles($call['id']);
 
-                $this->loadModel('Users');
-                $query = $this->Users->find()
-                        ->where(['id' => $call['created_by']])
-                        ->orWhere(['id' => $call['attributed_to']]);
-                $emails = $query->all();
+                if ($this->Calls->delete($call)) {
+                    $this->Flash->success(__('O chamado foi apagado com sucesso!'));
 
-                foreach ($emails as $key => $value) {
-                    if ($value['id'] == $call['created_by']) {
-                        $call['created_by'] = $value['name'];
-                    } elseif ($value['id'] == $call['attributed_to']) {
-                        $call['attributed_to'] = $value['name'];
+                    $this->loadModel('Users');
+                    $query = $this->Users->find()
+                            ->where(['id' => $call['created_by']])
+                            ->orWhere(['id' => $call['attributed_to']]);
+                    $emails = $query->all();
+
+                    foreach ($emails as $key => $value) {
+                        if ($value['id'] == $call['created_by']) {
+                            $call['created_by'] = $value['name'];
+                        } elseif ($value['id'] == $call['attributed_to']) {
+                            $call['attributed_to'] = $value['name'];
+                        }
                     }
-                }
 
-                $connection = ConnectionManager::get('default');
+                    $connection = ConnectionManager::get('default');
 
-                $area = $connection->execute("
-                            SELECT * FROM CALLS_AREAS WHERE ID = " . $call['area_id']);
-                foreach ($area as $key => $value) {
-                    $call['area'] = $value['name'];
-                }
-
-                $category = $connection->execute("
-                            SELECT * FROM CALLS_CATEGORIES WHERE ID = " . $call['category_id']);
-                foreach ($category as $key => $value) {
-                    $call['category'] = $value['name'];
-                }
-
-                $subcategory = $connection->execute("
-                            SELECT * FROM CALLS_SUBCATEGORIES WHERE ID = " . $call['subcategory_id']);
-                foreach ($subcategory as $key => $value) {
-                    $call['subcategory'] = $value['name'];
-                    $call['sla'] = substr($value['sla'], 0, 5);
-                    ;
-                }
-
-                $status = $connection->execute("
-                            SELECT * FROM CALLS_STATUS WHERE ID = " . $call['status_id']);
-                foreach ($status as $key => $value) {
-                    $call['status'] = $value['title'];
-                }
-
-                $urgency = $connection->execute("
-                            SELECT * FROM CALLS_URGENCY WHERE ID = " . $call['urgency_id']);
-                foreach ($urgency as $key => $value) {
-                    $call['urgency'] = $value['title'];
-                }
-
-                foreach ($emails as $key => $value) {
-                    if ($value['email'] != '') {
-                        $this->getMailer('Call')->send('deleteCall', [$call, $value['email'], $authenticatedUser['name']]);
+                    $area = $connection->execute("
+                                SELECT * FROM CALLS_AREAS WHERE ID = " . $call['area_id']);
+                    foreach ($area as $key => $value) {
+                        $call['area'] = $value['name'];
                     }
+
+                    $category = $connection->execute("
+                                SELECT * FROM CALLS_CATEGORIES WHERE ID = " . $call['category_id']);
+                    foreach ($category as $key => $value) {
+                        $call['category'] = $value['name'];
+                    }
+
+                    $subcategory = $connection->execute("
+                                SELECT * FROM CALLS_SUBCATEGORIES WHERE ID = " . $call['subcategory_id']);
+                    foreach ($subcategory as $key => $value) {
+                        $call['subcategory'] = $value['name'];
+                        $call['sla'] = substr($value['sla'], 0, 5);
+                        ;
+                    }
+
+                    $status = $connection->execute("
+                                SELECT * FROM CALLS_STATUS WHERE ID = " . $call['status_id']);
+                    foreach ($status as $key => $value) {
+                        $call['status'] = $value['title'];
+                    }
+
+                    $urgency = $connection->execute("
+                                SELECT * FROM CALLS_URGENCY WHERE ID = " . $call['urgency_id']);
+                    foreach ($urgency as $key => $value) {
+                        $call['urgency'] = $value['title'];
+                    }
+
+                    foreach ($emails as $key => $value) {
+                        if ($value['email'] != '') {
+                            $this->getMailer('Call')->send('deleteCall', [$call, $value['email'], $authenticatedUser['name']]);
+                        }
+                    }
+                } else {
+                    $this->Flash->error(__('O chamado não pode ser apagado, tente novamente!'));
                 }
-            } else {
-                $this->Flash->error(__('O chamado não pode ser apagado, tente novamente!'));
+            }else{
+                $this->Flash->error(__('Chamados só podem ser apagados pelo criador!'));
             }
-
             return $this->redirect(['action' => 'index']);
         } else {
             $this->Flash->error(__('Chamados que já tiveram o status alterado não podem ser apagados!'));
