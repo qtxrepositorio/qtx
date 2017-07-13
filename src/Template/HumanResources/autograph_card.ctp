@@ -8,7 +8,7 @@ class MYPDF extends TCPDF {
         $image_file = K_PATH_IMAGES.'logo.jpg';
 
         $this->Image($image_file, 15, 10, 50, '', 'JPG', '', 'T', false, 300, '', false, false, 0, false, false, false);
-       
+
         // Set font
         $this->SetFont('times', 'B', 10);
 
@@ -95,7 +95,7 @@ th{
     margin-top: 15px;
     margin-right: 15px;
     margin-left: 15px;
-   
+
 }
 
 
@@ -105,12 +105,12 @@ th{
 
 $image_file = K_PATH_IMAGES.'logo.jpg';
 
-$html .= '<table cellpadding="10">			
+$html .= '<table cellpadding="10">
 			<tr>
-				<td border="1" width="380">					
-					
-					<img src="'.$image_file.'" height="30" width="90">					
-				
+				<td border="2" width="380">					
+
+					<img src="'.$image_file.'" height="30" width="90">
+
 					<h2 align="center"> Cartão de Autógrafo </h2>
 
 					<b>Matrícula: </b>'.$registry.'  <b>Nome: </b>'.$name.'<br/><br/>
@@ -124,31 +124,31 @@ $html .= '<table cellpadding="10">
 					<br/><br/>
 					<table align="center">
 						<tr>
-							<th border="1">	
+							<th border="1">
 								ASSINATURA
-							</th>	
-							<th border="1">	
+							</th>
+							<th border="1">
 								RUBRICA
 							</th>
-							<th border="1">	
+							<th border="1">
 								RUBRICA
-							</th>  
+							</th>
 						</tr>
 						<br/><br/><br/>
 						<tr>
-							<td>	
-								<hr  width="117">
-							</td>	
-							<td>	
+							<td>
 								<hr  width="117">
 							</td>
-							<td>	
-								<hr  width="117"> 
-							</td> 
+							<td>
+								<hr  width="117">
+							</td>
+							<td>
+								<hr  width="117">
+							</td>
 						</tr>
 					</table>
 
-				</td>	  
+				</td>
 			</tr>
 		</table>';
 
@@ -159,11 +159,11 @@ $html .= '<table cellpadding="10">
 				<th border="1" width="380">
 					<font size="8">'
 						.'<b>Matrícula: </b>'.$registry.'  <b>Nome: </b>'.$name.'<br/>'
-					
-						.'<br/><b>Cargo: </b>'.$role	
-						.'<br/><b>Data Admissão: </b>'.$department									
+
+						.'<br/><b>Cargo: </b>'.$role
+						.'<br/><b>Data Admissão: </b>'.$department
 			  		.'</font>
-				</th>			  
+				</th>
 			</tr>
 		</table>';*/
 
@@ -182,4 +182,4 @@ $pdf->Output('Cartão de Autógrafo.pdf', 'I');
 //============================================================+
 // END OF FILE
 //============================================================+
-?>     
+?>

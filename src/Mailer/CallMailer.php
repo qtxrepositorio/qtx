@@ -18,7 +18,6 @@ class CallMailer extends Mailer
 
     public function newCall($call, $email){
 
-        debug($call);
         $this->to($email)
             ->profile('qtx')
             ->emailFormat('html')
@@ -26,7 +25,7 @@ class CallMailer extends Mailer
             ->layout('call/add')
             ->viewVars(['call' => $call])
             ->subject('Novo chamado cadastrado com ID: ' . $call['id'] .'.');
-        
+
     }
 
     public function editCall($call, $email){
@@ -39,7 +38,7 @@ class CallMailer extends Mailer
             ->layout('call/edit')
             ->viewVars(['call' => $call])
             ->subject('O chamado ' . $call['id'] .' foi alterado para: ' . $call['status'] .'.');
-        
+
     }
 
 
@@ -53,6 +52,6 @@ class CallMailer extends Mailer
             ->layout('call/delete')
             ->viewVars(['call' => $call, 'deleted_by' => $deleted_by])
             ->subject('O chamado ' . $call['id'] .' foi apagado por: ' . $deleted_by .'.');
-        
+
     }
 }
