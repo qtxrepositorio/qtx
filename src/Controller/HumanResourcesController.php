@@ -23,7 +23,7 @@ class HumanResourcesController extends AppController
 
 		$employer = $connection->execute("
 				SELECT RA_MAT, RA_NOME, RA_ADMISSA, RA_FILIAL
-					, RA_CC, I3_DESC
+					, RA_SALARIO, RA_CC, I3_DESC
 					, RJ_CODCBO
 					, RA_CODFUNC, RJ_DESC
 				FROM SRA010
@@ -32,28 +32,44 @@ class HumanResourcesController extends AppController
 			    WHERE [RJ_CODCBO] != '' AND [SRJ010].D_E_L_E_T_ = '' AND RA_CIC like '%".$authenticatedUserCpf."%'")
             ->fetchAll('assoc');
 
-		$paychecks = $connection->execute("
-			select RD_MAT, RD_PD, RD_TIPO1, RD_VALOR, RD_DATARQ, RD_DATPGT, RD_TIPO2
+		$paychecksYearly = $connection->execute("
+			select RD_MAT, RD_PD, RD_HORAS, RV_DESC, RV_TIPOCOD, RD_TIPO1, RD_VALOR, RD_DATARQ, RD_DATPGT, RD_TIPO2
 				from SRD010
+                INNER JOIN SRV010 ON RD_PD = RV_COD
 				where RD_DATARQ between '".$data_ini."' and '".$data_fin."'
 					and RD_MAT = '".$employer[0]['RA_MAT']."'
-					and D_E_L_E_T_ != '*'
-				group by RD_DATARQ,RD_MAT, RD_PD, RD_TIPO1, RD_VALOR, RD_DATPGT, RD_TIPO2
+					and SRD010.D_E_L_E_T_ != '*'
+                    and SRV010.D_E_L_E_T_ != '*'
+					and RV_TIPOCOD != '3'
+				group by RD_DATARQ,RD_MAT, RD_PD, RD_HORAS, RV_DESC, RV_TIPOCOD, RD_TIPO1, RD_VALOR, RD_DATPGT, RD_TIPO2
 			")
             ->fetchAll('assoc');
 
+		$paychecksMonthly = $connection->execute("
+			select RC_MAT, RC_PD, RC_HORAS, RV_DESC, RC_TIPO1, RC_VALOR, RC_PERIODO, RC_TIPO2
+				from SRC010
+				INNER JOIN SRV010 ON RC_PD = RV_COD
+				where RC_PERIODO between '".$data_ini."' and '".$data_fin."'
+						and RC_MAT = '".$employer[0]['RA_MAT']."'
+						and SRC010.D_E_L_E_T_ != '*'
+	                    and SRV010.D_E_L_E_T_ != '*'
+						and RV_TIPOCOD != '3'
+				group by RC_PERIODO,RC_MAT, RC_PD, RC_HORAS, RV_DESC, RC_TIPO1, RC_VALOR, RC_TIPO2
+			")
+	    	->fetchAll('assoc');
+
+
 		$months = [];
-		foreach ($paychecks as $key => $value) {
+		foreach ($paychecksYearly as $key => $value) {
 			if (!in_array($value['RD_DATARQ'], $months)) {
 				$months[$value['RD_DATARQ']] = $value['RD_DATARQ'];
 			}
 		}
-		$months = count($months);
 
-		debug($months);
+		//debug($paychecksMonthly);
 
-		$this->set(compact('paychecks', 'employer', 'months'));
-     	$this->set('_serialize', ['paychecks','employer', 'months']);
+		$this->set(compact('paychecksYearly', 'paychecksMonthly', 'employer','months'));
+     	$this->set('_serialize', ['paychecksYearly', 'paychecksMonthly','employer','months']);
 	    $this->viewBuilder()->layout('ajax');
 	    $this->response->type('pdf');
 
