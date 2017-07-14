@@ -66,7 +66,7 @@ if (file_exists($file)) {
             <i class="fa  fa-line-chart "></i> <span>Controladoria</span>
             <i class="fa fa-angle-left pull-right"></i>
         </a>
-        <ul class="treeview-menu">  
+        <ul class="treeview-menu">
 
             <li>
                 <a href="#"> Receitas e Despesas <i class="fa fa-angle-left pull-right"></i></a>
@@ -74,32 +74,32 @@ if (file_exists($file)) {
                     <li>
                         <a href="#"> Receitas <i class="fa fa-angle-left pull-right"></i></a>
                         <ul class="treeview-menu">
-                               
-                            <li> <?= $this->Html->link(__('Mensal / Centro de custo'), ['controller' => 'Controllership', 'action' => 'RevenuesMonthByCc']) ?>  </li>   
-                            <li> <?= $this->Html->link(__('Per Capita Anual'), ['controller' => 'Controllership', 'action' => 'RevenuesPerCapita']) ?>  </li>    
+
+                            <li> <?= $this->Html->link(__('Mensal / Centro de custo'), ['controller' => 'Controllership', 'action' => 'RevenuesMonthByCc']) ?>  </li>
+                            <li> <?= $this->Html->link(__('Per Capita Anual'), ['controller' => 'Controllership', 'action' => 'RevenuesPerCapita']) ?>  </li>
                         </ul>
-                    </li> 
+                    </li>
                     <li>
                         <a href="#"> Despesas <i class="fa fa-angle-left pull-right"></i></a>
                         <ul class="treeview-menu">
 
-                            <li> <?= $this->Html->link(__('Despesas Com Pessoal'), ['controller' => 'Controllership', 'action' =>'PersonnelExpenses']) ?>  </li>   
-                            <li> <?= $this->Html->link(__('Despesas Operacionais'), ['controller' => 'Controllership', 'action' => 'OperationalExpenses']) ?>  </li> 
-                              
-                            <li> <?= $this->Html->link(__('Despesas Administrativas'), ['controller' => 'Controllership', 'action' => 'AdministrativeExpenses']) ?>  </li> 
+                            <li> <?= $this->Html->link(__('Despesas Com Pessoal'), ['controller' => 'Controllership', 'action' =>'PersonnelExpenses']) ?>  </li>
+                            <li> <?= $this->Html->link(__('Despesas Operacionais'), ['controller' => 'Controllership', 'action' => 'OperationalExpenses']) ?>  </li>
+
+                            <li> <?= $this->Html->link(__('Despesas Administrativas'), ['controller' => 'Controllership', 'action' => 'AdministrativeExpenses']) ?>  </li>
 
                             <li> <?= $this->Html->link(__('Despesas Financeiras'), ['controller' => 'Controllership', 'action' => 'FinancialExpenses']) ?>  </li>
 
                             <li> <?= $this->Html->link(__('Desp. com Investimentos'), ['controller' => 'Controllership', 'action' => 'InvestmentExpenses']) ?>  </li>
 
-                            <li> <?= $this->Html->link(__('Despesas Tributadas'), ['controller' => 'Controllership', 'action' => 'TaxedExpenses']) ?>  </li>    
+                            <li> <?= $this->Html->link(__('Despesas Tributadas'), ['controller' => 'Controllership', 'action' => 'TaxedExpenses']) ?>  </li>
                         </ul>
                     </li>
                     <li>
                         <?= $this->Html->link(__('Apuração dos resultados'), ['controller'=>'Controllership', 'action'=>'DeterminationOfResults']) ?>
-                    </li>                            
+                    </li>
                 </ul>
-            </li>  
+            </li>
 
            <li> <?= $this->Html->link(__('Hora extra x salário'), ['controller' => 'Controllership', 'action' => 'OvertimeVersusPay']) ?>  </li>
 
@@ -194,6 +194,7 @@ if (file_exists($file)) {
         <ul class="treeview-menu">
             <li> <?= $this->Html->link(__('Painel'), ['controller' => 'HumanResources', 'action' => 'index']) ?>  </li>
             <li> <?= $this->Html->link(__('Relatórios'), ['controller' => 'HumanResources', 'action' => 'reports']) ?>  </li>
+            <li> <?= $this->Html->link(__('Emitir contra cheque'), ['controller' => 'HumanResources', 'action' => 'paycheck', $user['cpf']]) ?>  </li>
         </ul>
     </li>
 
@@ -255,10 +256,10 @@ if (file_exists($file)) {
             <li>
                 <a href="#"> Usuários <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
-                    
+
                     <li> <?= $this->Html->link(__('Ver Usuários'), ['controller' => 'Users','action' => 'index']) ?>  </li>
                     <li> <?= $this->Html->link(__('Adicionar Usuário'), ['controller' => 'Users','action' => 'add']) ?> </li>
-                    
+
                 </ul>
 
             </li>
@@ -268,7 +269,7 @@ if (file_exists($file)) {
                     <li> <?= $this->Html->link(__('Ver Grupos'), ['controller' => 'Roles','action' => 'index']) ?>  </li>
                     <li> <?= $this->Html->link(__('Adicionar Grupo'), ['controller' => 'Roles','action' => 'add']) ?> </li>
                 </ul>
-            </li>  
+            </li>
         </ul>
     </li>
 
@@ -320,16 +321,13 @@ if (file_exists($file)) {
             <li>
                 <?php echo $this->Html->link(__('Painel de indicadores'), array('controller' => 'Calls','action' => 'dashboard')); ?>
             </li>
-            
+
         </ul>
         <ul class="treeview-menu">
             <li>
                 <a href="#">Gerenciamento do módulo <i class="fa fa-angle-left pull-right"></i></a>
                 <ul class="treeview-menu">
 
-                    <li>
-                        <?php echo $this->Html->link(__('Todos os chamados'), array('controller' => 'Calls','action' => 'index_admin')); ?>
-                    </li>
                     <li>
                         <?php echo $this->Html->link(__('Áreas'), array('controller' => 'CallsAreas','action' => 'index')); ?>
                     </li>

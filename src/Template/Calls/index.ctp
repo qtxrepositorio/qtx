@@ -1,8 +1,8 @@
-<?php 
+<?php
+
 
 $callsAreasFull[0] = 'Todas...';
 foreach ($callsAreas as $key => $value) {
-    # code...
     $callsAreasFull[$key] = $value;
 }
 
@@ -13,8 +13,8 @@ foreach ($callsAreas as $key => $value) {
         <div class="col-md-12">
             <div class="box box-warning">
 
-                <legend><?= __('Central de chamados:') ?></legend> 
-                
+                <legend><?= __('Central de chamados:') ?></legend>
+
                 <div class="box-body">
 
                     <div class="col-md-3">
@@ -22,7 +22,7 @@ foreach ($callsAreas as $key => $value) {
                         <?= $this->Form->create($x, ['id'=>'form']) ?>
                         <fieldset>
                             <?php
-                            echo $this->Form->input('area_id', ['label' => 'Área:', 'id' => 'area_id', 'options' => $callsAreasFull]);
+                            echo $this->Form->input('area_id', ['label' => 'Filtro por área:', 'id' => 'area_id', 'options' => $callsAreasFull]);
                             ?>
                         </fieldset>
                         <?= $this->Form->end() ?>
@@ -56,7 +56,7 @@ foreach ($callsAreas as $key => $value) {
                                 <td><?= h($call['CALLS_URGENCY']['title']) ?></td>
                                 <td><?= h($call['CALLS_STATUS']['title']) ?></td>
                                 <td><?= h(substr($call['CALLS']['created'],0,16)) ?></td>
-                                
+
                                 <td align="center" class="actions">
 
                                 <?php echo $this->Html->link(__('<i class="glyphicon glyphicon-eye-open"></i>'), array('action' => 'view', $call['CALLS']['id']), array('class' => 'btn btn-primary btn-xs', 'escape' => false, 'data-toggle'=>'tooltip', 'title' => 'Visualizar')); ?>
@@ -85,10 +85,10 @@ foreach ($callsAreas as $key => $value) {
 </section>
 
 <script type="text/javascript">
-    
+
     document.getElementById('area_id').onchange = function () {
 
-        $("#form").submit(); 
+        $("#form").submit();
 
     }
 
@@ -104,7 +104,7 @@ $this->Html->script(['AdminLTE./plugins/fileSaver/FileSaver.js',], ['block' => '
 $this->Html->script(['AdminLTE./plugins/canvasToBlob/canvas-toBlob.js',], ['block' => 'script']);
 $this->Html->script(['AdminLTE./plugins/Chart.js-2.3.0/dist/Chart.js',], ['block' => 'script']);
 $this->Html->script(['//cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js',], ['block' => 'script']);
-?> 
+?>
 
 <script>
     $(document).ready(function () {

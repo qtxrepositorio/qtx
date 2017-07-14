@@ -8,6 +8,73 @@ use Cake\Datasource\ConnectionManager;
 
 class HumanResourcesController extends AppController
 {
+
+	public function paycheck(){}
+
+	public function paycheckPdf()
+	{
+
+		$data_ini = substr($this->request->data['date_ini'],3,4) . substr($this->request->data['date_ini'],0,2);
+		$data_fin = substr($this->request->data['date_fin'],3,4) . substr($this->request->data['date_fin'],0,2);
+
+		$authenticatedUserCpf = $this->Auth->user('cpf');
+
+		$connection = ConnectionManager::get('baseProtheus');
+
+		$employer = $connection->execute("
+				SELECT RA_MAT, RA_NOME, RA_ADMISSA, RA_FILIAL
+					, RA_SALARIO, RA_CC, I3_DESC
+					, RJ_CODCBO
+					, RA_CODFUNC, RJ_DESC
+				FROM SRA010
+				INNER JOIN [SRJ010] ON [RJ_FUNCAO] = [RA_CODFUNC]
+				INNER JOIN [SI3010] ON [I3_CUSTO] = [RA_CC]
+			    WHERE [RJ_CODCBO] != '' AND [SRJ010].D_E_L_E_T_ = '' AND RA_CIC like '%".$authenticatedUserCpf."%'")
+            ->fetchAll('assoc');
+
+		$paychecksYearly = $connection->execute("
+			select RD_MAT, RD_PD, RD_HORAS, RV_DESC, RV_TIPOCOD, RD_TIPO1, RD_VALOR, RD_DATARQ, RD_DATPGT, RD_TIPO2
+				from SRD010
+                INNER JOIN SRV010 ON RD_PD = RV_COD
+				where RD_DATARQ between '".$data_ini."' and '".$data_fin."'
+					and RD_MAT = '".$employer[0]['RA_MAT']."'
+					and SRD010.D_E_L_E_T_ != '*'
+                    and SRV010.D_E_L_E_T_ != '*'
+					and RV_TIPOCOD != '3'
+				group by RD_DATARQ,RD_MAT, RD_PD, RD_HORAS, RV_DESC, RV_TIPOCOD, RD_TIPO1, RD_VALOR, RD_DATPGT, RD_TIPO2
+			")
+            ->fetchAll('assoc');
+
+		$paychecksMonthly = $connection->execute("
+			select RC_MAT, RC_PD, RC_HORAS, RV_DESC, RC_TIPO1, RC_VALOR, RC_PERIODO, RC_TIPO2
+				from SRC010
+				INNER JOIN SRV010 ON RC_PD = RV_COD
+				where RC_PERIODO between '".$data_ini."' and '".$data_fin."'
+						and RC_MAT = '".$employer[0]['RA_MAT']."'
+						and SRC010.D_E_L_E_T_ != '*'
+	                    and SRV010.D_E_L_E_T_ != '*'
+						and RV_TIPOCOD != '3'
+				group by RC_PERIODO,RC_MAT, RC_PD, RC_HORAS, RV_DESC, RC_TIPO1, RC_VALOR, RC_TIPO2
+			")
+	    	->fetchAll('assoc');
+
+
+		$months = [];
+		foreach ($paychecksYearly as $key => $value) {
+			if (!in_array($value['RD_DATARQ'], $months)) {
+				$months[$value['RD_DATARQ']] = $value['RD_DATARQ'];
+			}
+		}
+
+		//debug($paychecksMonthly);
+
+		$this->set(compact('paychecksYearly', 'paychecksMonthly', 'employer','months'));
+     	$this->set('_serialize', ['paychecksYearly', 'paychecksMonthly','employer','months']);
+	    $this->viewBuilder()->layout('ajax');
+	    $this->response->type('pdf');
+
+	}
+
 	public function index()
     {
         $connection = ConnectionManager::get('baseProtheus');
@@ -533,8 +600,12 @@ class HumanResourcesController extends AppController
             }
             if($release == false)
             {
-                $this->Flash->error(__('Você não tem autorização para acessar esta área do sistema. Caso necessário, favor entrar em contato com o setor TI.'));
-                $this->redirect($this->Auth->redirectUrl());
+				if (in_array($this->request->params['action'], array('paycheck','paycheckPdf'))) {
+                    return true;
+                } else {
+                    $this->Flash->error(__('Você não tem autorização para acessar esta área do sistema. Caso necessário, favor entrar em contato com o setor TI.'));
+                    return false;
+                }
             }
             else
             {
