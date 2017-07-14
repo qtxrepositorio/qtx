@@ -235,7 +235,7 @@ $html .= '
                 </tr>
                 <tr>
                     <td style="border-left:1pt solid black; border-bottom:1pt solid black; border-top:1pt solid black;" colspan="4" align="center"><b>Recibo de pagamento de salário</b></td>
-                    <td style="border-right:1pt solid black; border-bottom:1pt solid black; border-top:1pt solid black;" align="right"><b>'.substr($paychecksMonthly[0]['RC_PERIODO'],4,6).'/'.substr($paychecksMonthly[0]['RC_PERIODO'],0,4).'</b></td>
+                    <td style="border-right:1pt solid black; border-bottom:1pt solid black; border-top:1pt solid black;" align="right"><b>'.substr($paychecksMonthly[0]['RC_DATA'],4,2).'/'.substr($paychecksMonthly[0]['RC_DATA'],0,4).'</b></td>
                 </tr>
                 <tr>
                     <td colspan="3" style="border-left:1pt solid black; padding:10px;">
@@ -264,7 +264,7 @@ $html .= '
                     $descontos = 0;
                     foreach ($paychecksMonthly as $key => $value) {
 
-                        if ($month == $value['RD_DATARQ']) {
+                        if ($month == substr($value['RC_DATA'],0,7)) {
                             $html .= '<tr>';
                             $html .= '<td align="center" style="width:5%; border-right:1pt solid black; border-left:1pt solid black;">'.$value['RD_PD'].'</td>';
                             $html .= '<td align="left" style="width:35%; border-right:1pt solid black; border-left:1pt solid black;">'.$value['RV_DESC'].'</td>';
