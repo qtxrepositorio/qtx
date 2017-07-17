@@ -46,9 +46,15 @@ class MYPDF extends TCPDF {
         $cont = 0;
         $vencimentos = 0;
         $descontos = 0;
+        $salario_base = 0;
         foreach ($paychecksYearly as $key => $value) {
 
             if ($month == $value['RD_DATARQ']) {
+
+                if ($value['RD_PD'] == '101') {
+                    $salario_base = number_format($value['RD_VALOR'], 2, ',', '.');
+                }
+
                 $html .= '<tr>';
                 $html .= '<td align="center" style="width:5%; border-right:1pt solid black; border-left:1pt solid black;">'.$value['RD_PD'].'</td>';
                 $html .= '<td align="left" style="width:35%; border-right:1pt solid black; border-left:1pt solid black;">'.$value['RV_DESC'].'</td>';
@@ -64,9 +70,7 @@ class MYPDF extends TCPDF {
                 }
                 $html .= '</tr>';
                 $cont++;
-                //debug($cont);
             }
-
         }
 
         //completa o corpo do contra cheque com linhas em branco caso não sejam preenchidas
@@ -116,7 +120,7 @@ class MYPDF extends TCPDF {
         $html .= '    <td align="center" style="border:1pt solid black;"> ' . number_format($liquido, 2, ',', '.') . '</td>';
         $html .= '</tr>';
         $html .= '<tr>';
-        $html .= '    <td align="center" style="width:16.666%; border-bottom:1pt solid black; border-left:1pt solid black;">Salário base: <br> '.number_format($employer[0]['RA_SALARIO'], 2, ',', '.').'</td>';
+        $html .= '    <td align="center" style="width:16.666%; border-bottom:1pt solid black; border-left:1pt solid black;">Salário base: <br> '. $salario_base .'</td>';
         $html .= '    <td align="center" style="width:16.666%; border-bottom:1pt solid black;">Sal. contr. INSS: <br> '.number_format($verba721 , 2, ',', '.').'</td>';
         $html .= '    <td align="center" style="width:16.666%; border-bottom:1pt solid black;">Base Cálc. FGTS: <br> '.number_format($verba731 , 2, ',', '.').'</td>';
         $html .= '    <td align="left" style="width:12%; border-left:1pt solid black; border-bottom:1pt solid black;">FGTS do mês: <br> '.number_format($verba732 , 2, ',', '.').'</td>';
@@ -129,7 +133,7 @@ class MYPDF extends TCPDF {
         $html .= '        <br>Declaro ter recebido a importância liquida discriminada neste recibo';
         $html .= '    </td>';
         $html .= '    <td style="border-bottom:1pt solid black;" colspan="2" align="center">';
-        $html .= '    <br><br> ______/______/______  <br>';
+        $html .= '      <br><br> ______/______/______  <br>';
         $html .= '        Data';
         $html .= '    </td>';
         $html .= '    <td style="border-right:1pt solid black; border-bottom:1pt solid black;" colspan="2" align="center">';
@@ -274,7 +278,7 @@ class MYPDF extends TCPDF {
         $html .= '        Data';
         $html .= '    </td>';
         $html .= '    <td style="border-right:1pt solid black; border-bottom:1pt solid black;" colspan="2" align="center">';
-        $html .= '      <br> ________________________________________<br>';
+        $html .= '      <br><br> ________________________________________<br>';
         $html .= '        Assinatura do funcionário';
         $html .= '    </td>';
         $html .= '</tr>';
