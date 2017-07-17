@@ -264,24 +264,21 @@ $html .= '
                     $descontos = 0;
                     foreach ($paychecksMonthly as $key => $value) {
 
-                        if ($month == substr($value['RC_DATA'],0,7)) {
-                            $html .= '<tr>';
-                            $html .= '<td align="center" style="width:5%; border-right:1pt solid black; border-left:1pt solid black;">'.$value['RD_PD'].'</td>';
-                            $html .= '<td align="left" style="width:35%; border-right:1pt solid black; border-left:1pt solid black;">'.$value['RV_DESC'].'</td>';
-                            $html .= '<td align="center" style="width:10%; border-right:1pt solid black; border-left:1pt solid black;">'.number_format($value['RD_HORAS'], 2, '.', ' ').'</td>';
-                            if ($value['RV_TIPOCOD'] == 1) {
-                                $html .= '<td align="right" style="width:25%; border-right:1pt solid black; border-left:1pt solid black;">'.number_format($value['RD_VALOR'], 2, ',', '.').'</td>';
-                                $html .= '<td align="rightright" style="width:25%; border-right:1pt solid black; border-left:1pt solid black;"></td>';
-                                $vencimentos += (float)$value['RD_VALOR'];
-                            }else{
-                                $html .= '<td align="right" style="width:25%; border-right:1pt solid black; border-left:1pt solid black;"></td>';
-                                $html .= '<td align="right" style="width:25%; border-right:1pt solid black; border-left:1pt solid black;">'.number_format($value['RD_VALOR'], 2, ',', '.').'</td>';
-                                $descontos += $value['RD_VALOR'];
-                            }
-                            $html .= '</tr>';
-                            $cont++;
+                        $html .= '<tr>';
+                        $html .= '<td align="center" style="width:5%; border-right:1pt solid black; border-left:1pt solid black;">'.$value['RC_PD'].'</td>';
+                        $html .= '<td align="left" style="width:35%; border-right:1pt solid black; border-left:1pt solid black;">'.$value['RV_DESC'].'</td>';
+                        $html .= '<td align="center" style="width:10%; border-right:1pt solid black; border-left:1pt solid black;">'.number_format($value['RC_HORAS'], 2, '.', ' ').'</td>';
+                        if ($value['RV_TIPOCOD'] == 1) {
+                            $html .= '<td align="right" style="width:25%; border-right:1pt solid black; border-left:1pt solid black;">'.number_format($value['RC_VALOR'], 2, ',', '.').'</td>';
+                            $html .= '<td align="rightright" style="width:25%; border-right:1pt solid black; border-left:1pt solid black;"></td>';
+                            $vencimentos += (float)$value['RC_VALOR'];
+                        }else{
+                            $html .= '<td align="right" style="width:25%; border-right:1pt solid black; border-left:1pt solid black;"></td>';
+                            $html .= '<td align="right" style="width:25%; border-right:1pt solid black; border-left:1pt solid black;">'.number_format($value['RC_VALOR'], 2, ',', '.').'</td>';
+                            $descontos += $value['RC_VALOR'];
                         }
-
+                        $html .= '</tr>';
+                        $cont++;
                     }
 
                     //completa o corpo do contra cheque com linhas em branco caso não sejam preenchidas
