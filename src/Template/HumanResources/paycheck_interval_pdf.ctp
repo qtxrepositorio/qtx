@@ -172,7 +172,6 @@ foreach ($months as $key => $month) {
                             }
                         }
 
-
                     $html .= '<tr>';
                     $html .= '    <td style="border-left:1pt solid black; border-top:1pt solid black;"></td>';
                     $html .= '    <td style="border-top:1pt solid black;"></td>';
@@ -200,8 +199,6 @@ foreach ($months as $key => $month) {
                     $html .= '<tr>';
                     $html .= '    <td style="border-left:1pt solid black; border-bottom:1pt solid black;" colspan="2" align="center">';
                     $html .= '        Declaro ter recebido a importância liquida discriminada neste recibo';
-                    //$html .= '         ______/______/______ <br>';
-                    //$html .= '         Data';
                     $html .= '    </td>';
                     $html .= '    <td style="border-bottom:1pt solid black;" colspan="2" align="center">';
                     $html .= '       ______/______/______  <br>';
@@ -215,11 +212,253 @@ foreach ($months as $key => $month) {
                 $html .= '</tbody>';
             $html .= '</table> <br><br><br><br>';
 
+    if ($vias == 'Sim') {
+
+        $html .= '
+                <table style="border-collapse: collapse; ">
+                    <tbody>
+                        <tr>
+                            <td colspan="1">
+                                <img src="'.$image_file.'" width="100" height="28"> <br>
+                            </td>
+                            <td colspan="4"><br>
+                                <b>*** Seu salário é confidencial, não divulgue a quem quer se seja! ***</b> <br>
+                                Rodovia Divaldo Suruagy, SN - Polo Multifabril -
+                                Marechal Deodoro, AL CEP: 57160-000 <br>
+                                CNPJ: 35.738.970/0001-73 IE: 240.976.835
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border-left:1pt solid black; border-bottom:1pt solid black; border-top:1pt solid black;" colspan="4" align="center"><b>Recibo de pagamento de salário</b></td>
+                            <td style="border-right:1pt solid black; border-bottom:1pt solid black; border-top:1pt solid black;" align="right"><b>'.substr($month,4,6).'/'.substr($month,0,4).'</b></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" style="border-left:1pt solid black; padding:10px;">
+                                Código: '.$employer[0]['RA_MAT'].'
+                                Nome: '.$employer[0]['RA_NOME'].' <br>
+                                Função: '.$employer[0]['RA_CODFUNC'].'
+                                Desc. função: '.$employer[0]['RJ_DESC'].'
+                            </td>
+                            <td colspan="3" style="border-right:1pt solid black; padding:10px;">
+                                CBO: 317210 Emp: 00 Filial : 001
+                                Cto. Custo: '.$employer[0]['RA_CC'].' <br>
+                                Desc. cto custo: '.$employer[0]['I3_DESC'].'
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td style="width:5%; border:1pt solid black;">Cod.</td>
+                            <td align="center" style="width:35%; border:1pt solid black;">Descrição</td>
+                            <td align="center" style="width:10%; border:1pt solid black;">Referência</td>
+                            <td align="center" style="width:25%; border:1pt solid black;">Vencimentos</td>
+                            <td align="center" style="width:25%; border:1pt solid black;">Descontos</td>
+                        </tr> ';
+
+                            $cont = 0;
+                            $vencimentos = 0;
+                            $descontos = 0;
+                            foreach ($paychecksYearly as $key => $value) {
+
+                                if ($month == $value['RD_DATARQ']) {
+                                    $html .= '<tr>';
+                                    $html .= '<td align="center" style="width:5%; border-right:1pt solid black; border-left:1pt solid black;">'.$value['RD_PD'].'</td>';
+                                    $html .= '<td align="left" style="width:35%; border-right:1pt solid black; border-left:1pt solid black;">'.$value['RV_DESC'].'</td>';
+                                    $html .= '<td align="center" style="width:10%; border-right:1pt solid black; border-left:1pt solid black;">'.number_format($value['RD_HORAS'], 2, '.', ' ').'</td>';
+                                    if ($value['RV_TIPOCOD'] == 1) {
+                                        $html .= '<td align="right" style="width:25%; border-right:1pt solid black; border-left:1pt solid black;">'.number_format($value['RD_VALOR'], 2, ',', '.').'</td>';
+                                        $html .= '<td align="rightright" style="width:25%; border-right:1pt solid black; border-left:1pt solid black;"></td>';
+                                        $vencimentos += (float)$value['RD_VALOR'];
+                                    }else{
+                                        $html .= '<td align="right" style="width:25%; border-right:1pt solid black; border-left:1pt solid black;"></td>';
+                                        $html .= '<td align="right" style="width:25%; border-right:1pt solid black; border-left:1pt solid black;">'.number_format($value['RD_VALOR'], 2, ',', '.').'</td>';
+                                        $descontos += $value['RD_VALOR'];
+                                    }
+                                    $html .= '</tr>';
+                                    $cont++;
+                                }
+
+                            }
+
+                            //completa o corpo do contra cheque com linhas em branco caso não sejam preenchidas
+                            if ($cont < 20) {
+                                for ($i=0; $i < 20 - $cont; $i++) {
+                                    $html .= '<tr>';
+                                    $html .= '<td style="width:5%; border-right:1pt solid black; border-left:1pt solid black;"></td>';
+                                    $html .= '<td align="center" style="width:35%; border-right:1pt solid black; border-left:1pt solid black;"></td>';
+                                    $html .= '<td align="center" style="width:10%; border-right:1pt solid black; border-left:1pt solid black;"></td>';
+                                    $html .= '<td align="center" style="width:25%; border-right:1pt solid black; border-left:1pt solid black;"></td>';
+                                    $html .= '<td align="center" style="width:25%; border-right:1pt solid black; border-left:1pt solid black;"></td>';
+                                    $html .= '</tr>';
+                                }
+                            }
+
+                        $html .= '<tr>';
+                        $html .= '    <td style="border-left:1pt solid black; border-top:1pt solid black;"></td>';
+                        $html .= '    <td style="border-top:1pt solid black;"></td>';
+                        $html .= '    <td style="border-top:1pt solid black;"></td>';
+                        $html .= '    <td align="center" style="border:1pt solid black;"> Total de vencimentos: <br>'.number_format($vencimentos, 2, ',', '.').'</td>';
+                        $html .= '    <td align="center" style="border:1pt solid black;"> Total de descontos: <br>'.number_format($descontos, 2, ',', '.').'</td>';
+                        $html .= '</tr>';
+                        $html .= '<tr>';
+                        $html .= '    <td style="border-left:1pt  solid black; border-bottom:1pt solid black;"></td>';
+                        $html .= '    <td style="border-bottom:1pt solid black;"></td>';
+                        $html .= '    <td style="border-bottom:1pt solid black;"></td>';
+                        $html .= '    <td align="center" style="border:1pt solid black;">Total liquido ==> </td>';
+                        $liquido = $vencimentos-$descontos;
+                        $html .= '    <td align="center" style="border:1pt solid black;"> ' . number_format($liquido, 2, ',', '.') . '</td>';
+                        $html .= '</tr>';
+                        $html .= '<tr>';
+                        $html .= '    <td align="center" style="width:16.666%; border-bottom:1pt solid black; border-left:1pt solid black;">Salário base: <br> '.number_format($employer[0]['RA_SALARIO'], 2, ',', '.').'</td>';
+                        $html .= '    <td align="center" style="width:16.666%; border-bottom:1pt solid black;">Sal. contr. INSS: <br> 1,0000.00</td>';
+                        $html .= '    <td align="center" style="width:16.666%; border-bottom:1pt solid black;">Base Cálc. FGTS: <br> 1,0000.00</td>';
+                        $html .= '    <td align="left" style="width:12%; border-left:1pt solid black; border-bottom:1pt solid black;">FGTS do mês: <br> 2.000,00</td>';
+                        $html .= '    <td align="right" style="width:13%; border-bottom:1pt solid black;">Base cálc IRRF: <br> 2.000,00</td>';
+                        $html .= '    <td align="center" style="width:25%; border:1pt solid black;">Faixa IRRF 0,00</td>';
+                        $html .= '</tr>';
+
+                        $html .= '<tr>';
+                        $html .= '    <td style="border-left:1pt solid black; border-bottom:1pt solid black;" colspan="2" align="center">';
+                        $html .= '        Declaro ter recebido a importância liquida discriminada neste recibo';
+                        $html .= '    </td>';
+                        $html .= '    <td style="border-bottom:1pt solid black;" colspan="2" align="center">';
+                        $html .= '       ______/______/______  <br>';
+                        $html .= '        Data';
+                        $html .= '    </td>';
+                        $html .= '    <td style="border-right:1pt solid black; border-bottom:1pt solid black;" colspan="2" align="center">';
+                        $html .= '       ________________________________________<br>';
+                        $html .= '        Assinatura do funcionário';
+                        $html .= '    </td>';
+                        $html .= '</tr>';
+                    $html .= '</tbody>';
+                $html .= '</table> <br><br><br><br>';
+    }
+
 }
 
 if ($paychecksMonthly != []) {
 
-$html .= '
+    if ($vias == 'Sim') {
+
+        $html .= '
+                <table style="border-collapse: collapse; ">
+                    <tbody>
+                        <tr>
+                            <td colspan="1">
+                                <img src="'.$image_file.'" width="100" height="28"> <br>
+                            </td>
+                            <td colspan="4"><br>
+                                <b>*** Seu salário é confidencial, não divulgue a quem quer se seja! ***</b> <br>
+                                Rodovia Divaldo Suruagy, SN - Polo Multifabril -
+                                Marechal Deodoro, AL CEP: 57160-000 <br>
+                                CNPJ: 35.738.970/0001-73 IE: 240.976.835
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border-left:1pt solid black; border-bottom:1pt solid black; border-top:1pt solid black;" colspan="4" align="center"><b>Recibo de pagamento de salário</b></td>
+                            <td style="border-right:1pt solid black; border-bottom:1pt solid black; border-top:1pt solid black;" align="right"><b>'.substr($month,4,6).'/'.substr($month,0,4).'</b></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" style="border-left:1pt solid black; padding:10px;">
+                                Código: '.$employer[0]['RA_MAT'].'
+                                Nome: '.$employer[0]['RA_NOME'].' <br>
+                                Função: '.$employer[0]['RA_CODFUNC'].'
+                                Desc. função: '.$employer[0]['RJ_DESC'].'
+                            </td>
+                            <td colspan="3" style="border-right:1pt solid black; padding:10px;">
+                                CBO: 317210 Emp: 00 Filial : 001
+                                Cto. Custo: '.$employer[0]['RA_CC'].' <br>
+                                Desc. cto custo: '.$employer[0]['I3_DESC'].'
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td style="width:5%; border:1pt solid black;">Cod.</td>
+                            <td align="center" style="width:35%; border:1pt solid black;">Descrição</td>
+                            <td align="center" style="width:10%; border:1pt solid black;">Referência</td>
+                            <td align="center" style="width:25%; border:1pt solid black;">Vencimentos</td>
+                            <td align="center" style="width:25%; border:1pt solid black;">Descontos</td>
+                        </tr> ';
+
+                            $cont = 0;
+                            $vencimentos = 0;
+                            $descontos = 0;
+                            foreach ($paychecksYearly as $key => $value) {
+
+                                if ($month == $value['RD_DATARQ']) {
+                                    $html .= '<tr>';
+                                    $html .= '<td align="center" style="width:5%; border-right:1pt solid black; border-left:1pt solid black;">'.$value['RD_PD'].'</td>';
+                                    $html .= '<td align="left" style="width:35%; border-right:1pt solid black; border-left:1pt solid black;">'.$value['RV_DESC'].'</td>';
+                                    $html .= '<td align="center" style="width:10%; border-right:1pt solid black; border-left:1pt solid black;">'.number_format($value['RD_HORAS'], 2, '.', ' ').'</td>';
+                                    if ($value['RV_TIPOCOD'] == 1) {
+                                        $html .= '<td align="right" style="width:25%; border-right:1pt solid black; border-left:1pt solid black;">'.number_format($value['RD_VALOR'], 2, ',', '.').'</td>';
+                                        $html .= '<td align="rightright" style="width:25%; border-right:1pt solid black; border-left:1pt solid black;"></td>';
+                                        $vencimentos += (float)$value['RD_VALOR'];
+                                    }else{
+                                        $html .= '<td align="right" style="width:25%; border-right:1pt solid black; border-left:1pt solid black;"></td>';
+                                        $html .= '<td align="right" style="width:25%; border-right:1pt solid black; border-left:1pt solid black;">'.number_format($value['RD_VALOR'], 2, ',', '.').'</td>';
+                                        $descontos += $value['RD_VALOR'];
+                                    }
+                                    $html .= '</tr>';
+                                    $cont++;
+                                }
+
+                            }
+
+                            //completa o corpo do contra cheque com linhas em branco caso não sejam preenchidas
+                            if ($cont < 20) {
+                                for ($i=0; $i < 20 - $cont; $i++) {
+                                    $html .= '<tr>';
+                                    $html .= '<td style="width:5%; border-right:1pt solid black; border-left:1pt solid black;"></td>';
+                                    $html .= '<td align="center" style="width:35%; border-right:1pt solid black; border-left:1pt solid black;"></td>';
+                                    $html .= '<td align="center" style="width:10%; border-right:1pt solid black; border-left:1pt solid black;"></td>';
+                                    $html .= '<td align="center" style="width:25%; border-right:1pt solid black; border-left:1pt solid black;"></td>';
+                                    $html .= '<td align="center" style="width:25%; border-right:1pt solid black; border-left:1pt solid black;"></td>';
+                                    $html .= '</tr>';
+                                }
+                            }
+
+                        $html .= '<tr>';
+                        $html .= '    <td style="border-left:1pt solid black; border-top:1pt solid black;"></td>';
+                        $html .= '    <td style="border-top:1pt solid black;"></td>';
+                        $html .= '    <td style="border-top:1pt solid black;"></td>';
+                        $html .= '    <td align="center" style="border:1pt solid black;"> Total de vencimentos: <br>'.number_format($vencimentos, 2, ',', '.').'</td>';
+                        $html .= '    <td align="center" style="border:1pt solid black;"> Total de descontos: <br>'.number_format($descontos, 2, ',', '.').'</td>';
+                        $html .= '</tr>';
+                        $html .= '<tr>';
+                        $html .= '    <td style="border-left:1pt  solid black; border-bottom:1pt solid black;"></td>';
+                        $html .= '    <td style="border-bottom:1pt solid black;"></td>';
+                        $html .= '    <td style="border-bottom:1pt solid black;"></td>';
+                        $html .= '    <td align="center" style="border:1pt solid black;">Total liquido ==> </td>';
+                        $liquido = $vencimentos-$descontos;
+                        $html .= '    <td align="center" style="border:1pt solid black;"> ' . number_format($liquido, 2, ',', '.') . '</td>';
+                        $html .= '</tr>';
+                        $html .= '<tr>';
+                        $html .= '    <td align="center" style="width:16.666%; border-bottom:1pt solid black; border-left:1pt solid black;">Salário base: <br> '.number_format($employer[0]['RA_SALARIO'], 2, ',', '.').'</td>';
+                        $html .= '    <td align="center" style="width:16.666%; border-bottom:1pt solid black;">Sal. contr. INSS: <br> 1,0000.00</td>';
+                        $html .= '    <td align="center" style="width:16.666%; border-bottom:1pt solid black;">Base Cálc. FGTS: <br> 1,0000.00</td>';
+                        $html .= '    <td align="left" style="width:12%; border-left:1pt solid black; border-bottom:1pt solid black;">FGTS do mês: <br> 2.000,00</td>';
+                        $html .= '    <td align="right" style="width:13%; border-bottom:1pt solid black;">Base cálc IRRF: <br> 2.000,00</td>';
+                        $html .= '    <td align="center" style="width:25%; border:1pt solid black;">Faixa IRRF 0,00</td>';
+                        $html .= '</tr>';
+
+                        $html .= '<tr>';
+                        $html .= '    <td style="border-left:1pt solid black; border-bottom:1pt solid black;" colspan="2" align="center">';
+                        $html .= '        Declaro ter recebido a importância liquida discriminada neste recibo';
+                        $html .= '    </td>';
+                        $html .= '    <td style="border-bottom:1pt solid black;" colspan="2" align="center">';
+                        $html .= '       ______/______/______  <br>';
+                        $html .= '        Data';
+                        $html .= '    </td>';
+                        $html .= '    <td style="border-right:1pt solid black; border-bottom:1pt solid black;" colspan="2" align="center">';
+                        $html .= '       ________________________________________<br>';
+                        $html .= '        Assinatura do funcionário';
+                        $html .= '    </td>';
+                        $html .= '</tr>';
+                    $html .= '</tbody>';
+                $html .= '</table> <br><br><br><br>';
+    }
+
+    $html .= '
         <table style="border-collapse: collapse; ">
             <tbody>
                 <tr>

@@ -11,9 +11,10 @@ class HumanResourcesController extends AppController
 
 	public function paycheck(){}
 
-	public function paycheckPdf()
+	public function paycheckIntervalPdf()
 	{
 
+		$vias = $this->request->data['vias'];
 		$data_ini = substr($this->request->data['date_ini'],3,4) . substr($this->request->data['date_ini'],0,2);
 		$data_fin = substr($this->request->data['date_fin'],3,4) . substr($this->request->data['date_fin'],0,2);
 
@@ -68,8 +69,8 @@ class HumanResourcesController extends AppController
 
 		//debug($paychecksMonthly);
 
-		$this->set(compact('paychecksYearly', 'paychecksMonthly', 'employer','months'));
-     	$this->set('_serialize', ['paychecksYearly', 'paychecksMonthly','employer','months']);
+		$this->set(compact('paychecksYearly', 'paychecksMonthly', 'employer','months','vias'));
+     	$this->set('_serialize', ['paychecksYearly', 'paychecksMonthly','employer','months','vias']);
 	    $this->viewBuilder()->layout('ajax');
 	    $this->response->type('pdf');
 

@@ -7,14 +7,15 @@
                 <div class="box-body">
                     <div class="callsAreas form large-9 medium-8 columns content">
                         <?php $x=0; ?>
-                        <?= $this->Form->create($x,['url'=>['action'=>'paycheckPdf']]) ?>
+                        <?= $this->Form->create($x,['url'=>['action'=>'paycheckIntervalPdf']]) ?>
                         <fieldset>
-                            <legend><?= __('Informe o período:') ?></legend>
+                            <legend><?= __('Emitir contra cheques por período:') ?></legend>
 
                             <div class="col-md-6">
                                 <?php
                                     echo $this->Form->input('date_ini', ['required', 'label'=>'Data inicial: ', 'type'=>'text', 'class'=>'form-control pull-right', 'id'=>'datemask']);
                                     echo $this->Form->input('date_fin', ['required', 'label'=>'Data final: ', 'type'=>'text', 'class'=>'form-control pull-right', 'id'=>'datemask2']);
+                                    echo $this->Form->input('vias', ['required', 'label'=>'Imprimir duas vias: ', 'options'=>['Sim'=>'Sim', 'Não'=>'Não']]);
                                 ?>
                             </div>
 
