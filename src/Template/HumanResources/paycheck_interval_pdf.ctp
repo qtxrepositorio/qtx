@@ -32,6 +32,8 @@ class MYPDF extends TCPDF {
     }
 }
 
+
+
 // create new PDF document
 $pdf = new MYPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, PDO::SQLSRV_ENCODING_UTF8, false);
 
@@ -172,6 +174,24 @@ foreach ($months as $key => $month) {
                             }
                         }
 
+                    $verba721 = 0;
+                    $verba731 = 0;
+                    $verba732 = 0;
+                    $verba713 = 0;
+                    foreach ($paychecksYearlyVerbasBase as $key => $value) {
+                        if ($month == $value['RD_DATARQ']) {
+                            if ($value['RD_PD'] == '713') {
+                                $verba713 += $value['RD_VALOR'];
+                            }elseif ($value['RD_PD'] == '721') {
+                                $verba721 += $value['RD_VALOR'];
+                            }elseif ($value['RD_PD'] == '731') {
+                                $verba731 += $value['RD_VALOR'];
+                            }elseif ($value['RD_PD'] == '732') {
+                                $verba732 += $value['RD_VALOR'];
+                            }
+                        }
+                    }
+
                     $html .= '<tr>';
                     $html .= '    <td style="border-left:1pt solid black; border-top:1pt solid black;"></td>';
                     $html .= '    <td style="border-top:1pt solid black;"></td>';
@@ -189,28 +209,28 @@ foreach ($months as $key => $month) {
                     $html .= '</tr>';
                     $html .= '<tr>';
                     $html .= '    <td align="center" style="width:16.666%; border-bottom:1pt solid black; border-left:1pt solid black;">Salário base: <br> '.number_format($employer[0]['RA_SALARIO'], 2, ',', '.').'</td>';
-                    $html .= '    <td align="center" style="width:16.666%; border-bottom:1pt solid black;">Sal. contr. INSS: <br> 1,0000.00</td>';
-                    $html .= '    <td align="center" style="width:16.666%; border-bottom:1pt solid black;">Base Cálc. FGTS: <br> 1,0000.00</td>';
-                    $html .= '    <td align="left" style="width:12%; border-left:1pt solid black; border-bottom:1pt solid black;">FGTS do mês: <br> 2.000,00</td>';
-                    $html .= '    <td align="right" style="width:13%; border-bottom:1pt solid black;">Base cálc IRRF: <br> 2.000,00</td>';
-                    $html .= '    <td align="center" style="width:25%; border:1pt solid black;">Faixa IRRF 0,00</td>';
+                    $html .= '    <td align="center" style="width:16.666%; border-bottom:1pt solid black;">Sal. contr. INSS: <br> '.number_format($verba721 , 2, ',', '.').'</td>';
+                    $html .= '    <td align="center" style="width:16.666%; border-bottom:1pt solid black;">Base Cálc. FGTS: <br> '.number_format($verba731 , 2, ',', '.').'</td>';
+                    $html .= '    <td align="left" style="width:12%; border-left:1pt solid black; border-bottom:1pt solid black;">FGTS do mês: <br> '.number_format($verba732 , 2, ',', '.').'</td>';
+                    $html .= '    <td align="right" style="width:13%; border-bottom:1pt solid black;">Base cálc IRRF: <br> '.number_format($verba713 , 2, ',', '.').'</td>';
+                    $html .= '    <td align="center" style="width:25%; border:1pt solid black;">Faixa IRRF <br> 0,00</td>';
                     $html .= '</tr>';
 
                     $html .= '<tr>';
                     $html .= '    <td style="border-left:1pt solid black; border-bottom:1pt solid black;" colspan="2" align="center">';
-                    $html .= '        Declaro ter recebido a importância liquida discriminada neste recibo';
+                    $html .= '        <br>Declaro ter recebido a importância liquida discriminada neste recibo';
                     $html .= '    </td>';
                     $html .= '    <td style="border-bottom:1pt solid black;" colspan="2" align="center">';
-                    $html .= '       ______/______/______  <br>';
+                    $html .= '      <br><br> ______/______/______  <br>';
                     $html .= '        Data';
                     $html .= '    </td>';
                     $html .= '    <td style="border-right:1pt solid black; border-bottom:1pt solid black;" colspan="2" align="center">';
-                    $html .= '       ________________________________________<br>';
+                    $html .= '       <br><br>________________________________________<br>';
                     $html .= '        Assinatura do funcionário';
                     $html .= '    </td>';
                     $html .= '</tr>';
                 $html .= '</tbody>';
-            $html .= '</table> <br><br><br><br>';
+            $html .= '</table> <br><br><br>';
 
     if ($vias == 'Sim') {
 
@@ -292,6 +312,24 @@ foreach ($months as $key => $month) {
                                 }
                             }
 
+                            $verba721 = 0;
+                            $verba731 = 0;
+                            $verba732 = 0;
+                            $verba713 = 0;
+                            foreach ($paychecksYearlyVerbasBase as $key => $value) {
+                                if ($month == $value['RD_DATARQ']) {
+                                    if ($value['RD_PD'] == '713') {
+                                        $verba713 += (float) $value['RD_VALOR'];
+                                    }elseif ($value['RD_PD'] == '721') {
+                                        $verba721 += (float) $value['RD_VALOR'];
+                                    }elseif ($value['RD_PD'] == '731') {
+                                        $verba731 += (float) $value['RD_VALOR'];
+                                    }elseif ($value['RD_PD'] == '732') {
+                                        $verba732 += (float) $value['RD_VALOR'];
+                                    }
+                                }
+                            }
+
                         $html .= '<tr>';
                         $html .= '    <td style="border-left:1pt solid black; border-top:1pt solid black;"></td>';
                         $html .= '    <td style="border-top:1pt solid black;"></td>';
@@ -309,28 +347,28 @@ foreach ($months as $key => $month) {
                         $html .= '</tr>';
                         $html .= '<tr>';
                         $html .= '    <td align="center" style="width:16.666%; border-bottom:1pt solid black; border-left:1pt solid black;">Salário base: <br> '.number_format($employer[0]['RA_SALARIO'], 2, ',', '.').'</td>';
-                        $html .= '    <td align="center" style="width:16.666%; border-bottom:1pt solid black;">Sal. contr. INSS: <br> 1,0000.00</td>';
-                        $html .= '    <td align="center" style="width:16.666%; border-bottom:1pt solid black;">Base Cálc. FGTS: <br> 1,0000.00</td>';
-                        $html .= '    <td align="left" style="width:12%; border-left:1pt solid black; border-bottom:1pt solid black;">FGTS do mês: <br> 2.000,00</td>';
-                        $html .= '    <td align="right" style="width:13%; border-bottom:1pt solid black;">Base cálc IRRF: <br> 2.000,00</td>';
-                        $html .= '    <td align="center" style="width:25%; border:1pt solid black;">Faixa IRRF 0,00</td>';
+                        $html .= '    <td align="center" style="width:16.666%; border-bottom:1pt solid black;">Sal. contr. INSS: <br> '.number_format($verba721 , 2, ',', '.').'</td>';
+                        $html .= '    <td align="center" style="width:16.666%; border-bottom:1pt solid black;">Base Cálc. FGTS: <br> '.number_format($verba731 , 2, ',', '.').'</td>';
+                        $html .= '    <td align="left" style="width:12%; border-left:1pt solid black; border-bottom:1pt solid black;">FGTS do mês: <br> '.number_format($verba732 , 2, ',', '.').'</td>';
+                        $html .= '    <td align="right" style="width:13%; border-bottom:1pt solid black;">Base cálc IRRF: <br> '.number_format($verba713 , 2, ',', '.').'</td>';
+                        $html .= '    <td align="center" style="width:25%; border:1pt solid black;">Faixa IRRF <br> 0,00</td>';
                         $html .= '</tr>';
 
                         $html .= '<tr>';
                         $html .= '    <td style="border-left:1pt solid black; border-bottom:1pt solid black;" colspan="2" align="center">';
-                        $html .= '        Declaro ter recebido a importância liquida discriminada neste recibo';
+                        $html .= '        <br>Declaro ter recebido a importância liquida discriminada neste recibo';
                         $html .= '    </td>';
                         $html .= '    <td style="border-bottom:1pt solid black;" colspan="2" align="center">';
-                        $html .= '       ______/______/______  <br>';
+                        $html .= '    <br><br> ______/______/______  <br>';
                         $html .= '        Data';
                         $html .= '    </td>';
                         $html .= '    <td style="border-right:1pt solid black; border-bottom:1pt solid black;" colspan="2" align="center">';
-                        $html .= '       ________________________________________<br>';
+                        $html .= '       <br><br>________________________________________<br>';
                         $html .= '        Assinatura do funcionário';
                         $html .= '    </td>';
                         $html .= '</tr>';
                     $html .= '</tbody>';
-                $html .= '</table> <br><br><br><br>';
+                $html .= '</table> <br><br><br>';
     }
 
 }
@@ -355,7 +393,7 @@ if ($paychecksMonthly != []) {
                         </tr>
                         <tr>
                             <td style="border-left:1pt solid black; border-bottom:1pt solid black; border-top:1pt solid black;" colspan="4" align="center"><b>Recibo de pagamento de salário</b></td>
-                            <td style="border-right:1pt solid black; border-bottom:1pt solid black; border-top:1pt solid black;" align="right"><b>'.substr($month,4,6).'/'.substr($month,0,4).'</b></td>
+                            <td style="border-right:1pt solid black; border-bottom:1pt solid black; border-top:1pt solid black;" align="right"><b>'.substr($paychecksMonthly[0]['RC_DATA'],4,2).'/'.substr($paychecksMonthly[0]['RC_DATA'],0,4).'</b></td>
                         </tr>
                         <tr>
                             <td colspan="3" style="border-left:1pt solid black; padding:10px;">
@@ -382,26 +420,23 @@ if ($paychecksMonthly != []) {
                             $cont = 0;
                             $vencimentos = 0;
                             $descontos = 0;
-                            foreach ($paychecksYearly as $key => $value) {
+                            foreach ($paychecksMonthly as $key => $value) {
 
-                                if ($month == $value['RD_DATARQ']) {
-                                    $html .= '<tr>';
-                                    $html .= '<td align="center" style="width:5%; border-right:1pt solid black; border-left:1pt solid black;">'.$value['RD_PD'].'</td>';
-                                    $html .= '<td align="left" style="width:35%; border-right:1pt solid black; border-left:1pt solid black;">'.$value['RV_DESC'].'</td>';
-                                    $html .= '<td align="center" style="width:10%; border-right:1pt solid black; border-left:1pt solid black;">'.number_format($value['RD_HORAS'], 2, '.', ' ').'</td>';
-                                    if ($value['RV_TIPOCOD'] == 1) {
-                                        $html .= '<td align="right" style="width:25%; border-right:1pt solid black; border-left:1pt solid black;">'.number_format($value['RD_VALOR'], 2, ',', '.').'</td>';
-                                        $html .= '<td align="rightright" style="width:25%; border-right:1pt solid black; border-left:1pt solid black;"></td>';
-                                        $vencimentos += (float)$value['RD_VALOR'];
-                                    }else{
-                                        $html .= '<td align="right" style="width:25%; border-right:1pt solid black; border-left:1pt solid black;"></td>';
-                                        $html .= '<td align="right" style="width:25%; border-right:1pt solid black; border-left:1pt solid black;">'.number_format($value['RD_VALOR'], 2, ',', '.').'</td>';
-                                        $descontos += $value['RD_VALOR'];
-                                    }
-                                    $html .= '</tr>';
-                                    $cont++;
+                                $html .= '<tr>';
+                                $html .= '<td align="center" style="width:5%; border-right:1pt solid black; border-left:1pt solid black;">'.$value['RC_PD'].'</td>';
+                                $html .= '<td align="left" style="width:35%; border-right:1pt solid black; border-left:1pt solid black;">'.$value['RV_DESC'].'</td>';
+                                $html .= '<td align="center" style="width:10%; border-right:1pt solid black; border-left:1pt solid black;">'.number_format($value['RC_HORAS'], 2, '.', ' ').'</td>';
+                                if ($value['RV_TIPOCOD'] == 1) {
+                                    $html .= '<td align="right" style="width:25%; border-right:1pt solid black; border-left:1pt solid black;">'.number_format($value['RC_VALOR'], 2, ',', '.').'</td>';
+                                    $html .= '<td align="rightright" style="width:25%; border-right:1pt solid black; border-left:1pt solid black;"></td>';
+                                    $vencimentos += (float)$value['RC_VALOR'];
+                                }else{
+                                    $html .= '<td align="right" style="width:25%; border-right:1pt solid black; border-left:1pt solid black;"></td>';
+                                    $html .= '<td align="right" style="width:25%; border-right:1pt solid black; border-left:1pt solid black;">'.number_format($value['RC_VALOR'], 2, ',', '.').'</td>';
+                                    $descontos += $value['RC_VALOR'];
                                 }
-
+                                $html .= '</tr>';
+                                $cont++;
                             }
 
                             //completa o corpo do contra cheque com linhas em branco caso não sejam preenchidas
@@ -414,6 +449,25 @@ if ($paychecksMonthly != []) {
                                     $html .= '<td align="center" style="width:25%; border-right:1pt solid black; border-left:1pt solid black;"></td>';
                                     $html .= '<td align="center" style="width:25%; border-right:1pt solid black; border-left:1pt solid black;"></td>';
                                     $html .= '</tr>';
+                                }
+                            }
+
+                            $verba721 = 0;
+                            $verba731 = 0;
+                            $verba732 = 0;
+                            $verba713 = 0;
+                            foreach ($paychecksMonthlyVerbasBase as $key => $value) {
+                                if ($month == $value['RC_DATA']) {
+                                    if ($value['RC_PD'] == '713') {
+                                        $verba713 += (float) $value['RD_VALOR'];
+                                        debug($verba713);
+                                    }elseif ($value['RC_PD'] == '721') {
+                                        $verba721 += (float) $value['RD_VALOR'];
+                                    }elseif ($value['RC_PD'] == '731') {
+                                        $verba731 += (float) $value['RD_VALOR'];
+                                    }elseif ($value['RC_PD'] == '732') {
+                                        $verba732 += (float) $value['RD_VALOR'];
+                                    }
                                 }
                             }
 
@@ -434,28 +488,28 @@ if ($paychecksMonthly != []) {
                         $html .= '</tr>';
                         $html .= '<tr>';
                         $html .= '    <td align="center" style="width:16.666%; border-bottom:1pt solid black; border-left:1pt solid black;">Salário base: <br> '.number_format($employer[0]['RA_SALARIO'], 2, ',', '.').'</td>';
-                        $html .= '    <td align="center" style="width:16.666%; border-bottom:1pt solid black;">Sal. contr. INSS: <br> 1,0000.00</td>';
-                        $html .= '    <td align="center" style="width:16.666%; border-bottom:1pt solid black;">Base Cálc. FGTS: <br> 1,0000.00</td>';
-                        $html .= '    <td align="left" style="width:12%; border-left:1pt solid black; border-bottom:1pt solid black;">FGTS do mês: <br> 2.000,00</td>';
-                        $html .= '    <td align="right" style="width:13%; border-bottom:1pt solid black;">Base cálc IRRF: <br> 2.000,00</td>';
-                        $html .= '    <td align="center" style="width:25%; border:1pt solid black;">Faixa IRRF 0,00</td>';
+                        $html .= '    <td align="center" style="width:16.666%; border-bottom:1pt solid black;">Sal. contr. INSS: <br> '.number_format($verba721 , 2, ',', '.').'</td>';
+                        $html .= '    <td align="center" style="width:16.666%; border-bottom:1pt solid black;">Base Cálc. FGTS: <br> '.number_format($verba731 , 2, ',', '.').'</td>';
+                        $html .= '    <td align="left" style="width:12%; border-left:1pt solid black; border-bottom:1pt solid black;">FGTS do mês: <br> '.number_format($verba732 , 2, ',', '.').'</td>';
+                        $html .= '    <td align="right" style="width:13%; border-bottom:1pt solid black;">Base cálc IRRF: <br> '.number_format($verba713 , 2, ',', '.').'</td>';
+                        $html .= '    <td align="center" style="width:25%; border:1pt solid black;">Faixa IRRF <br> 0,00</td>';
                         $html .= '</tr>';
 
                         $html .= '<tr>';
                         $html .= '    <td style="border-left:1pt solid black; border-bottom:1pt solid black;" colspan="2" align="center">';
-                        $html .= '        Declaro ter recebido a importância liquida discriminada neste recibo';
+                        $html .= '        <br>Declaro ter recebido a importância liquida discriminada neste recibo';
                         $html .= '    </td>';
                         $html .= '    <td style="border-bottom:1pt solid black;" colspan="2" align="center">';
-                        $html .= '       ______/______/______  <br>';
+                        $html .= '       <br><br>______/______/______  <br>';
                         $html .= '        Data';
                         $html .= '    </td>';
                         $html .= '    <td style="border-right:1pt solid black; border-bottom:1pt solid black;" colspan="2" align="center">';
-                        $html .= '       ________________________________________<br>';
+                        $html .= '       <br><br>________________________________________<br>';
                         $html .= '        Assinatura do funcionário';
                         $html .= '    </td>';
                         $html .= '</tr>';
                     $html .= '</tbody>';
-                $html .= '</table> <br><br><br><br>';
+                $html .= '</table> <br><br><br>';
     }
 
     $html .= '
@@ -533,6 +587,23 @@ if ($paychecksMonthly != []) {
                         }
                     }
 
+                    $verba721 = 0;
+                    $verba731 = 0;
+                    $verba732 = 0;
+                    $verba713 = 0;
+                    foreach ($paychecksMonthlyVerbasBase as $key => $value) {
+                        if ($month == $value['RC_DATA']) {
+                            if ($value['RC_PD'] == '713') {
+                                $verba713 += (float) $value['RD_VALOR'];
+                            }elseif ($value['RC_PD'] == '721') {
+                                $verba721 += (float) $value['RD_VALOR'];
+                            }elseif ($value['RC_PD'] == '731') {
+                                $verba731 += (float) $value['RD_VALOR'];
+                            }elseif ($value['RC_PD'] == '732') {
+                                $verba732 += (float) $value['RD_VALOR'];
+                            }
+                        }
+                    }
 
                 $html .= '<tr>';
                 $html .= '    <td style="border-left:1pt solid black; border-top:1pt solid black;"></td>';
@@ -551,30 +622,30 @@ if ($paychecksMonthly != []) {
                 $html .= '</tr>';
                 $html .= '<tr>';
                 $html .= '    <td align="center" style="width:16.666%; border-bottom:1pt solid black; border-left:1pt solid black;">Salário base: <br> '.number_format($employer[0]['RA_SALARIO'], 2, ',', '.').'</td>';
-                $html .= '    <td align="center" style="width:16.666%; border-bottom:1pt solid black;">Sal. contr. INSS: <br> 1,0000.00</td>';
-                $html .= '    <td align="center" style="width:16.666%; border-bottom:1pt solid black;">Base Cálc. FGTS: <br> 1,0000.00</td>';
-                $html .= '    <td align="left" style="width:12%; border-left:1pt solid black; border-bottom:1pt solid black;">FGTS do mês: <br> 2.000,00</td>';
-                $html .= '    <td align="right" style="width:13%; border-bottom:1pt solid black;">Base cálc IRRF: <br> 2.000,00</td>';
-                $html .= '    <td align="center" style="width:25%; border:1pt solid black;">Faixa IRRF 0,00</td>';
+                $html .= '    <td align="center" style="width:16.666%; border-bottom:1pt solid black;">Sal. contr. INSS: <br> '.number_format($verba721 , 2, ',', '.').'</td>';
+                $html .= '    <td align="center" style="width:16.666%; border-bottom:1pt solid black;">Base Cálc. FGTS: <br> '.number_format($verba731 , 2, ',', '.').'</td>';
+                $html .= '    <td align="left" style="width:12%; border-left:1pt solid black; border-bottom:1pt solid black;">FGTS do mês: <br> '.number_format($verba732 , 2, ',', '.').'</td>';
+                $html .= '    <td align="right" style="width:13%; border-bottom:1pt solid black;">Base cálc IRRF: <br> '.number_format($verba713 , 2, ',', '.').'</td>';
+                $html .= '    <td align="center" style="width:25%; border:1pt solid black;">Faixa IRRF <br> 0,00</td>';
                 $html .= '</tr>';
 
                 $html .= '<tr>';
                 $html .= '    <td style="border-left:1pt solid black; border-bottom:1pt solid black;" colspan="2" align="center">';
-                $html .= '        Declaro ter recebido a importância liquida discriminada neste recibo';
+                $html .= '        <br>Declaro ter recebido a importância liquida discriminada neste recibo';
                 //$html .= '         ______/______/______ <br>';
                 //$html .= '         Data';
                 $html .= '    </td>';
                 $html .= '    <td style="border-bottom:1pt solid black;" colspan="2" align="center">';
-                $html .= '       ______/______/______  <br>';
+                $html .= '       <br><br>______/______/______  <br>';
                 $html .= '        Data';
                 $html .= '    </td>';
                 $html .= '    <td style="border-right:1pt solid black; border-bottom:1pt solid black;" colspan="2" align="center">';
-                $html .= '       ________________________________________<br>';
+                $html .= '      <br> ________________________________________<br>';
                 $html .= '        Assinatura do funcionário';
                 $html .= '    </td>';
                 $html .= '</tr>';
             $html .= '</tbody>';
-        $html .= '</table> <br><br><br><br>';
+        $html .= '</table> <br><br><br>';
 }
 
 $pdf->writeHTML($html, true, false, true, false);
