@@ -19,7 +19,7 @@ class CallsUrgencyController extends AppController
      */
     public function index()
     {
-        $callsUrgency = $this->CallsUrgency-find();
+        $callsUrgency = $this->CallsUrgency->find();
 
         $this->set(compact('callsUrgency'));
         $this->set('_serialize', ['callsUrgency']);
@@ -141,15 +141,8 @@ class CallsUrgencyController extends AppController
             $currentUserGroups = $query->all();
             $release = null;
             foreach ($currentUserGroups as $key) {
-                $query = $this->Roles->find()
-                        ->where([
-                    'id' => $key['role_id']
-                ]);
-                $correspondingFunction = $query->all();
-                foreach ($correspondingFunction as $key) {
-                    if ($key['id'] == 25 or $key['id'] == 26 or $key['id'] == 01) {
+                if ($key['role_id'] == 25 or $key['role_id'] == 26 or $key['role_id'] == 01) {
                         $release = true;
-                    }
                 }
             }
             if ($release == false) {

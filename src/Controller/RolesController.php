@@ -12,7 +12,7 @@ use Cake\Controller\Component\FlashComponent;
  */
 class RolesController extends AppController
 {
-    
+
     /**
      * Index method
      *
@@ -121,17 +121,17 @@ class RolesController extends AppController
         // You should not add the "login" action to allow list. Doing so would
         // cause problems with normal functioning of AuthComponent.
 
-        //$this->Auth->allow(['logout','login']);  
+        //$this->Auth->allow(['logout','login']);
     }
 
     public function isAuthorized($user)
     {
-        $this->loadModel('Users'); 
-        $this->loadModel('RolesUsers'); 
+        $this->loadModel('Users');
+        $this->loadModel('RolesUsers');
         $authenticatedUserId = $this->Auth->user('id');
         $query = $this->Users->find()
             ->where([
-                'id'=> $authenticatedUserId            
+                'id'=> $authenticatedUserId
             ]);
         $statusArray = $query->all();
         $status = null;
@@ -142,42 +142,32 @@ class RolesController extends AppController
         if($status == true)
         {
             $query = $this->RolesUsers->find()
-                ->where([
-                    'user_id'=> $authenticatedUserId            
-                ]);    
-            $currentUserGroups = $query->all();    
-            $release = null;    
-            foreach ($currentUserGroups as $key)
-            {
-                $query = $this->Roles->find()
-                ->where([
-                    'id'=> $key['role_id']           
-                ]);    
-                $correspondingFunction = $query->all();  
-                foreach ($correspondingFunction as $key)
-                {
-                    if($key['id'] == 1)
-                    {
-                        $release = true;        
-                    }
+                    ->where([
+                'user_id' => $authenticatedUserId
+            ]);
+            $currentUserGroups = $query->all();
+            $release = null;
+            foreach ($currentUserGroups as $key) {
+                if ($key['role_id'] == 25 or $key['role_id'] == 26 or $key['role_id'] == 01) {
+                        $release = true;
                 }
             }
             if($release == false)
             {
                 $this->Flash->error(__('Você não tem autorização para acessar esta área do sistema. Caso necessário, favor entrar em contato com o setor TI.'));
-                $this->redirect($this->Auth->redirectUrl());              
+                $this->redirect($this->Auth->redirectUrl());
             }
             else
             {
-                //$this->Flash->error(__('VC É ADM')); 
+                //$this->Flash->error(__('VC É ADM'));
                 if(in_array($this->action, array('index','add','edit','delete','view')))
-                    return true;            
+                    return true;
             }
         }
         else
         {
-            $this->redirect($this->Auth->logout());        
+            $this->redirect($this->Auth->logout());
         }
         return parent::isAuthorized($user);
-    }   
+    }
 }

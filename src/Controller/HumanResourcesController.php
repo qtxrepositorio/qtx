@@ -11,9 +11,10 @@ class HumanResourcesController extends AppController
 
 	public function paycheck(){}
 
-	public function paycheckPdf()
+	public function paycheckIntervalPdf()
 	{
 
+		$vias = $this->request->data['vias'];
 		$data_ini = substr($this->request->data['date_ini'],3,4) . substr($this->request->data['date_ini'],0,2);
 		$data_fin = substr($this->request->data['date_fin'],3,4) . substr($this->request->data['date_fin'],0,2);
 
@@ -45,19 +46,42 @@ class HumanResourcesController extends AppController
 			")
             ->fetchAll('assoc');
 
+		$paychecksYearlyVerbasBase = $connection->execute("
+			select RD_MAT, RD_PD, RD_HORAS, RV_DESC, RV_TIPOCOD, RD_TIPO1, RD_VALOR, RD_DATARQ, RD_DATPGT, RD_TIPO2
+				from SRD010
+				INNER JOIN SRV010 ON RD_PD = RV_COD
+				where RD_DATARQ between '".$data_ini."' and '".$data_fin."'
+					and RD_MAT = '".$employer[0]['RA_MAT']."'
+					and SRD010.D_E_L_E_T_ != '*'
+					and SRV010.D_E_L_E_T_ != '*'
+					and RV_TIPOCOD = '3'
+				group by RD_DATARQ,RD_MAT, RD_PD, RD_HORAS, RV_DESC, RV_TIPOCOD, RD_TIPO1, RD_VALOR, RD_DATPGT, RD_TIPO2
+			")->fetchAll('assoc');
+
 		$paychecksMonthly = $connection->execute("
-			select RC_MAT, RC_PD, RC_HORAS, RV_DESC, RC_TIPO1, RC_VALOR, RC_PERIODO, RC_TIPO2
+			select RC_MAT, RC_PD, RC_HORAS, RV_DESC, RV_TIPOCOD, RC_TIPO1, RC_VALOR, SUBSTRING(RC_DATA,0,7) as RC_DATA, RC_TIPO2
 				from SRC010
 				INNER JOIN SRV010 ON RC_PD = RV_COD
-				where RC_PERIODO between '".$data_ini."' and '".$data_fin."'
+				where SUBSTRING(RC_DATA,0,7) between '".$data_ini."' and '".$data_fin."'
 						and RC_MAT = '".$employer[0]['RA_MAT']."'
 						and SRC010.D_E_L_E_T_ != '*'
 	                    and SRV010.D_E_L_E_T_ != '*'
 						and RV_TIPOCOD != '3'
-				group by RC_PERIODO,RC_MAT, RC_PD, RC_HORAS, RV_DESC, RC_TIPO1, RC_VALOR, RC_TIPO2
+				group by RC_DATA,RC_MAT, RC_PD, RC_HORAS, RV_DESC, RV_TIPOCOD, RC_TIPO1, RC_VALOR, RC_TIPO2
 			")
 	    	->fetchAll('assoc');
 
+		$paychecksMonthlyVerbasBase = $connection->execute("
+			select RC_MAT, RC_PD, RC_HORAS, RV_DESC, RV_TIPOCOD, RC_TIPO1, RC_VALOR, SUBSTRING(RC_DATA,0,7) as RC_DATA, RC_TIPO2
+				from SRC010
+				INNER JOIN SRV010 ON RC_PD = RV_COD
+				where SUBSTRING(RC_DATA,0,7) between '".$data_ini."' and '".$data_fin."'
+						and RC_MAT = '".$employer[0]['RA_MAT']."'
+						and SRC010.D_E_L_E_T_ != '*'
+						and SRV010.D_E_L_E_T_ != '*'
+						and RV_TIPOCOD = '3'
+				group by RC_DATA,RC_MAT, RC_PD, RC_HORAS, RV_DESC, RV_TIPOCOD, RC_TIPO1, RC_VALOR, RC_TIPO2
+				")->fetchAll('assoc');
 
 		$months = [];
 		foreach ($paychecksYearly as $key => $value) {
@@ -66,10 +90,8 @@ class HumanResourcesController extends AppController
 			}
 		}
 
-		//debug($paychecksMonthly);
-
-		$this->set(compact('paychecksYearly', 'paychecksMonthly', 'employer','months'));
-     	$this->set('_serialize', ['paychecksYearly', 'paychecksMonthly','employer','months']);
+		$this->set(compact('paychecksYearly', 'paychecksMonthly', 'employer','months','vias','paychecksYearlyVerbasBase', 'paychecksMonthlyVerbasBase'));
+     	$this->set('_serialize', ['paychecksYearly', 'paychecksMonthly','employer','months','vias','paychecksYearlyVerbasBase', 'paychecksMonthlyVerbasBase']);
 	    $this->viewBuilder()->layout('ajax');
 	    $this->response->type('pdf');
 
@@ -600,7 +622,7 @@ class HumanResourcesController extends AppController
             }
             if($release == false)
             {
-				if (in_array($this->request->params['action'], array('paycheck','paycheckPdf'))) {
+				if (in_array($this->request->params['action'], array('paycheck','paycheckIntervalPdf'))) {
                     return true;
                 } else {
                     $this->Flash->error(__('Você não tem autorização para acessar esta área do sistema. Caso necessário, favor entrar em contato com o setor TI.'));

@@ -137,24 +137,14 @@ class UsersController extends AppController
         if($status == true)
         {
             $query = $this->RolesUsers->find()
-                ->where([
-                    'user_id'=> $authenticatedUserId
-                ]);
+                    ->where([
+                'user_id' => $authenticatedUserId
+            ]);
             $currentUserGroups = $query->all();
             $release = null;
-            foreach ($currentUserGroups as $key)
-            {
-                $query = $this->Roles->find()
-                ->where([
-                    'id'=> $key['role_id']
-                ]);
-                $correspondingFunction = $query->all();
-                foreach ($correspondingFunction as $key)
-                {
-                    if($key['id'] == 1)
-                    {
+            foreach ($currentUserGroups as $key) {
+                if ($key['role_id'] == 25 or $key['role_id'] == 26 or $key['role_id'] == 01) {
                         $release = true;
-                    }
                 }
             }
             if($release == false)
