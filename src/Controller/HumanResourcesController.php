@@ -90,7 +90,6 @@ class HumanResourcesController extends AppController
 			}
 		}
 
-
 		$this->set(compact('paychecksYearly', 'paychecksMonthly', 'employer','months','vias','paychecksYearlyVerbasBase', 'paychecksMonthlyVerbasBase'));
      	$this->set('_serialize', ['paychecksYearly', 'paychecksMonthly','employer','months','vias','paychecksYearlyVerbasBase', 'paychecksMonthlyVerbasBase']);
 	    $this->viewBuilder()->layout('ajax');
