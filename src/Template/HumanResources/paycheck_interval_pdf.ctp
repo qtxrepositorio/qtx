@@ -356,7 +356,7 @@ if ($paychecksMonthly != []) {
 
 $pdf->writeHTML($html, true, false, true, false);
 
-$pdf->Output('contra_cheques.pdf', 'I');
+$pdf->Output($employer[0]['RA_NOME'].'.pdf', 'I');
 
 
 ?>
