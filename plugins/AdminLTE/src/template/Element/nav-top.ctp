@@ -33,7 +33,7 @@ if (file_exists($file)) {
                 </a>
             </li>
             <li>
-                <a target="_blank" href="#"><i class="fa fa-circle-o text-red"></i> <span>Ultra LIMS</span></a>
+                <a target="_blank" href="http://qualitex.ultralims.com.br/"><i class="fa fa-circle-o text-red"></i> <span>Ultra LIMS</span></a>
 
             </li>
             <li>
