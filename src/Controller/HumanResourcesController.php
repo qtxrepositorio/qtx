@@ -8,7 +8,6 @@ use Cake\Datasource\ConnectionManager;
 
 class HumanResourcesController extends AppController
 {
-
 	public function paycheck(){}
 
 	public function paycheckIntervalPdf()
