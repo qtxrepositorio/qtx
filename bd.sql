@@ -153,15 +153,17 @@ TERCEIRA FASE: Adicionar as tabelas do sistema de comunicação externa.
 CREATE TABLE treatments_document (
     id INT IDENTITY(1,1) CONSTRAINT pk_treatments PRIMARY KEY,
     description VARCHAR(200) NOT NULL,
-    status TINYINT(max) NOT NULL
-    created DATETIME2 DEFAULT NULL
-    modified DATETIME2 DEFAULT NULL
+    status BIT NOT NULL,
+    created DATETIME2 DEFAULT NULL,
+    modified DATETIME2 DEFAULT NULL,
 );
 
 CREATE TABLE references_document(
     id INT IDENTITY(1,1) CONSTRAINT pk_references PRIMARY KEY,
     description VARCHAR(45) NOT NULL,
-    status TINYINT(1) NOT NULL,
+    status BIT NOT NULL,
+    created DATETIME2 DEFAULT NULL,
+    modified DATETIME2 DEFAULT NULL,
 );
 
 CREATE TABLE external_documents (
