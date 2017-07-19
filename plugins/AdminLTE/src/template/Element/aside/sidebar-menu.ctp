@@ -281,18 +281,34 @@ if (file_exists($file)) {
     <ul class="treeview-menu">
 
         <li>
-            <a href="#">Tratamentos <i class="fa fa-angle-left pull-right"></i></a>
-            <ul class="treeview-menu">
-                <li> <?= $this->Html->link(__('Ver tratamentos'), ['controller' => 'Treatments','action' => 'index']) ?>  </li>
-                <li> <?= $this->Html->link(__('Adicionar tratamentos'), ['controller' => 'Treatments','action' => 'add']) ?>  </li>
-            </ul>
-        </li>
-
-        <li>
             <a href="#">Documentos <i class="fa fa-angle-left pull-right"></i></a>
             <ul class="treeview-menu">
                 <li> <?= $this->Html->link(__('Ver documentos'), ['controller' => 'ExternalDocuments','action' => 'index']) ?>  </li>
                 <li> <?= $this->Html->link(__('Adicionar documento'), ['controller' => 'ExternalDocuments','action' => 'add']) ?>  </li>
+            </ul>
+        </li>
+
+        <li>
+            <a href="#">Tratamentos <i class="fa fa-angle-left pull-right"></i></a>
+            <ul class="treeview-menu">
+                <li> <?= $this->Html->link(__('Ver tratamentos'), ['controller' => 'TreatmentsDocument','action' => 'index']) ?>  </li>
+                <li> <?= $this->Html->link(__('Adicionar tratamentos'), ['controller' => 'TreatmentsDocument','action' => 'add']) ?>  </li>
+            </ul>
+        </li>
+
+        <li>
+            <a href="#">Locais <i class="fa fa-angle-left pull-right"></i></a>
+            <ul class="treeview-menu">
+                <li> <?= $this->Html->link(__('Ver Locais'), ['controller' => 'LocalsDocument','action' => 'index']) ?>  </li>
+                <li> <?= $this->Html->link(__('Adicionar Local'), ['controller' => 'LocalsDocument','action' => 'add']) ?>  </li>
+            </ul>
+        </li>
+
+        <li>
+            <a href="#">Referências <i class="fa fa-angle-left pull-right"></i></a>
+            <ul class="treeview-menu">
+                <li> <?= $this->Html->link(__('Ver referências'), ['controller' => 'ReferencesDocument','action' => 'index']) ?>  </li>
+                <li> <?= $this->Html->link(__('Adicionar referência'), ['controller' => 'ReferencesDocument','action' => 'add']) ?>  </li>
             </ul>
         </li>
 
