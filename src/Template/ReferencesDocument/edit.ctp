@@ -7,13 +7,23 @@
                     <div class="referencesDocument form large-9 medium-8 columns content">
                         <?= $this->Form->create($referencesDocument) ?>
                         <fieldset>
-                            <legend><?= __('Edit References Document') ?></legend>
+                            <legend><?= __('Editar Referência') ?></legend>
                             <?php
-                            echo $this->Form->input('description');
-                            echo $this->Form->input('status');
+                            echo $this->Form->input('description', ['label','Descrição:']);
+                            echo $this->Form->input('status', ['label','Status:']);
                             ?>
                         </fieldset>
-                        <?= $this->Form->button(__('Submit')) ?>
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <?= $this->Html->link(__('Voltar'), ['action' => 'index'], array('class' => 'btn btn-primary')) ?>
+                                </div>
+                                <div align="right" class="col-md-6">
+                                    <?= $this->Form->button(__('Salvar'), ['align'=>'center','class' => 'form-group']) ?>
+
+                                </div>
+                            </div>
+                        </div>
                         <?= $this->Form->end() ?>
                     </div>
                 </div>

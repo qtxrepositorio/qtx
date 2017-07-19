@@ -21,7 +21,17 @@
                             echo $this->Form->input('user_function');
                             ?>
                         </fieldset>
-                        <?= $this->Form->button(__('Submit')) ?>
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <?= $this->Html->link(__('Voltar'), ['action' => 'index'], array('class' => 'btn btn-primary')) ?>
+                                </div>
+                                <div align="right" class="col-md-6">
+                                    <?= $this->Form->button(__('Salvar'), ['align'=>'center','class' => 'form-group']) ?>
+
+                                </div>
+                            </div>
+                        </div>
                         <?= $this->Form->end() ?>
                     </div>
                 </div>

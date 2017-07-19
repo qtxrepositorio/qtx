@@ -1,6 +1,6 @@
 <?php ?>
 
-<section class="content">    
+<section class="content">
     <div class="row">
         <div class="col-md-6">
             <div class="box box-success">
@@ -9,28 +9,28 @@
                     <fieldset>
                         <legend><?= __('Adicionar Usuário') ?></legend>
                         <?php
-                            echo $this->Form->input('name', ['label'=>'Nome:']);
-                            echo $this->Form->input('cpf', ['label'=>'CPF:']);
-                            echo $this->Form->input('status', ['label'=>'Ativo']);
-                            echo $this->Form->input('username', ['label'=>'Usuário']);
-                            echo $this->Form->input('password', ['label'=>'Senha:']);
-                            echo $this->Form->input('email', ['label'=>'Email:']);
-                            echo $this->Form->input('roles._ids', ['style'=>'width: 100%;','class'=>'form-control select2','options' => $roles, 'label'=>'Grupos Relacionados (Opcional):']);
-                            //echo $this->Form->input('notices._ids', ['options' => $notices, 'label'=>'Notícias Relacionadas (Opcional):']);
+                        echo $this->Form->input('name', ['label'=>'Nome:']);
+                        echo $this->Form->input('cpf', ['label'=>'CPF:']);
+                        echo $this->Form->input('status', ['label'=>'Ativo']);
+                        echo $this->Form->input('username', ['label'=>'Usuário']);
+                        echo $this->Form->input('password', ['label'=>'Senha:']);
+                        echo $this->Form->input('email', ['label'=>'Email:']);
+                        echo $this->Form->input('roles._ids', ['style'=>'width: 100%;','class'=>'form-control select2','options' => $roles, 'label'=>'Grupos Relacionados (Opcional):']);
+                        //echo $this->Form->input('notices._ids', ['options' => $notices, 'label'=>'Notícias Relacionadas (Opcional):']);
                         ?>
                     </fieldset>
-                    
+
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-md-6">
-                                    <?= $this->Html->link(__('Voltar'), ['action' => 'index'], array('class' => 'btn btn-primary')) ?>
-                                </div>
-                                <div align="right" class="col-md-6">
-                                    <?= $this->Form->button(__('Salvar'), ['align'=>'center','class' => 'form-group']) ?>
-                        
-                                </div>
+                                <?= $this->Html->link(__('Voltar'), ['action' => 'index'], array('class' => 'btn btn-primary')) ?>
+                            </div>
+                            <div align="right" class="col-md-6">
+                                <?= $this->Form->button(__('Salvar'), ['align'=>'center','class' => 'form-group']) ?>
+
                             </div>
                         </div>
+                    </div>
 
                     <?= $this->Form->end() ?>
                 </div>
@@ -51,25 +51,25 @@ $this->Html->css([
     'AdminLTE./plugins/colorpicker/bootstrap-colorpicker.min',
     'AdminLTE./plugins/timepicker/bootstrap-timepicker.min',
     'AdminLTE./plugins/select2/select2.min',
-  ],
-  ['block' => 'css']);
+],
+['block' => 'css']);
 
 $this->Html->script([
-  'AdminLTE./plugins/select2/select2.full.min',
-  'AdminLTE./plugins/input-mask/jquery.inputmask',
-  'AdminLTE./plugins/input-mask/jquery.inputmask.date.extensions',
-  'AdminLTE./plugins/input-mask/jquery.inputmask.extensions',
-  'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js',
-  'AdminLTE./plugins/daterangepicker/daterangepicker',
-  'AdminLTE./plugins/colorpicker/bootstrap-colorpicker.min',
-  'AdminLTE./plugins/timepicker/bootstrap-timepicker.min',
-  'AdminLTE./plugins/iCheck/icheck.min',
+    'AdminLTE./plugins/select2/select2.full.min',
+    'AdminLTE./plugins/input-mask/jquery.inputmask',
+    'AdminLTE./plugins/input-mask/jquery.inputmask.date.extensions',
+    'AdminLTE./plugins/input-mask/jquery.inputmask.extensions',
+    'https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.2/moment.min.js',
+    'AdminLTE./plugins/daterangepicker/daterangepicker',
+    'AdminLTE./plugins/colorpicker/bootstrap-colorpicker.min',
+    'AdminLTE./plugins/timepicker/bootstrap-timepicker.min',
+    'AdminLTE./plugins/iCheck/icheck.min',
 ],
 ['block' => 'script']);
 ?>
 <?php $this->start('scriptBotton'); ?>
 <script>
-  $(function () {
+$(function () {
     //Initialize Select2 Elements
     $(".select2").select2();
 
@@ -87,36 +87,36 @@ $this->Html->script([
     //Date range as a button
     $('#daterange-btn').daterangepicker(
         {
-          ranges: {
-            'Today': [moment(), moment()],
-            'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-            'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-            'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-            'This Month': [moment().startOf('month'), moment().endOf('month')],
-            'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-          },
-          startDate: moment().subtract(29, 'days'),
-          endDate: moment()
+            ranges: {
+                'Today': [moment(), moment()],
+                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                'This Month': [moment().startOf('month'), moment().endOf('month')],
+                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+            },
+            startDate: moment().subtract(29, 'days'),
+            endDate: moment()
         },
         function (start, end) {
-          $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+            $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
         }
     );
 
     //iCheck for checkbox and radio inputs
     $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
-      checkboxClass: 'icheckbox_minimal-blue',
-      radioClass: 'iradio_minimal-blue'
+        checkboxClass: 'icheckbox_minimal-blue',
+        radioClass: 'iradio_minimal-blue'
     });
     //Red color scheme for iCheck
     $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
-      checkboxClass: 'icheckbox_minimal-red',
-      radioClass: 'iradio_minimal-red'
+        checkboxClass: 'icheckbox_minimal-red',
+        radioClass: 'iradio_minimal-red'
     });
     //Flat red color scheme for iCheck
     $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
-      checkboxClass: 'icheckbox_flat-green',
-      radioClass: 'iradio_flat-green'
+        checkboxClass: 'icheckbox_flat-green',
+        radioClass: 'iradio_flat-green'
     });
 
     //Colorpicker
@@ -126,8 +126,8 @@ $this->Html->script([
 
     //Timepicker
     $(".timepicker").timepicker({
-      showInputs: false
+        showInputs: false
     });
-  });
+});
 </script>
 <?php $this->end(); ?>
