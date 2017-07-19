@@ -1,43 +1,53 @@
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New Treatment'), ['action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List External Documents'), ['controller' => 'ExternalDocuments', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New External Document'), ['controller' => 'ExternalDocuments', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
-<div class="treatments index large-9 medium-8 columns content">
-    <h3><?= __('Treatments') ?></h3>
-    <table cellpadding="0" cellspacing="0">
-        <thead>
-            <tr>
-                <th><?= $this->Paginator->sort('id') ?></th>
-                <th><?= $this->Paginator->sort('description') ?></th>
-                <th><?= $this->Paginator->sort('status') ?></th>
-                <th class="actions"><?= __('Actions') ?></th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($treatments as $treatment): ?>
-            <tr>
-                <td><?= $this->Number->format($treatment->id) ?></td>
-                <td><?= h($treatment->description) ?></td>
-                <td><?= h($treatment->status) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['action' => 'view', $treatment->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $treatment->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $treatment->id], ['confirm' => __('Are you sure you want to delete # {0}?', $treatment->id)]) ?>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
-    <div class="paginator">
-        <ul class="pagination">
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
-            <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-        </ul>
-        <p><?= $this->Paginator->counter() ?></p>
+<?php ?>
+
+<section class="content">
+    <div class="box box-success">
+        <div class="box-body">
+            <div class="roles form large-9 medium-8 columns content">
+
+                <div align='right'>
+                    <?php echo $this->Html->link(__('<i>Adicionar Usuário</i>'), array('action' => 'add'), array('class' => 'btn btn-success btn-xs', 'escape' => false)); ?>
+                </div>
+                <legend><?= __('Lista de tratamentos') ?></legend>
+                <div class="box-body" align="center">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Descrição</th>
+                                <th>Status</th>
+                                <th class="actions"><?= __('Ações') ?></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($treatments as $treatment): ?>
+                                <tr>
+                                    <td><?= $this->Number->format($treatment->id) ?></td>
+                                    <td><?= h($treatment->description) ?></td>
+                                    <td><?= h($treatment->status) ?></td>
+                                    <td align="center" class="actions">
+                                        <?php echo $this->Html->link(__('<i class="glyphicon glyphicon-eye-open"></i>'), array('action' => 'view', $treatment->id), array('class' => 'btn btn-primary btn-xs', 'escape' => false, 'data-toggle'=>'tooltip', 'title' => 'Visualizar')); ?>
+                                        <?php echo $this->Html->link(__('<i class="glyphicon glyphicon-pencil"></i>'), array('action' => 'edit', $treatment->id), array('class' => 'btn btn-warning btn-xs', 'escape' => false, 'data-toggle'=>'tooltip', 'title' => 'Editar')); ?>
+                                        <?php echo $this->Form->postLink(__('<i class="glyphicon glyphicon-trash"></i>'), array('action' => 'delete', $treatment->id), array('class' => 'btn btn-danger btn-xs', 'escape' => false, 'data-toggle'=>'tooltip', 'title' => 'Deletar', 'confirm' => __('Tem certeza de que deseja excluir # {0}?',$treatment->id))); ?>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                    <div class="paginator">
+                        <ul class="pagination">
+                            <?= $this->Paginator->prev('< ' . __('previous')) ?>
+                            <?= $this->Paginator->numbers() ?>
+                            <?= $this->Paginator->next(__('next') . ' >') ?>
+                        </ul>
+                        <p><?= $this->Paginator->counter() ?></p>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
     </div>
-</div>
+
+</section>

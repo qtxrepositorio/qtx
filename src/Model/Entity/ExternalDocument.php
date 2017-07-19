@@ -17,6 +17,7 @@ use Cake\ORM\Entity;
  * @property string $subject
  * @property int $user_id
  * @property string $user_function
+ * @property \Cake\I18n\Time $created
  *
  * @property \App\Model\Entity\Client $client
  * @property \App\Model\Entity\Treatment $treatment

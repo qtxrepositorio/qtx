@@ -154,6 +154,8 @@ CREATE TABLE treatments (
     id INT IDENTITY(1,1) CONSTRAINT pk_treatments PRIMARY KEY,
     description VARCHAR(200) NOT NULL,
     status TINYINT(max) NOT NULL
+    created DATETIME2 DEFAULT NULL
+    modified DATETIME2 DEFAULT NULL
 );
 
 CREATE TABLE external_documents (
@@ -163,9 +165,10 @@ CREATE TABLE external_documents (
     client_id INT NOT NULL,
     client_name VARCHAR(45) NOT NULL,
     client_contact VARCHAR(45) NOT NULL,
-    treatment_id INT NOT NULL fk_treatment FOREIGN KEY (treatment_id) REFERENCES treatments(id),
+    treatment_id INT NOT NULL CONSTRAINT fk_treatment FOREIGN KEY (treatment_id) REFERENCES treatments(id),
     reference VARCHAR(45) NOT NULL,
     subject VARCHAR(45) NOT NULL,
     user_id INT NOT NULL CONSTRAINT fk_sender_external_document FOREIGN KEY (user_id) REFERENCES users(id),
-    user_function VARCHAR(45) NOT NULL
+    user_function VARCHAR(45) NOT NULL,
+    created DATETIME2 DEFAULT NULL
 );

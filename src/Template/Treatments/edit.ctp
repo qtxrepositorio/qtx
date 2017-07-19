@@ -1,26 +1,25 @@
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Form->postLink(
-                __('Delete'),
-                ['action' => 'delete', $treatment->id],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $treatment->id)]
-            )
-        ?></li>
-        <li><?= $this->Html->link(__('List Treatments'), ['action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('List External Documents'), ['controller' => 'ExternalDocuments', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New External Document'), ['controller' => 'ExternalDocuments', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
-<div class="treatments form large-9 medium-8 columns content">
-    <?= $this->Form->create($treatment) ?>
-    <fieldset>
-        <legend><?= __('Edit Treatment') ?></legend>
-        <?php
-            echo $this->Form->input('description');
-            echo $this->Form->input('status');
-        ?>
-    </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
-    <?= $this->Form->end() ?>
-</div>
+<?php ?>
+
+<section class="content">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="box box-success">
+                <div class="box-body">
+                    <div class="roles form large-9 medium-8 columns content">
+                        <?= $this->Form->create($treatment) ?>
+                        <fieldset>
+                            <legend><?= __('Editar tratamento') ?></legend>
+                            <?php
+                            echo $this->Form->input('description', ['label'=>'Descrição:']);
+                            echo $this->Form->input('status', ['label'=>'Ativo?']);
+                            ?>
+                        </fieldset>
+                        <?= $this->Form->button(__('Submit')) ?>
+                        <?= $this->Form->end() ?>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

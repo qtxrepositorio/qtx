@@ -28,6 +28,7 @@ class ExternalDocumentsFixture extends TestFixture
         'subject' => ['type' => 'string', 'length' => '45', 'null' => false, 'default' => null, 'collate' => 'Latin1_General_CI_AS', 'precision' => null, 'comment' => null, 'fixed' => null],
         'user_id' => ['type' => 'integer', 'length' => '10', 'null' => false, 'default' => null, 'precision' => null, 'comment' => null, 'unsigned' => null, 'autoIncrement' => null],
         'user_function' => ['type' => 'string', 'length' => '45', 'null' => false, 'default' => null, 'collate' => 'Latin1_General_CI_AS', 'precision' => null, 'comment' => null, 'fixed' => null],
+        'created' => ['type' => 'timestamp', 'length' => null, 'null' => true, 'default' => null, 'precision' => null, 'comment' => null],
         '_constraints' => [
             'primary' => ['type' => 'primary', 'columns' => ['id'], 'length' => []],
             'fk_treatment' => ['type' => 'foreign', 'columns' => ['treatment_id'], 'references' => ['treatments', 'id'], 'update' => 'noAction', 'delete' => 'noAction', 'length' => []],
@@ -53,7 +54,8 @@ class ExternalDocumentsFixture extends TestFixture
             'reference' => 'Lorem ipsum dolor sit amet',
             'subject' => 'Lorem ipsum dolor sit amet',
             'user_id' => 1,
-            'user_function' => 'Lorem ipsum dolor sit amet'
+            'user_function' => 'Lorem ipsum dolor sit amet',
+            'created' => 1500471219
         ],
     ];
 }

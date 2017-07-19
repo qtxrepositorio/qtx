@@ -20,6 +20,8 @@ use Cake\Validation\Validator;
  * @method \App\Model\Entity\ExternalDocument patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
  * @method \App\Model\Entity\ExternalDocument[] patchEntities($entities, array $data, array $options = [])
  * @method \App\Model\Entity\ExternalDocument findOrCreate($search, callable $callback = null)
+ *
+ * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */
 class ExternalDocumentsTable extends Table
 {
@@ -37,6 +39,8 @@ class ExternalDocumentsTable extends Table
         $this->table('external_documents');
         $this->displayField('id');
         $this->primaryKey('id');
+
+        $this->addBehavior('Timestamp');
 
         $this->belongsTo('Clients', [
             'foreignKey' => 'client_id',
