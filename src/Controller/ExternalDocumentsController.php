@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Datasource\ConnectionManager;
 
 /**
  * ExternalDocuments Controller
@@ -52,8 +53,34 @@ class ExternalDocumentsController extends AppController
     public function add()
     {
 
+        $authenticatedUserId = $this->Auth->user('id');
+
         $externalDocument = $this->ExternalDocuments->newEntity();
         if ($this->request->is('post')) {
+
+            //======================= GERA O NOVO CODIGO
+            $connection = ConnectionManager::get('default');
+            $maxRs = $connection->execute("SELECT max([id])
+                    ,[number_document]
+                FROM [external_documents]
+            	    GROUP by [id], [number_document]");
+            $max = '';
+            foreach ($maxRs as $key => $value) {
+                $max = $value['number_document'];
+            }
+            $max = (int) substr($max,0,6);
+            $data = getdate();
+            $novo = ( ((string) $max+1) . $data['year']);
+            $tamanho = strlen($novo);
+            $oquefalta = '';
+            for ($i=0; $i < 10 - $tamanho ; $i++) {
+                $oquefalta .= '0';
+            }
+            $novoCod = $oquefalta . $novo;
+            //====================================
+
+            $this->request->data['number_document'] = $novoCod;
+
             $externalDocument = $this->ExternalDocuments->patchEntity($externalDocument, $this->request->data);
             if ($this->ExternalDocuments->save($externalDocument)) {
                 $this->Flash->success(__('The external document has been saved.'));
@@ -67,7 +94,7 @@ class ExternalDocumentsController extends AppController
         $localsDocument = $this->ExternalDocuments->LocalsDocument->find('list', ['limit' => 200]);
         $treatmentsDocument = $this->ExternalDocuments->TreatmentsDocument->find('list', ['limit' => 200]);
         $users = $this->ExternalDocuments->Users->find('list', ['limit' => 200]);
-        $this->set(compact('externalDocument', 'treatmentsDocument', 'localsDocument', 'users'));
+        $this->set(compact('externalDocument', 'treatmentsDocument', 'localsDocument', 'users', 'authenticatedUserId'));
         $this->set('_serialize', ['externalDocument']);
     }
 

@@ -10,7 +10,6 @@ use Cake\Validation\Validator;
  * ExternalDocuments Model
  *
  * @property \Cake\ORM\Association\BelongsTo $LocalsDocument
- * @property \Cake\ORM\Association\BelongsTo $Clients
  * @property \Cake\ORM\Association\BelongsTo $TreatmentsDocument
  * @property \Cake\ORM\Association\BelongsTo $Users
  *
@@ -84,10 +83,6 @@ class ExternalDocumentsTable extends Table
         $validator
             ->requirePresence('description', 'create')
             ->notEmpty('description');
-
-        $validator
-            ->requirePresence('user_function', 'create')
-            ->notEmpty('user_function');
 
         return $validator;
     }

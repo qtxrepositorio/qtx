@@ -11,15 +11,15 @@
                             <?php
                             //echo $this->Form->input('number_document');
                             echo $this->Form->input('local_id', ['label'=>'Local: ', 'options' => $localsDocument]);
-                            echo $this->Form->input('client_id',['label'=>'Cliente: ', 'options' => [1,2,3]]);
-                            //echo $this->Form->input('client_name',['label'=>'Nome do cliente: ']);
+                            echo $this->Form->input('client_id',['label'=>'Cliente: ', 'options' => [1=>1,2=>2,3=>3]]);
+                            echo $this->Form->input('client_name',['label'=>'Nome do cliente: ']);
                             echo $this->Form->input('client_contact',['label'=>'Contato do cliente: ']);
                             echo $this->Form->input('treatment_id', ['label'=>'Tratamento: ', 'options' => $treatmentsDocument]);
                             echo $this->Form->input('reference',['label'=>'Referência: ']);
                             echo $this->Form->input('subject',['label'=>'Assunto:']);
-                            echo $this->Form->input('description', ['type'=>'textarea']);
-                            //echo $this->Form->input('user_id', ['label'=>'', 'options' => $users]);
-                            //echo $this->Form->input('user_function',['label'=>'']);
+                            echo $this->Form->input('description', ['type'=>'textarea', 'label'=>'Descrição:']);
+                            echo $this->Form->input('user_id', ['label'=>'', 'options' => $users, 'defaut'=> $authenticatedUserId]);
+                            echo $this->Form->input('user_function',['type'=>'hidden', 'label'=>'', 'defaut'=>'skoaskpoakspoakspo']);
                             ?>
                         </fieldset>
                         <div class="container-fluid">
