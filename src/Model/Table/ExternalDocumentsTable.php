@@ -9,7 +9,6 @@ use Cake\Validation\Validator;
 /**
  * ExternalDocuments Model
  *
- * @property \Cake\ORM\Association\BelongsTo $Clients
  * @property \Cake\ORM\Association\BelongsTo $Treatments
  * @property \Cake\ORM\Association\BelongsTo $Users
  *
@@ -103,7 +102,6 @@ class ExternalDocumentsTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->existsIn(['client_id'], 'Clients'));
         $rules->add($rules->existsIn(['treatment_id'], 'Treatments'));
         $rules->add($rules->existsIn(['user_id'], 'Users'));
 

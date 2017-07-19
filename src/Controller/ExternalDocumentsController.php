@@ -19,7 +19,7 @@ class ExternalDocumentsController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Clients', 'Treatments', 'Users']
+            'contain' => ['Treatments', 'Users']
         ];
         $externalDocuments = $this->paginate($this->ExternalDocuments);
 
@@ -37,7 +37,7 @@ class ExternalDocumentsController extends AppController
     public function view($id = null)
     {
         $externalDocument = $this->ExternalDocuments->get($id, [
-            'contain' => ['Clients', 'Treatments', 'Users']
+            'contain' => ['Treatments', 'Users']
         ]);
 
         $this->set('externalDocument', $externalDocument);
@@ -62,7 +62,7 @@ class ExternalDocumentsController extends AppController
                 $this->Flash->error(__('The external document could not be saved. Please, try again.'));
             }
         }
-        $clients = $this->ExternalDocuments->Clients->find('list', ['limit' => 200]);
+        $clients = [];
         $treatments = $this->ExternalDocuments->Treatments->find('list', ['limit' => 200]);
         $users = $this->ExternalDocuments->Users->find('list', ['limit' => 200]);
         $this->set(compact('externalDocument', 'clients', 'treatments', 'users'));
@@ -91,7 +91,7 @@ class ExternalDocumentsController extends AppController
                 $this->Flash->error(__('The external document could not be saved. Please, try again.'));
             }
         }
-        $clients = $this->ExternalDocuments->Clients->find('list', ['limit' => 200]);
+        $clients = [];
         $treatments = $this->ExternalDocuments->Treatments->find('list', ['limit' => 200]);
         $users = $this->ExternalDocuments->Users->find('list', ['limit' => 200]);
         $this->set(compact('externalDocument', 'clients', 'treatments', 'users'));
