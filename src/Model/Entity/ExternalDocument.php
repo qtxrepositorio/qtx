@@ -13,14 +13,16 @@ use Cake\ORM\Entity;
  * @property string $client_name
  * @property string $client_contact
  * @property int $treatment_id
- * @property int $reference_id
+ * @property string $reference
  * @property string $subject
+ * @property string $description
  * @property int $user_id
  * @property string $user_function
  * @property \Cake\I18n\Time $created
  *
+ * @property \App\Model\Entity\LocalsDocument $locals_document
+ * @property \App\Model\Entity\Client $client
  * @property \App\Model\Entity\TreatmentsDocument $treatments_document
- * @property \App\Model\Entity\ReferencesDocument $references_document
  * @property \App\Model\Entity\User $user
  */
 class ExternalDocument extends Entity

@@ -12,7 +12,6 @@ use Cake\Validation\Validator;
  * @property \Cake\ORM\Association\BelongsTo $LocalsDocument
  * @property \Cake\ORM\Association\BelongsTo $Clients
  * @property \Cake\ORM\Association\BelongsTo $TreatmentsDocument
- * @property \Cake\ORM\Association\BelongsTo $ReferencesDocument
  * @property \Cake\ORM\Association\BelongsTo $Users
  *
  * @method \App\Model\Entity\ExternalDocument get($primaryKey, $options = [])
@@ -48,16 +47,9 @@ class ExternalDocumentsTable extends Table
             'foreignKey' => 'local_id',
             'joinType' => 'INNER'
         ]);
-        $this->belongsTo('Clients', [
-            'foreignKey' => 'client_id',
-            'joinType' => 'INNER'
-        ]);
+
         $this->belongsTo('TreatmentsDocument', [
             'foreignKey' => 'treatment_id',
-            'joinType' => 'INNER'
-        ]);
-        $this->belongsTo('ReferencesDocument', [
-            'foreignKey' => 'reference_id',
             'joinType' => 'INNER'
         ]);
         $this->belongsTo('Users', [
@@ -82,16 +74,16 @@ class ExternalDocumentsTable extends Table
             ->allowEmpty('number_document');
 
         $validator
-            ->requirePresence('client_name', 'create')
-            ->notEmpty('client_name');
-
-        $validator
-            ->requirePresence('client_contact', 'create')
-            ->notEmpty('client_contact');
+            ->requirePresence('reference', 'create')
+            ->notEmpty('reference');
 
         $validator
             ->requirePresence('subject', 'create')
             ->notEmpty('subject');
+
+        $validator
+            ->requirePresence('description', 'create')
+            ->notEmpty('description');
 
         $validator
             ->requirePresence('user_function', 'create')
@@ -110,9 +102,7 @@ class ExternalDocumentsTable extends Table
     public function buildRules(RulesChecker $rules)
     {
         $rules->add($rules->existsIn(['local_id'], 'LocalsDocument'));
-        $rules->add($rules->existsIn(['client_id'], 'Clients'));
         $rules->add($rules->existsIn(['treatment_id'], 'TreatmentsDocument'));
-        $rules->add($rules->existsIn(['reference_id'], 'ReferencesDocument'));
         $rules->add($rules->existsIn(['user_id'], 'Users'));
 
         return $rules;

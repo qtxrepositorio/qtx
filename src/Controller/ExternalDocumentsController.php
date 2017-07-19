@@ -19,7 +19,7 @@ class ExternalDocumentsController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['TreatmentsDocument', 'ReferencesDocument', 'Users']
+            'contain' => ['TreatmentsDocument', 'LocalsDocument', 'Users']
         ];
         $externalDocuments = $this->paginate($this->ExternalDocuments);
 
@@ -37,7 +37,7 @@ class ExternalDocumentsController extends AppController
     public function view($id = null)
     {
         $externalDocument = $this->ExternalDocuments->get($id, [
-            'contain' => ['TreatmentsDocument', 'ReferencesDocument', 'Users']
+            'contain' => ['TreatmentsDocument', 'LocalsDocument', 'Users']
         ]);
 
         $this->set('externalDocument', $externalDocument);
@@ -51,6 +51,7 @@ class ExternalDocumentsController extends AppController
      */
     public function add()
     {
+
         $externalDocument = $this->ExternalDocuments->newEntity();
         if ($this->request->is('post')) {
             $externalDocument = $this->ExternalDocuments->patchEntity($externalDocument, $this->request->data);
@@ -62,10 +63,11 @@ class ExternalDocumentsController extends AppController
                 $this->Flash->error(__('The external document could not be saved. Please, try again.'));
             }
         }
+
+        $localsDocument = $this->ExternalDocuments->LocalsDocument->find('list', ['limit' => 200]);
         $treatmentsDocument = $this->ExternalDocuments->TreatmentsDocument->find('list', ['limit' => 200]);
-        $referencesDocument = $this->ExternalDocuments->ReferencesDocument->find('list', ['limit' => 200]);
         $users = $this->ExternalDocuments->Users->find('list', ['limit' => 200]);
-        $this->set(compact('externalDocument', 'treatmentsDocument', 'referencesDocument', 'users'));
+        $this->set(compact('externalDocument', 'treatmentsDocument', 'localsDocument', 'users'));
         $this->set('_serialize', ['externalDocument']);
     }
 
@@ -91,10 +93,10 @@ class ExternalDocumentsController extends AppController
                 $this->Flash->error(__('The external document could not be saved. Please, try again.'));
             }
         }
+        $localsDocument = $this->ExternalDocuments->LocalsDocument->find('list', ['limit' => 200]);
         $treatmentsDocument = $this->ExternalDocuments->TreatmentsDocument->find('list', ['limit' => 200]);
-        $referencesDocument = $this->ExternalDocuments->ReferencesDocument->find('list', ['limit' => 200]);
         $users = $this->ExternalDocuments->Users->find('list', ['limit' => 200]);
-        $this->set(compact('externalDocument', 'treatmentsDocument', 'referencesDocument', 'users'));
+        $this->set(compact('externalDocument', 'treatmentsDocument', 'localsDocument', 'users'));
         $this->set('_serialize', ['externalDocument']);
     }
 

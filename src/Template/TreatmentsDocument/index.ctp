@@ -11,7 +11,7 @@
                     <?php echo $this->Html->link(__('<i>Adicionar tratamentos</i>'), array('action' => 'add'), array('class' => 'btn btn-success btn-xs', 'escape' => false)); ?>
 
                 </div>
-                <h3><?= __('Treatments Document') ?></h3>
+                <legend><?= __('Lista de tratamentos:') ?></legend>
                 <table id="example2" class="table table-bordered table-hover">
                     <thead>
                         <tr>

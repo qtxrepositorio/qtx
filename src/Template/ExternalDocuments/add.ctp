@@ -7,18 +7,19 @@
                     <div class="externalDocuments form large-9 medium-8 columns content">
                         <?= $this->Form->create($externalDocument) ?>
                         <fieldset>
-                            <legend><?= __('Add External Document') ?></legend>
+                            <legend><?= __('Adicionar documento') ?></legend>
                             <?php
-                            echo $this->Form->input('number_document');
-                            echo $this->Form->input('local_id');
-                            echo $this->Form->input('client_id');
-                            echo $this->Form->input('client_name');
-                            echo $this->Form->input('client_contact');
-                            echo $this->Form->input('treatment_id', ['options' => $treatmentsDocument]);
-                            echo $this->Form->input('reference_id', ['options' => $referencesDocument]);
-                            echo $this->Form->input('subject');
-                            echo $this->Form->input('user_id', ['options' => $users]);
-                            echo $this->Form->input('user_function');
+                            //echo $this->Form->input('number_document');
+                            echo $this->Form->input('local_id', ['label'=>'Local: ', 'options' => $localsDocument]);
+                            echo $this->Form->input('client_id',['label'=>'Cliente: ', 'options' => [1,2,3]]);
+                            //echo $this->Form->input('client_name',['label'=>'Nome do cliente: ']);
+                            echo $this->Form->input('client_contact',['label'=>'Contato do cliente: ']);
+                            echo $this->Form->input('treatment_id', ['label'=>'Tratamento: ', 'options' => $treatmentsDocument]);
+                            echo $this->Form->input('reference',['label'=>'Referência: ']);
+                            echo $this->Form->input('subject',['label'=>'Assunto:']);
+                            echo $this->Form->input('description', ['type'=>'textarea']);
+                            //echo $this->Form->input('user_id', ['label'=>'', 'options' => $users]);
+                            //echo $this->Form->input('user_function',['label'=>'']);
                             ?>
                         </fieldset>
                         <div class="container-fluid">

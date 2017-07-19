@@ -304,14 +304,6 @@ if (file_exists($file)) {
             </ul>
         </li>
 
-        <li>
-            <a href="#">Referências <i class="fa fa-angle-left pull-right"></i></a>
-            <ul class="treeview-menu">
-                <li> <?= $this->Html->link(__('Ver referências'), ['controller' => 'ReferencesDocument','action' => 'index']) ?>  </li>
-                <li> <?= $this->Html->link(__('Adicionar referência'), ['controller' => 'ReferencesDocument','action' => 'add']) ?>  </li>
-            </ul>
-        </li>
-
     </ul>
 </li>
 

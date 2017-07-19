@@ -10,8 +10,8 @@
                             <fieldset>
                                 <legend><?= __('Adicionar Traramento') ?></legend>
                                 <?php
-                                echo $this->Form->input('description', ['label','Descrição:']);
-                                echo $this->Form->input('status', ['label','Status:']);
+                                echo $this->Form->input('description', ['label'=>'Descrição:']);
+                                echo $this->Form->input('status', ['label'=>'Status:']);
                                 ?>
                             </fieldset>
                             <div class="container-fluid">

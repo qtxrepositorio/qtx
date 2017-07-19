@@ -11,7 +11,7 @@
                     <?php echo $this->Html->link(__('<i>Adicionar documento</i>'), array('action' => 'add'), array('class' => 'btn btn-success btn-xs', 'escape' => false)); ?>
 
                 </div>
-                <h3><?= __('External Documents') ?></h3>
+                <legend><?= __('Lista de documentos:') ?></legend>
                 <table  id="example2" class="table table-bordered table-hover">
                     <thead>
                         <tr>
@@ -19,8 +19,8 @@
                             <th>client_name</th>
                             <th>treatment_id</th>
                             <th>reference_id</th>
+                            <th>local</th>
                             <th>subject</th>
-                            <th>created</th>
                             <th class="actions"><?= __('Ações') ?></th>
                         </tr>
                     </thead>
@@ -29,8 +29,9 @@
                             <tr>
                                 <td><?= h($externalDocument->number_document) ?></td>
                                 <td><?= h($externalDocument->client_name) ?></td>
-                                <td><?= $externalDocument->has('treatments_document') ? $this->Html->link($externalDocument->treatments_document->id, ['controller' => 'TreatmentsDocument', 'action' => 'view', $externalDocument->treatments_document->id]) : '' ?></td>
-                                <td><?= $externalDocument->has('references_document') ? $this->Html->link($externalDocument->references_document->id, ['controller' => 'ReferencesDocument', 'action' => 'view', $externalDocument->references_document->id]) : '' ?></td>
+                                <td><?= $externalDocument->has('treatments_document') ? $this->Html->link($externalDocument->treatments_document->description, ['controller' => 'TreatmentsDocument', 'action' => 'view', $externalDocument->treatments_document->id]) : '' ?></td>
+                                <td><?= $externalDocument->reference ?></td>
+                                <td><?= $externalDocument->has('locals_document') ? $this->Html->link($externalDocument->locals_document->name, ['controller' => 'LocalsDocument', 'action' => 'view', $externalDocument->locals_document->id]) : '' ?></td>
                                 <td><?= h($externalDocument->subject) ?></td>
                                 <td align="center" class="actions">
 

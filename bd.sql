@@ -167,14 +167,6 @@ CREATE TABLE treatments_document (
     modified DATETIME2 DEFAULT NULL,
 );
 
-CREATE TABLE references_document(
-    id INT IDENTITY(1,1) CONSTRAINT pk_references PRIMARY KEY,
-    description VARCHAR(45) NOT NULL,
-    status BIT NOT NULL,
-    created DATETIME2 DEFAULT NULL,
-    modified DATETIME2 DEFAULT NULL,
-);
-
 CREATE TABLE external_documents (
     id INT IDENTITY(1,1) CONSTRAINT pk_external_documents PRIMARY KEY,
     number_document VARCHAR(10),
@@ -183,8 +175,9 @@ CREATE TABLE external_documents (
     client_name VARCHAR(45) NOT NULL,
     client_contact VARCHAR(45) NOT NULL,
     treatment_id INT NOT NULL CONSTRAINT fk_treatment FOREIGN KEY (treatment_id) REFERENCES treatments_document(id),
-    reference_id INT NOT NULL CONSTRAINT fk_reference FOREIGN KEY (reference_id) REFERENCES references_document(id),
+    reference VARCHAR(150) NOT NULL,
     subject VARCHAR(45) NOT NULL,
+    description VARCHAR(max) NOT NULL,
     user_id INT NOT NULL CONSTRAINT fk_sender_external_document FOREIGN KEY (user_id) REFERENCES users(id),
     user_function VARCHAR(45) NOT NULL,
     created DATETIME2 DEFAULT NULL

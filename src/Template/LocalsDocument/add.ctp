@@ -9,8 +9,8 @@
                         <fieldset>
                             <legend><?= __('Adicionar local') ?></legend>
                             <?php
-                            echo $this->Form->input('name', ['label','Descrição:']);
-                            echo $this->Form->input('description', ['label','Descrição:']);
+                            echo $this->Form->input('name', ['label'=>'Nome:']);
+                            echo $this->Form->input('description', ['label'=>'Descrição:']);
                             echo $this->Form->input('status');
                             ?>
                         </fieldset>
