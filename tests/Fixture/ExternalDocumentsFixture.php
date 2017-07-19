@@ -55,7 +55,7 @@ class ExternalDocumentsFixture extends TestFixture
             'subject' => 'Lorem ipsum dolor sit amet',
             'user_id' => 1,
             'user_function' => 'Lorem ipsum dolor sit amet',
-            'created' => 1500471219
+            'created' => 1500472344
         ],
     ];
 }

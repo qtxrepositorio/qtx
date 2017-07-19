@@ -58,5 +58,9 @@
             <th><?= __('Client Id') ?></th>
             <td><?= $this->Number->format($externalDocument->client_id) ?></td>
         </tr>
+        <tr>
+            <th><?= __('Created') ?></th>
+            <td><?= h($externalDocument->created) ?></td>
+        </tr>
     </table>
 </div>

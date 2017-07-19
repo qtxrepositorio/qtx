@@ -24,6 +24,7 @@
                 <th><?= $this->Paginator->sort('subject') ?></th>
                 <th><?= $this->Paginator->sort('user_id') ?></th>
                 <th><?= $this->Paginator->sort('user_function') ?></th>
+                <th><?= $this->Paginator->sort('created') ?></th>
                 <th class="actions"><?= __('Actions') ?></th>
             </tr>
         </thead>
@@ -41,6 +42,7 @@
                 <td><?= h($externalDocument->subject) ?></td>
                 <td><?= $externalDocument->has('user') ? $this->Html->link($externalDocument->user->name, ['controller' => 'Users', 'action' => 'view', $externalDocument->user->id]) : '' ?></td>
                 <td><?= h($externalDocument->user_function) ?></td>
+                <td><?= h($externalDocument->created) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $externalDocument->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $externalDocument->id]) ?>

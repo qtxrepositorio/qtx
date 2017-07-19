@@ -42,10 +42,6 @@ class ExternalDocumentsTable extends Table
 
         $this->addBehavior('Timestamp');
 
-        $this->belongsTo('Clients', [
-            'foreignKey' => 'client_id',
-            'joinType' => 'INNER'
-        ]);
         $this->belongsTo('Treatments', [
             'foreignKey' => 'treatment_id',
             'joinType' => 'INNER'
