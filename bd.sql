@@ -150,6 +150,15 @@ CREATE TABLE calls_files(
 TERCEIRA FASE: Adicionar as tabelas do sistema de comunicação externa.
 */
 
+CREATE TABLE locals_document (
+    id INT IDENTITY(1,1) CONSTRAINT pk_treatments PRIMARY KEY,
+    name VARCHAR(200) NOT NULL,
+    description VARCHAR(200) NOT NULL,
+    status BIT NOT NULL,
+    created DATETIME2 DEFAULT NULL,
+    modified DATETIME2 DEFAULT NULL,
+);
+
 CREATE TABLE treatments_document (
     id INT IDENTITY(1,1) CONSTRAINT pk_treatments PRIMARY KEY,
     description VARCHAR(200) NOT NULL,
@@ -169,7 +178,7 @@ CREATE TABLE references_document(
 CREATE TABLE external_documents (
     id INT IDENTITY(1,1) CONSTRAINT pk_external_documents PRIMARY KEY,
     number_document VARCHAR(10),
-    local VARCHAR(45) NOT NULL,
+    local_id INT NOT NULL CONSTRAINT fk_local FOREIGN KEY (local_id) REFERENCES locals_document(id),
     client_id INT NOT NULL,
     client_name VARCHAR(45) NOT NULL,
     client_contact VARCHAR(45) NOT NULL,

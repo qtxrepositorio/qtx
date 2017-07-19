@@ -25,8 +25,8 @@ class ExternalDocumentsTableTest extends TestCase
      */
     public $fixtures = [
         'app.external_documents',
-        'app.clients',
-        'app.treatments',
+        'app.treatments_document',
+        'app.references_document',
         'app.users',
         'app.notices',
         'app.notices_users',

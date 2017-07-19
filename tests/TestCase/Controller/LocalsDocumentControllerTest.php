@@ -1,13 +1,13 @@
 <?php
 namespace App\Test\TestCase\Controller;
 
-use App\Controller\ExternalDocumentsController;
+use App\Controller\LocalsDocumentController;
 use Cake\TestSuite\IntegrationTestCase;
 
 /**
- * App\Controller\ExternalDocumentsController Test Case
+ * App\Controller\LocalsDocumentController Test Case
  */
-class ExternalDocumentsControllerTest extends IntegrationTestCase
+class LocalsDocumentControllerTest extends IntegrationTestCase
 {
 
     /**
@@ -16,15 +16,7 @@ class ExternalDocumentsControllerTest extends IntegrationTestCase
      * @var array
      */
     public $fixtures = [
-        'app.external_documents',
-        'app.treatments_document',
-        'app.references_document',
-        'app.users',
-        'app.notices',
-        'app.notices_users',
-        'app.roles',
-        'app.notices_roles',
-        'app.roles_users'
+        'app.locals_document'
     ];
 
     /**
