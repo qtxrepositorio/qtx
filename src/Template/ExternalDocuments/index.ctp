@@ -1,7 +1,5 @@
 <?php ?>
 
-<br>
-
 <section class="content">
     <div class="box box-success">
         <div class="box-body">
@@ -15,19 +13,19 @@
                 <table  id="example2" class="table table-bordered table-hover">
                     <thead>
                         <tr>
-                            <th>number_document</th>
-                            <th>client_name</th>
-                            <th>treatment_id</th>
-                            <th>reference_id</th>
-                            <th>local</th>
-                            <th>subject</th>
+                            <th>Número do documneto</th>
+                            <th>Nome do Cliente</th>
+                            <th>Forma de tratamento</th>
+                            <th>Referência</th>
+                            <th>Local</th>
+                            <th>Assunto</th>
                             <th class="actions"><?= __('Ações') ?></th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php foreach ($externalDocuments as $externalDocument): ?>
                             <tr>
-                                <td><?= h($externalDocument->number_document) ?></td>
+                                <td><?= substr($externalDocument->number_document,0,6).'/'.substr($externalDocument->number_document,6,10) ?></td>
                                 <td><?= h($externalDocument->client_name) ?></td>
                                 <td><?= $externalDocument->has('treatments_document') ? $this->Html->link($externalDocument->treatments_document->description, ['controller' => 'TreatmentsDocument', 'action' => 'view', $externalDocument->treatments_document->id]) : '' ?></td>
                                 <td><?= $externalDocument->reference ?></td>
@@ -35,7 +33,7 @@
                                 <td><?= h($externalDocument->subject) ?></td>
                                 <td align="center" class="actions">
 
-                                    <?php echo $this->Html->link(__('<i class="glyphicon glyphicon-eye-open"></i>'), array('action' => 'view', $externalDocument->id), array('class' => 'btn btn-primary btn-xs', 'escape' => false, 'data-toggle'=>'tooltip', 'title' => 'Visualizar')); ?>
+                                    <?php echo $this->Html->link(__('<i class="glyphicon glyphicon-eye-open"></i>'), array('action' => 'viewPdf', $externalDocument->id), array('target' => '_blank', 'class' => 'btn btn-primary btn-xs', 'escape' => false, 'data-toggle'=>'tooltip', 'title' => 'Gerar PDF')); ?>
                                     <?php echo $this->Html->link(__('<i class="glyphicon glyphicon-pencil"></i>'), array('action' => 'edit', $externalDocument->id), array('class' => 'btn btn-warning btn-xs', 'escape' => false, 'data-toggle'=>'tooltip', 'title' => 'Editar')); ?>
                                     <?php echo $this->Form->postLink(__('<i class="glyphicon glyphicon-trash"></i>'), array('action' => 'delete', $externalDocument->id), array('class' => 'btn btn-danger btn-xs', 'escape' => false, 'data-toggle'=>'tooltip', 'title' => 'Deletar', 'confirm' => __('Tem certeza de que deseja excluir # {0}?', $externalDocument->id))); ?>
 
