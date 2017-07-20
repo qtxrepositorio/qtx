@@ -4,7 +4,6 @@ class MYPDF extends TCPDF {
     public function Header() {
 
         $image_file = K_PATH_IMAGES.'logo.jpg';
-
     }
 
     public function Footer() {}
@@ -40,7 +39,14 @@ $html = '<style></style>';
 
 foreach ($externalDocument as $key => $value) {
 
-    $html .= '<img src="'.$image_file.'" width="150" height="50"> <br/>';
+    $html .= '<table  cellpadding="10">';
+    $html .= '<tr>';
+    $html .= '<th align="left"><img src="'.$image_file.'"  width="150" height="50"></th>';
+    $html .= '<th align="right"><img src="http://qualitex.com.br/images/BV_Certification_ISO.png"  width="150" height="50"></th>';
+    $html .= '</tr>';
+    $html .= '</table>';
+
+    //$html .= '<img src="'.$image_file.'" width="150" height="50"> <br/>';
     $html .= '<hr/>';
     $html .= '<table  cellpadding="10">';
     $html .= '<thead>';
