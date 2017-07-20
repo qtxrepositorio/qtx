@@ -142,22 +142,28 @@ class ExternalDocumentsController extends AppController
         */
         public function edit($id = null)
         {
-
             $authenticatedUserId = $this->Auth->user('id');
 
             $externalDocument = $this->ExternalDocuments->get($id, [
                 'contain' => []
             ]);
-            if ($this->request->is(['patch', 'post', 'put'])) {
-                $externalDocument = $this->ExternalDocuments->patchEntity($externalDocument, $this->request->data);
-                if ($this->ExternalDocuments->save($externalDocument)) {
-                    $this->Flash->success(__('The external document has been saved.'));
 
-                    return $this->redirect(['action' => 'index']);
-                } else {
-                    $this->Flash->error(__('The external document could not be saved. Please, try again.'));
+            if ($authenticatedUserId == $externalDocument['user_id']) {
+                if ($this->request->is(['patch', 'post', 'put'])) {
+                    $externalDocument = $this->ExternalDocuments->patchEntity($externalDocument, $this->request->data);
+                    if ($this->ExternalDocuments->save($externalDocument)) {
+                        $this->Flash->success(__('The external document has been saved.'));
+
+                        return $this->redirect(['action' => 'index']);
+                    } else {
+                        $this->Flash->error(__('The external document could not be saved. Please, try again.'));
+                    }
                 }
+            }else{
+                $this->Flash->error(__('Apenas o criador do documento pode moficá-lo!'));
+                return $this->redirect(['action' => 'index']);
             }
+
             $localsDocument = $this->ExternalDocuments->LocalsDocument->find('list', ['limit' => 200]);
             $treatmentsDocument = $this->ExternalDocuments->TreatmentsDocument->find('list', ['limit' => 200]);
             $users = $this->ExternalDocuments->Users->find('list', ['limit' => 200]);
@@ -184,4 +190,6 @@ class ExternalDocumentsController extends AppController
 
             return $this->redirect(['action' => 'index']);
         }
+
+        
     }

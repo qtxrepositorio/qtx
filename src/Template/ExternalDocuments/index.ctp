@@ -1,7 +1,5 @@
 <?php ?>
 
-<br>
-
 <section class="content">
     <div class="box box-success">
         <div class="box-body">
