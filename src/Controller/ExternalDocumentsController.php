@@ -90,6 +90,7 @@ class ExternalDocumentsController extends AppController
         {
 
             $authenticatedUserId = $this->Auth->user('id');
+            $authenticatedUserCpf = $this->Auth->user('cpf');
 
             $externalDocument = $this->ExternalDocuments->newEntity();
             if ($this->request->is('post')) {
@@ -116,6 +117,18 @@ class ExternalDocumentsController extends AppController
                 //====================================
 
                 $this->request->data['number_document'] = $novoCod;
+                $this->request->data['user_id'] = $authenticatedUserId;
+
+                $connection = ConnectionManager::get('baseProtheus');
+                $funcao = $connection->execute("
+                    SELECT [RJ_DESC]
+                        FROM [SRA010]
+                    	    INNER JOIN [SRJ010] ON [RJ_FUNCAO] = [RA_CODFUNC]
+                    	        WHERE [RJ_CODCBO] != ''
+                                    AND [SRJ010].D_E_L_E_T_ = ''
+                                    AND [RA_CIC] like '%$authenticatedUserCpf%'")->fetchAll('assoc');
+
+                $this->request->data['user_function'] = $funcao[0]['RJ_DESC'];
 
                 $externalDocument = $this->ExternalDocuments->patchEntity($externalDocument, $this->request->data);
                 if ($this->ExternalDocuments->save($externalDocument)) {

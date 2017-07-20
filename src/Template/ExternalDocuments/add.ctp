@@ -18,8 +18,8 @@
                             echo $this->Form->input('reference',['label'=>'Referência: ']);
                             echo $this->Form->input('subject',['label'=>'Assunto:']);
                             echo $this->Form->input('description', ['type'=>'textarea', 'label'=>'Descrição:']);
-                            echo $this->Form->input('user_id', ['label'=>'', 'options' => $users, 'defaut'=> $authenticatedUserId]);
-                            echo $this->Form->input('user_function',['type'=>'hidden', 'label'=>'', 'defaut'=>'skoaskpoakspoakspo']);
+                            //echo $this->Form->input('user_id', ['type'=>'hidden', 'label'=>'', 'options' => $users, 'defaut'=> $authenticatedUserId]);
+                            //echo $this->Form->input('user_function',['type'=>'hidden', 'label'=>'', 'defaut'=>'skoaskpoakspoakspo']);
                             ?>
                         </fieldset>
                         <div class="container-fluid">
