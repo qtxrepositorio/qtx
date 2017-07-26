@@ -98,9 +98,9 @@ class ExternalDocumentsController extends AppController
                 //======================= GERA O NOVO CODIGO
                 $connection = ConnectionManager::get('default');
                 $maxRs = $connection->execute("SELECT max([id])
-                ,[number_document]
-                FROM [external_documents]
-                GROUP by [id], [number_document]");
+                    ,[number_document]
+                    FROM [external_documents]
+                    GROUP by [id], [number_document]");
                 $max = '';
                 foreach ($maxRs as $key => $value) {
                     $max = $value['number_document'];
@@ -132,11 +132,11 @@ class ExternalDocumentsController extends AppController
 
                 $externalDocument = $this->ExternalDocuments->patchEntity($externalDocument, $this->request->data);
                 if ($this->ExternalDocuments->save($externalDocument)) {
-                    $this->Flash->success(__('The external document has been saved.'));
+                    $this->Flash->success(__('O documento foi salvo com sucesso!'));
 
                     return $this->redirect(['action' => 'index']);
                 } else {
-                    $this->Flash->error(__('The external document could not be saved. Please, try again.'));
+                    $this->Flash->error(__('O documento não pode ser salvo!'));
                 }
             }
 
@@ -166,11 +166,11 @@ class ExternalDocumentsController extends AppController
                 if ($this->request->is(['patch', 'post', 'put'])) {
                     $externalDocument = $this->ExternalDocuments->patchEntity($externalDocument, $this->request->data);
                     if ($this->ExternalDocuments->save($externalDocument)) {
-                        $this->Flash->success(__('The external document has been saved.'));
+                        $this->Flash->success(__('O documento foi salvo com sucesso!'));
 
                         return $this->redirect(['action' => 'index']);
                     } else {
-                        $this->Flash->error(__('The external document could not be saved. Please, try again.'));
+                        $this->Flash->error(__('O documento não pode ser salvo!'));
                     }
                 }
             }else{
@@ -197,9 +197,9 @@ class ExternalDocumentsController extends AppController
             $this->request->allowMethod(['post', 'delete']);
             $externalDocument = $this->ExternalDocuments->get($id);
             if ($this->ExternalDocuments->delete($externalDocument)) {
-                $this->Flash->success(__('The external document has been deleted.'));
+                $this->Flash->success(__('O documento foi apagado com sucesso!'));
             } else {
-                $this->Flash->error(__('The external document could not be deleted. Please, try again.'));
+                $this->Flash->error(__('O documento não pode ser apagado!'));
             }
 
             return $this->redirect(['action' => 'index']);

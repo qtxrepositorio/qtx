@@ -52,11 +52,11 @@ class LocalsDocumentController extends AppController
         if ($this->request->is('post')) {
             $localsDocument = $this->LocalsDocument->patchEntity($localsDocument, $this->request->data);
             if ($this->LocalsDocument->save($localsDocument)) {
-                $this->Flash->success(__('The locals document has been saved.'));
+                $this->Flash->success(__('O local foi salvo com sucesso!'));
 
                 return $this->redirect(['action' => 'index']);
             } else {
-                $this->Flash->error(__('The locals document could not be saved. Please, try again.'));
+                $this->Flash->error(__('O local não pode ser salvo.'));
             }
         }
         $this->set(compact('localsDocument'));
@@ -78,11 +78,11 @@ class LocalsDocumentController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $localsDocument = $this->LocalsDocument->patchEntity($localsDocument, $this->request->data);
             if ($this->LocalsDocument->save($localsDocument)) {
-                $this->Flash->success(__('The locals document has been saved.'));
+                $this->Flash->success(__('O local foi salvo com sucesso!'));
 
                 return $this->redirect(['action' => 'index']);
             } else {
-                $this->Flash->error(__('The locals document could not be saved. Please, try again.'));
+                $this->Flash->error(__('O local não pode ser salvo.'));
             }
         }
         $this->set(compact('localsDocument'));
@@ -101,9 +101,9 @@ class LocalsDocumentController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $localsDocument = $this->LocalsDocument->get($id);
         if ($this->LocalsDocument->delete($localsDocument)) {
-            $this->Flash->success(__('The locals document has been deleted.'));
+            $this->Flash->success(__('O local foi apagado!'));
         } else {
-            $this->Flash->error(__('The locals document could not be deleted. Please, try again.'));
+            $this->Flash->error(__('O local não pode ser apagado.'));
         }
 
         return $this->redirect(['action' => 'index']);
