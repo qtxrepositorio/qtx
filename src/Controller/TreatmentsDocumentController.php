@@ -52,11 +52,11 @@ class TreatmentsDocumentController extends AppController
         if ($this->request->is('post')) {
             $treatmentsDocument = $this->TreatmentsDocument->patchEntity($treatmentsDocument, $this->request->data);
             if ($this->TreatmentsDocument->save($treatmentsDocument)) {
-                $this->Flash->success(__('The treatments document has been saved.'));
+                $this->Flash->success(__('O tratamento foi salvo com sucesso!'));
 
                 return $this->redirect(['action' => 'index']);
             } else {
-                $this->Flash->error(__('The treatments document could not be saved. Please, try again.'));
+                $this->Flash->error(__('O tratamento não pode ser salvo.'));
             }
         }
         $this->set(compact('treatmentsDocument'));
@@ -78,11 +78,11 @@ class TreatmentsDocumentController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $treatmentsDocument = $this->TreatmentsDocument->patchEntity($treatmentsDocument, $this->request->data);
             if ($this->TreatmentsDocument->save($treatmentsDocument)) {
-                $this->Flash->success(__('The treatments document has been saved.'));
+                $this->Flash->success(__('O tratamento foi salvo com sucesso!'));
 
                 return $this->redirect(['action' => 'index']);
             } else {
-                $this->Flash->error(__('The treatments document could not be saved. Please, try again.'));
+                $this->Flash->error(__('O tratamento não pode ser salvo.'));
             }
         }
         $this->set(compact('treatmentsDocument'));
@@ -101,9 +101,9 @@ class TreatmentsDocumentController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $treatmentsDocument = $this->TreatmentsDocument->get($id);
         if ($this->TreatmentsDocument->delete($treatmentsDocument)) {
-            $this->Flash->success(__('The treatments document has been deleted.'));
+            $this->Flash->success(__('O tratamento foi apagado com sucesso!'));
         } else {
-            $this->Flash->error(__('The treatments document could not be deleted. Please, try again.'));
+            $this->Flash->error(__('O tratamento não pode ser apagado!'));
         }
 
         return $this->redirect(['action' => 'index']);
