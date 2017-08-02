@@ -141,26 +141,23 @@ class UsersController extends AppController
                 'user_id' => $authenticatedUserId
             ]);
             $currentUserGroups = $query->all();
-            $release = null;
+            $release = false;
             foreach ($currentUserGroups as $key) {
-                if ($key['role_id'] == 25 or $key['role_id'] == 26 or $key['role_id'] == 01) {
-                        $release = true;
+                if ($key['role_id'] == 01) {
+                    $release = true;
                 }
             }
-            if($release == false)
-            {
-                $this->Flash->error(__('Você não tem autorização para acessar esta área do sistema. Caso necessário, favor entrar em contato com o setor TI.'));
-                $this->redirect($this->Auth->redirectUrl());
-            }
-            else
-            {
-                //$this->Flash->error(__('VC É ADM'));
-                if(in_array($this->action, array('index','add','edit','delete','view')))
+            if ($release == false) {
+                if (in_array($this->request->params['action'], array('changepassword'))) {
                     return true;
+                } else {
+                    $this->Flash->error(__('Você não tem autorização para acessar esta área do sistema. Caso necessário, favor entrar em contato com o setor TI.'));
+                    return false;
+                }
+            } else {
+                return true;
             }
-        }
-        else
-        {
+        } else {
             $this->redirect($this->Auth->logout());
         }
         return parent::isAuthorized($user);
