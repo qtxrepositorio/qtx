@@ -1,6 +1,6 @@
 <?php
 
-// ============= RECEITAS INI ============= // 
+// ============= RECEITAS INI ============= //
 $countsServices  = array("31101001", "31101002");
 $countsProduct = array("31102001", "31102002");
 
@@ -26,18 +26,18 @@ $totalRevenuesTwo = $valueRevenuesTwoProduct + $valueRevenuesTwoService;
 
 $totalRevenuesRetOne = 0;
 foreach($revenuesCountDebitOneRs as $key):
-    $totalRevenuesRetOne += $key['CT2_VALOR']; 
+    $totalRevenuesRetOne += $key['CT2_VALOR'];
 endforeach;
 
 $totalRevenuesRetTwo = 0;
 foreach($revenuesCountDebitTwoRs as $key):
-    $totalRevenuesRetTwo += $key['CT2_VALOR']; 
+    $totalRevenuesRetTwo += $key['CT2_VALOR'];
 endforeach;
 
 $totalRevenuesOne -= $cancellationOfTitlesOneRs[0]['CT2_VALOR'];
 $totalRevenuesTwo -= $cancellationOfTitlesTwoRs[0]['CT2_VALOR'];
 
-// ============= RECEITAS FIM ============= // 
+// ============= RECEITAS FIM ============= //
 
 // total de despesas recursos humanos
 $totalRHOne = $othersRHOneRs[0]['CT2_VALOR']+$coursesAndTrainingOneRs[0]['CT2_VALOR']
@@ -104,7 +104,7 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
     <h1>
         Painel
         <small>Controladoria - Apuração dos resultados mensais</small>
-    </h1>      
+    </h1>
 </section>
 
 <section class="content-header">
@@ -177,22 +177,22 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                 <td align="right" style="background-color:#CDC5BF"><b>
                                     <?php echo number_format($totalRevenuesTwo-$totalRevenuesOne,0,',','.'); ?>
                                 </b></td>
-                                
-                                <?php 
+
+                                <?php
                                     if($totalRevenuesOne > 0 and $totalRevenuesTwo == 0){ ?>
                                         <td align="right" style="background-color:#CDC5BF"><b><?php echo '-100 %'; ?></b></td>
-                                <?php 
+                                <?php
                                     }elseif($totalRevenuesOne == 0 and $totalRevenuesTwo > 0){ ?>
                                         <td align="right" style="background-color:#CDC5BF"><b><?php echo '100 %'; ?></b>/td>
-                                <?php 
+                                <?php
                                     }elseif($totalRevenuesOne > 0 and $totalRevenuesTwo > 0){ ?>
                                         <td align="right" style="background-color:#CDC5BF"><b><?php echo number_format(($totalRevenuesTwo-$totalRevenuesOne)/$totalRevenuesOne * 100,1,',','.') .' %'; ?></b></td>
                                 <?php
-                                    }elseif($totalRevenuesOne == 0 and $totalRevenuesTwo == 0){ 
+                                    }elseif($totalRevenuesOne == 0 and $totalRevenuesTwo == 0){
                                 ?>
                                         <td align="right" style="background-color:#CDC5BF"><b><?php echo '*'; ?></b></td>
                                 <?php } ?>
-                                    
+
                             </tr>
 
                             <tr>
@@ -204,18 +204,18 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                 <td align="right" style="background-color:#EEE5DE"><b>
                                 <?php echo number_format($valueRevenuesTwoService-$valueRevenuesOneService,0,',','.'); ?>
                                 </b></td>
-                                
-                                <?php 
+
+                                <?php
                                     if($valueRevenuesOneService > 0 and $valueRevenuesTwoService == 0){ ?>
                                         <td align="right" style="background-color:#EEE5DE"><b><?php echo '-100 %'; ?></b></td>
-                                <?php 
+                                <?php
                                     }elseif($valueRevenuesOneService == 0 and $valueRevenuesTwoService > 0){ ?>
                                         <td align="right" style="background-color:#EEE5DE"><b><?php echo '100 %'; ?></b></td>
-                                <?php 
+                                <?php
                                     }elseif($valueRevenuesOneService > 0 and $valueRevenuesTwoService > 0){ ?>
                                         <td align="right" style="background-color:#EEE5DE"><b><?php echo number_format(($valueRevenuesTwoService-$valueRevenuesOneService)/$valueRevenuesOneService * 100,1,',','.') .' %' ; ?></b></td>
                                 <?php
-                                    }elseif($valueRevenuesOneService == 0 and $valueRevenuesTwoService == 0){ 
+                                    }elseif($valueRevenuesOneService == 0 and $valueRevenuesTwoService == 0){
                                 ?>
                                         <td align="right" style="background-color:#EEE5DE"><b><?php echo '*'; ?></b></td>
                                 <?php } ?>
@@ -230,19 +230,19 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                 <td align="right" style="background-color:#EEE5DE"></td>
                                 <td align="right" style="background-color:#EEE5DE"><b>
                                 <?php echo number_format($valueRevenuesTwoProduct-$valueRevenuesOneProduct,0,',','.'); ?>
-                                </b></td>    
-                                
-                                <?php 
+                                </b></td>
+
+                                <?php
                                     if($valueRevenuesOneProduct > 0 and $valueRevenuesTwoProduct == 0){ ?>
                                         <td align="right" style="background-color:#EEE5DE"><b><?php echo '-100 %'; ?></b></td>
-                                <?php 
+                                <?php
                                     }elseif($valueRevenuesOneProduct == 0 and $valueRevenuesTwoProduct > 0){ ?>
                                         <td align="right" style="background-color:#EEE5DE"><b><?php echo '100 %'; ?></b></td>
-                                <?php 
+                                <?php
                                     }elseif($valueRevenuesOneProduct > 0 and $valueRevenuesTwoProduct > 0){ ?>
                                         <td align="right" style="background-color:#EEE5DE"><b><?php echo number_format(($valueRevenuesTwoProduct-$valueRevenuesOneProduct)/$valueRevenuesOneProduct * 100,1,',','.') .' %'; ?></b></td>
                                 <?php
-                                    }elseif($valueRevenuesOneProduct == 0 and $valueRevenuesTwoProduct == 0){ 
+                                    }elseif($valueRevenuesOneProduct == 0 and $valueRevenuesTwoProduct == 0){
                                 ?>
                                         <td align="right" style="background-color:#EEE5DE"><b><?php echo '*'; ?></b></td>
                                 <?php } ?>
@@ -259,19 +259,19 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                 <b>
                                 <?php echo number_format($cancellationOfTitlesTwoRs[0]['CT2_VALOR']-$cancellationOfTitlesOneRs[0]['CT2_VALOR'],0,',','.'); ?>
                                 </b>
-                                </td>    
-                                
-                                <?php 
+                                </td>
+
+                                <?php
                                     if($cancellationOfTitlesOneRs[0]['CT2_VALOR'] > 0 and $cancellationOfTitlesTwoRs[0]['CT2_VALOR'] == 0){ ?>
                                         <td align="right" style="background-color:#ffbebe"><b><?php echo '-100 %'; ?></b></td>
-                                <?php 
+                                <?php
                                     }elseif($cancellationOfTitlesOneRs[0]['CT2_VALOR'] == 0 and $cancellationOfTitlesTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right" style="background-color:#ffbebe"><b><?php echo '100 %'; ?></b></td>
-                                <?php 
+                                <?php
                                     }elseif($cancellationOfTitlesOneRs[0]['CT2_VALOR'] > 0 and $cancellationOfTitlesTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right" style="background-color:#ffbebe"><b><?php echo number_format(($cancellationOfTitlesTwoRs[0]['CT2_VALOR']-$cancellationOfTitlesOneRs[0]['CT2_VALOR'])/$cancellationOfTitlesOneRs[0]['CT2_VALOR'] * 100,1,',','.') .' %' ; ?></b></td>
                                 <?php
-                                    }elseif($cancellationOfTitlesOneRs[0]['CT2_VALOR'] == 0 and $cancellationOfTitlesTwoRs[0]['CT2_VALOR'] == 0){ 
+                                    }elseif($cancellationOfTitlesOneRs[0]['CT2_VALOR'] == 0 and $cancellationOfTitlesTwoRs[0]['CT2_VALOR'] == 0){
                                 ?>
                                         <td align="right" style="background-color:#ffbebe"><b><?php echo '*'; ?></b></td>
                                 <?php } ?>
@@ -290,18 +290,18 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                 <td align="right" style="background-color:#CDC5BF" >
                                     <b><?php echo number_format($totalDespesasTwo-$totalDespesasOne,0,',','.'); ?><b>
                                 </td>
-                                
-                                <?php 
+
+                                <?php
                                     if($totalDespesasOne > 0 and $totalDespesasTwo == 0){ ?>
                                         <td align="right" style="background-color:#CDC5BF" ><b><?php echo '-100 %'; ?><b></td>
-                                <?php 
+                                <?php
                                     }elseif($totalDespesasOne == 0 and $totalDespesasTwo > 0){ ?>
                                         <td align="right" style="background-color:#CDC5BF"><b><?php echo '100 %'; ?><b></td>
-                                <?php 
+                                <?php
                                     }elseif($totalDespesasOne > 0 and $totalDespesasTwo > 0){ ?>
                                         <td align="right" style="background-color:#CDC5BF"><b><?php echo number_format(($totalDespesasTwo-$totalDespesasOne)/$totalDespesasOne * 100,1,',','.') . ' %' ; ?><b></td>
                                 <?php
-                                    }elseif($totalDespesasOne == 0 and $totalDespesasTwo == 0){ 
+                                    }elseif($totalDespesasOne == 0 and $totalDespesasTwo == 0){
                                 ?>
                                         <td align="right"style="background-color:#CDC5BF"><b><?php echo '*'; ?><b></td>
                                 <?php } ?>
@@ -318,17 +318,17 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                 <td align="right" style="background-color:#EEE5DE"><b><?php echo number_format($totalRHTwo,0,',','.'); ?></b></td>
                                 <td align="right" style="background-color:#EEE5DE"><b><?php echo number_format($totalRHTwo /$totalRevenuesTwo *100,1,',','.') .' %'; ?></b></td>
                                 <td align="right" style="background-color:#EEE5DE"><b><?php echo number_format($totalRHTwo-$totalRHOne,0,',','.'); ?></td>
-                                <?php 
+                                <?php
                                     if($totalRHOne > 0 and $totalRHTwo == 0){ ?>
                                         <td align="right" style="background-color:#EEE5DE"><b><?php echo '-100 %'; ?></b></td>
-                                <?php 
+                                <?php
                                     }elseif($totalRHOne == 0 and $totalRHTwo > 0){ ?>
                                         <td align="right" style="background-color:#EEE5DE"><b><?php echo '100 %'; ?></b></td>
-                                <?php 
+                                <?php
                                     }elseif($totalRHOne > 0 and $totalRHTwo > 0){ ?>
                                         <td align="right" style="background-color:#EEE5DE"><b><?php echo number_format(($totalRHTwo-$totalRHOne)/$totalRHOne * 100,1,',','.') .' %'; ?></b></td>
                                 <?php
-                                    }elseif($totalRHOne == 0 and $totalRHTwo == 0){ 
+                                    }elseif($totalRHOne == 0 and $totalRHTwo == 0){
                                 ?>
                                         <td align="right" style="background-color:#EEE5DE"><b><?php echo '*'; ?></b></td>
                                 <?php } ?>
@@ -341,17 +341,17 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                 <td align="right"><?php echo number_format($earningsTwoRs[0]['CT2_VALOR']/$totalRevenuesTwo *100,1,',','.') .' %'; ?></td>
                                 <td align="right"><?php echo number_format($earningsTwoRs[0]['CT2_VALOR']-$earningsOneRs[0]['CT2_VALOR'],0,',','.') ?>
                                 </td>
-                                <?php 
+                                <?php
                                     if($earningsOneRs[0]['CT2_VALOR'] > 0 and $earningsTwoRs[0]['CT2_VALOR'] == 0){ ?>
                                         <td align="right"><?php echo '-100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($earningsOneRs[0]['CT2_VALOR'] == 0 and $earningsTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo '100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($earningsOneRs[0]['CT2_VALOR'] > 0 and $earningsTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo number_format(($earningsTwoRs[0]['CT2_VALOR']-$earningsOneRs[0]['CT2_VALOR'])/$earningsOneRs[0]['CT2_VALOR'] * 100,1,',','.') . ' %'; ?></td>
                                 <?php
-                                    }elseif($earningsOneRs[0]['CT2_VALOR'] == 0 and $earningsTwoRs[0]['CT2_VALOR'] == 0){ 
+                                    }elseif($earningsOneRs[0]['CT2_VALOR'] == 0 and $earningsTwoRs[0]['CT2_VALOR'] == 0){
                                 ?>
                                         <td align="right"><?php echo '*'; ?></td>
                                 <?php } ?>
@@ -363,17 +363,17 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                 <td align="right"><?php echo number_format($prolaboreTwoRs[0]['CT2_VALOR'],0,',','.') ?></td>
                                 <td align="right"><?php echo number_format($prolaboreTwoRs[0]['CT2_VALOR']/$totalRevenuesTwo *100,1,',','.') .' %'; ?></td>
                                 <td align="right"><?php echo number_format($prolaboreTwoRs[0]['CT2_VALOR']-$prolaboreOneRs[0]['CT2_VALOR'],0,',','.') ?></td>
-                                <?php 
+                                <?php
                                     if($prolaboreOneRs[0]['CT2_VALOR'] > 0 and $prolaboreTwoRs[0]['CT2_VALOR'] == 0){ ?>
                                         <td align="right"><?php echo '-100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($prolaboreOneRs[0]['CT2_VALOR'] == 0 and $prolaboreTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo '100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($prolaboreOneRs[0]['CT2_VALOR'] > 0 and $prolaboreTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo number_format(($prolaboreTwoRs[0]['CT2_VALOR']-$prolaboreOneRs[0]['CT2_VALOR'])/$prolaboreOneRs[0]['CT2_VALOR'] * 100,1,',','.') . ' %'; ?></td>
                                 <?php
-                                    }elseif($prolaboreOneRs[0]['CT2_VALOR'] == 0 and $prolaboreTwoRs[0]['CT2_VALOR'] == 0){ 
+                                    }elseif($prolaboreOneRs[0]['CT2_VALOR'] == 0 and $prolaboreTwoRs[0]['CT2_VALOR'] == 0){
                                 ?>
                                         <td align="right"><?php echo '*'; ?></td>
                                 <?php } ?>
@@ -385,17 +385,17 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                 <td align="right"><?php echo number_format($extraHourTwoRs[0]['CT2_VALOR'],0,',','.') ?></td>
                                 <td align="right"><?php echo number_format($extraHourTwoRs[0]['CT2_VALOR']/$totalRevenuesTwo *100,1,',','.') .' %'; ?></td>
                                 <td align="right"><?php echo number_format($extraHourTwoRs[0]['CT2_VALOR']-$extraHourOneRs[0]['CT2_VALOR'],0,',','.') ?></td>
-                                <?php 
+                                <?php
                                     if($extraHourOneRs[0]['CT2_VALOR'] > 0 and $extraHourTwoRs[0]['CT2_VALOR'] == 0){ ?>
                                         <td align="right"><?php echo '-100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($extraHourOneRs[0]['CT2_VALOR'] == 0 and $extraHourTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo '100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($extraHourOneRs[0]['CT2_VALOR'] > 0 and $extraHourTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo number_format(($extraHourTwoRs[0]['CT2_VALOR']-$extraHourOneRs[0]['CT2_VALOR'])/$extraHourOneRs[0]['CT2_VALOR'] * 100,1,',','.') . ' %' ; ?></td>
                                 <?php
-                                    }elseif($extraHourOneRs[0]['CT2_VALOR'] == 0 and $extraHourTwoRs[0]['CT2_VALOR'] == 0){ 
+                                    }elseif($extraHourOneRs[0]['CT2_VALOR'] == 0 and $extraHourTwoRs[0]['CT2_VALOR'] == 0){
                                 ?>
                                         <td align="right"><?php echo '*'; ?></td>
                                 <?php } ?>
@@ -407,17 +407,17 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                 <td align="right"><?php echo number_format($internshipBagTwoRs[0]['CT2_VALOR'],0,',','.') ?></td>
                                 <td align="right"><?php echo number_format($internshipBagTwoRs[0]['CT2_VALOR']/$totalRevenuesTwo *100,1,',','.') .' %'; ?></td>
                                 <td align="right"><?php echo number_format($internshipBagTwoRs[0]['CT2_VALOR']-$internshipBagOneRs[0]['CT2_VALOR'],0,',','.') ?></td>
-                                <?php 
+                                <?php
                                     if($internshipBagOneRs[0]['CT2_VALOR'] > 0 and $internshipBagTwoRs[0]['CT2_VALOR'] == 0){ ?>
                                         <td align="right"><?php echo '-100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($internshipBagOneRs[0]['CT2_VALOR'] == 0 and $internshipBagTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo '100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($internshipBagOneRs[0]['CT2_VALOR'] > 0 and $internshipBagTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo number_format(($internshipBagTwoRs[0]['CT2_VALOR']-$internshipBagOneRs[0]['CT2_VALOR'])/$internshipBagOneRs[0]['CT2_VALOR'] * 100,1,',','.') .' %'; ?></td>
                                 <?php
-                                    }elseif($internshipBagOneRs[0]['CT2_VALOR'] == 0 and $internshipBagTwoRs[0]['CT2_VALOR'] == 0){ 
+                                    }elseif($internshipBagOneRs[0]['CT2_VALOR'] == 0 and $internshipBagTwoRs[0]['CT2_VALOR'] == 0){
                                 ?>
                                         <td align="right"><?php echo '*'; ?></td>
                                 <?php } ?>
@@ -429,17 +429,17 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                 <td align="right"><?php echo number_format($prizesAndGratuitiesTwoRs[0]['CT2_VALOR'],0,',','.') ?></td>
                                 <td align="right"><?php echo number_format($prizesAndGratuitiesTwoRs[0]['CT2_VALOR']/$totalRevenuesTwo *100,1,',','.') .' %'; ?></td>
                                 <td align="right"><?php echo number_format($prizesAndGratuitiesTwoRs[0]['CT2_VALOR']-$prizesAndGratuitiesOneRs[0]['CT2_VALOR'],0,',','.') ?></td>
-                                <?php 
+                                <?php
                                     if($prizesAndGratuitiesOneRs[0]['CT2_VALOR'] > 0 and $prizesAndGratuitiesTwoRs[0]['CT2_VALOR'] == 0){ ?>
                                         <td align="right"><?php echo '-100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($prizesAndGratuitiesOneRs[0]['CT2_VALOR'] == 0 and $prizesAndGratuitiesTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo '100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($prizesAndGratuitiesOneRs[0]['CT2_VALOR'] > 0 and $prizesAndGratuitiesTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo number_format(($prizesAndGratuitiesTwoRs[0]['CT2_VALOR']-$prizesAndGratuitiesOneRs[0]['CT2_VALOR'])/$prizesAndGratuitiesOneRs[0]['CT2_VALOR'] * 100,1,',','.') .' %'; ?></td>
                                 <?php
-                                    }elseif($prizesAndGratuitiesOneRs[0]['CT2_VALOR'] == 0 and $prizesAndGratuitiesTwoRs[0]['CT2_VALOR'] == 0){ 
+                                    }elseif($prizesAndGratuitiesOneRs[0]['CT2_VALOR'] == 0 and $prizesAndGratuitiesTwoRs[0]['CT2_VALOR'] == 0){
                                 ?>
                                         <td align="right"><?php echo '*'; ?></td>
                                 <?php } ?>
@@ -451,17 +451,17 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                 <td align="right"><?php echo number_format($socialChargesTwoRs[0]['CT2_VALOR'],0,',','.') ?></td>
                                 <td align="right"><?php echo number_format($socialChargesTwoRs[0]['CT2_VALOR']/$totalRevenuesTwo *100,1,',','.') .' %'; ?></td>
                                 <td align="right"><?php echo number_format($socialChargesTwoRs[0]['CT2_VALOR']-$socialChargesOneRs[0]['CT2_VALOR'],0,',','.') ?></td>
-                                <?php 
+                                <?php
                                     if($socialChargesOneRs[0]['CT2_VALOR'] > 0 and $socialChargesTwoRs[0]['CT2_VALOR'] == 0){ ?>
                                         <td align="right"><?php echo '-100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($socialChargesOneRs[0]['CT2_VALOR'] == 0 and $socialChargesTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo '100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($socialChargesOneRs[0]['CT2_VALOR'] > 0 and $socialChargesTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo number_format(($socialChargesTwoRs[0]['CT2_VALOR']-$socialChargesOneRs[0]['CT2_VALOR'])/$socialChargesOneRs[0]['CT2_VALOR'] * 100,1,',','.') .' %'; ?></td>
                                 <?php
-                                    }elseif($socialChargesOneRs[0]['CT2_VALOR'] == 0 and $socialChargesTwoRs[0]['CT2_VALOR'] == 0){ 
+                                    }elseif($socialChargesOneRs[0]['CT2_VALOR'] == 0 and $socialChargesTwoRs[0]['CT2_VALOR'] == 0){
                                 ?>
                                         <td align="right"><?php echo '*'; ?></td>
                                 <?php } ?>
@@ -473,17 +473,17 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                 <td align="right"><?php echo number_format($feedingTwoRs[0]['CT2_VALOR'],0,',','.') ?></td>
                                 <td align="right"><?php echo number_format($feedingTwoRs[0]['CT2_VALOR']/$totalRevenuesTwo *100,1,',','.') .' %'; ?></td>
                                 <td align="right"><?php echo number_format($feedingTwoRs[0]['CT2_VALOR']-$feedingOneRs[0]['CT2_VALOR'],0,',','.') ?></td>
-                                <?php 
+                                <?php
                                     if($feedingOneRs[0]['CT2_VALOR'] > 0 and $feedingTwoRs[0]['CT2_VALOR'] == 0){ ?>
                                         <td align="right"><?php echo '-100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($feedingOneRs[0]['CT2_VALOR'] == 0 and $feedingTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo '100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($feedingOneRs[0]['CT2_VALOR'] > 0 and $feedingTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo number_format(($feedingTwoRs[0]['CT2_VALOR']-$feedingOneRs[0]['CT2_VALOR'])/$feedingOneRs[0]['CT2_VALOR'] * 100,1,',','.') .' %' ; ?></td>
                                 <?php
-                                    }elseif($feedingOneRs[0]['CT2_VALOR'] == 0 and $feedingTwoRs[0]['CT2_VALOR'] == 0){ 
+                                    }elseif($feedingOneRs[0]['CT2_VALOR'] == 0 and $feedingTwoRs[0]['CT2_VALOR'] == 0){
                                 ?>
                                         <td align="right"><?php echo '*'; ?></td>
                                 <?php } ?>
@@ -495,17 +495,17 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                 <td align="right"><?php echo number_format($transportTwoRs[0]['CT2_VALOR'],0,',','.') ?></td>
                                 <td align="right"><?php echo number_format($transportTwoRs[0]['CT2_VALOR']/$totalRevenuesTwo *100,1,',','.') .' %'; ?></td>
                                 <td align="right"><?php echo number_format($transportTwoRs[0]['CT2_VALOR']-$transportOneRs[0]['CT2_VALOR'],0,',','.') ?></td>
-                                <?php 
+                                <?php
                                     if($transportOneRs[0]['CT2_VALOR'] > 0 and $transportTwoRs[0]['CT2_VALOR'] == 0){ ?>
                                         <td align="right"><?php echo '-100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($transportOneRs[0]['CT2_VALOR'] == 0 and $transportTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo '100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($transportOneRs[0]['CT2_VALOR'] > 0 and $transportTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo number_format(($transportTwoRs[0]['CT2_VALOR']-$transportOneRs[0]['CT2_VALOR'])/$transportOneRs[0]['CT2_VALOR'] * 100,1,',','.').' %' ; ?></td>
                                 <?php
-                                    }elseif($transportOneRs[0]['CT2_VALOR'] == 0 and $transportTwoRs[0]['CT2_VALOR'] == 0){ 
+                                    }elseif($transportOneRs[0]['CT2_VALOR'] == 0 and $transportTwoRs[0]['CT2_VALOR'] == 0){
                                 ?>
                                         <td align="right"><?php echo '*'; ?></td>
                                 <?php } ?>
@@ -517,17 +517,17 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                 <td align="right"><?php echo number_format($medicalTwoRs[0]['CT2_VALOR'],0,',','.') ?></td>
                                 <td align="right"><?php echo number_format($medicalTwoRs[0]['CT2_VALOR']/$totalRevenuesTwo *100,1,',','.') .' %'; ?></td>
                                 <td align="right"><?php echo number_format($medicalTwoRs[0]['CT2_VALOR']-$medicalOneRs[0]['CT2_VALOR'],0,',','.') ?></td>
-                                <?php 
+                                <?php
                                     if($medicalOneRs[0]['CT2_VALOR'] > 0 and $medicalTwoRs[0]['CT2_VALOR'] == 0){ ?>
                                         <td align="right"><?php echo '-100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($medicalOneRs[0]['CT2_VALOR'] == 0 and $medicalTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo '100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($medicalOneRs[0]['CT2_VALOR'] > 0 and $medicalTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo number_format(($medicalTwoRs[0]['CT2_VALOR']-$medicalOneRs[0]['CT2_VALOR'])/$medicalOneRs[0]['CT2_VALOR'] * 100,1,',','.') .' %'; ?></td>
                                 <?php
-                                    }elseif($medicalOneRs[0]['CT2_VALOR'] == 0 and $medicalTwoRs[0]['CT2_VALOR'] == 0){ 
+                                    }elseif($medicalOneRs[0]['CT2_VALOR'] == 0 and $medicalTwoRs[0]['CT2_VALOR'] == 0){
                                 ?>
                                         <td align="right"><?php echo '*'; ?></td>
                                 <?php } ?>
@@ -539,17 +539,17 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                 <td align="right"><?php echo number_format($safetyEquipmentTwoRs[0]['CT2_VALOR'],0,',','.') ?></td>
                                 <td align="right"><?php echo number_format($safetyEquipmentTwoRs[0]['CT2_VALOR']/$totalRevenuesTwo *100,1,',','.') .' %'; ?></td>
                                 <td align="right"><?php echo number_format($safetyEquipmentTwoRs[0]['CT2_VALOR']-$safetyEquipmentOneRs[0]['CT2_VALOR'],0,',','.') ?></td>
-                                <?php 
+                                <?php
                                     if($safetyEquipmentOneRs[0]['CT2_VALOR'] > 0 and $safetyEquipmentTwoRs[0]['CT2_VALOR'] == 0){ ?>
                                         <td align="right"><?php echo '-100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($safetyEquipmentOneRs[0]['CT2_VALOR'] == 0 and $safetyEquipmentTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo '100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($safetyEquipmentOneRs[0]['CT2_VALOR'] > 0 and $safetyEquipmentTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo number_format(($safetyEquipmentTwoRs[0]['CT2_VALOR']-$safetyEquipmentOneRs[0]['CT2_VALOR'])/$safetyEquipmentOneRs[0]['CT2_VALOR'] * 100,1,',','.') .' %'; ?></td>
                                 <?php
-                                    }elseif($safetyEquipmentOneRs[0]['CT2_VALOR'] == 0 and $safetyEquipmentTwoRs[0]['CT2_VALOR'] == 0){ 
+                                    }elseif($safetyEquipmentOneRs[0]['CT2_VALOR'] == 0 and $safetyEquipmentTwoRs[0]['CT2_VALOR'] == 0){
                                 ?>
                                         <td align="right"><?php echo '*'; ?></td>
                                 <?php } ?>
@@ -561,17 +561,17 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                 <td align="right"><?php echo number_format($coursesAndTrainingTwoRs[0]['CT2_VALOR'],0,',','.') ?></td>
                                 <td align="right"><?php echo number_format($coursesAndTrainingTwoRs[0]['CT2_VALOR']/$totalRevenuesTwo *100,1,',','.') .' %'; ?></td>
                                 <td align="right"><?php echo number_format($coursesAndTrainingTwoRs[0]['CT2_VALOR']-$coursesAndTrainingOneRs[0]['CT2_VALOR'],0,',','.') ?></td>
-                                <?php 
+                                <?php
                                     if($coursesAndTrainingOneRs[0]['CT2_VALOR'] > 0 and $coursesAndTrainingTwoRs[0]['CT2_VALOR'] == 0){ ?>
                                         <td align="right"><?php echo '-100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($coursesAndTrainingOneRs[0]['CT2_VALOR'] == 0 and $coursesAndTrainingTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo '100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($coursesAndTrainingOneRs[0]['CT2_VALOR'] > 0 and $coursesAndTrainingTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo number_format(($coursesAndTrainingTwoRs[0]['CT2_VALOR']-$coursesAndTrainingOneRs[0]['CT2_VALOR'])/$coursesAndTrainingOneRs[0]['CT2_VALOR'] * 100,1,',','.') .' %' ; ?></td>
                                 <?php
-                                    }elseif($coursesAndTrainingOneRs[0]['CT2_VALOR'] == 0 and $coursesAndTrainingTwoRs[0]['CT2_VALOR'] == 0){ 
+                                    }elseif($coursesAndTrainingOneRs[0]['CT2_VALOR'] == 0 and $coursesAndTrainingTwoRs[0]['CT2_VALOR'] == 0){
                                 ?>
                                         <td align="right"><?php echo '*'; ?></td>
                                 <?php } ?>
@@ -583,17 +583,17 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                 <td align="right"><?php echo number_format($sanitationTwoRs[0]['CT2_VALOR'],0,',','.') ?></td>
                                 <td align="right"><?php echo number_format($sanitationTwoRs[0]['CT2_VALOR']/$totalRevenuesTwo *100,1,',','.') .' %'; ?></td>
                                 <td align="right"><?php echo number_format($sanitationTwoRs[0]['CT2_VALOR']-$sanitationOneRs[0]['CT2_VALOR'],0,',','.') ?></td>
-                                <?php 
+                                <?php
                                     if($sanitationOneRs[0]['CT2_VALOR'] > 0 and $sanitationTwoRs[0]['CT2_VALOR'] == 0){ ?>
                                         <td align="right"><?php echo '-100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($sanitationOneRs[0]['CT2_VALOR'] == 0 and $sanitationTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo '100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($sanitationOneRs[0]['CT2_VALOR'] > 0 and $sanitationTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo number_format(($sanitationTwoRs[0]['CT2_VALOR']-$sanitationOneRs[0]['CT2_VALOR'])/$sanitationOneRs[0]['CT2_VALOR'] * 100,1,',','.') .' %' ; ?></td>
                                 <?php
-                                    }elseif($sanitationOneRs[0]['CT2_VALOR'] == 0 and $sanitationTwoRs[0]['CT2_VALOR'] == 0){ 
+                                    }elseif($sanitationOneRs[0]['CT2_VALOR'] == 0 and $sanitationTwoRs[0]['CT2_VALOR'] == 0){
                                 ?>
                                         <td align="right"><?php echo '*'; ?></td>
                                 <?php } ?>
@@ -605,17 +605,17 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                 <td align="right"><?php echo number_format($othersRHTwoRs[0]['CT2_VALOR'],0,',','.') ?></td>
                                 <td align="right"><?php echo number_format($othersRHTwoRs[0]['CT2_VALOR']/$totalRevenuesTwo *100,1,',','.') .' %'; ?></td>
                                 <td align="right"><?php echo number_format($othersRHTwoRs[0]['CT2_VALOR']-$othersRHOneRs[0]['CT2_VALOR'],0,',','.') ?></td>
-                                <?php 
+                                <?php
                                     if($othersRHOneRs[0]['CT2_VALOR'] > 0 and $othersRHTwoRs[0]['CT2_VALOR'] == 0){ ?>
                                         <td align="right"><?php echo '-100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($othersRHOneRs[0]['CT2_VALOR'] == 0 and $othersRHTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo '100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($othersRHOneRs[0]['CT2_VALOR'] > 0 and $othersRHTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo number_format(($othersRHTwoRs[0]['CT2_VALOR']-$othersRHOneRs[0]['CT2_VALOR'])/$othersRHOneRs[0]['CT2_VALOR'] * 100,1,',','.') .' %'; ?></td>
                                 <?php
-                                    }elseif($othersRHOneRs[0]['CT2_VALOR'] == 0 and $othersRHTwoRs[0]['CT2_VALOR'] == 0){ 
+                                    }elseif($othersRHOneRs[0]['CT2_VALOR'] == 0 and $othersRHTwoRs[0]['CT2_VALOR'] == 0){
                                 ?>
                                         <td align="right"><?php echo '*'; ?></td>
                                 <?php } ?>
@@ -634,17 +634,17 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                 <td align="right" style="background-color:#EEE5DE"><b><?php echo number_format($totalOprTwo,0,',','.') ?></b></td>
                                 <td align="right" style="background-color:#EEE5DE"><b><?php echo number_format($totalOprTwo / $totalRevenuesTwo * 100,0,',','.') . ' %' ?></b></td>
                                 <td align="right" style="background-color:#EEE5DE"><b><?php echo number_format($totalOprTwo-$totalOprOne,0,',','.') ?></b></td>
-                                <?php 
+                                <?php
                                     if($totalOprOne > 0 and $totalOprTwo == 0){ ?>
                                         <td align="right" style="background-color:#EEE5DE"><b><?php echo '-100 %'; ?></b></td>
-                                <?php 
+                                <?php
                                     }elseif($totalOprOne == 0 and $totalOprTwo > 0){ ?>
                                         <td align="right" style="background-color:#EEE5DE"><b><?php echo '100 %'; ?></b></td>
-                                <?php 
+                                <?php
                                     }elseif($totalOprOne > 0 and $totalOprTwo > 0){ ?>
                                         <td align="right" style="background-color:#EEE5DE"><b><?php echo number_format(($totalOprTwo-$totalOprOne)/$totalOprOne * 100,1,',','.') .' %'; ?></b></td>
                                 <?php
-                                    }elseif($totalOprOne == 0 and $totalOprTwo == 0){ 
+                                    }elseif($totalOprOne == 0 and $totalOprTwo == 0){
                                 ?>
                                         <td align="right" style="background-color:#EEE5DE"><b><?php echo '*'; ?></b></td>
                                 <?php } ?>
@@ -656,17 +656,17 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                 <td  align="right"><?php echo number_format($maintenanceTwoRs[0]['CT2_VALOR'],0,',','.') ?></td>
                                 <td align="right"><?php echo number_format($maintenanceTwoRs[0]['CT2_VALOR']/$totalRevenuesTwo *100,1,',','.') .' %'; ?></td>
                                 <td align="right"><?php echo number_format($maintenanceTwoRs[0]['CT2_VALOR']-$maintenanceOneRs[0]['CT2_VALOR'],0,',','.') ?></td>
-                                <?php 
+                                <?php
                                     if($maintenanceOneRs[0]['CT2_VALOR'] > 0 and $maintenanceTwoRs[0]['CT2_VALOR'] == 0){ ?>
                                         <td align="right"><?php echo '-100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($maintenanceOneRs[0]['CT2_VALOR'] == 0 and $maintenanceTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo '100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($maintenanceOneRs[0]['CT2_VALOR'] > 0 and $maintenanceTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo number_format(($maintenanceTwoRs[0]['CT2_VALOR']-$maintenanceOneRs[0]['CT2_VALOR'])/$maintenanceOneRs[0]['CT2_VALOR'] * 100,1,',','.') .' %'; ?></td>
                                 <?php
-                                    }elseif($maintenanceOneRs[0]['CT2_VALOR'] == 0 and $maintenanceTwoRs[0]['CT2_VALOR'] == 0){ 
+                                    }elseif($maintenanceOneRs[0]['CT2_VALOR'] == 0 and $maintenanceTwoRs[0]['CT2_VALOR'] == 0){
                                 ?>
                                         <td align="right"><?php echo '*'; ?></td>
                                 <?php } ?>
@@ -678,17 +678,17 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                 <td align="right"><?php echo number_format($finesOfCarsTwoRs[0]['CT2_VALOR'],0,',','.') ?></td>
                                 <td align="right"><?php echo number_format($finesOfCarsTwoRs[0]['CT2_VALOR']/$totalRevenuesTwo *100,1,',','.') .' %'; ?></td>
                                 <td align="right"><?php echo number_format($finesOfCarsTwoRs[0]['CT2_VALOR']-$finesOfCarsOneRs[0]['CT2_VALOR'],0,',','.') ?></td>
-                                <?php 
+                                <?php
                                     if($finesOfCarsOneRs[0]['CT2_VALOR'] > 0 and $finesOfCarsTwoRs[0]['CT2_VALOR'] == 0){ ?>
                                         <td align="right"><?php echo '-100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($finesOfCarsOneRs[0]['CT2_VALOR'] == 0 and $finesOfCarsTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo '100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($finesOfCarsOneRs[0]['CT2_VALOR'] > 0 and $finesOfCarsTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo number_format(($finesOfCarsTwoRs[0]['CT2_VALOR']-$finesOfCarsOneRs[0]['CT2_VALOR'])/$finesOfCarsOneRs[0]['CT2_VALOR'] * 100,1,',','.') .' %'; ?></td>
                                 <?php
-                                    }elseif($finesOfCarsOneRs[0]['CT2_VALOR'] == 0 and $finesOfCarsTwoRs[0]['CT2_VALOR'] == 0){ 
+                                    }elseif($finesOfCarsOneRs[0]['CT2_VALOR'] == 0 and $finesOfCarsTwoRs[0]['CT2_VALOR'] == 0){
                                 ?>
                                         <td align="right"><?php echo '*'; ?></td>
                                 <?php } ?>
@@ -700,17 +700,17 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                 <td align="right"><?php echo number_format($tiresTwoRs[0]['CT2_VALOR'],0,',','.') ?></td>
                                 <td align="right"><?php echo number_format($tiresTwoRs[0]['CT2_VALOR']/$totalRevenuesTwo *100,1,',','.') .' %'; ?></td>
                                 <td align="right"><?php echo number_format($tiresTwoRs[0]['CT2_VALOR']-$tiresOneRs[0]['CT2_VALOR'],0,',','.') ?></td>
-                                <?php 
+                                <?php
                                     if($tiresOneRs[0]['CT2_VALOR'] > 0 and $tiresTwoRs[0]['CT2_VALOR'] == 0){ ?>
                                         <td align="right"><?php echo '-100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($tiresOneRs[0]['CT2_VALOR'] == 0 and $tiresTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo '100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($tiresOneRs[0]['CT2_VALOR'] > 0 and $tiresTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo number_format(($tiresTwoRs[0]['CT2_VALOR']-$tiresOneRs[0]['CT2_VALOR'])/$tiresOneRs[0]['CT2_VALOR'] * 100,1,',','.') .' %'; ?></td>
                                 <?php
-                                    }elseif($tiresOneRs[0]['CT2_VALOR'] == 0 and $tiresTwoRs[0]['CT2_VALOR'] == 0){ 
+                                    }elseif($tiresOneRs[0]['CT2_VALOR'] == 0 and $tiresTwoRs[0]['CT2_VALOR'] == 0){
                                 ?>
                                         <td align="right"><?php echo '*'; ?></td>
                                 <?php } ?>
@@ -722,17 +722,17 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                 <td align="right"><?php echo number_format($fuelAndLubricantsTwoRs[0]['CT2_VALOR'],0,',','.') ?></td>
                                 <td align="right"><?php echo number_format($fuelAndLubricantsTwoRs[0]['CT2_VALOR']/$totalRevenuesTwo *100,1,',','.') .' %'; ?></td>
                                 <td align="right"><?php echo number_format($fuelAndLubricantsTwoRs[0]['CT2_VALOR']-$fuelAndLubricantsOneRs[0]['CT2_VALOR'],0,',','.') ?></td>
-                                <?php 
+                                <?php
                                     if($fuelAndLubricantsOneRs[0]['CT2_VALOR'] > 0 and $fuelAndLubricantsTwoRs[0]['CT2_VALOR'] == 0){ ?>
                                         <td align="right"><?php echo '-100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($fuelAndLubricantsOneRs[0]['CT2_VALOR'] == 0 and $fuelAndLubricantsTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo '100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($fuelAndLubricantsOneRs[0]['CT2_VALOR'] > 0 and $fuelAndLubricantsTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo number_format(($fuelAndLubricantsTwoRs[0]['CT2_VALOR']-$fuelAndLubricantsOneRs[0]['CT2_VALOR'])/$fuelAndLubricantsOneRs[0]['CT2_VALOR'] * 100,1,',','.') .' %'; ?></td>
                                 <?php
-                                    }elseif($fuelAndLubricantsOneRs[0]['CT2_VALOR'] == 0 and $fuelAndLubricantsTwoRs[0]['CT2_VALOR'] == 0){ 
+                                    }elseif($fuelAndLubricantsOneRs[0]['CT2_VALOR'] == 0 and $fuelAndLubricantsTwoRs[0]['CT2_VALOR'] == 0){
                                 ?>
                                         <td align="right"><?php echo '*'; ?></td>
                                 <?php } ?>
@@ -744,17 +744,17 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                 <td align="right"><?php echo number_format($rentsOprTwoRs[0]['CT2_VALOR'],0,',','.') ?></td>
                                 <td align="right"><?php echo number_format($rentsOprTwoRs[0]['CT2_VALOR']/$totalRevenuesTwo *100,1,',','.') .' %'; ?></td>
                                 <td align="right"><?php echo number_format($rentsOprTwoRs[0]['CT2_VALOR']-$rentsOprOneRs[0]['CT2_VALOR'],0,',','.') ?></td>
-                                <?php 
+                                <?php
                                     if($rentsOprOneRs[0]['CT2_VALOR'] > 0 and $rentsOprTwoRs[0]['CT2_VALOR'] == 0){ ?>
                                         <td align="right"><?php echo '-100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($rentsOprOneRs[0]['CT2_VALOR'] == 0 and $rentsOprTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo '100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($rentsOprOneRs[0]['CT2_VALOR'] > 0 and $rentsOprTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo number_format(($rentsOprTwoRs[0]['CT2_VALOR']-$rentsOprOneRs[0]['CT2_VALOR'])/$rentsOprOneRs[0]['CT2_VALOR'] * 100,1,',','.') .' %'; ?></td>
                                 <?php
-                                    }elseif($rentsOprOneRs[0]['CT2_VALOR'] == 0 and $rentsOprTwoRs[0]['CT2_VALOR'] == 0){ 
+                                    }elseif($rentsOprOneRs[0]['CT2_VALOR'] == 0 and $rentsOprTwoRs[0]['CT2_VALOR'] == 0){
                                 ?>
                                         <td align="right"><?php echo '*'; ?></td>
                                 <?php } ?>
@@ -766,17 +766,17 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                 <td align="right"><?php echo number_format($freightTwoRs[0]['CT2_VALOR'],0,',','.') ?></td>
                                 <td align="right"><?php echo number_format($freightTwoRs[0]['CT2_VALOR']/$totalRevenuesTwo *100,1,',','.') .' %'; ?></td>
                                 <td align="right"><?php echo number_format($freightTwoRs[0]['CT2_VALOR']-$freightOneRs[0]['CT2_VALOR'],0,',','.') ?></td>
-                                <?php 
+                                <?php
                                     if($freightOneRs[0]['CT2_VALOR'] > 0 and $freightTwoRs[0]['CT2_VALOR'] == 0){ ?>
                                         <td align="right"><?php echo '-100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($freightOneRs[0]['CT2_VALOR'] == 0 and $freightTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo '100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($freightOneRs[0]['CT2_VALOR'] > 0 and $freightTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo number_format(($freightTwoRs[0]['CT2_VALOR']-$freightOneRs[0]['CT2_VALOR'])/$freightOneRs[0]['CT2_VALOR'] * 100,1,',','.') .' %'; ?></td>
                                 <?php
-                                    }elseif($freightOneRs[0]['CT2_VALOR'] == 0 and $freightTwoRs[0]['CT2_VALOR'] == 0){ 
+                                    }elseif($freightOneRs[0]['CT2_VALOR'] == 0 and $freightTwoRs[0]['CT2_VALOR'] == 0){
                                 ?>
                                         <td align="right"><?php echo '*'; ?></td>
                                 <?php } ?>
@@ -788,17 +788,17 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                 <td align="right"><?php echo number_format($materialsTwoRs[0]['CT2_VALOR'],0,',','.') ?></td>
                                 <td align="right"><?php echo number_format($materialsTwoRs[0]['CT2_VALOR']/$totalRevenuesTwo *100,1,',','.') .' %'; ?></td>
                                 <td align="right"><?php echo number_format($materialsTwoRs[0]['CT2_VALOR']-$materialsOneRs[0]['CT2_VALOR'],0,',','.') ?></td>
-                                <?php 
+                                <?php
                                     if($materialsOneRs[0]['CT2_VALOR'] > 0 and $materialsTwoRs[0]['CT2_VALOR'] == 0){ ?>
                                         <td align="right"><?php echo '-100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($materialsOneRs[0]['CT2_VALOR'] == 0 and $materialsTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo '100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($materialsOneRs[0]['CT2_VALOR'] > 0 and $materialsTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo number_format(($materialsTwoRs[0]['CT2_VALOR']-$materialsOneRs[0]['CT2_VALOR'])/$materialsOneRs[0]['CT2_VALOR'] * 100,1,',','.') .' %'; ?></td>
                                 <?php
-                                    }elseif($materialsOneRs[0]['CT2_VALOR'] == 0 and $materialsTwoRs[0]['CT2_VALOR'] == 0){ 
+                                    }elseif($materialsOneRs[0]['CT2_VALOR'] == 0 and $materialsTwoRs[0]['CT2_VALOR'] == 0){
                                 ?>
                                         <td align="right"><?php echo '*'; ?></td>
                                 <?php } ?>
@@ -811,17 +811,17 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                 <td align="right"><?php echo number_format($materialsLabTwoRs[0]['CT2_VALOR'],0,',','.') ?></td>
                                 <td align="right"><?php echo number_format($materialsLabTwoRs[0]['CT2_VALOR']/$totalRevenuesTwo *100,1,',','.') .' %'; ?></td>
                                 <td align="right"><?php echo number_format($materialsLabTwoRs[0]['CT2_VALOR']-$materialsLabOneRs[0]['CT2_VALOR'],0,',','.') ?></td>
-                                <?php 
+                                <?php
                                     if($materialsLabOneRs[0]['CT2_VALOR'] > 0 and $materialsTwoRs[0]['CT2_VALOR'] == 0){ ?>
                                         <td align="right"><?php echo '-100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($materialsLabOneRs[0]['CT2_VALOR'] == 0 and $materialsTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo '100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($materialsLabOneRs[0]['CT2_VALOR'] > 0 and $materialsTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo number_format(($materialsTwoRs[0]['CT2_VALOR']-$materialsLabOneRs[0]['CT2_VALOR'])/$materialsLabOneRs[0]['CT2_VALOR'] * 100,1,',','.') .' %'; ?></td>
                                 <?php
-                                    }elseif($materialsLabOneRs[0]['CT2_VALOR'] == 0 and $materialsTwoRs[0]['CT2_VALOR'] == 0){ 
+                                    }elseif($materialsLabOneRs[0]['CT2_VALOR'] == 0 and $materialsTwoRs[0]['CT2_VALOR'] == 0){
                                 ?>
                                         <td align="right"><?php echo '*'; ?></td>
                                 <?php } ?>
@@ -834,17 +834,17 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                 <td align="right"><?php echo number_format($analisesLabTwoRs[0]['CT2_VALOR'],0,',','.') ?></td>
                                 <td align="right"><?php echo number_format($analisesLabTwoRs[0]['CT2_VALOR']/$totalRevenuesTwo *100,1,',','.') .' %'; ?></td>
                                 <td align="right"><?php echo number_format($analisesLabTwoRs[0]['CT2_VALOR']-$analisesLabOneRs[0]['CT2_VALOR'],0,',','.') ?></td>
-                                <?php 
+                                <?php
                                     if($analisesLabOneRs[0]['CT2_VALOR'] > 0 and $analisesLabTwoRs[0]['CT2_VALOR'] == 0){ ?>
                                         <td align="right"><?php echo '-100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($analisesLabOneRs[0]['CT2_VALOR'] == 0 and $analisesLabTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo '100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($analisesLabOneRs[0]['CT2_VALOR'] > 0 and $analisesLabTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo number_format(($analisesLabTwoRs[0]['CT2_VALOR']-$analisesLabOneRs[0]['CT2_VALOR'])/$analisesLabOneRs[0]['CT2_VALOR'] * 100,1,',','.') .' %'; ?></td>
                                 <?php
-                                    }elseif($analisesLabOneRs[0]['CT2_VALOR'] == 0 and $analisesLabTwoRs[0]['CT2_VALOR'] == 0){ 
+                                    }elseif($analisesLabOneRs[0]['CT2_VALOR'] == 0 and $analisesLabTwoRs[0]['CT2_VALOR'] == 0){
                                 ?>
                                         <td align="right"><?php echo '*'; ?></td>
                                 <?php } ?>
@@ -857,17 +857,17 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                 <td align="right"><?php echo number_format($descartETratTwoRs[0]['CT2_VALOR'],0,',','.') ?></td>
                                 <td align="right"><?php echo number_format($descartETratTwoRs[0]['CT2_VALOR']/$totalRevenuesTwo *100,1,',','.') .' %'; ?></td>
                                 <td align="right"><?php echo number_format($descartETratTwoRs[0]['CT2_VALOR']-$descartETratOneRs[0]['CT2_VALOR'],0,',','.') ?></td>
-                                <?php 
+                                <?php
                                     if($descartETratOneRs[0]['CT2_VALOR'] > 0 and $descartETratTwoRs[0]['CT2_VALOR'] == 0){ ?>
                                         <td align="right"><?php echo '-100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($descartETratOneRs[0]['CT2_VALOR'] == 0 and $descartETratTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo '100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($descartETratOneRs[0]['CT2_VALOR'] > 0 and $descartETratTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo number_format(($descartETratTwoRs[0]['CT2_VALOR']-$descartETratOneRs[0]['CT2_VALOR'])/$descartETratOneRs[0]['CT2_VALOR'] * 100,1,',','.') .' %'; ?></td>
                                 <?php
-                                    }elseif($descartETratOneRs[0]['CT2_VALOR'] == 0 and $descartETratTwoRs[0]['CT2_VALOR'] == 0){ 
+                                    }elseif($descartETratOneRs[0]['CT2_VALOR'] == 0 and $descartETratTwoRs[0]['CT2_VALOR'] == 0){
                                 ?>
                                         <td align="right"><?php echo '*'; ?></td>
                                 <?php } ?>
@@ -880,17 +880,17 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                 <td align="right"><?php echo number_format($viagensTwoRs[0]['CT2_VALOR'],0,',','.') ?></td>
                                 <td align="right"><?php echo number_format($viagensTwoRs[0]['CT2_VALOR']/$totalRevenuesTwo *100,1,',','.') .' %'; ?></td>
                                 <td align="right"><?php echo number_format($viagensTwoRs[0]['CT2_VALOR']-$viagensOneRs[0]['CT2_VALOR'],0,',','.') ?></td>
-                                <?php 
+                                <?php
                                     if($viagensOneRs[0]['CT2_VALOR'] > 0 and $viagensTwoRs[0]['CT2_VALOR'] == 0){ ?>
                                         <td align="right"><?php echo '-100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($viagensOneRs[0]['CT2_VALOR'] == 0 and $viagensTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo '100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($viagensOneRs[0]['CT2_VALOR'] > 0 and $viagensTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo number_format(($viagensTwoRs[0]['CT2_VALOR']-$viagensOneRs[0]['CT2_VALOR'])/$viagensOneRs[0]['CT2_VALOR'] * 100,1,',','.') .' %'; ?></td>
                                 <?php
-                                    }elseif($viagensOneRs[0]['CT2_VALOR'] == 0 and $viagensTwoRs[0]['CT2_VALOR'] == 0){ 
+                                    }elseif($viagensOneRs[0]['CT2_VALOR'] == 0 and $viagensTwoRs[0]['CT2_VALOR'] == 0){
                                 ?>
                                         <td align="right"><?php echo '*'; ?></td>
                                 <?php } ?>
@@ -903,17 +903,17 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                 <td align="right"><?php echo number_format($othersOPRTwoRs[0]['CT2_VALOR'],0,',','.') ?></td>
                                 <td align="right"><?php echo number_format($othersOPRTwoRs[0]['CT2_VALOR']/$totalRevenuesTwo *100,1,',','.') .' %'; ?></td>
                                 <td align="right"><?php echo number_format($othersOPRTwoRs[0]['CT2_VALOR']-$othersOPROneRs[0]['CT2_VALOR'],0,',','.') ?></td>
-                                <?php 
+                                <?php
                                     if($othersOPROneRs[0]['CT2_VALOR'] > 0 and $othersOPRTwoRs[0]['CT2_VALOR'] == 0){ ?>
                                         <td align="right"><?php echo '-100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($othersOPROneRs[0]['CT2_VALOR'] == 0 and $othersOPRTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo '100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($othersOPROneRs[0]['CT2_VALOR'] > 0 and $othersOPRTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo number_format(($othersOPRTwoRs[0]['CT2_VALOR']-$othersOPROneRs[0]['CT2_VALOR'])/$othersOPROneRs[0]['CT2_VALOR'] * 100,1,',','.') .' %'; ?></td>
                                 <?php
-                                    }elseif($othersOPROneRs[0]['CT2_VALOR'] == 0 and $othersOPRTwoRs[0]['CT2_VALOR'] == 0){ 
+                                    }elseif($othersOPROneRs[0]['CT2_VALOR'] == 0 and $othersOPRTwoRs[0]['CT2_VALOR'] == 0){
                                 ?>
                                         <td align="right"><?php echo '*'; ?></td>
                                 <?php } ?>
@@ -932,17 +932,17 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                 <td align="right" style="background-color:#EEE5DE"><b><?php echo number_format($totalAdminTwo,0,',','.') ?></b></td>
                                 <td align="right" style="background-color:#EEE5DE"><b><?php echo number_format($totalAdminTwo / $totalRevenuesTwo *100,0,',','.') . ' %' ?></b></td>
                                 <td align="right" style="background-color:#EEE5DE"><b><?php echo number_format($totalAdminTwo-$totalAdminOne,0,',','.') ?></b></td>
-                                <?php 
+                                <?php
                                     if($totalAdminOne > 0 and $totalAdminTwo == 0){ ?>
                                         <td align="right" style="background-color:#EEE5DE"><b><?php echo '-100 %'; ?></b></td>
-                                <?php 
+                                <?php
                                     }elseif($totalAdminOne == 0 and $totalAdminTwo > 0){ ?>
                                         <td align="right" style="background-color:#EEE5DE"><b><?php echo '100 %'; ?></b></td>
-                                <?php 
+                                <?php
                                     }elseif($totalAdminOne > 0 and $totalAdminTwo > 0){ ?>
                                         <td align="right" style="background-color:#EEE5DE"><b><?php echo number_format(($totalAdminTwo-$totalAdminOne)/$totalAdminOne * 100,1,',','.') .' %'; ?></b></td>
                                 <?php
-                                    }elseif($totalAdminOne == 0 and $totalAdminTwo == 0){ 
+                                    }elseif($totalAdminOne == 0 and $totalAdminTwo == 0){
                                 ?>
                                         <td align="right" style="background-color:#EEE5DE"<b><?php echo '*'; ?></b></td>
                                 <?php } ?>
@@ -954,17 +954,17 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                 <td align="right" align="right"><?php echo number_format($rentAdmTwoRs[0]['CT2_VALOR'],0,',','.') ?></td>
                                 <td align="right"><?php echo number_format($rentAdmTwoRs[0]['CT2_VALOR']/$totalRevenuesTwo *100,1,',','.') .' %'; ?></td>
                                 <td align="right"><?php echo number_format($rentAdmTwoRs[0]['CT2_VALOR']-$rentAdmOneRs[0]['CT2_VALOR'],0,',','.') ?></td>
-                                <?php 
+                                <?php
                                     if($rentAdmOneRs[0]['CT2_VALOR'] > 0 and $rentAdmTwoRs[0]['CT2_VALOR'] == 0){ ?>
                                         <td align="right"><?php echo '-100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($rentAdmOneRs[0]['CT2_VALOR'] == 0 and $rentAdmTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo '100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($rentAdmOneRs[0]['CT2_VALOR'] > 0 and $rentAdmTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo number_format(($rentAdmTwoRs[0]['CT2_VALOR']-$rentAdmOneRs[0]['CT2_VALOR'])/$rentAdmOneRs[0]['CT2_VALOR'] * 100,1,',','.') .' %'; ?></td>
                                 <?php
-                                    }elseif($rentAdmOneRs[0]['CT2_VALOR'] == 0 and $rentAdmTwoRs[0]['CT2_VALOR'] == 0){ 
+                                    }elseif($rentAdmOneRs[0]['CT2_VALOR'] == 0 and $rentAdmTwoRs[0]['CT2_VALOR'] == 0){
                                 ?>
                                         <td align="right"><?php echo '*'; ?></td>
                                 <?php } ?>
@@ -976,17 +976,17 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                 <td align="right"><?php echo number_format($phoneAndInternetTwoRs[0]['CT2_VALOR'],0,',','.') ?></td>
                                 <td align="right"><?php echo number_format($phoneAndInternetTwoRs[0]['CT2_VALOR']/$totalRevenuesTwo *100,1,',','.') .' %'; ?></td>
                                 <td align="right"><?php echo number_format($phoneAndInternetTwoRs[0]['CT2_VALOR']-$phoneAndInternetOneRs[0]['CT2_VALOR'],0,',','.') ?></td>
-                                <?php 
+                                <?php
                                     if($phoneAndInternetOneRs[0]['CT2_VALOR'] > 0 and $phoneAndInternetTwoRs[0]['CT2_VALOR'] == 0){ ?>
                                         <td align="right"><?php echo '-100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($phoneAndInternetOneRs[0]['CT2_VALOR'] == 0 and $phoneAndInternetTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo '100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($phoneAndInternetOneRs[0]['CT2_VALOR'] > 0 and $phoneAndInternetTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo number_format(($phoneAndInternetTwoRs[0]['CT2_VALOR']-$phoneAndInternetOneRs[0]['CT2_VALOR'])/$phoneAndInternetOneRs[0]['CT2_VALOR'] * 100,1,',','.') .' %'; ?></td>
                                 <?php
-                                    }elseif($phoneAndInternetOneRs[0]['CT2_VALOR'] == 0 and $phoneAndInternetTwoRs[0]['CT2_VALOR'] == 0){ 
+                                    }elseif($phoneAndInternetOneRs[0]['CT2_VALOR'] == 0 and $phoneAndInternetTwoRs[0]['CT2_VALOR'] == 0){
                                 ?>
                                         <td align="right"><?php echo '*'; ?></td>
                                 <?php } ?>
@@ -998,17 +998,17 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                 <td align="right"><?php echo number_format($electricityTwoRs[0]['CT2_VALOR'],0,',','.') ?></td>
                                 <td align="right"><?php echo number_format($electricityTwoRs[0]['CT2_VALOR']/$totalRevenuesTwo *100,1,',','.') .' %'; ?></td>
                                 <td align="right"><?php echo number_format($electricityTwoRs[0]['CT2_VALOR']-$electricityOneRs[0]['CT2_VALOR'],0,',','.') ?></td>
-                                <?php 
+                                <?php
                                     if($electricityOneRs[0]['CT2_VALOR'] > 0 and $electricityTwoRs[0]['CT2_VALOR'] == 0){ ?>
                                         <td align="right"><?php echo '-100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($electricityOneRs[0]['CT2_VALOR'] == 0 and $electricityTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo '100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($electricityOneRs[0]['CT2_VALOR'] > 0 and $electricityTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo number_format(($electricityTwoRs[0]['CT2_VALOR']-$electricityOneRs[0]['CT2_VALOR'])/$electricityOneRs[0]['CT2_VALOR'] * 100,1,',','.') .' %'; ?></td>
                                 <?php
-                                    }elseif($electricityOneRs[0]['CT2_VALOR'] == 0 and $electricityTwoRs[0]['CT2_VALOR'] == 0){ 
+                                    }elseif($electricityOneRs[0]['CT2_VALOR'] == 0 and $electricityTwoRs[0]['CT2_VALOR'] == 0){
                                 ?>
                                         <td align="right"><?php echo '*'; ?></td>
                                 <?php } ?>
@@ -1020,17 +1020,17 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                 <td align="right"><?php echo number_format($waterAndSewageTwoRs[0]['CT2_VALOR'],0,',','.') ?></td>
                                 <td align="right"><?php echo number_format($waterAndSewageTwoRs[0]['CT2_VALOR']/$totalRevenuesTwo *100,1,',','.') .' %'; ?></td>
                                 <td align="right"><?php echo number_format($waterAndSewageTwoRs[0]['CT2_VALOR']-$waterAndSewageOneRs[0]['CT2_VALOR'],0,',','.') ?></td>
-                                <?php 
+                                <?php
                                     if($waterAndSewageOneRs[0]['CT2_VALOR'] > 0 and $waterAndSewageTwoRs[0]['CT2_VALOR'] == 0){ ?>
                                         <td align="right"><?php echo '-100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($waterAndSewageOneRs[0]['CT2_VALOR'] == 0 and $waterAndSewageTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo '100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($waterAndSewageOneRs[0]['CT2_VALOR'] > 0 and $waterAndSewageTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo number_format(($waterAndSewageTwoRs[0]['CT2_VALOR']-$waterAndSewageOneRs[0]['CT2_VALOR'])/$waterAndSewageOneRs[0]['CT2_VALOR'] * 100,1,',','.') .' %'; ?></td>
                                 <?php
-                                    }elseif($waterAndSewageOneRs[0]['CT2_VALOR'] == 0 and $waterAndSewageTwoRs[0]['CT2_VALOR'] == 0){ 
+                                    }elseif($waterAndSewageOneRs[0]['CT2_VALOR'] == 0 and $waterAndSewageTwoRs[0]['CT2_VALOR'] == 0){
                                 ?>
                                         <td align="right"><?php echo '*'; ?></td>
                                 <?php } ?>
@@ -1042,17 +1042,17 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                 <td align="right"><?php echo number_format($officeSuppliesTwoRs[0]['CT2_VALOR'],0,',','.') ?></td>
                                 <td align="right"><?php echo number_format($officeSuppliesTwoRs[0]['CT2_VALOR']/$totalRevenuesTwo *100,1,',','.') .' %'; ?></td>
                                 <td align="right"><?php echo number_format($officeSuppliesTwoRs[0]['CT2_VALOR']-$officeSuppliesOneRs[0]['CT2_VALOR'],0,',','.') ?></td>
-                                <?php 
+                                <?php
                                     if($officeSuppliesOneRs[0]['CT2_VALOR'] > 0 and $officeSuppliesTwoRs[0]['CT2_VALOR'] == 0){ ?>
                                         <td align="right"><?php echo '-100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($officeSuppliesOneRs[0]['CT2_VALOR'] == 0 and $officeSuppliesTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo '100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($officeSuppliesOneRs[0]['CT2_VALOR'] > 0 and $officeSuppliesTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo number_format(($officeSuppliesTwoRs[0]['CT2_VALOR']-$officeSuppliesOneRs[0]['CT2_VALOR'])/$officeSuppliesOneRs[0]['CT2_VALOR'] * 100,1,',','.') .' %'; ?></td>
                                 <?php
-                                    }elseif($officeSuppliesOneRs[0]['CT2_VALOR'] == 0 and $officeSuppliesTwoRs[0]['CT2_VALOR'] == 0){ 
+                                    }elseif($officeSuppliesOneRs[0]['CT2_VALOR'] == 0 and $officeSuppliesTwoRs[0]['CT2_VALOR'] == 0){
                                 ?>
                                         <td align="right"><?php echo '*'; ?></td>
                                 <?php } ?>
@@ -1064,17 +1064,17 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                 <td align="right"><?php echo number_format($cleaningSuppliesTwoRs[0]['CT2_VALOR'],0,',','.') ?></td>
                                 <td align="right"><?php echo number_format($cleaningSuppliesTwoRs[0]['CT2_VALOR']/$totalRevenuesTwo *100,1,',','.') .' %'; ?></td>
                                 <td align="right"><?php echo number_format($cleaningSuppliesTwoRs[0]['CT2_VALOR']-$cleaningSuppliesOneRs[0]['CT2_VALOR'],0,',','.') ?></td>
-                                <?php 
+                                <?php
                                     if($cleaningSuppliesOneRs[0]['CT2_VALOR'] > 0 and $cleaningSuppliesTwoRs[0]['CT2_VALOR'] == 0){ ?>
                                         <td align="right"><?php echo '-100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($cleaningSuppliesOneRs[0]['CT2_VALOR'] == 0 and $cleaningSuppliesTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo '100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($cleaningSuppliesOneRs[0]['CT2_VALOR'] > 0 and $cleaningSuppliesTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo number_format(($cleaningSuppliesTwoRs[0]['CT2_VALOR']-$cleaningSuppliesOneRs[0]['CT2_VALOR'])/$cleaningSuppliesOneRs[0]['CT2_VALOR'] * 100,1,',','.') .' %'; ?></td>
                                 <?php
-                                    }elseif($cleaningSuppliesOneRs[0]['CT2_VALOR'] == 0 and $cleaningSuppliesTwoRs[0]['CT2_VALOR'] == 0){ 
+                                    }elseif($cleaningSuppliesOneRs[0]['CT2_VALOR'] == 0 and $cleaningSuppliesTwoRs[0]['CT2_VALOR'] == 0){
                                 ?>
                                         <td align="right"><?php echo '*'; ?></td>
                                 <?php } ?>
@@ -1086,25 +1086,25 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                 <td align="right"><?php echo number_format($othersAdmTwoRs[0]['CT2_VALOR'],0,',','.') ?></td>
                                 <td align="right"><?php echo number_format($othersAdmTwoRs[0]['CT2_VALOR']/$totalRevenuesTwo *100,1,',','.') .' %'; ?></td>
                                 <td align="right"><?php echo number_format($othersAdmTwoRs[0]['CT2_VALOR']-$othersAdmOneRs[0]['CT2_VALOR'],0,',','.') ?></td>
-                                <?php 
+                                <?php
                                     if($othersAdmOneRs[0]['CT2_VALOR'] > 0 and $othersAdmTwoRs[0]['CT2_VALOR'] == 0){ ?>
                                         <td align="right"><?php echo '-100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($othersAdmOneRs[0]['CT2_VALOR'] == 0 and $othersAdmTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo '100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($othersAdmOneRs[0]['CT2_VALOR'] > 0 and $othersAdmTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo number_format(($othersAdmTwoRs[0]['CT2_VALOR']-$othersAdmOneRs[0]['CT2_VALOR'])/$othersAdmOneRs[0]['CT2_VALOR'] * 100,1,',','.') .' %'; ?></td>
                                 <?php
-                                    }elseif($othersAdmOneRs[0]['CT2_VALOR'] == 0 and $othersAdmTwoRs[0]['CT2_VALOR'] == 0){ 
+                                    }elseif($othersAdmOneRs[0]['CT2_VALOR'] == 0 and $othersAdmTwoRs[0]['CT2_VALOR'] == 0){
                                 ?>
                                         <td align="right"><?php echo '*'; ?></td>
                                 <?php } ?>
                             </tr>
                             <!-- ADMINISTRATIVAS FIM -->
                             <!-- ADMINISTRATIVAS FIM -->
-                            <!-- ADMINISTRATIVAS FIM --> 
-                            
+                            <!-- ADMINISTRATIVAS FIM -->
+
                             <!-- FINANCEIRA INI -->
                             <!-- FINANCEIRA INI -->
                             <!-- FINANCEIRA INI -->
@@ -1115,17 +1115,17 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                 <td align="right" style="background-color:#EEE5DE"><b><?php echo number_format($totalFinancialTwo,0,',','.') ?></b></td>
                                 <td align="right" style="background-color:#EEE5DE"><b><?php echo number_format($totalFinancialTwo / $totalRevenuesTwo *100,0,',','.') . ' %' ?></b></td>
                                 <td align="right" style="background-color:#EEE5DE"><b><?php echo number_format($totalFinancialTwo-$totalFinancialOne,0,',','.') ?></b></td>
-                                <?php 
+                                <?php
                                     if($totalFinancialOne > 0 and $totalFinancialTwo == 0){ ?>
                                         <td align="right" style="background-color:#EEE5DE"><b><?php echo '-100 %'; ?></b></td>
-                                <?php 
+                                <?php
                                     }elseif($totalFinancialOne == 0 and $totalFinancialTwo > 0){ ?>
                                         <td align="right" style="background-color:#EEE5DE"><b><?php echo '100 %'; ?></b></td>
-                                <?php 
+                                <?php
                                     }elseif($totalFinancialOne > 0 and $totalFinancialTwo > 0){ ?>
                                         <td align="right" style="background-color:#EEE5DE"><b><?php echo number_format(($totalFinancialTwo-$totalFinancialOne)/$totalFinancialOne * 100,1,',','.') .' %'; ?></b></td>
                                 <?php
-                                    }elseif($totalFinancialOne == 0 and $totalFinancialTwo == 0){ 
+                                    }elseif($totalFinancialOne == 0 and $totalFinancialTwo == 0){
                                 ?>
                                         <td  align="right" style="background-color:#EEE5DE"><b><?php echo '*'; ?></b></td>
                                 <?php } ?>
@@ -1137,17 +1137,17 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                 <td align="right"><?php echo number_format($ratesTwoRs[0]['CT2_VALOR'],0,',','.') ?></td>
                                 <td  align="right"><?php echo number_format($ratesTwoRs[0]['CT2_VALOR']/$totalRevenuesTwo *100,1,',','.') .' %'; ?></td>
                                 <td  align="right"><?php echo number_format($ratesTwoRs[0]['CT2_VALOR']-$ratesOneRs[0]['CT2_VALOR'],0,',','.') ?></td>
-                                <?php 
+                                <?php
                                     if($ratesOneRs[0]['CT2_VALOR'] > 0 and $ratesTwoRs[0]['CT2_VALOR'] == 0){ ?>
                                         <td align="right"><?php echo '-100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($ratesOneRs[0]['CT2_VALOR'] == 0 and $ratesTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo '100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($ratesOneRs[0]['CT2_VALOR'] > 0 and $ratesTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo number_format(($ratesTwoRs[0]['CT2_VALOR']-$ratesOneRs[0]['CT2_VALOR'])/$ratesOneRs[0]['CT2_VALOR'] * 100,1,',','.') .' %'; ?></td>
                                 <?php
-                                    }elseif($ratesOneRs[0]['CT2_VALOR'] == 0 and $ratesTwoRs[0]['CT2_VALOR'] == 0){ 
+                                    }elseif($ratesOneRs[0]['CT2_VALOR'] == 0 and $ratesTwoRs[0]['CT2_VALOR'] == 0){
                                 ?>
                                         <td align="right"><?php echo '*'; ?></td>
                                 <?php } ?>
@@ -1159,17 +1159,17 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                 <td align="right"><?php echo number_format($interestCostsTwoRs[0]['CT2_VALOR'],0,',','.') ?></td>
                                 <td align="right"><?php echo number_format($interestCostsTwoRs[0]['CT2_VALOR']/$totalRevenuesTwo *100,1,',','.') .' %'; ?></td>
                                 <td align="right"><?php echo number_format($interestCostsTwoRs[0]['CT2_VALOR']-$interestCostsOneRs[0]['CT2_VALOR'],0,',','.') ?></td>
-                                <?php 
+                                <?php
                                     if($interestCostsOneRs[0]['CT2_VALOR'] > 0 and $interestCostsTwoRs[0]['CT2_VALOR'] == 0){ ?>
                                         <td align="right"><?php echo '-100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($interestCostsOneRs[0]['CT2_VALOR'] == 0 and $interestCostsTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo '100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($interestCostsOneRs[0]['CT2_VALOR'] > 0 and $interestCostsTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo number_format(($interestCostsTwoRs[0]['CT2_VALOR']-$interestCostsOneRs[0]['CT2_VALOR'])/$interestCostsOneRs[0]['CT2_VALOR'] * 100,1,',','.') .' %'; ?></td>
                                 <?php
-                                    }elseif($interestCostsOneRs[0]['CT2_VALOR'] == 0 and $interestCostsTwoRs[0]['CT2_VALOR'] == 0){ 
+                                    }elseif($interestCostsOneRs[0]['CT2_VALOR'] == 0 and $interestCostsTwoRs[0]['CT2_VALOR'] == 0){
                                 ?>
                                         <td align="right"><?php echo '*'; ?></td>
                                 <?php } ?>
@@ -1181,17 +1181,17 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                 <td align="right"><?php echo number_format($discountsGivenTwoRs[0]['CT2_VALOR'],0,',','.') ?></td>
                                 <td align="right"><?php echo number_format($discountsGivenTwoRs[0]['CT2_VALOR']/$totalRevenuesTwo *100,1,',','.') .' %'; ?></td>
                                 <td align="right"><?php echo number_format($discountsGivenTwoRs[0]['CT2_VALOR']-$discountsGivenOneRs[0]['CT2_VALOR'],0,',','.') ?></td>
-                                <?php 
+                                <?php
                                     if($discountsGivenOneRs[0]['CT2_VALOR'] > 0 and $discountsGivenTwoRs[0]['CT2_VALOR'] == 0){ ?>
                                         <td align="right"><?php echo '-100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($discountsGivenOneRs[0]['CT2_VALOR'] == 0 and $discountsGivenTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo '100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($discountsGivenOneRs[0]['CT2_VALOR'] > 0 and $discountsGivenTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo number_format(($discountsGivenTwoRs[0]['CT2_VALOR']-$discountsGivenOneRs[0]['CT2_VALOR'])/$discountsGivenOneRs[0]['CT2_VALOR'] * 100,1,',','.') ; ?></td>
                                 <?php
-                                    }elseif($discountsGivenOneRs[0]['CT2_VALOR'] == 0 and $discountsGivenTwoRs[0]['CT2_VALOR'] == 0){ 
+                                    }elseif($discountsGivenOneRs[0]['CT2_VALOR'] == 0 and $discountsGivenTwoRs[0]['CT2_VALOR'] == 0){
                                 ?>
                                         <td align="right"><?php echo '*'; ?></td>
                                 <?php } ?>
@@ -1203,17 +1203,17 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                 <td align="right"><?php echo number_format($bankExpensesTwoRs[0]['CT2_VALOR'],0,',','.') ?></td>
                                 <td align="right"><?php echo number_format($bankExpensesTwoRs[0]['CT2_VALOR']/$totalRevenuesTwo *100,1,',','.') .' %'; ?></td>
                                 <td align="right"><?php echo number_format($bankExpensesTwoRs[0]['CT2_VALOR']-$bankExpensesOneRs[0]['CT2_VALOR'],0,',','.') ?></td>
-                                <?php 
+                                <?php
                                     if($bankExpensesOneRs[0]['CT2_VALOR'] > 0 and $bankExpensesTwoRs[0]['CT2_VALOR'] == 0){ ?>
                                         <td align="right"><?php echo '-100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($bankExpensesOneRs[0]['CT2_VALOR'] == 0 and $bankExpensesTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo '100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($bankExpensesOneRs[0]['CT2_VALOR'] > 0 and $bankExpensesTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo number_format(($bankExpensesTwoRs[0]['CT2_VALOR']-$bankExpensesOneRs[0]['CT2_VALOR'])/$bankExpensesOneRs[0]['CT2_VALOR'] * 100,1,',','.') .' %'; ?></td>
                                 <?php
-                                    }elseif($bankExpensesOneRs[0]['CT2_VALOR'] == 0 and $bankExpensesTwoRs[0]['CT2_VALOR'] == 0){ 
+                                    }elseif($bankExpensesOneRs[0]['CT2_VALOR'] == 0 and $bankExpensesTwoRs[0]['CT2_VALOR'] == 0){
                                 ?>
                                         <td align="right"><?php echo '*'; ?></td>
                                 <?php } ?>
@@ -1225,17 +1225,17 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                 <td align="right"><?php echo number_format($finesFinancialTwoRs[0]['CT2_VALOR'],0,',','.') ?></td>
                                 <td align="right"><?php echo number_format($finesFinancialTwoRs[0]['CT2_VALOR']/$totalRevenuesTwo *100,1,',','.') .' %'; ?></td>
                                 <td align="right"><?php echo number_format($finesFinancialTwoRs[0]['CT2_VALOR']-$finesFinancialOneRs[0]['CT2_VALOR'],0,',','.') ?></td>
-                                <?php 
+                                <?php
                                     if($finesFinancialOneRs[0]['CT2_VALOR'] > 0 and $finesFinancialTwoRs[0]['CT2_VALOR'] == 0){ ?>
                                         <td align="right"><?php echo '-100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($finesFinancialOneRs[0]['CT2_VALOR'] == 0 and $finesFinancialTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo '100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($finesFinancialOneRs[0]['CT2_VALOR'] > 0 and $finesFinancialTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo number_format(($finesFinancialTwoRs[0]['CT2_VALOR']-$finesFinancialOneRs[0]['CT2_VALOR'])/$finesFinancialOneRs[0]['CT2_VALOR'] * 100,1,',','.') ; ?></td>
                                 <?php
-                                    }elseif($finesFinancialOneRs[0]['CT2_VALOR'] == 0 and $finesFinancialTwoRs[0]['CT2_VALOR'] == 0){ 
+                                    }elseif($finesFinancialOneRs[0]['CT2_VALOR'] == 0 and $finesFinancialTwoRs[0]['CT2_VALOR'] == 0){
                                 ?>
                                         <td align="right"><?php echo '*'; ?></td>
                                 <?php } ?>
@@ -1247,17 +1247,17 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                 <td align="right"><?php echo number_format($iofTwoRs[0]['CT2_VALOR'],0,',','.') ?></td>
                                 <td align="right"><?php echo number_format($iofTwoRs[0]['CT2_VALOR']/$totalRevenuesTwo *100,1,',','.') .' %'; ?></td>
                                 <td align="right"><?php echo number_format($iofTwoRs[0]['CT2_VALOR']-$iofOneRs[0]['CT2_VALOR'],0,',','.') ?></td>
-                                <?php 
+                                <?php
                                     if($iofOneRs[0]['CT2_VALOR'] > 0 and $iofTwoRs[0]['CT2_VALOR'] == 0){ ?>
                                         <td align="right"><?php echo '-100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($iofOneRs[0]['CT2_VALOR'] == 0 and $iofTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo '100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($iofOneRs[0]['CT2_VALOR'] > 0 and $iofTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo number_format(($iofTwoRs[0]['CT2_VALOR']-$iofOneRs[0]['CT2_VALOR'])/$iofOneRs[0]['CT2_VALOR'] * 100,1,',','.') ; ?></td>
                                 <?php
-                                    }elseif($iofOneRs[0]['CT2_VALOR'] == 0 and $iofTwoRs[0]['CT2_VALOR'] == 0){ 
+                                    }elseif($iofOneRs[0]['CT2_VALOR'] == 0 and $iofTwoRs[0]['CT2_VALOR'] == 0){
                                 ?>
                                         <td align="right"><?php echo '*'; ?></td>
                                 <?php } ?>
@@ -1269,17 +1269,17 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                 <td align="right"><?php echo number_format($iocTwoRs[0]['CT2_VALOR'],0,',','.') ?></td>
                                 <td align="right"><?php echo number_format($iocTwoRs[0]['CT2_VALOR']/$totalRevenuesTwo *100,1,',','.') .' %'; ?></td>
                                 <td align="right"><?php echo number_format($iocTwoRs[0]['CT2_VALOR']-$iocOneRs[0]['CT2_VALOR'],0,',','.') ?></td>
-                                <?php 
+                                <?php
                                     if($iocOneRs[0]['CT2_VALOR'] > 0 and $iocTwoRs[0]['CT2_VALOR'] == 0){ ?>
                                         <td align="right"><?php echo '-100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($iocOneRs[0]['CT2_VALOR'] == 0 and $iocTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo '100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($iocOneRs[0]['CT2_VALOR'] > 0 and $iocTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo number_format(($iocTwoRs[0]['CT2_VALOR']-$iocOneRs[0]['CT2_VALOR'])/$iocOneRs[0]['CT2_VALOR'] * 100,1,',','.') ; ?></td>
                                 <?php
-                                    }elseif($iocOneRs[0]['CT2_VALOR'] == 0 and $iocTwoRs[0]['CT2_VALOR'] == 0){ 
+                                    }elseif($iocOneRs[0]['CT2_VALOR'] == 0 and $iocTwoRs[0]['CT2_VALOR'] == 0){
                                 ?>
                                         <td align="right"><?php echo '*'; ?></td>
                                 <?php } ?>
@@ -1291,17 +1291,17 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                 <td align="right"><?php echo number_format($bankInterestRateTwoRs[0]['CT2_VALOR'],0,',','.') ?></td>
                                 <td align="right"><?php echo number_format($bankInterestRateTwoRs[0]['CT2_VALOR']/$totalRevenuesTwo *100,1,',','.') .' %'; ?></td>
                                 <td align="right"><?php echo number_format($bankInterestRateTwoRs[0]['CT2_VALOR']-$bankInterestRateOneRs[0]['CT2_VALOR'],0,',','.') ?></td>
-                                <?php 
+                                <?php
                                     if($bankInterestRateOneRs[0]['CT2_VALOR'] > 0 and $bankInterestRateTwoRs[0]['CT2_VALOR'] == 0){ ?>
                                         <td align="right"><?php echo '-100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($bankInterestRateOneRs[0]['CT2_VALOR'] == 0 and $bankInterestRateTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo '100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($bankInterestRateOneRs[0]['CT2_VALOR'] > 0 and $bankInterestRateTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo number_format(($bankInterestRateTwoRs[0]['CT2_VALOR']-$bankInterestRateOneRs[0]['CT2_VALOR'])/$bankInterestRateOneRs[0]['CT2_VALOR'] * 100,1,',','.') ; ?></td>
                                 <?php
-                                    }elseif($bankInterestRateOneRs[0]['CT2_VALOR'] == 0 and $bankInterestRateTwoRs[0]['CT2_VALOR'] == 0){ 
+                                    }elseif($bankInterestRateOneRs[0]['CT2_VALOR'] == 0 and $bankInterestRateTwoRs[0]['CT2_VALOR'] == 0){
                                 ?>
                                         <td align="right"><?php echo '*'; ?></td>
                                 <?php } ?>
@@ -1313,17 +1313,17 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                 <td align="right"><?php echo number_format($financialChargesTwoRs[0]['CT2_VALOR'],0,',','.') ?></td>
                                 <td align="right"><?php echo number_format($financialChargesTwoRs[0]['CT2_VALOR']/$totalRevenuesTwo *100,1,',','.') .' %'; ?></td>
                                 <td align="right"><?php echo number_format($financialChargesTwoRs[0]['CT2_VALOR']-$financialChargesOneRs[0]['CT2_VALOR'],0,',','.') ?></td>
-                                <?php 
+                                <?php
                                     if($financialChargesOneRs[0]['CT2_VALOR'] > 0 and $financialChargesTwoRs[0]['CT2_VALOR'] == 0){ ?>
                                         <td align="right"><?php echo '-100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($financialChargesOneRs[0]['CT2_VALOR'] == 0 and $financialChargesTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo '100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($financialChargesOneRs[0]['CT2_VALOR'] > 0 and $financialChargesTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo number_format(($financialChargesTwoRs[0]['CT2_VALOR']-$financialChargesOneRs[0]['CT2_VALOR'])/$financialChargesOneRs[0]['CT2_VALOR'] * 100,1,',','.') .' %'; ?></td>
                                 <?php
-                                    }elseif($financialChargesOneRs[0]['CT2_VALOR'] == 0 and $financialChargesTwoRs[0]['CT2_VALOR'] == 0){ 
+                                    }elseif($financialChargesOneRs[0]['CT2_VALOR'] == 0 and $financialChargesTwoRs[0]['CT2_VALOR'] == 0){
                                 ?>
                                         <td align="right"><?php echo '*'; ?></td>
                                 <?php } ?>
@@ -1335,24 +1335,24 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                 <td align="right"><?php echo number_format($irsTwoRs[0]['CT2_VALOR'],0,',','.') ?></td>
                                 <td align="right"><?php echo number_format($irsTwoRs[0]['CT2_VALOR']/$totalRevenuesTwo *100,1,',','.') .' %'; ?></td>
                                 <td align="right"><?php echo number_format($irsTwoRs[0]['CT2_VALOR']-$irsOneRs[0]['CT2_VALOR'],0,',','.') ?></td>
-                                <?php 
+                                <?php
                                     if($irsOneRs[0]['CT2_VALOR'] > 0 and $irsTwoRs[0]['CT2_VALOR'] == 0){ ?>
                                         <td align="right"><?php echo '-100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($irsOneRs[0]['CT2_VALOR'] == 0 and $irsTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo '100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($irsOneRs[0]['CT2_VALOR'] > 0 and $irsTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo number_format(($irsTwoRs[0]['CT2_VALOR']-$irsOneRs[0]['CT2_VALOR'])/$irsOneRs[0]['CT2_VALOR'] * 100,1,',','.') .' %'; ?></td>
                                 <?php
-                                    }elseif($irsOneRs[0]['CT2_VALOR'] == 0 and $irsTwoRs[0]['CT2_VALOR'] == 0){ 
+                                    }elseif($irsOneRs[0]['CT2_VALOR'] == 0 and $irsTwoRs[0]['CT2_VALOR'] == 0){
                                 ?>
                                         <td align="right"><?php echo '*'; ?></td>
                                 <?php } ?>
                             </tr>
                             <!-- ADMINISTRATIVAS FIM -->
                             <!-- ADMINISTRATIVAS FIM -->
-                            <!-- ADMINISTRATIVAS FIM --> 
+                            <!-- ADMINISTRATIVAS FIM -->
 
                             <!-- INVESTIMENTOS INI -->
                             <!-- INVESTIMENTOS INI -->
@@ -1364,17 +1364,17 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                 <td align="right" style="background-color:#EEE5DE"><b><?php echo number_format($totalInvestTwo,0,',','.') ?></b></td>
                                 <td align="right" style="background-color:#EEE5DE"><b><?php echo number_format($totalInvestTwo / $totalRevenuesTwo *100,0,',','.') . ' %'?></b></td>
                                 <td align="right" style="background-color:#EEE5DE"><b><?php echo number_format($totalInvestTwo-$totalInvestOne,0,',','.') ?></td>
-                                <?php 
+                                <?php
                                     if($totalInvestOne > 0 and $totalInvestTwo == 0){ ?>
                                         <td align="right" style="background-color:#EEE5DE"><b><?php echo '-100 %'; ?></b></td>
-                                <?php 
+                                <?php
                                     }elseif($totalInvestOne == 0 and $totalInvestTwo > 0){ ?>
                                         <td style="background-color:#EEE5DE"><b><?php echo '100 %'; ?></b></td>
-                                <?php 
+                                <?php
                                     }elseif($totalInvestOne > 0 and $totalInvestTwo > 0){ ?>
                                         <td align="right" style="background-color:#EEE5DE"><b><?php echo number_format(($totalInvestTwo-$totalInvestOne)/$totalInvestOne * 100,1,',','.').' %' ; ?></b></td>
                                 <?php
-                                    }elseif($totalInvestOne == 0 and $totalInvestTwo == 0){ 
+                                    }elseif($totalInvestOne == 0 and $totalInvestTwo == 0){
                                 ?>
                                         <td align="right" style="background-color:#EEE5DE"><b><?php echo '*'; ?></b></td>
                                 <?php } ?>
@@ -1386,17 +1386,17 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                 <td align="right"><?php echo number_format($furnitureAndUtensilsTwoRs[0]['CT2_VALOR'],0,',','.') ?></td>
                                 <td align="right"><?php echo number_format($furnitureAndUtensilsTwoRs[0]['CT2_VALOR']/$totalRevenuesTwo *100,1,',','.') .' %'; ?></td>
                                 <td align="right"><?php echo number_format($furnitureAndUtensilsTwoRs[0]['CT2_VALOR']-$furnitureAndUtensilsOneRs[0]['CT2_VALOR'],0,',','.') ?></td>
-                                <?php 
+                                <?php
                                     if($furnitureAndUtensilsOneRs[0]['CT2_VALOR'] > 0 and $furnitureAndUtensilsTwoRs[0]['CT2_VALOR'] == 0){ ?>
                                         <td align="right"><?php echo '-100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($furnitureAndUtensilsOneRs[0]['CT2_VALOR'] == 0 and $furnitureAndUtensilsTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo '100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($furnitureAndUtensilsOneRs[0]['CT2_VALOR'] > 0 and $furnitureAndUtensilsTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo number_format(($furnitureAndUtensilsTwoRs[0]['CT2_VALOR']-$furnitureAndUtensilsOneRs[0]['CT2_VALOR'])/$furnitureAndUtensilsOneRs[0]['CT2_VALOR'] * 100,1,',','.') .' %'; ?></td>
                                 <?php
-                                    }elseif($furnitureAndUtensilsOneRs[0]['CT2_VALOR'] == 0 and $furnitureAndUtensilsTwoRs[0]['CT2_VALOR'] == 0){ 
+                                    }elseif($furnitureAndUtensilsOneRs[0]['CT2_VALOR'] == 0 and $furnitureAndUtensilsTwoRs[0]['CT2_VALOR'] == 0){
                                 ?>
                                         <td align="right"><?php echo '*'; ?></td>
                                 <?php } ?>
@@ -1408,17 +1408,17 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                 <td align="right"><?php echo number_format($machinesAndEquipmentTwoRs[0]['CT2_VALOR'],0,',','.') ?></td>
                                 <td align="right"><?php echo number_format($machinesAndEquipmentTwoRs[0]['CT2_VALOR']/$totalRevenuesTwo *100,1,',','.') .' %'; ?></td>
                                 <td align="right"><?php echo number_format($machinesAndEquipmentTwoRs[0]['CT2_VALOR']-$machinesAndEquipmentOneRs[0]['CT2_VALOR'],0,',','.') ?></td>
-                                <?php 
+                                <?php
                                     if($machinesAndEquipmentOneRs[0]['CT2_VALOR'] > 0 and $machinesAndEquipmentTwoRs[0]['CT2_VALOR'] == 0){ ?>
                                         <td align="right"><?php echo '-100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($machinesAndEquipmentOneRs[0]['CT2_VALOR'] == 0 and $machinesAndEquipmentTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo '100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($machinesAndEquipmentOneRs[0]['CT2_VALOR'] > 0 and $machinesAndEquipmentTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo number_format(($machinesAndEquipmentTwoRs[0]['CT2_VALOR']-$machinesAndEquipmentOneRs[0]['CT2_VALOR'])/$machinesAndEquipmentOneRs[0]['CT2_VALOR'] * 100,1,',','.') .' %'; ?></td>
                                 <?php
-                                    }elseif($machinesAndEquipmentOneRs[0]['CT2_VALOR'] == 0 and $machinesAndEquipmentTwoRs[0]['CT2_VALOR'] == 0){ 
+                                    }elseif($machinesAndEquipmentOneRs[0]['CT2_VALOR'] == 0 and $machinesAndEquipmentTwoRs[0]['CT2_VALOR'] == 0){
                                 ?>
                                         <td align="right"><?php echo '*'; ?></td>
                                 <?php } ?>
@@ -1430,25 +1430,25 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                 <td align="right"><?php echo number_format($vehiclesTwoRs[0]['CT2_VALOR'],0,',','.') ?></td>
                                 <td align="right"><?php echo number_format($vehiclesTwoRs[0]['CT2_VALOR']/$totalRevenuesTwo *100,1,',','.') .' %'; ?></td>
                                 <td align="right"><?php echo number_format($vehiclesTwoRs[0]['CT2_VALOR']-$vehiclesOneRs[0]['CT2_VALOR'],0,',','.') ?></td>
-                                <?php 
+                                <?php
                                     if($vehiclesOneRs[0]['CT2_VALOR'] > 0 and $vehiclesTwoRs[0]['CT2_VALOR'] == 0){ ?>
                                         <td align="right"><?php echo '-100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($vehiclesOneRs[0]['CT2_VALOR'] == 0 and $vehiclesTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo '100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($vehiclesOneRs[0]['CT2_VALOR'] > 0 and $vehiclesTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo number_format(($vehiclesTwoRs[0]['CT2_VALOR']-$vehiclesOneRs[0]['CT2_VALOR'])/$vehiclesOneRs[0]['CT2_VALOR'] * 100,1,',','.') .' %'; ?></td>
                                 <?php
-                                    }elseif($vehiclesOneRs[0]['CT2_VALOR'] == 0 and $vehiclesTwoRs[0]['CT2_VALOR'] == 0){ 
+                                    }elseif($vehiclesOneRs[0]['CT2_VALOR'] == 0 and $vehiclesTwoRs[0]['CT2_VALOR'] == 0){
                                 ?>
                                         <td align="right"><?php echo '*'; ?></td>
                                 <?php } ?>
                             </tr>
                             <!-- INVESTIMENTOS FIM -->
                             <!-- INVESTIMENTOS FIM -->
-                            <!-- INVESTIMENTOS FIM --> 
-                            
+                            <!-- INVESTIMENTOS FIM -->
+
                             <!-- TRIBUTOS INI -->
                             <!-- TRIBUTOS INI -->
                             <!-- TRIBUTOS INI -->
@@ -1459,17 +1459,17 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                 <td align="right" style="background-color:#EEE5DE"><b><?php echo number_format($totalTributosTwo,0,',','.') ?></b></td>
                                  <td align="right" style="background-color:#EEE5DE"><b><?php echo number_format($totalTributosTwo / $totalRevenuesTwo *100,0,',','.') . ' %'?></b></td>
                                 <td align="right" style="background-color:#EEE5DE"><b><?php echo number_format($totalTributosTwo-$totalTributosOne,0,',','.') ?></b></td>
-                                <?php 
+                                <?php
                                     if($totalTributosOne > 0 and $totalTributosTwo == 0){ ?>
                                         <td align="right" style="background-color:#EEE5DE"><b><?php echo '-100 %'; ?></b></td>
-                                <?php 
+                                <?php
                                     }elseif($totalTributosOne == 0 and $totalTributosTwo > 0){ ?>
                                         <td align="right" style="background-color:#EEE5DE"><b><?php echo '100 %'; ?></b></td>
-                                <?php 
+                                <?php
                                     }elseif($totalTributosOne > 0 and $totalTributosTwo > 0){ ?>
                                         <td align="right" style="background-color:#EEE5DE"><b><?php echo number_format(($totalTributosTwo-$totalTributosOne)/$totalTributosOne * 100,1,',','.') .' %'; ?></b></td>
                                 <?php
-                                    }elseif($totalTributosOne == 0 and $totalTributosTwo == 0){ 
+                                    }elseif($totalTributosOne == 0 and $totalTributosTwo == 0){
                                 ?>
                                         <td align="right" style="background-color:#EEE5DE"><b><?php echo '*'; ?></b></td>
                                 <?php } ?>
@@ -1483,17 +1483,17 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                 <td align="right">
                                     <?php echo number_format($icmsTwoRs[0]['CT2_VALOR']-$icmsOneRs[0]['CT2_VALOR'],0,',','.') ?>
                                 </td>
-                                <?php 
+                                <?php
                                     if($icmsOneRs[0]['CT2_VALOR'] > 0 and $icmsTwoRs[0]['CT2_VALOR'] == 0){ ?>
                                         <td align="right"><?php echo '-100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($icmsOneRs[0]['CT2_VALOR'] == 0 and $icmsTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo '100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($icmsOneRs[0]['CT2_VALOR'] > 0 and $icmsTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo number_format(($icmsTwoRs[0]['CT2_VALOR']-$icmsOneRs[0]['CT2_VALOR'])/$icmsOneRs[0]['CT2_VALOR'] * 100,1,',','.') .' %'; ?></td>
                                 <?php
-                                    }elseif($icmsOneRs[0]['CT2_VALOR'] == 0 and $icmsTwoRs[0]['CT2_VALOR'] == 0){ 
+                                    }elseif($icmsOneRs[0]['CT2_VALOR'] == 0 and $icmsTwoRs[0]['CT2_VALOR'] == 0){
                                 ?>
                                         <td align="right"><?php echo '*'; ?></td>
                                 <?php } ?>
@@ -1505,17 +1505,17 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                 <td align="right"><?php echo number_format($issTwoRs[0]['CT2_VALOR'],0,',','.') ?></td>
                                 <td align="right"><?php echo number_format($issTwoRs[0]['CT2_VALOR']/$totalRevenuesTwo *100,1,',','.') .' %'; ?></td>
                                 <td align="right"><?php echo number_format($issTwoRs[0]['CT2_VALOR']-$issOneRs[0]['CT2_VALOR'],0,',','.') ?></td>
-                                <?php 
+                                <?php
                                     if($issOneRs[0]['CT2_VALOR'] > 0 and $issTwoRs[0]['CT2_VALOR'] == 0){ ?>
                                         <td align="right"><?php echo '-100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($issOneRs[0]['CT2_VALOR'] == 0 and $issTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo '100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($issOneRs[0]['CT2_VALOR'] > 0 and $issTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo number_format(($issTwoRs[0]['CT2_VALOR']-$issOneRs[0]['CT2_VALOR'])/$issOneRs[0]['CT2_VALOR'] * 100,1,',','.') .' %'; ?></td>
                                 <?php
-                                    }elseif($issOneRs[0]['CT2_VALOR'] == 0 and $issTwoRs[0]['CT2_VALOR'] == 0){ 
+                                    }elseif($issOneRs[0]['CT2_VALOR'] == 0 and $issTwoRs[0]['CT2_VALOR'] == 0){
                                 ?>
                                         <td align="right"><?php echo '*'; ?></td>
                                 <?php } ?>
@@ -1529,17 +1529,17 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                 <td align="right">
                                     <?php echo number_format($cofinsTwoRs[0]['CT2_VALOR']-$cofinsOneRs[0]['CT2_VALOR'],0,',','.') ?>
                                 </td>
-                                <?php 
+                                <?php
                                     if($cofinsOneRs[0]['CT2_VALOR'] > 0 and $cofinsTwoRs[0]['CT2_VALOR'] == 0){ ?>
                                         <td align="right"><?php echo '-100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($cofinsOneRs[0]['CT2_VALOR'] == 0 and $cofinsTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo '100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($cofinsOneRs[0]['CT2_VALOR'] > 0 and $cofinsTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo number_format(($cofinsTwoRs[0]['CT2_VALOR']-$cofinsOneRs[0]['CT2_VALOR'])/$cofinsOneRs[0]['CT2_VALOR'] * 100,1,',','.') .' %'; ?></td>
                                 <?php
-                                    }elseif($cofinsOneRs[0]['CT2_VALOR'] == 0 and $cofinsTwoRs[0]['CT2_VALOR'] == 0){ 
+                                    }elseif($cofinsOneRs[0]['CT2_VALOR'] == 0 and $cofinsTwoRs[0]['CT2_VALOR'] == 0){
                                 ?>
                                         <td align="right"><?php echo '*'; ?></td>
                                 <?php } ?>
@@ -1551,17 +1551,17 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                 <td align="right"><?php echo number_format($pisTwoRs[0]['CT2_VALOR'],0,',','.') ?></td>
                                 <td align="right"><?php echo number_format($pisTwoRs[0]['CT2_VALOR']/$totalRevenuesTwo *100,1,',','.') .' %'; ?></td>
                                 <td align="right"><?php echo number_format($pisTwoRs[0]['CT2_VALOR']-$pisOneRs[0]['CT2_VALOR'],0,',','.') ?></td>
-                                <?php 
+                                <?php
                                     if($pisOneRs[0]['CT2_VALOR'] > 0 and $pisTwoRs[0]['CT2_VALOR'] == 0){ ?>
                                         <td align="right"><?php echo '-100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($pisOneRs[0]['CT2_VALOR'] == 0 and $pisTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo '100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($pisOneRs[0]['CT2_VALOR'] > 0 and $pisTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo number_format(($pisTwoRs[0]['CT2_VALOR']-$pisOneRs[0]['CT2_VALOR'])/$pisOneRs[0]['CT2_VALOR'] * 100,1,',','.') .' %'; ?></td>
                                 <?php
-                                    }elseif($pisOneRs[0]['CT2_VALOR'] == 0 and $pisTwoRs[0]['CT2_VALOR'] == 0){ 
+                                    }elseif($pisOneRs[0]['CT2_VALOR'] == 0 and $pisTwoRs[0]['CT2_VALOR'] == 0){
                                 ?>
                                         <td align="right"><?php echo '*'; ?></td>
                                 <?php } ?>
@@ -1573,17 +1573,17 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                 <td align="right"><?php echo number_format($irpjTwoRs[0]['CT2_VALOR'],0,',','.') ?></td>
                                 <td align="right"><?php echo number_format($irpjTwoRs[0]['CT2_VALOR']/$totalRevenuesTwo *100,1,',','.') .' %'; ?></td>
                                 <td align="right"><?php echo number_format($irpjTwoRs[0]['CT2_VALOR']-$irpjOneRs[0]['CT2_VALOR'],0,',','.') ?></td>
-                                <?php 
+                                <?php
                                     if($irpjOneRs[0]['CT2_VALOR'] > 0 and $irpjTwoRs[0]['CT2_VALOR'] == 0){ ?>
                                         <td align="right"><?php echo '-100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($irpjOneRs[0]['CT2_VALOR'] == 0 and $irpjTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo '100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($irpjOneRs[0]['CT2_VALOR'] > 0 and $irpjTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo number_format(($irpjTwoRs[0]['CT2_VALOR']-$irpjOneRs[0]['CT2_VALOR'])/$irpjOneRs[0]['CT2_VALOR'] * 100,1,',','.') .' %'; ?></td>
                                 <?php
-                                    }elseif($irpjOneRs[0]['CT2_VALOR'] == 0 and $irpjTwoRs[0]['CT2_VALOR'] == 0){ 
+                                    }elseif($irpjOneRs[0]['CT2_VALOR'] == 0 and $irpjTwoRs[0]['CT2_VALOR'] == 0){
                                 ?>
                                         <td align="right"><?php echo '*'; ?></td>
                                 <?php } ?>
@@ -1595,17 +1595,17 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                 <td align="right"><?php echo number_format($csllTwoRs[0]['CT2_VALOR'],0,',','.') ?></td>
                                 <td align="right"><?php echo number_format($csllTwoRs[0]['CT2_VALOR']/$totalRevenuesTwo *100,1,',','.') .' %'; ?></td>
                                 <td align="right"><?php echo number_format($csllTwoRs[0]['CT2_VALOR']-$csllOneRs[0]['CT2_VALOR'],0,',','.') ?></td>
-                                <?php 
+                                <?php
                                     if($csllOneRs[0]['CT2_VALOR'] > 0 and $csllTwoRs[0]['CT2_VALOR'] == 0){ ?>
                                         <td align="right"><?php echo '-100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($csllOneRs[0]['CT2_VALOR'] == 0 and $csllTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo '100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($csllOneRs[0]['CT2_VALOR'] > 0 and $csllTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo number_format(($csllTwoRs[0]['CT2_VALOR']-$csllOneRs[0]['CT2_VALOR'])/$csllOneRs[0]['CT2_VALOR'] * 100,1,',','.') .' %'; ?></td>
                                 <?php
-                                    }elseif($csllOneRs[0]['CT2_VALOR'] == 0 and $csllTwoRs[0]['CT2_VALOR'] == 0){ 
+                                    }elseif($csllOneRs[0]['CT2_VALOR'] == 0 and $csllTwoRs[0]['CT2_VALOR'] == 0){
                                 ?>
                                         <td align="right"><?php echo '*'; ?></td>
                                 <?php } ?>
@@ -1617,17 +1617,17 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                 <td align="right"><?php echo number_format($ipvaTwoRs[0]['CT2_VALOR'],0,',','.') ?></td>
                                 <td align="right"><?php echo number_format($ipvaTwoRs[0]['CT2_VALOR']/$totalRevenuesTwo *100,1,',','.') .' %'; ?></td>
                                 <td align="right"><?php echo number_format($ipvaTwoRs[0]['CT2_VALOR']-$ipvaOneRs[0]['CT2_VALOR'],0,',','.') ?></td>
-                                <?php 
+                                <?php
                                     if($ipvaOneRs[0]['CT2_VALOR'] > 0 and $ipvaTwoRs[0]['CT2_VALOR'] == 0){ ?>
                                         <td align="right"><?php echo '-100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($ipvaOneRs[0]['CT2_VALOR'] == 0 and $ipvaTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo '100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($ipvaOneRs[0]['CT2_VALOR'] > 0 and $ipvaTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo number_format(($ipvaTwoRs[0]['CT2_VALOR']-$ipvaOneRs[0]['CT2_VALOR'])/$ipvaOneRs[0]['CT2_VALOR'] * 100,1,',','.') .' %'; ?></td>
                                 <?php
-                                    }elseif($ipvaOneRs[0]['CT2_VALOR'] == 0 and $ipvaTwoRs[0]['CT2_VALOR'] == 0){ 
+                                    }elseif($ipvaOneRs[0]['CT2_VALOR'] == 0 and $ipvaTwoRs[0]['CT2_VALOR'] == 0){
                                 ?>
                                         <td align="right"><?php echo '*'; ?></td>
                                 <?php } ?>
@@ -1639,17 +1639,17 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                 <td align="right"><?php echo number_format($iptuTwoRs[0]['CT2_VALOR'],0,',','.') ?></td>
                                 <td align="right"><?php echo number_format($iptuTwoRs[0]['CT2_VALOR']/$totalRevenuesTwo *100,1,',','.') .' %'; ?></td>
                                 <td align="right"><?php echo number_format($iptuTwoRs[0]['CT2_VALOR']-$iptuOneRs[0]['CT2_VALOR'],0,',','.') ?></td>
-                                <?php 
+                                <?php
                                     if($iptuOneRs[0]['CT2_VALOR'] > 0 and $iptuTwoRs[0]['CT2_VALOR'] == 0){ ?>
                                         <td align="right"><?php echo '-100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($iptuOneRs[0]['CT2_VALOR'] == 0 and $iptuTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo '100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($iptuOneRs[0]['CT2_VALOR'] > 0 and $iptuTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo number_format(($iptuTwoRs[0]['CT2_VALOR']-$iptuOneRs[0]['CT2_VALOR'])/$iptuOneRs[0]['CT2_VALOR'] * 100,1,',','.') .' %'; ?></td>
                                 <?php
-                                    }elseif($iptuOneRs[0]['CT2_VALOR'] == 0 and $iptuTwoRs[0]['CT2_VALOR'] == 0){ 
+                                    }elseif($iptuOneRs[0]['CT2_VALOR'] == 0 and $iptuTwoRs[0]['CT2_VALOR'] == 0){
                                 ?>
                                         <td align="right"><?php echo '*'; ?></td>
                                 <?php } ?>
@@ -1661,17 +1661,17 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                 <td align="right"><?php echo number_format($itbiTwoRs[0]['CT2_VALOR'],0,',','.') ?></td>
                                 <td align="right"><?php echo number_format($itbiTwoRs[0]['CT2_VALOR']/$totalRevenuesTwo *100,1,',','.') .' %'; ?></td>
                                 <td align="right"><?php echo number_format($itbiTwoRs[0]['CT2_VALOR']-$itbiOneRs[0]['CT2_VALOR'],0,',','.') ?></td>
-                                <?php 
+                                <?php
                                     if($itbiOneRs[0]['CT2_VALOR'] > 0 and $itbiTwoRs[0]['CT2_VALOR'] == 0){ ?>
                                         <td align="right"><?php echo '-100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($itbiOneRs[0]['CT2_VALOR'] == 0 and $itbiTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo '100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($itbiOneRs[0]['CT2_VALOR'] > 0 and $itbiTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo number_format(($itbiTwoRs[0]['CT2_VALOR']-$itbiOneRs[0]['CT2_VALOR'])/$itbiOneRs[0]['CT2_VALOR'] * 100,1,',','.') .' %'; ?></td>
                                 <?php
-                                    }elseif($itbiOneRs[0]['CT2_VALOR'] == 0 and $itbiTwoRs[0]['CT2_VALOR'] == 0){ 
+                                    }elseif($itbiOneRs[0]['CT2_VALOR'] == 0 and $itbiTwoRs[0]['CT2_VALOR'] == 0){
                                 ?>
                                         <td align="right"><?php echo '*'; ?></td>
                                 <?php } ?>
@@ -1683,24 +1683,24 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                 <td align="right"><?php echo number_format($fecoepTwoRs[0]['CT2_VALOR'],0,',','.') ?></td>
                                 <td align="right"><?php echo number_format($fecoepTwoRs[0]['CT2_VALOR']/$totalRevenuesTwo *100,1,',','.') .' %'; ?></td>
                                 <td align="right"><?php echo number_format($fecoepTwoRs[0]['CT2_VALOR']-$fecoepOneRs[0]['CT2_VALOR'],0,',','.') ?></td>
-                                <?php 
+                                <?php
                                     if($fecoepOneRs[0]['CT2_VALOR'] > 0 and $fecoepTwoRs[0]['CT2_VALOR'] == 0){ ?>
                                         <td align="right"><?php echo '-100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($fecoepOneRs[0]['CT2_VALOR'] == 0 and $fecoepTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo '100 %'; ?></td>
-                                <?php 
+                                <?php
                                     }elseif($fecoepOneRs[0]['CT2_VALOR'] > 0 and $fecoepTwoRs[0]['CT2_VALOR'] > 0){ ?>
                                         <td align="right"><?php echo number_format(($fecoepTwoRs[0]['CT2_VALOR']-$fecoepOneRs[0]['CT2_VALOR'])/$fecoepOneRs[0]['CT2_VALOR'] * 100,1,',','.') . ' %'; ?></td>
                                 <?php
-                                    }elseif($fecoepOneRs[0]['CT2_VALOR'] == 0 and $fecoepTwoRs[0]['CT2_VALOR'] == 0){ 
+                                    }elseif($fecoepOneRs[0]['CT2_VALOR'] == 0 and $fecoepTwoRs[0]['CT2_VALOR'] == 0){
                                 ?>
                                         <td align="right"><?php echo '*'; ?></td>
                                 <?php } ?>
                             </tr>
                             <!-- TRIBUTOS FIM -->
                             <!-- TRIBUTOS FIM -->
-                            <!-- TRIBUTOS FIM --> 
+                            <!-- TRIBUTOS FIM -->
 
                             <tr>
                                 <td style="color:#FFFFFF" colspan="7"><?php echo 'a ' ?></td>
@@ -1719,7 +1719,7 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                 <td  style="background-color:#72a1d8" align="center" colspan="4"><b>Período</b></td>
                                 <td  style="background-color:#72a1d8" align="center" colspan="2"><b>Variação</b></td>
                             </tr>
-                            
+
                             <tr>
                                 <td align="center" style="background-color:#72a1d8"><b><?php echo $yearOne;  ?></b></td>
                                 <td align="center" style="background-color:#72a1d8"><b><?php echo '%'; ?></b></td>
@@ -1742,9 +1742,53 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                         $percent = '-100 %';
                                     }elseif($totalRevenuesOne == 0 and $totalRevenuesTwo > 0){
                                         $percent = '100 %';
-                                    }elseif($totalRevenuesOne == 0 and $totalRevenuesTwo == 0){ 
+                                    }elseif($totalRevenuesOne == 0 and $totalRevenuesTwo == 0){
                                         $percent = '*';
-                                    }else{ 
+                                    }else{
+                                        $percent = (STRING) ($totalRevenuesTwo-$totalRevenuesOne)/$totalRevenuesOne * 100;
+                                    }
+                                ?>
+                                <td align="right"><?php echo number_format($percent,1,',','.') ?></td>
+                            </tr>
+
+                            <tr>
+                                <td>Quantidade de pessoal</td>
+                                <td align="right"><?php  echo $staffPerMonthOneRs[0]['CONT']; ?></td>
+                                <td align="right"></td>
+                                <td align="right"><?php echo $staffPerMonthTwoRs[0]['CONT']; ?></td>
+                                <td align="right"></td>
+                                <td align="right"><?php echo number_format($totalRevenuesTwo-$totalRevenuesOne,0,',','.') ?></td>
+                                <?php
+                                    $percent;
+                                    if($totalRevenuesOne > 0 and $totalRevenuesTwo == 0){
+                                        $percent = '-100 %';
+                                    }elseif($totalRevenuesOne == 0 and $totalRevenuesTwo > 0){
+                                        $percent = '100 %';
+                                    }elseif($totalRevenuesOne == 0 and $totalRevenuesTwo == 0){
+                                        $percent = '*';
+                                    }else{
+                                        $percent = (STRING) ($totalRevenuesTwo-$totalRevenuesOne)/$totalRevenuesOne * 100;
+                                    }
+                                ?>
+                                <td align="right"><?php echo number_format($percent,1,',','.') ?></td>
+                            </tr>
+
+                            <tr>
+                                <td>Receita percapita</td>
+                                <td align="right"><?php echo number_format($totalRevenuesOne/$staffPerMonthOneRs[0]['CONT'],0,',','.') ?></td>
+                                <td align="right"></td>
+                                <td align="right"><?php echo number_format($totalRevenuesTwo/$staffPerMonthTwoRs[0]['CONT'],0,',','.') ?></td>
+                                <td align="right"></td>
+                                <td align="right"><?php echo number_format($totalRevenuesTwo-$totalRevenuesOne,0,',','.') ?></td>
+                                <?php
+                                    $percent;
+                                    if($totalRevenuesOne > 0 and $totalRevenuesTwo == 0){
+                                        $percent = '-100 %';
+                                    }elseif($totalRevenuesOne == 0 and $totalRevenuesTwo > 0){
+                                        $percent = '100 %';
+                                    }elseif($totalRevenuesOne == 0 and $totalRevenuesTwo == 0){
+                                        $percent = '*';
+                                    }else{
                                         $percent = (STRING) ($totalRevenuesTwo-$totalRevenuesOne)/$totalRevenuesOne * 100;
                                     }
                                 ?>
@@ -1764,9 +1808,9 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                         $percent = '-100 %';
                                     }elseif($totalDespesasOne == 0 and $totalDespesasTwo > 0){
                                         $percent = '100 %';
-                                    }elseif($totalDespesasOne == 0 and $totalDespesasTwo == 0){ 
+                                    }elseif($totalDespesasOne == 0 and $totalDespesasTwo == 0){
                                         $percent = '*';
-                                    }else{ 
+                                    }else{
                                         $percent = (STRING) ($totalDespesasTwo-$totalDespesasOne)/$totalDespesasOne * 100;
                                     }
                                 ?>
@@ -1794,7 +1838,7 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                         $resultado = $lucroAnoDois;
                                     }
                                 ?>
-                                <td align="right"><?php echo number_format($resultado,0,',','.') ?></td>                                  
+                                <td align="right"><?php echo number_format($resultado,0,',','.') ?></td>
                                 <?php
                                     $lucroAnoUm = $totalRevenuesOne-$totalDespesasOne;
                                     $lucroAnoDois = $totalRevenuesTwo-$totalDespesasTwo;
@@ -1805,15 +1849,15 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                         $resultado = ($lucroAnoDois - $lucroAnoUm) / $lucroAnoUm * 100;
                                     }
                                 ?>
-                                <td align="right"><?php echo number_format($resultado,1,',','.') ?></td>  
+                                <td align="right"><?php echo number_format($resultado,1,',','.') ?></td>
                             </tr>
 
                             <tr>
                                 <td>Lucro Bruto Per Capita</td>
                                 <td align="right">
-                                    <?php 
+                                    <?php
                                         if($staffPerMonthOneRs[0]['CONT'] > 0){
-                                            echo number_format((($totalRevenuesOne-$totalDespesasOne)/$staffPerMonthOneRs[0]['CONT']),0,',','.'); 
+                                            echo number_format((($totalRevenuesOne-$totalDespesasOne)/$staffPerMonthOneRs[0]['CONT']),0,',','.');
                                         }else{
                                             echo 'Sem Quadro.';
                                         }
@@ -1821,7 +1865,7 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                 </td>
                                 <td></td>
                                 <td align="right">
-                                    <?php 
+                                    <?php
                                         if($staffPerMonthTwoRs[0]['CONT'] > 0){
                                             echo number_format((($totalRevenuesTwo-$totalDespesasTwo)/$staffPerMonthTwoRs[0]['CONT']),0,',','.');
                                         }else{
@@ -1859,7 +1903,7 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                         $resultado = "Sem Quadro.";
                                     }
                                 ?>
-                                <td align="right"><?php if($resultado != "Sem Quadro."){echo number_format($resultado,1,',','.'); }else{ echo $resultado; } ?></td>  
+                                <td align="right"><?php if($resultado != "Sem Quadro."){echo number_format($resultado,1,',','.'); }else{ echo $resultado; } ?></td>
                             </tr>
 
                             <tr>
@@ -1871,12 +1915,12 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                 <td align="right"><?php echo number_format($totalRevenuesRetTwo-$totalRevenuesRetOne,0,',','.') ?></td>
                                 <?php
                                     $percent;
-                                    if($totalRevenuesRetOne > 0 and $totalRevenuesRetTwo == 0){ 
-                                        $percent = '-100 %';   
-                                    }elseif($totalRevenuesRetOne == 0 and $totalRevenuesRetTwo > 0){ 
-                                        $percent = '100 %'; 
-                                    }elseif($totalRevenuesRetOne == 0 and $totalRevenuesRetTwo == 0){ 
-                                        $percent = '-'; 
+                                    if($totalRevenuesRetOne > 0 and $totalRevenuesRetTwo == 0){
+                                        $percent = '-100 %';
+                                    }elseif($totalRevenuesRetOne == 0 and $totalRevenuesRetTwo > 0){
+                                        $percent = '100 %';
+                                    }elseif($totalRevenuesRetOne == 0 and $totalRevenuesRetTwo == 0){
+                                        $percent = '-';
                                     }else{
                                         $percent = ($totalRevenuesRetTwo-$totalRevenuesRetOne)/$totalRevenuesRetOne * 100;
                                     }
@@ -1912,7 +1956,7 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                         $resultado = ($lucroAnoDois - $lucroAnoUm);
                                     }
                                 ?>
-                                <td align="right"><?php echo number_format($resultado,0,',','.') ?></td><?php                                
+                                <td align="right"><?php echo number_format($resultado,0,',','.') ?></td><?php
                                     $lucroAnoUm = $totalRevenuesOne-($totalDespesasOne+$totalRevenuesRetOne);
                                     $lucroAnoDois = $totalRevenuesTwo-($totalDespesasTwo+$totalRevenuesRetTwo);
                                     $resultado = 0;
@@ -1928,15 +1972,15 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                         $resultado = ($lucroAnoUm - $lucroAnoDois) / $lucroAnoUm * 100;
                                     }
                                 ?>
-                                <td align="right"><?php echo number_format($resultado,1,',','.') ?></td>  
+                                <td align="right"><?php echo number_format($resultado,1,',','.') ?></td>
                             </tr>
 
                             <tr>
                                 <td>Lucro líquido Per Capita</td>
                                 <td align="right">
-                                    <?php 
-                                        if($staffPerMonthOneRs[0]['CONT']){ 
-                                            echo number_format(($totalRevenuesOne-($totalDespesasOne+$totalRevenuesRetOne))/$staffPerMonthOneRs[0]['CONT'],0,',','.'); 
+                                    <?php
+                                        if($staffPerMonthOneRs[0]['CONT']){
+                                            echo number_format(($totalRevenuesOne-($totalDespesasOne+$totalRevenuesRetOne))/$staffPerMonthOneRs[0]['CONT'],0,',','.');
                                         }else{
                                             echo 'Sem Quadro.';
                                         }
@@ -1944,8 +1988,8 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                 </td>
                                 <td></td>
                                 <td align="right">
-                                    <?php 
-                                        if($staffPerMonthTwoRs[0]['CONT']){ 
+                                    <?php
+                                        if($staffPerMonthTwoRs[0]['CONT']){
                                             echo number_format(($totalRevenuesTwo-($totalDespesasTwo+$totalRevenuesRetTwo))/$staffPerMonthTwoRs[0]['CONT'],0,',','.');
                                         }else{
                                             echo 'Sem Quadro.';
@@ -1968,7 +2012,7 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                         }
                                     }
                                 ?>
-                                <td align="right"><?php echo number_format($resultado,0,',','.') ?></td>  
+                                <td align="right"><?php echo number_format($resultado,0,',','.') ?></td>
                                 <?php
                                     $resultado = 0;
                                     if($staffPerMonthOneRs[0]['CONT'] > 0 and $staffPerMonthTwoRs[0]['CONT'] > 0){
@@ -1987,12 +2031,12 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
                                         }
                                     }
                                 ?>
-                                <td align="right"><?php echo number_format($resultado,0,',','.')?></td>  
+                                <td align="right"><?php echo number_format($resultado,0,',','.')?></td>
                             </tr>
                             <!-- APURACAO FIM -->
                             <!-- APURACAO FIM -->
-                            <!-- APURACAO FIM --> 
-                            
+                            <!-- APURACAO FIM -->
+
                         </tbody>
                     </table>
                     </div>
@@ -2004,4 +2048,3 @@ $totalDespesasTwo = $totalRHTwo + $totalOprTwo + $totalAdminTwo + $totalFinancia
 
 
 <?php $this->Html->script(['AdminLTE./plugins/excellentexport/excellentexport.min.js',], ['block' => 'script']); ?>
-
