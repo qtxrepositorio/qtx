@@ -67,18 +67,33 @@ if (file_exists($file)) {
                 <i class="fa fa-angle-left pull-right"></i>
             </a>
             <ul class="treeview-menu">
+                <li>
+                    <a href="#"> Receitas <i class="fa fa-angle-left pull-right"></i></a>
+                    <ul class="treeview-menu">
 
+                        <li> <?= $this->Html->link(__('Mensal / Centro de custo'), ['controller' => 'Controllership', 'action' => 'RevenuesMonthByCc']) ?>  </li>
+                        <li> <?= $this->Html->link(__('Per Capita Anual'), ['controller' => 'Controllership', 'action' => 'RevenuesPerCapita']) ?>  </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#"> Despesas <i class="fa fa-angle-left pull-right"></i></a>
+                    <ul class="treeview-menu">
+
+                        <li> <?= $this->Html->link(__('Despesas Com Pessoal'), ['controller' => 'Controllership', 'action' =>'PersonnelExpenses']) ?>  </li>
+                        <li> <?= $this->Html->link(__('Despesas Operacionais'), ['controller' => 'Controllership', 'action' => 'OperationalExpenses']) ?>  </li>
+
+                        <li> <?= $this->Html->link(__('Despesas Administrativas'), ['controller' => 'Controllership', 'action' => 'AdministrativeExpenses']) ?>  </li>
+
+                        <li> <?= $this->Html->link(__('Despesas Financeiras'), ['controller' => 'Controllership', 'action' => 'FinancialExpenses']) ?>  </li>
+
+                        <li> <?= $this->Html->link(__('Desp. com Investimentos'), ['controller' => 'Controllership', 'action' => 'InvestmentExpenses']) ?>  </li>
+
+                        <li> <?= $this->Html->link(__('Despesas Tributadas'), ['controller' => 'Controllership', 'action' => 'TaxedExpenses']) ?>  </li>
+                    </ul>
+                </li>
                 <li>
                     <?= $this->Html->link(__('Apuração dos resultados'), ['controller'=>'Controllership', 'action'=>'DeterminationOfResults']) ?>
                 </li>
-
-                <li> <?= $this->Html->link(__('Hora extra x salário'), ['controller' => 'Controllership', 'action' => 'OvertimeVersusPay']) ?>  </li>
-
-                <li> <?= $this->Html->link(__('Custo de horas per capita'), ['controller' => 'Controllership', 'action' => 'PerCapitaExtraHoursCost']) ?>  </li>
-
-                <li> <?= $this->Html->link(__('Custo de horas extras / verba'), ['controller' => 'Controllership', 'action' => 'CostOvertime']) ?>  </li>
-
-                <li> <?= $this->Html->link(__('Quadro de pessoal mensal'), ['controller' => 'Controllership', 'action' => 'StaffPerMonth']) ?>  </li>
             </ul>
         </li>
 
