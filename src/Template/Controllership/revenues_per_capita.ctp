@@ -24,6 +24,7 @@ $staff_cc20 = [''];
 $staff_cc22 = [''];
 $staff_cc23 = [''];
 $staff_cc28 = [''];
+$staff_cc29 = [''];
 $staff_cc32 = [''];
 for ($x = 0; $x < count($monthsNumbers); $x++) {
     $cc01 = 0;
@@ -36,14 +37,15 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
     $cc12 = 0;
     $cc13 = 0;
     $cc14 = 0;
-    $cc15 = 0; 
-    $cc16 = 0; 
+    $cc15 = 0;
+    $cc16 = 0;
     $cc18 = 0;
     $cc20 = 0;
     $cc22 = 0;
     $cc23 = 0;
-    $cc28 = 0; 
-    $cc32 = 0; 
+    $cc28 = 0;
+    $cc29 = 0;
+    $cc32 = 0;
     foreach ($staffPerMonth as $key => $value) {
         if (substr($value['RD_DATARQ'],4,4) == $monthsNumbers[$x]) {
             if (substr($value['RD_CC'], 0, 2) == '01') {
@@ -78,30 +80,33 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                 $cc23 = $value['CONT'];
             } else if (substr($value['RD_CC'], 0, 2) == '28') {
                 $cc28 = $value['CONT'];
+            } else if (substr($value['RD_CC'], 0, 2) == '29') {
+                $cc29 = $value['CONT'];
             } else if (substr($value['RD_CC'], 0, 2) == '32') {
                 $cc32 = $value['CONT'];
             }
         }
     }
     $staff_cc01[] = (int) $cc01;
-    $staff_cc02[] = (int) $cc02; 
-    $staff_cc03[] = (int) $cc03; 
-    $staff_cc06[] = (int) $cc06; 
-    $staff_cc07[] = (int) $cc07; 
-    $staff_cc08[] = (int) $cc08; 
-    $staff_cc11[] = (int) $cc11; 
-    $staff_cc12[] = (int) $cc12; 
-    $staff_cc13[] = (int) $cc13; 
-    $staff_cc14[] = (int) $cc14; 
-    $staff_cc15[] = (int) $cc15; 
-    $staff_cc16[] = (int) $cc16; 
-    $staff_cc18[] = (int) $cc18; 
-    $staff_cc20[] = (int) $cc20; 
-    $staff_cc22[] = (int) $cc22; 
-    $staff_cc23[] = (int) $cc23; 
-    $staff_cc28[] = (int) $cc28; 
-    $staff_cc32[] = (int) $cc32; 
-    
+    $staff_cc02[] = (int) $cc02;
+    $staff_cc03[] = (int) $cc03;
+    $staff_cc06[] = (int) $cc06;
+    $staff_cc07[] = (int) $cc07;
+    $staff_cc08[] = (int) $cc08;
+    $staff_cc11[] = (int) $cc11;
+    $staff_cc12[] = (int) $cc12;
+    $staff_cc13[] = (int) $cc13;
+    $staff_cc14[] = (int) $cc14;
+    $staff_cc15[] = (int) $cc15;
+    $staff_cc16[] = (int) $cc16;
+    $staff_cc18[] = (int) $cc18;
+    $staff_cc20[] = (int) $cc20;
+    $staff_cc22[] = (int) $cc22;
+    $staff_cc23[] = (int) $cc23;
+    $staff_cc28[] = (int) $cc28;
+    $staff_cc29[] = (int) $cc29;
+    $staff_cc32[] = (int) $cc32;
+
 }
 
 //receitas BRUTA
@@ -121,6 +126,7 @@ $cc20arryCCC[] = '20 - PETROBRAS - RN';
 $cc22arryCCC[] = '22 - CAMINHAO';
 $cc23arryCCC[] = '23 - SECADOR - AL';
 $cc28arryCCC[] = '28 - LABORATORIO RN';
+$cc29arryCCC[] = '29 - ETE QUALITEX AL';
 $cc32arryCCC[] = '32 - LANXES';
 $semCCarryCCC[] = 'SEM CENTRO DE CUSTO';
 
@@ -141,6 +147,7 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
     $cc22CCC = 0;
     $cc23CCC = 0;
     $cc28CCC = 0;
+    $cc29CCC = 0;
     $cc32CCC = 0;
     $semCC_CCC = 0;
     for ($i = 0; $i < count($revenuesCountCredit); $i++) {
@@ -177,6 +184,8 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                 $cc23CCC = $revenuesCountCredit[$i]['CT2_VALOR'];
             } else if (substr($revenuesCountCredit[$i]['CT2_CCC'], 0, 2) == '28') {
                 $cc28CCC = $revenuesCountCredit[$i]['CT2_VALOR'];
+            } else if (substr($revenuesCountCredit[$i]['CT2_CCC'], 0, 2) == '29') {
+                $cc29CCC = $revenuesCountCredit[$i]['CT2_VALOR'];
             } else if (substr($revenuesCountCredit[$i]['CT2_CCC'], 0, 2) == '32') {
                 $cc32CCC = $revenuesCountCredit[$i]['CT2_VALOR'];
             } else if (substr($revenuesCountCredit[$i]['CT2_CCC'], 0, 2) == '  ') {
@@ -200,6 +209,7 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
     $cc22arryCCC[] = $cc22CCC;
     $cc23arryCCC[] = $cc23CCC;
     $cc28arryCCC[] = $cc28CCC;
+    $cc29arryCCC[] = $cc29CCC;
     $cc32arryCCC[] = $cc32CCC;
     $semCCarryCCC[] = $semCC_CCC;
 }
@@ -221,6 +231,7 @@ $cc20arryCCD[] = '20 - PETROBRAS - RN';
 $cc22arryCCD[] = '22 - CAMINHAO';
 $cc23arryCCD[] = '23 - SECADOR - AL';
 $cc28arryCCD[] = '28 - LABORATORIO RN';
+$cc29arryCCD[] = '29 - ETE QUALITEX AL';
 $cc32arryCCD[] = '32 - LANXES';
 $semCCarryCCD[] = 'SEM CENTRO DE CUSTO';
 
@@ -241,6 +252,7 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
     $cc22CCD = 0;
     $cc23CCD = 0;
     $cc28CCD = 0;
+    $cc29CCD = 0;
     $cc32CCD = 0;
     $semCC_CCD = 0;
     for ($i = 0; $i < count($revenuesCountDebit); $i++) {
@@ -277,6 +289,8 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                 $cc23CCD = $revenuesCountDebit[$i]['CT2_VALOR'];
             } else if (substr($revenuesCountDebit[$i]['CT2_CCD'], 0, 2) == '28') {
                 $cc28CCD = $revenuesCountDebit[$i]['CT2_VALOR'];
+            } else if (substr($revenuesCountDebit[$i]['CT2_CCD'], 0, 2) == '29') {
+                $cc29CCD = $revenuesCountDebit[$i]['CT2_VALOR'];
             } else if (substr($revenuesCountDebit[$i]['CT2_CCD'], 0, 2) == '32') {
                 $cc32CCD = $revenuesCountDebit[$i]['CT2_VALOR'];
             } else if (substr($revenuesCountDebit[$i]['CT2_CCD'], 0, 2) == '  ') {
@@ -300,6 +314,7 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
     $cc22arryCCD[] = $cc22CCD;
     $cc23arryCCD[] = $cc23CCD;
     $cc28arryCCD[] = $cc28CCD;
+    $cc29arryCCD[] = $cc29CCD;
     $cc32arryCCD[] = $cc32CCD;
     $semCCarryCCD[] = $semCC_CCD;
 }
@@ -322,8 +337,8 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                     </div>
                 </div>
                 <div class="box-body">
-                    <div class="chart">          
-                        <div class="box-body"> 
+                    <div class="chart">
+                        <div class="box-body">
                             <div class="roles form large-9 medium-8 columns content">
                                 <fieldset>
                                     <legend><?= __('Informar o ano desejado:') ?></legend>
@@ -334,14 +349,14 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                             echo $this->Form->create($x,['url' => ['controller'=>'Controllership','action' => 'RevenuesPerCapita']]);
                                             echo $this->Form->input('year', ['default' => '2017' ,'disabled' => FALSE,'label'=>' ']);
                                         ?>
-                                    </div> 
+                                    </div>
                                     <div class="col-md-4"></div>
-                                    
-                                </fieldset>  
+
+                                </fieldset>
                                 <div align="center">
                                     <?= $this->Form->button(__('Refinar')) ?>
                                 </div>
-                                
+
                                 <?php echo $this->Form->end();   ?>
                             </div>
                         </div>
@@ -363,8 +378,8 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                     </div>
                 </div>
                 <div class="box-body">
-                    <div class="chart">          
-                        <div class="box-body"> 
+                    <div class="chart">
+                        <div class="box-body">
                             <div class="roles form large-9 medium-8 columns content">
                                 <fieldset>
                                     <legend><?= __('Opções:') ?></legend>
@@ -375,25 +390,25 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                             echo $this->Form->create($x,['url' => ['controller'=>'Controllership','action' => 'RevenuesPerCapitaPdf']]);
                                             echo $this->Form->input('yearPdf', ['default' => '2017' ,'disabled' => FALSE,'label'=>'Informe o ano desejado:']);
                                         ?>
-                                    </div> 
-                                    <div class="col-md-3"></div>                                    
-                                </fieldset>  
-                                <div align="center">                                    
-                                    
+                                    </div>
+                                    <div class="col-md-3"></div>
+                                </fieldset>
+                                <div align="center">
+
                                     <button class="btn btn-success" type="submit" formtarget="_blank"><?php echo __('Gerar Relatório'); ?></button>
-                                    
+
                                 </div>
-                                
+
                                 <?php echo $this->Form->end();   ?>
                             </div>
-                            
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>  
-        
+    </div>
+
     <div class="row">
         <div class="col-md-12">
             <div class="box box-primary">
@@ -409,31 +424,31 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                     </div>
                 </div>
                 <div class="box-body">
-                    <div class="chart">          
-                        <div class="box-body">                 
+                    <div class="chart">
+                        <div class="box-body">
                             <table id="example1" class="table table-bordered table-hover">
-                                
+
                                 <div align="right">
                                     <a id="btnExport" onclick="fnExcelReport()" class="btn btn-primary" type=""><?php echo __('Gerar Excel'); ?></a>
                                 </div>
-                                
-                                <thead>                                    
-                                    <tr>           
+
+                                <thead>
+                                    <tr>
                                         <th>Centro de custo</th>
-                                        
+
                                         <?php foreach ($monthsLabels as $key => $value): ?>
                                             <th><?php echo $value; ?></th>
-                                        <?php endforeach ?>                                        
-                                        
+                                        <?php endforeach ?>
+
                                         <th>Total</th>
-                                    </tr>  
-                                        
+                                    </tr>
+
                                 </thead>
 
                                 <tbody>
-                                    
-                                    <tr> 
-                                        <?php 
+
+                                    <tr>
+                                        <?php
                                         $total = 0;
                                         $totalCCRevenue = 0;
                                         $totalCCStaff =0;
@@ -441,7 +456,7 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <th><?php echo $cc01arryCCC[0]; ?></th>
                                         <?php for ($i = 1; $i <= 12; $i++) { ?>
                                         <td>
-                                            <?php 
+                                            <?php
                                                 $totalCCRevenue += $cc01arryCCC[$i];
                                                 $totalCCStaff += $staff_cc01[$i];
                                                 if($cc01arryCCC[$i] != 0 and $staff_cc01[$i] !=0){
@@ -452,19 +467,19 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                                     $total += 0;
                                                 }
                                             } //chave do for?>
-                                        </td>    
-                                        
+                                        </td>
+
                                         <?php if($totalCCRevenue > 0 and $totalCCStaff > 0){ ?>
                                             <th class="active"><?php echo number_format( $totalCCRevenue/$totalCCStaff ,0,',','.'); ?></th>
                                         <?php }else{ ?>
-                                            <th class="active"><?php echo '*'; ?></th> 
+                                            <th class="active"><?php echo '*'; ?></th>
                                         <?php } ?>
-                                            
+
                                         <?php $totalyear += $total;  ?>
-                                    </tr> 
-                                    
-                                    <tr> 
-                                        <?php 
+                                    </tr>
+
+                                    <tr>
+                                        <?php
                                         $total = 0;
                                         $totalCCRevenue = 0;
                                         $totalCCStaff =0;
@@ -472,7 +487,7 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <th><?php echo $cc03arryCCC[0]; ?></th>
                                         <?php for ($i = 1; $i <= 12; $i++) { ?>
                                         <td>
-                                            <?php 
+                                            <?php
                                                 $totalCCRevenue += $cc03arryCCC[$i];
                                                 $totalCCStaff += $staff_cc03[$i];
                                                 if($cc03arryCCC[$i] != 0 and $staff_cc03[$i] !=0){
@@ -483,17 +498,17 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                                     $total += 0;
                                                 }
                                             } //chave do for?>
-                                        </td>                                        
+                                        </td>
                                         <?php if($totalCCRevenue > 0 and $totalCCStaff > 0){ ?>
                                             <th class="active"><?php echo number_format( $totalCCRevenue/$totalCCStaff ,0,',','.'); ?></th>
                                         <?php }else{ ?>
-                                            <th class="active"><?php echo '*'; ?></th> 
+                                            <th class="active"><?php echo '*'; ?></th>
                                         <?php } ?>
                                         <?php $totalyear += $total;  ?>
-                                    </tr> 
-                                    
-                                    <tr> 
-                                        <?php 
+                                    </tr>
+
+                                    <tr>
+                                        <?php
                                         $total = 0;
                                         $totalCCRevenue = 0;
                                         $totalCCStaff =0;
@@ -501,7 +516,7 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <th><?php echo $cc06arryCCC[0]; ?></th>
                                         <?php for ($i = 1; $i <= 12; $i++) { ?>
                                         <td>
-                                            <?php 
+                                            <?php
                                                 $totalCCRevenue += $cc06arryCCC[$i];
                                                 $totalCCStaff += $staff_cc06[$i];
                                                 if($cc06arryCCC[$i] != 0 and $staff_cc06[$i] !=0){
@@ -512,17 +527,17 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                                     $total += 0;
                                                 }
                                             } //chave do for?>
-                                        </td>                                        
+                                        </td>
                                         <?php if($totalCCRevenue > 0 and $totalCCStaff > 0){ ?>
                                             <th class="active"><?php echo number_format( $totalCCRevenue/$totalCCStaff ,0,',','.'); ?></th>
                                         <?php }else{ ?>
-                                            <th class="active"><?php echo '*'; ?></th> 
+                                            <th class="active"><?php echo '*'; ?></th>
                                         <?php } ?>
                                         <?php $totalyear += $total;  ?>
                                     </tr>
-                                    
-                                    <tr> 
-                                        <?php 
+
+                                    <tr>
+                                        <?php
                                         $total = 0;
                                         $totalCCRevenue = 0;
                                         $totalCCStaff =0;
@@ -530,7 +545,7 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <th><?php echo $cc07arryCCC[0]; ?></th>
                                         <?php for ($i = 1; $i <= 12; $i++) { ?>
                                         <td>
-                                            <?php 
+                                            <?php
                                                 $totalCCRevenue += $cc07arryCCC[$i];
                                                 $totalCCStaff += $staff_cc07[$i];
                                                 if($cc07arryCCC[$i] != 0 and $staff_cc07[$i] !=0){
@@ -541,17 +556,17 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                                     $total += 0;
                                                 }
                                             } //chave do for?>
-                                        </td>                                        
+                                        </td>
                                         <?php if($totalCCRevenue > 0 and $totalCCStaff > 0){ ?>
                                             <th class="active"><?php echo number_format( $totalCCRevenue/$totalCCStaff ,0,',','.'); ?></th>
                                         <?php }else{ ?>
-                                            <th class="active"><?php echo '*'; ?></th> 
+                                            <th class="active"><?php echo '*'; ?></th>
                                         <?php } ?>
                                         <?php $totalyear += $total;  ?>
                                     </tr>
-                                    
-                                    <tr> 
-                                        <?php 
+
+                                    <tr>
+                                        <?php
                                         $total = 0;
                                         $totalCCRevenue = 0;
                                         $totalCCStaff =0;
@@ -559,7 +574,7 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <th><?php echo $cc08arryCCC[0]; ?></th>
                                         <?php for ($i = 1; $i <= 12; $i++) { ?>
                                         <td>
-                                            <?php 
+                                            <?php
                                                 $totalCCRevenue += $cc08arryCCC[$i];
                                                 $totalCCStaff += $staff_cc08[$i];
                                                 if($cc08arryCCC[$i] != 0 and $staff_cc08[$i] !=0){
@@ -570,17 +585,17 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                                     $total += 0;
                                                 }
                                             } //chave do for?>
-                                        </td>                                        
+                                        </td>
                                         <?php if($totalCCRevenue > 0 and $totalCCStaff > 0){ ?>
                                             <th class="active"><?php echo number_format( $totalCCRevenue/$totalCCStaff ,0,',','.'); ?></th>
                                         <?php }else{ ?>
-                                            <th class="active"><?php echo '*'; ?></th> 
+                                            <th class="active"><?php echo '*'; ?></th>
                                         <?php } ?>
                                         <?php $totalyear += $total;  ?>
                                     </tr>
-                                    
-                                    <tr> 
-                                        <?php 
+
+                                    <tr>
+                                        <?php
                                         $total = 0;
                                         $totalCCRevenue = 0;
                                         $totalCCStaff =0;
@@ -588,7 +603,7 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <th><?php echo $cc11arryCCC[0]; ?></th>
                                         <?php for ($i = 1; $i <= 12; $i++) { ?>
                                         <td>
-                                            <?php 
+                                            <?php
                                                 $totalCCRevenue += $cc11arryCCC[$i];
                                                 $totalCCStaff += $staff_cc11[$i];
                                                 if($cc11arryCCC[$i] != 0 and $staff_cc11[$i] !=0){
@@ -599,17 +614,17 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                                     $total += 0;
                                                 }
                                             } //chave do for?>
-                                        </td>                                        
+                                        </td>
                                         <?php if($totalCCRevenue > 0 and $totalCCStaff > 0){ ?>
                                             <th class="active"><?php echo number_format( $totalCCRevenue/$totalCCStaff ,0,',','.'); ?></th>
                                         <?php }else{ ?>
-                                            <th class="active"><?php echo '*'; ?></th> 
+                                            <th class="active"><?php echo '*'; ?></th>
                                         <?php } ?>
                                         <?php $totalyear += $total;  ?>
                                     </tr>
-                                    
-                                    <tr> 
-                                        <?php 
+
+                                    <tr>
+                                        <?php
                                         $total = 0;
                                         $totalCCRevenue = 0;
                                         $totalCCStaff =0;
@@ -617,7 +632,7 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <th><?php echo $cc12arryCCC[0]; ?></th>
                                         <?php for ($i = 1; $i <= 12; $i++) { ?>
                                         <td>
-                                            <?php 
+                                            <?php
                                                 $totalCCRevenue += $cc12arryCCC[$i];
                                                 $totalCCStaff += $staff_cc12[$i];
                                                 if($cc12arryCCC[$i] != 0 and $staff_cc12[$i] !=0){
@@ -628,17 +643,17 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                                     $total += 0;
                                                 }
                                             } //chave do for?>
-                                        </td>                                        
+                                        </td>
                                         <?php if($totalCCRevenue > 0 and $totalCCStaff > 0){ ?>
                                             <th class="active"><?php echo number_format( $totalCCRevenue/$totalCCStaff ,0,',','.'); ?></th>
                                         <?php }else{ ?>
-                                            <th class="active"><?php echo '*'; ?></th> 
+                                            <th class="active"><?php echo '*'; ?></th>
                                         <?php } ?>
                                         <?php $totalyear += $total;  ?>
                                     </tr>
-                                    
-                                    <tr> 
-                                        <?php 
+
+                                    <tr>
+                                        <?php
                                         $total = 0;
                                         $totalCCRevenue = 0;
                                         $totalCCStaff =0;
@@ -657,17 +672,17 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                                     $total += 0;
                                                 }
                                             } //chave do for?>
-                                        </td>                                        
+                                        </td>
                                         <?php if($totalCCRevenue > 0 and $totalCCStaff > 0){ ?>
                                             <th class="active"><?php echo number_format( $totalCCRevenue/$totalCCStaff ,0,',','.'); ?></th>
                                         <?php }else{ ?>
-                                            <th class="active"><?php echo '*'; ?></th> 
+                                            <th class="active"><?php echo '*'; ?></th>
                                         <?php } ?>
                                         <?php $totalyear += $total;  ?>
                                     </tr>
-                                    
-                                    <tr> 
-                                        <?php 
+
+                                    <tr>
+                                        <?php
                                         $total = 0;
                                         $totalCCRevenue = 0;
                                         $totalCCStaff =0;
@@ -675,7 +690,7 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <th><?php echo $cc14arryCCC[0]; ?></th>
                                         <?php for ($i = 1; $i <= 12; $i++) { ?>
                                         <td>
-                                            <?php 
+                                            <?php
                                                 $totalCCRevenue += $cc14arryCCC[$i];
                                                 $totalCCStaff += $staff_cc14[$i];
                                                 if($cc14arryCCC[$i] != 0 and $staff_cc14[$i] !=0){
@@ -686,17 +701,17 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                                     $total += 0;
                                                 }
                                             } //chave do for?>
-                                        </td>                                        
+                                        </td>
                                         <?php if($totalCCRevenue > 0 and $totalCCStaff > 0){ ?>
                                             <th class="active"><?php echo number_format( $totalCCRevenue/$totalCCStaff ,0,',','.'); ?></th>
                                         <?php }else{ ?>
-                                            <th class="active"><?php echo '*'; ?></th> 
+                                            <th class="active"><?php echo '*'; ?></th>
                                         <?php } ?>
                                         <?php $totalyear += $total;  ?>
                                     </tr>
-                                    
-                                    <tr> 
-                                        <?php 
+
+                                    <tr>
+                                        <?php
                                         $total = 0;
                                         $totalCCRevenue = 0;
                                         $totalCCStaff =0;
@@ -704,7 +719,7 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <th><?php echo $cc15arryCCC[0]; ?></th>
                                         <?php for ($i = 1; $i <= 12; $i++) { ?>
                                         <td>
-                                            <?php 
+                                            <?php
                                                 $totalCCRevenue += $cc15arryCCC[$i];
                                                 $totalCCStaff += $staff_cc15[$i];
                                                 if($cc15arryCCC[$i] != 0 and $staff_cc15[$i] !=0){
@@ -715,17 +730,17 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                                     $total += 0;
                                                 }
                                             } //chave do for?>
-                                        </td>                                        
+                                        </td>
                                         <?php if($totalCCRevenue > 0 and $totalCCStaff > 0){ ?>
                                             <th class="active"><?php echo number_format( $totalCCRevenue/$totalCCStaff ,0,',','.'); ?></th>
                                         <?php }else{ ?>
-                                            <th class="active"><?php echo '*'; ?></th> 
+                                            <th class="active"><?php echo '*'; ?></th>
                                         <?php } ?>
                                         <?php $totalyear += $total;  ?>
                                     </tr>
-                                    
-                                    <tr> 
-                                        <?php 
+
+                                    <tr>
+                                        <?php
                                         $total = 0;
                                         $totalCCRevenue = 0;
                                         $totalCCStaff =0;
@@ -733,7 +748,7 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <th><?php echo $cc16arryCCC[0]; ?></th>
                                         <?php for ($i = 1; $i <= 12; $i++) { ?>
                                         <td>
-                                            <?php 
+                                            <?php
                                                 $totalCCRevenue += $cc16arryCCC[$i];
                                                 $totalCCStaff += $staff_cc16[$i];
                                                 if($cc16arryCCC[$i] != 0 and $staff_cc16[$i] !=0){
@@ -744,17 +759,17 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                                     $total += 0;
                                                 }
                                             } //chave do for?>
-                                        </td>                                        
+                                        </td>
                                         <?php if($totalCCRevenue > 0 and $totalCCStaff > 0){ ?>
                                             <th class="active"><?php echo number_format( $totalCCRevenue/$totalCCStaff ,0,',','.'); ?></th>
                                         <?php }else{ ?>
-                                            <th class="active"><?php echo '*'; ?></th> 
+                                            <th class="active"><?php echo '*'; ?></th>
                                         <?php } ?>
                                         <?php $totalyear += $total;  ?>
                                     </tr>
-                                    
-                                    <tr> 
-                                        <?php 
+
+                                    <tr>
+                                        <?php
                                         $total = 0;
                                         $totalCCRevenue = 0;
                                         $totalCCStaff =0;
@@ -762,7 +777,7 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <th><?php echo $cc18arryCCC[0]; ?></th>
                                         <?php for ($i = 1; $i <= 12; $i++) { ?>
                                         <td>
-                                            <?php 
+                                            <?php
                                                 $totalCCRevenue += $cc18arryCCC[$i];
                                                 $totalCCStaff += $staff_cc18[$i];
                                                 if($cc18arryCCC[$i] != 0 and $staff_cc18[$i] !=0){
@@ -773,17 +788,17 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                                     $total += 0;
                                                 }
                                             } //chave do for?>
-                                        </td>                                        
+                                        </td>
                                         <?php if($totalCCRevenue > 0 and $totalCCStaff > 0){ ?>
                                             <th class="active"><?php echo number_format( $totalCCRevenue/$totalCCStaff ,0,',','.'); ?></th>
                                         <?php }else{ ?>
-                                            <th class="active"><?php echo '*'; ?></th> 
+                                            <th class="active"><?php echo '*'; ?></th>
                                         <?php } ?>
                                         <?php $totalyear += $total;  ?>
                                     </tr>
-                                    
-                                    <tr> 
-                                        <?php 
+
+                                    <tr>
+                                        <?php
                                         $total = 0;
                                         $totalCCRevenue = 0;
                                         $totalCCStaff =0;
@@ -791,7 +806,7 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <th><?php echo $cc20arryCCC[0]; ?></th>
                                         <?php for ($i = 1; $i <= 12; $i++) { ?>
                                         <td>
-                                            <?php 
+                                            <?php
                                                 $totalCCRevenue += $cc20arryCCC[$i];
                                                 $totalCCStaff += $staff_cc20[$i];
                                                 if($cc20arryCCC[$i] != 0 and $staff_cc20[$i] !=0){
@@ -802,17 +817,17 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                                     $total += 0;
                                                 }
                                             } //chave do for?>
-                                        </td>                                        
+                                        </td>
                                         <?php if($totalCCRevenue > 0 and $totalCCStaff > 0){ ?>
                                             <th class="active"><?php echo number_format( $totalCCRevenue/$totalCCStaff ,0,',','.'); ?></th>
                                         <?php }else{ ?>
-                                            <th class="active"><?php echo '*'; ?></th> 
+                                            <th class="active"><?php echo '*'; ?></th>
                                         <?php } ?>
                                         <?php $totalyear += $total;  ?>
                                     </tr>
-                                    
-                                    <tr> 
-                                        <?php 
+
+                                    <tr>
+                                        <?php
                                         $total = 0;
                                         $totalCCRevenue = 0;
                                         $totalCCStaff =0;
@@ -820,7 +835,7 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <th><?php echo $cc22arryCCC[0]; ?></th>
                                         <?php for ($i = 1; $i <= 12; $i++) { ?>
                                         <td>
-                                            <?php 
+                                            <?php
                                                 $totalCCRevenue += $cc22arryCCC[$i];
                                                 $totalCCStaff += $staff_cc22[$i];
                                                 if($cc22arryCCC[$i] != 0 and $staff_cc22[$i] !=0){
@@ -831,17 +846,17 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                                     $total += 0;
                                                 }
                                             } //chave do for?>
-                                        </td>                                        
+                                        </td>
                                         <?php if($totalCCRevenue > 0 and $totalCCStaff > 0){ ?>
                                             <th class="active"><?php echo number_format( $totalCCRevenue/$totalCCStaff ,0,',','.'); ?></th>
                                         <?php }else{ ?>
-                                            <th class="active"><?php echo '*'; ?></th> 
+                                            <th class="active"><?php echo '*'; ?></th>
                                         <?php } ?>
                                         <?php $totalyear += $total;  ?>
                                     </tr>
-                                    
-                                    <tr> 
-                                        <?php 
+
+                                    <tr>
+                                        <?php
                                         $total = 0;
                                         $totalCCRevenue = 0;
                                         $totalCCStaff =0;
@@ -849,7 +864,7 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <th><?php echo $cc23arryCCC[0]; ?></th>
                                         <?php for ($i = 1; $i <= 12; $i++) { ?>
                                         <td>
-                                            <?php 
+                                            <?php
                                                 $totalCCRevenue += $cc23arryCCC[$i];
                                                 $totalCCStaff += $staff_cc23[$i];
                                                 if($cc23arryCCC[$i] != 0 and $staff_cc23[$i] !=0){
@@ -860,17 +875,17 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                                     $total += 0;
                                                 }
                                             } //chave do for?>
-                                        </td>                                        
+                                        </td>
                                         <?php if($totalCCRevenue > 0 and $totalCCStaff > 0){ ?>
                                             <th class="active"><?php echo number_format( $totalCCRevenue/$totalCCStaff ,0,',','.'); ?></th>
                                         <?php }else{ ?>
-                                            <th class="active"><?php echo '*'; ?></th> 
+                                            <th class="active"><?php echo '*'; ?></th>
                                         <?php } ?>
                                         <?php $totalyear += $total;  ?>
                                     </tr>
-                                    
-                                    <tr> 
-                                        <?php 
+
+                                    <tr>
+                                        <?php
                                         $total = 0;
                                         $totalCCRevenue = 0;
                                         $totalCCStaff =0;
@@ -878,7 +893,7 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <th><?php echo $cc28arryCCC[0]; ?></th>
                                         <?php for ($i = 1; $i <= 12; $i++) { ?>
                                         <td>
-                                            <?php 
+                                            <?php
                                                 $totalCCRevenue += $cc28arryCCC[$i];
                                                 $totalCCStaff += $staff_cc28[$i];
                                                 if($cc28arryCCC[$i] != 0 and $staff_cc28[$i] !=0){
@@ -889,17 +904,75 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                                     $total += 0;
                                                 }
                                             } //chave do for?>
-                                        </td>                                        
+                                        </td>
                                         <?php if($totalCCRevenue > 0 and $totalCCStaff > 0){ ?>
                                             <th class="active"><?php echo number_format( $totalCCRevenue/$totalCCStaff ,0,',','.'); ?></th>
                                         <?php }else{ ?>
-                                            <th class="active"><?php echo '*'; ?></th> 
+                                            <th class="active"><?php echo '*'; ?></th>
                                         <?php } ?>
                                         <?php $totalyear += $total;  ?>
                                     </tr>
-                                    
-                                    <tr> 
-                                        <?php 
+
+                                    <tr>
+                                        <?php
+                                        $total = 0;
+                                        $totalCCRevenue = 0;
+                                        $totalCCStaff =0;
+                                        ?>
+                                        <th><?php echo $cc28arryCCC[0]; ?></th>
+                                        <?php for ($i = 1; $i <= 12; $i++) { ?>
+                                        <td>
+                                            <?php
+                                                $totalCCRevenue += $cc28arryCCC[$i];
+                                                $totalCCStaff += $staff_cc28[$i];
+                                                if($cc28arryCCC[$i] != 0 and $staff_cc28[$i] !=0){
+                                                    echo number_format($cc28arryCCC[$i] / $staff_cc28[$i],0,',','.');
+                                                    $total += $cc28arryCCC[$i] / $staff_cc28[$i];
+                                                }else{
+                                                    echo '*';
+                                                    $total += 0;
+                                                }
+                                            } //chave do for?>
+                                        </td>
+                                        <?php if($totalCCRevenue > 0 and $totalCCStaff > 0){ ?>
+                                            <th class="active"><?php echo number_format( $totalCCRevenue/$totalCCStaff ,0,',','.'); ?></th>
+                                        <?php }else{ ?>
+                                            <th class="active"><?php echo '*'; ?></th>
+                                        <?php } ?>
+                                        <?php $totalyear += $total;  ?>
+                                    </tr>
+
+                                    <tr>
+                                        <?php
+                                        $total = 0;
+                                        $totalCCRevenue = 0;
+                                        $totalCCStaff =0;
+                                        ?>
+                                        <th><?php echo $cc29arryCCC[0]; ?></th>
+                                        <?php for ($i = 1; $i <= 12; $i++) { ?>
+                                        <td>
+                                            <?php
+                                                $totalCCRevenue += $cc29arryCCC[$i];
+                                                $totalCCStaff += $staff_cc29[$i];
+                                                if($cc29arryCCC[$i] != 0 and $staff_cc29[$i] !=0){
+                                                    echo number_format($cc29arryCCC[$i] / $staff_cc29[$i],0,',','.');
+                                                    $total += $cc29arryCCC[$i] / $staff_cc29[$i];
+                                                }else{
+                                                    echo '*';
+                                                    $total += 0;
+                                                }
+                                            } //chave do for?>
+                                        </td>
+                                        <?php if($totalCCRevenue > 0 and $totalCCStaff > 0){ ?>
+                                            <th class="active"><?php echo number_format( $totalCCRevenue/$totalCCStaff ,0,',','.'); ?></th>
+                                        <?php }else{ ?>
+                                            <th class="active"><?php echo '*'; ?></th>
+                                        <?php } ?>
+                                        <?php $totalyear += $total;  ?>
+                                    </tr>
+
+                                    <tr>
+                                        <?php
                                         $total = 0;
                                         $totalCCRevenue = 0;
                                         $totalCCStaff =0;
@@ -907,7 +980,7 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <th><?php echo $cc32arryCCC[0]; ?></th>
                                         <?php for ($i = 1; $i <= 12; $i++) { ?>
                                         <td>
-                                            <?php 
+                                            <?php
                                                 $totalCCRevenue += $cc32arryCCC[$i];
                                                 $totalCCStaff += $staff_cc32[$i];
                                                 if($cc32arryCCC[$i] != 0 and $staff_cc32[$i] !=0){
@@ -918,95 +991,93 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                                     $total += 0;
                                                 }
                                             } //chave do for?>
-                                        </td>                                        
+                                        </td>
                                         <?php if($totalCCRevenue > 0 and $totalCCStaff > 0){ ?>
                                             <th class="active"><?php echo number_format( $totalCCRevenue/$totalCCStaff ,0,',','.'); ?></th>
                                         <?php }else{ ?>
-                                            <th class="active"><?php echo '*'; ?></th> 
+                                            <th class="active"><?php echo '*'; ?></th>
                                         <?php } ?>
                                         <?php $totalyear += $total;  ?>
                                     </tr>
-                                    
-                                    <tr>                                         
+
+                                    <tr>
                                         <?php
-                                        $total = 0; 
+                                        $total = 0;
                                         $totalRevenue = 0;
                                         $totalStaff = 0;
                                         ?>
-                                        <th class="active"><?php echo 'VALOR PER CAPITO'; ?></th>                                        
-                                        <?php for ($i = 1; $i <= 12; $i++) { ?>                                       
+                                        <th class="active"><?php echo 'VALOR PER CAPITO'; ?></th>
+                                        <?php for ($i = 1; $i <= 12; $i++) { ?>
                                             <th class="active">
-                                                <?php 
+                                                <?php
                                                     $revenue = 0;
                                                     $staff = 0;
-                                                    
+
                                                         $revenue += $cc01arryCCC[$i];
                                                         $staff += $staff_cc01[$i];
-                                                    
+
                                                         $revenue += $cc03arryCCC[$i];
                                                         $staff += $staff_cc03[$i];
-                                                    
+
                                                         $revenue += $cc06arryCCC[$i];
                                                         $staff += $staff_cc06[$i];
-                                                    
+
                                                         $revenue += $cc07arryCCC[$i];
                                                         $staff += $staff_cc07[$i];
-                                                    
+
                                                         $revenue += $cc08arryCCC[$i];
                                                         $staff += $staff_cc08[$i];
-                                                    
+
                                                         $revenue += $cc11arryCCC[$i];
                                                         $staff += $staff_cc11[$i];
-                                                    
+
                                                         $revenue += $cc12arryCCC[$i];
                                                         $staff += $staff_cc12[$i];
-                                                    
+
                                                         $revenue += $cc13arryCCC[$i];
                                                         $staff += $staff_cc13[$i];
-                                                    
+
                                                         $revenue += $cc14arryCCC[$i];
                                                         $staff += $staff_cc14[$i];
-                                                    
+
                                                         $revenue += $cc15arryCCC[$i];
                                                         $staff += $staff_cc15[$i];
-                                                    
+
                                                         $revenue += $cc16arryCCC[$i];
                                                         $staff += $staff_cc16[$i];
-                                                    
+
                                                         $revenue += $cc18arryCCC[$i];
                                                         $staff += $staff_cc18[$i];
-                                                        
+
                                                         $revenue += $cc20arryCCC[$i];
                                                         $staff += $staff_cc20[$i];
-                                                    
+
                                                         $revenue += $cc22arryCCC[$i];
                                                         $staff += $staff_cc22[$i];
-                                                    
+
                                                         $revenue += $cc23arryCCC[$i];
                                                         $staff += $staff_cc23[$i];
-                                                    
+
                                                         $revenue += $cc28arryCCC[$i];
                                                         $staff += $staff_cc28[$i];
-                                                    
+
+                                                        $revenue += $cc29arryCCC[$i];
+                                                        $staff += $staff_cc29[$i];
+
                                                         $revenue += $cc32arryCCC[$i];
                                                         $staff += $staff_cc32[$i];
-                                                     
+
                                                         $totalRevenue += $revenue;
                                                         $totalStaff += $staff;
-                                                        
-                                                        
-                                                                                
-                                                    //debug($revenue);
-                                                    //debug($staff);
-                                                    
+
                                                     if($revenue > 0 and $staff > 0){
-                                                        echo number_format($revenue/$staff,0,',','.');                                                        
+                                                        echo number_format($revenue/$staff,0,',','.');
                                                     }else{
                                                         echo '*';
                                                     }
                                                 ?>
-                                            </th>                                        
-                                        <?php } ?>                                        
+                                            </th>
+                                        <?php } ?>
                                         <th class="success">
                                             <?php
                                             //debug($totalRevenue);
@@ -1018,9 +1089,9 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                             ?>
                                         </th>
                                     </tr>
-                                    
+
                                 </tbody>
-                                
+
                             </table>
                         </div>
                     </div>
@@ -1028,10 +1099,10 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
             </div>
         </div>
     </div>
-    
-    
+
+
     <?php $totalyear = 0; ?>
-    
+
     <div class="row">
         <div class="col-md-12">
             <div class="box box-success">
@@ -1047,31 +1118,31 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                     </div>
                 </div>
                 <div class="box-body">
-                    <div class="chart">          
-                        <div class="box-body">                 
+                    <div class="chart">
+                        <div class="box-body">
                             <table id="example2" class="table table-bordered table-hover">
-                                
+
                                 <div align="right">
                                     <a id="btnExport" onclick="fnExcelReport2()" class="btn btn-primary" type=""><?php echo __('Gerar Excel'); ?></a>
                                 </div>
-                                                                
-                                <thead>                                    
-                                    <tr>           
+
+                                <thead>
+                                    <tr>
                                         <th>Centro de custo</th>
-                                        
+
                                         <?php foreach ($monthsLabels as $key => $value): ?>
                                             <th><?php echo $value; ?></th>
-                                        <?php endforeach ?>                                        
-                                        
+                                        <?php endforeach ?>
+
                                         <th>Total</th>
-                                    </tr>  
-                                        
+                                    </tr>
+
                                 </thead>
 
-                                <tbody>  
-                                    
-                                    <tr> 
-                                        <?php 
+                                <tbody>
+
+                                    <tr>
+                                        <?php
                                         $total = 0;
                                         $totalCCRevenue = 0;
                                         $totalCCRetentions = 0;
@@ -1080,7 +1151,7 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <th><?php echo $cc01arryCCC[0]; ?></th>
                                         <?php for ($i = 1; $i <= 12; $i++) { ?>
                                         <td>
-                                            <?php 
+                                            <?php
                                                 $totalCCRevenue += $cc01arryCCC[$i];
                                                 $totalCCRetentions += $cc01arryCCD[$i];
                                                 $totalCCStaff += $staff_cc01[$i];
@@ -1093,18 +1164,18 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                                 }
                                             } //chave do for?>
                                         </td>
-                                        
+
                                         <?php if ($totalCCRevenue > 0 and $totalCCStaff > 0){ ?>
                                                 <th class="active"><?php echo number_format(($totalCCRevenue-$totalCCRetentions)/$totalCCStaff,0,',','.'); ?></th>
                                         <?php }else{ ?>
                                                 <th class="active"><?php echo '*'; ?></th>
                                         <?php } ?>
-                                        
+
                                         <?php $totalyear += $total;  ?>
-                                    </tr> 
-                                    
-                                    <tr> 
-                                        <?php 
+                                    </tr>
+
+                                    <tr>
+                                        <?php
                                         $total = 0;
                                         $totalCCRevenue = 0;
                                         $totalCCRetentions = 0;
@@ -1113,7 +1184,7 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <th><?php echo $cc03arryCCC[0]; ?></th>
                                         <?php for ($i = 1; $i <= 12; $i++) { ?>
                                         <td>
-                                            <?php 
+                                            <?php
                                                 $totalCCRevenue += $cc03arryCCC[$i];
                                                 $totalCCRetentions += $cc03arryCCD[$i];
                                                 $totalCCStaff += $staff_cc03[$i];
@@ -1125,19 +1196,19 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                                     $total += 0;
                                                 }
                                             } //chave do for?>
-                                        </td>                                        
-                                        
+                                        </td>
+
                                         <?php if ($totalCCRevenue > 0 and $totalCCStaff > 0){ ?>
                                                 <th class="active"><?php echo number_format(($totalCCRevenue-$totalCCRetentions)/$totalCCStaff,0,',','.'); ?></th>
                                         <?php }else{ ?>
                                                 <th class="active"><?php echo '*'; ?></th>
                                         <?php } ?>
-                                            
+
                                             <?php $totalyear += $total;  ?>
-                                    </tr> 
-                                    
-                                    <tr> 
-                                        <?php 
+                                    </tr>
+
+                                    <tr>
+                                        <?php
                                         $total = 0;
                                         $totalCCRevenue = 0;
                                         $totalCCRetentions = 0;
@@ -1146,7 +1217,7 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <th><?php echo $cc06arryCCC[0]; ?></th>
                                         <?php for ($i = 1; $i <= 12; $i++) { ?>
                                         <td>
-                                            <?php 
+                                            <?php
                                                 $totalCCRevenue += $cc06arryCCC[$i];
                                                 $totalCCRetentions += $cc06arryCCD[$i];
                                                 $totalCCStaff += $staff_cc06[$i];
@@ -1158,17 +1229,17 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                                     $total += 0;
                                                 }
                                             } //chave do for?>
-                                        </td>                                        
+                                        </td>
                                         <?php if ($totalCCRevenue > 0 and $totalCCStaff > 0){ ?>
                                                 <th class="active"><?php echo number_format(($totalCCRevenue-$totalCCRetentions)/$totalCCStaff,0,',','.'); ?></th>
                                         <?php }else{ ?>
                                                 <th class="active"><?php echo '*'; ?></th>
                                         <?php } ?>
                                             <?php $totalyear += $total;  ?>
-                                    </tr> 
-                                    
-                                    <tr> 
-                                        <?php 
+                                    </tr>
+
+                                    <tr>
+                                        <?php
                                         $total = 0;
                                         $totalCCRevenue = 0;
                                         $totalCCRetentions = 0;
@@ -1177,7 +1248,7 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <th><?php echo $cc07arryCCC[0]; ?></th>
                                         <?php for ($i = 1; $i <= 12; $i++) { ?>
                                         <td>
-                                            <?php 
+                                            <?php
                                                 $totalCCRevenue += $cc07arryCCC[$i];
                                                 $totalCCRetentions += $cc07arryCCD[$i];
                                                 $totalCCStaff += $staff_cc07[$i];
@@ -1189,17 +1260,17 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                                     $total += 0;
                                                 }
                                             } //chave do for?>
-                                        </td>                                        
+                                        </td>
                                         <?php if ($totalCCRevenue > 0 and $totalCCStaff > 0){ ?>
                                                 <th class="active"><?php echo number_format(($totalCCRevenue-$totalCCRetentions)/$totalCCStaff,0,',','.'); ?></th>
                                         <?php }else{ ?>
                                                 <th class="active"><?php echo '*'; ?></th>
                                         <?php } ?>
                                             <?php $totalyear += $total;  ?>
-                                    </tr> 
-                                    
-                                    <tr> 
-                                        <?php 
+                                    </tr>
+
+                                    <tr>
+                                        <?php
                                         $total = 0;
                                         $totalCCRevenue = 0;
                                         $totalCCRetentions = 0;
@@ -1220,17 +1291,17 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                                     $total += 0;
                                                 }
                                             } //chave do for?>
-                                        </td>                                        
+                                        </td>
                                         <?php if ($totalCCRevenue > 0 and $totalCCStaff > 0){ ?>
                                                 <th class="active"><?php echo number_format(($totalCCRevenue-$totalCCRetentions)/$totalCCStaff,0,',','.'); ?></th>
                                         <?php }else{ ?>
                                                 <th class="active"><?php echo '*'; ?></th>
                                         <?php } ?>
                                             <?php $totalyear += $total;  ?>
-                                    </tr> 
-                                    
-                                    <tr> 
-                                        <?php 
+                                    </tr>
+
+                                    <tr>
+                                        <?php
                                         $total = 0;
                                         $totalCCRevenue = 0;
                                         $totalCCRetentions = 0;
@@ -1239,7 +1310,7 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <th><?php echo $cc11arryCCC[0]; ?></th>
                                         <?php for ($i = 1; $i <= 12; $i++) { ?>
                                         <td>
-                                            <?php 
+                                            <?php
                                                 $totalCCRevenue += $cc11arryCCC[$i];
                                                 $totalCCRetentions += $cc11arryCCD[$i];
                                                 $totalCCStaff += $staff_cc11[$i];
@@ -1251,17 +1322,17 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                                     $total += 0;
                                                 }
                                             } //chave do for?>
-                                        </td>                                        
+                                        </td>
                                         <?php if ($totalCCRevenue > 0 and $totalCCStaff > 0){ ?>
                                                 <th class="active"><?php echo number_format(($totalCCRevenue-$totalCCRetentions)/$totalCCStaff,0,',','.'); ?></th>
                                         <?php }else{ ?>
                                                 <th class="active"><?php echo '*'; ?></th>
                                         <?php } ?>
                                             <?php $totalyear += $total;  ?>
-                                    </tr> 
-                                    
-                                    <tr> 
-                                        <?php 
+                                    </tr>
+
+                                    <tr>
+                                        <?php
                                         $total = 0;
                                         $totalCCRevenue = 0;
                                         $totalCCRetentions = 0;
@@ -1270,7 +1341,7 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <th><?php echo $cc12arryCCC[0]; ?></th>
                                         <?php for ($i = 1; $i <= 12; $i++) { ?>
                                         <td>
-                                            <?php 
+                                            <?php
                                                 $totalCCRevenue += $cc12arryCCC[$i];
                                                 $totalCCRetentions += $cc12arryCCD[$i];
                                                 $totalCCStaff += $staff_cc12[$i];
@@ -1282,17 +1353,17 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                                     $total += 0;
                                                 }
                                             } //chave do for?>
-                                        </td>                                        
+                                        </td>
                                         <?php if ($totalCCRevenue > 0 and $totalCCStaff > 0){ ?>
                                                 <th class="active"><?php echo number_format(($totalCCRevenue-$totalCCRetentions)/$totalCCStaff,0,',','.'); ?></th>
                                         <?php }else{ ?>
                                                 <th class="active"><?php echo '*'; ?></th>
                                         <?php } ?>
                                             <?php $totalyear += $total;  ?>
-                                    </tr> 
-                                    
-                                    <tr> 
-                                        <?php 
+                                    </tr>
+
+                                    <tr>
+                                        <?php
                                         $total = 0;
                                         $totalCCRevenue = 0;
                                         $totalCCRetentions = 0;
@@ -1301,7 +1372,7 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <th><?php echo $cc13arryCCC[0]; ?></th>
                                         <?php for ($i = 1; $i <= 12; $i++) { ?>
                                         <td>
-                                            <?php 
+                                            <?php
                                                 $totalCCRevenue += $cc13arryCCC[$i];
                                                 $totalCCRetentions += $cc13arryCCD[$i];
                                                 $totalCCStaff += $staff_cc13[$i];
@@ -1313,17 +1384,17 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                                     $total += 0;
                                                 }
                                             } //chave do for?>
-                                        </td>                                        
+                                        </td>
                                         <?php if ($totalCCRevenue > 0 and $totalCCStaff > 0){ ?>
                                                 <th class="active"><?php echo number_format(($totalCCRevenue-$totalCCRetentions)/$totalCCStaff,0,',','.'); ?></th>
                                         <?php }else{ ?>
                                                 <th class="active"><?php echo '*'; ?></th>
                                         <?php } ?>
                                             <?php $totalyear += $total;  ?>
-                                    </tr> 
-                                    
-                                    <tr> 
-                                        <?php 
+                                    </tr>
+
+                                    <tr>
+                                        <?php
                                         $total = 0;
                                         $totalCCRevenue = 0;
                                         $totalCCRetentions = 0;
@@ -1332,7 +1403,7 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <th><?php echo $cc14arryCCC[0]; ?></th>
                                         <?php for ($i = 1; $i <= 12; $i++) { ?>
                                         <td>
-                                            <?php 
+                                            <?php
                                                 $totalCCRevenue += $cc14arryCCC[$i];
                                                 $totalCCRetentions += $cc14arryCCD[$i];
                                                 $totalCCStaff += $staff_cc14[$i];
@@ -1344,17 +1415,17 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                                     $total += 0;
                                                 }
                                             } //chave do for?>
-                                        </td>                                        
+                                        </td>
                                         <?php if ($totalCCRevenue > 0 and $totalCCStaff > 0){ ?>
                                                 <th class="active"><?php echo number_format(($totalCCRevenue-$totalCCRetentions)/$totalCCStaff,0,',','.'); ?></th>
                                         <?php }else{ ?>
                                                 <th class="active"><?php echo '*'; ?></th>
                                         <?php } ?>
                                             <?php $totalyear += $total;  ?>
-                                    </tr> 
-                                    
-                                    <tr> 
-                                        <?php 
+                                    </tr>
+
+                                    <tr>
+                                        <?php
                                         $total = 0;
                                         $totalCCRevenue = 0;
                                         $totalCCRetentions = 0;
@@ -1363,7 +1434,7 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <th><?php echo $cc15arryCCC[0]; ?></th>
                                         <?php for ($i = 1; $i <= 12; $i++) { ?>
                                         <td>
-                                            <?php 
+                                            <?php
                                                 $totalCCRevenue += $cc15arryCCC[$i];
                                                 $totalCCRetentions += $cc15arryCCD[$i];
                                                 $totalCCStaff += $staff_cc15[$i];
@@ -1375,17 +1446,17 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                                     $total += 0;
                                                 }
                                             } //chave do for?>
-                                        </td>                                        
+                                        </td>
                                         <?php if ($totalCCRevenue > 0 and $totalCCStaff > 0){ ?>
                                                 <th class="active"><?php echo number_format(($totalCCRevenue-$totalCCRetentions)/$totalCCStaff,0,',','.'); ?></th>
                                         <?php }else{ ?>
                                                 <th class="active"><?php echo '*'; ?></th>
                                         <?php } ?>
                                             <?php $totalyear += $total;  ?>
-                                    </tr> 
-                                    
-                                    <tr> 
-                                        <?php 
+                                    </tr>
+
+                                    <tr>
+                                        <?php
                                         $total = 0;
                                         $totalCCRevenue = 0;
                                         $totalCCRetentions = 0;
@@ -1394,7 +1465,7 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <th><?php echo $cc16arryCCC[0]; ?></th>
                                         <?php for ($i = 1; $i <= 12; $i++) { ?>
                                         <td>
-                                            <?php 
+                                            <?php
                                                 $totalCCRevenue += $cc16arryCCC[$i];
                                                 $totalCCRetentions += $cc16arryCCD[$i];
                                                 $totalCCStaff += $staff_cc16[$i];
@@ -1406,7 +1477,7 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                                     $total += 0;
                                                 }
                                             } //chave do for?>
-                                        </td>                                        
+                                        </td>
                                         <?php if ($totalCCRevenue > 0 and $totalCCStaff > 0){ ?>
                                                 <th class="active"><?php echo number_format(($totalCCRevenue-$totalCCRetentions)/$totalCCStaff,0,',','.'); ?></th>
                                         <?php }else{ ?>
@@ -1414,9 +1485,9 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <?php } ?>
                                             <?php $totalyear += $total;  ?>
                                     </tr>
-                                    
-                                    <tr> 
-                                        <?php 
+
+                                    <tr>
+                                        <?php
                                         $total = 0;
                                         $totalCCRevenue = 0;
                                         $totalCCRetentions = 0;
@@ -1425,7 +1496,7 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <th><?php echo $cc18arryCCC[0]; ?></th>
                                         <?php for ($i = 1; $i <= 12; $i++) { ?>
                                         <td>
-                                            <?php 
+                                            <?php
                                                 $totalCCRevenue += $cc18arryCCC[$i];
                                                 $totalCCRetentions += $cc18arryCCD[$i];
                                                 $totalCCStaff += $staff_cc18[$i];
@@ -1437,17 +1508,17 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                                     $total += 0;
                                                 }
                                             } //chave do for?>
-                                        </td>                                        
+                                        </td>
                                         <?php if ($totalCCRevenue > 0 and $totalCCStaff > 0){ ?>
                                                 <th class="active"><?php echo number_format(($totalCCRevenue-$totalCCRetentions)/$totalCCStaff,0,',','.'); ?></th>
                                         <?php }else{ ?>
                                                 <th class="active"><?php echo '*'; ?></th>
                                         <?php } ?>
                                             <?php $totalyear += $total;  ?>
-                                    </tr> 
-                                    
-                                    <tr> 
-                                        <?php 
+                                    </tr>
+
+                                    <tr>
+                                        <?php
                                         $total = 0;
                                         $totalCCRevenue = 0;
                                         $totalCCRetentions = 0;
@@ -1456,7 +1527,7 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <th><?php echo $cc20arryCCC[0]; ?></th>
                                         <?php for ($i = 1; $i <= 12; $i++) { ?>
                                         <td>
-                                            <?php 
+                                            <?php
                                                 $totalCCRevenue += $cc20arryCCC[$i];
                                                 $totalCCRetentions += $cc20arryCCD[$i];
                                                 $totalCCStaff += $staff_cc20[$i];
@@ -1468,17 +1539,17 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                                     $total += 0;
                                                 }
                                             } //chave do for?>
-                                        </td>                                        
+                                        </td>
                                         <?php if ($totalCCRevenue > 0 and $totalCCStaff > 0){ ?>
                                                 <th class="active"><?php echo number_format(($totalCCRevenue-$totalCCRetentions)/$totalCCStaff,0,',','.'); ?></th>
                                         <?php }else{ ?>
                                                 <th class="active"><?php echo '*'; ?></th>
                                         <?php } ?>
                                             <?php $totalyear += $total;  ?>
-                                    </tr> 
-                                    
-                                    <tr> 
-                                        <?php 
+                                    </tr>
+
+                                    <tr>
+                                        <?php
                                         $total = 0;
                                         $totalCCRevenue = 0;
                                         $totalCCRetentions = 0;
@@ -1487,7 +1558,7 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <th><?php echo $cc22arryCCC[0]; ?></th>
                                         <?php for ($i = 1; $i <= 12; $i++) { ?>
                                         <td>
-                                            <?php 
+                                            <?php
                                                 $totalCCRevenue += $cc22arryCCC[$i];
                                                 $totalCCRetentions += $cc22arryCCD[$i];
                                                 $totalCCStaff += $staff_cc22[$i];
@@ -1499,17 +1570,17 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                                     $total += 0;
                                                 }
                                             } //chave do for?>
-                                        </td>                                        
+                                        </td>
                                         <?php if ($totalCCRevenue > 0 and $totalCCStaff > 0){ ?>
                                                 <th class="active"><?php echo number_format(($totalCCRevenue-$totalCCRetentions)/$totalCCStaff,0,',','.'); ?></th>
                                         <?php }else{ ?>
                                                 <th class="active"><?php echo '*'; ?></th>
                                         <?php } ?>
                                             <?php $totalyear += $total;  ?>
-                                    </tr> 
-                                    
-                                    <tr> 
-                                        <?php 
+                                    </tr>
+
+                                    <tr>
+                                        <?php
                                         $total = 0;
                                         $totalCCRevenue = 0;
                                         $totalCCRetentions = 0;
@@ -1518,7 +1589,7 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <th><?php echo $cc23arryCCC[0]; ?></th>
                                         <?php for ($i = 1; $i <= 12; $i++) { ?>
                                         <td>
-                                            <?php 
+                                            <?php
                                                 $totalCCRevenue += $cc23arryCCC[$i];
                                                 $totalCCRetentions += $cc23arryCCD[$i];
                                                 $totalCCStaff += $staff_cc23[$i];
@@ -1530,17 +1601,17 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                                     $total += 0;
                                                 }
                                             } //chave do for?>
-                                        </td>                                        
+                                        </td>
                                         <?php if ($totalCCRevenue > 0 and $totalCCStaff > 0){ ?>
                                                 <th class="active"><?php echo number_format(($totalCCRevenue-$totalCCRetentions)/$totalCCStaff,0,',','.'); ?></th>
                                         <?php }else{ ?>
                                                 <th class="active"><?php echo '*'; ?></th>
                                         <?php } ?>
                                             <?php $totalyear += $total;  ?>
-                                    </tr> 
-                                    
-                                    <tr> 
-                                        <?php 
+                                    </tr>
+
+                                    <tr>
+                                        <?php
                                         $total = 0;
                                         $totalCCRevenue = 0;
                                         $totalCCRetentions = 0;
@@ -1549,7 +1620,7 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <th><?php echo $cc28arryCCC[0]; ?></th>
                                         <?php for ($i = 1; $i <= 12; $i++) { ?>
                                         <td>
-                                            <?php 
+                                            <?php
                                                 $totalCCRevenue += $cc28arryCCC[$i];
                                                 $totalCCRetentions += $cc28arryCCD[$i];
                                                 $totalCCStaff += $staff_cc28[$i];
@@ -1561,17 +1632,48 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                                     $total += 0;
                                                 }
                                             } //chave do for?>
-                                        </td>                                        
+                                        </td>
                                         <?php if ($totalCCRevenue > 0 and $totalCCStaff > 0){ ?>
                                                 <th class="active"><?php echo number_format(($totalCCRevenue-$totalCCRetentions)/$totalCCStaff,0,',','.'); ?></th>
                                         <?php }else{ ?>
                                                 <th class="active"><?php echo '*'; ?></th>
                                         <?php } ?>
                                             <?php $totalyear += $total;  ?>
-                                    </tr> 
-                                    
-                                    <tr> 
-                                        <?php 
+                                    </tr>
+
+                                    <tr>
+                                        <?php
+                                        $total = 0;
+                                        $totalCCRevenue = 0;
+                                        $totalCCRetentions = 0;
+                                        $totalCCStaff =0;
+                                        ?>
+                                        <th><?php echo $cc29arryCCC[0]; ?></th>
+                                        <?php for ($i = 1; $i <= 12; $i++) { ?>
+                                        <td>
+                                            <?php
+                                                $totalCCRevenue += $cc29arryCCC[$i];
+                                                $totalCCRetentions += $cc29arryCCD[$i];
+                                                $totalCCStaff += $staff_cc29[$i];
+                                                if($cc29arryCCC[$i] != 0 and $staff_cc29[$i] !=0){
+                                                    echo number_format(($cc29arryCCC[$i]-$cc29arryCCD[$i]) / $staff_cc29[$i],0,',','.');
+                                                    $total += ($cc29arryCCC[$i]-$cc29arryCCD[$i]) / $staff_cc29[$i];
+                                                }else{
+                                                    echo '*';
+                                                    $total += 0;
+                                                }
+                                            } //chave do for?>
+                                        </td>
+                                        <?php if ($totalCCRevenue > 0 and $totalCCStaff > 0){ ?>
+                                                <th class="active"><?php echo number_format(($totalCCRevenue-$totalCCRetentions)/$totalCCStaff,0,',','.'); ?></th>
+                                        <?php }else{ ?>
+                                                <th class="active"><?php echo '*'; ?></th>
+                                        <?php } ?>
+                                            <?php $totalyear += $total;  ?>
+                                    </tr>
+
+                                    <tr>
+                                        <?php
                                         $total = 0;
                                         $totalCCRevenue = 0;
                                         $totalCCRetentions = 0;
@@ -1580,7 +1682,7 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <th><?php echo $cc32arryCCC[0]; ?></th>
                                         <?php for ($i = 1; $i <= 12; $i++) { ?>
                                         <td>
-                                            <?php 
+                                            <?php
                                                 $totalCCRevenue += $cc32arryCCC[$i];
                                                 $totalCCRetentions += $cc32arryCCD[$i];
                                                 $totalCCStaff += $staff_cc32[$i];
@@ -1592,113 +1694,117 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                                     $total += 0;
                                                 }
                                             } //chave do for?>
-                                        </td>                                        
+                                        </td>
                                         <?php if ($totalCCRevenue > 0 and $totalCCStaff > 0){ ?>
                                                 <th class="active"><?php echo number_format(($totalCCRevenue-$totalCCRetentions)/$totalCCStaff,0,',','.'); ?></th>
                                         <?php }else{ ?>
                                                 <th class="active"><?php echo '*'; ?></th>
                                         <?php } ?>
                                             <?php $totalyear += $total;  ?>
-                                    </tr> 
-                                    
-                                    <tr>                                         
+                                    </tr>
+
+                                    <tr>
                                         <?php
-                                        $total = 0; 
+                                        $total = 0;
                                         $totalRevenue = 0;
                                         $totalStaff = 0;
                                         $totalRetentions = 0;
                                         ?>
-                                        <th class="active"><?php echo 'VALOR PER CAPITO'; ?></th>                                        
-                                        <?php for ($i = 1; $i <= 12; $i++) { ?>                                       
+                                        <th class="active"><?php echo 'VALOR PER CAPITO'; ?></th>
+                                        <?php for ($i = 1; $i <= 12; $i++) { ?>
                                             <th class="active">
-                                                <?php                                                 
-                                                
+                                                <?php
+
                                                     $revenue = 0;
                                                     $retention = 0;
                                                     $staff = 0;
-                                                    
+
                                                     $retention += $cc01arryCCD[$i];
                                                     $revenue += $cc01arryCCC[$i];
                                                     $staff += $staff_cc01[$i];
-                                                    
+
                                                     $retention += $cc03arryCCD[$i];
                                                     $revenue += $cc03arryCCC[$i];
                                                     $staff += $staff_cc03[$i];
-                                                    
+
                                                     $retention += $cc06arryCCD[$i];
                                                     $revenue += $cc06arryCCC[$i];
                                                     $staff += $staff_cc06[$i];
-                                                    
+
                                                     $retention += $cc07arryCCD[$i];
                                                     $revenue += $cc07arryCCC[$i];
                                                     $staff += $staff_cc07[$i];
-                                                    
+
                                                     $retention += $cc08arryCCD[$i];
                                                     $revenue += $cc08arryCCC[$i];
                                                     $staff += $staff_cc08[$i];
-                                                    
+
                                                     $retention += $cc11arryCCD[$i];
                                                     $revenue += $cc11arryCCC[$i];
                                                     $staff += $staff_cc11[$i];
-                                                    
+
                                                     $retention += $cc12arryCCD[$i];
                                                     $revenue += $cc12arryCCC[$i];
                                                     $staff += $staff_cc12[$i];
-                                                    
+
                                                     $retention += $cc13arryCCD[$i];
                                                     $revenue += $cc13arryCCC[$i];
                                                     $staff += $staff_cc13[$i];
-                                                    
+
                                                     $retention += $cc14arryCCD[$i];
                                                     $revenue += $cc14arryCCC[$i];
                                                     $staff += $staff_cc14[$i];
-                                                    
+
                                                     $retention += $cc15arryCCD[$i];
                                                     $revenue += $cc15arryCCC[$i];
                                                     $staff += $staff_cc15[$i];
-                                                    
+
                                                     $retention += $cc16arryCCD[$i];
                                                     $revenue += $cc16arryCCC[$i];
                                                     $staff += $staff_cc16[$i];
-                                                    
+
                                                     $retention += $cc18arryCCD[$i];
                                                     $revenue += $cc18arryCCC[$i];
                                                     $staff += $staff_cc18[$i];
-                                                        
+
                                                     $retention += $cc20arryCCD[$i];
                                                     $revenue += $cc20arryCCC[$i];
                                                     $staff += $staff_cc20[$i];
-                                                    
+
                                                     $retention += $cc22arryCCD[$i];
                                                     $revenue += $cc22arryCCC[$i];
                                                     $staff += $staff_cc22[$i];
-                                                    
+
                                                     $retention += $cc23arryCCD[$i];
                                                     $revenue += $cc23arryCCC[$i];
                                                     $staff += $staff_cc23[$i];
-                                                    
+
                                                     $retention += $cc28arryCCD[$i];
                                                     $revenue += $cc28arryCCC[$i];
                                                     $staff += $staff_cc28[$i];
-                                                    
+
+                                                    $retention += $cc29arryCCD[$i];
+                                                    $revenue += $cc29arryCCC[$i];
+                                                    $staff += $staff_cc29[$i];
+
                                                     $retention += $cc32arryCCD[$i];
                                                     $revenue += $cc32arryCCC[$i];
                                                     $staff += $staff_cc32[$i];
-                                                        
+
                                                     $totalRevenue += $revenue;
                                                     $totalStaff += $staff;
                                                     $totalRetentions += $retention;
-                                                                         
+
                                                     //debug($revenue);
                                                     //debug($staff);
-                                                    
+
                                                     if($revenue > 0 and $staff > 0)
-                                                        echo number_format(($revenue-$retention)/$staff,0,',','.'); 
+                                                        echo number_format(($revenue-$retention)/$staff,0,',','.');
                                                     else
                                                         echo '*';
                                                 ?>
-                                            </th>                                        
-                                        <?php } ?>                                        
+                                            </th>
+                                        <?php } ?>
                                         <th class="success">
                                             <?php
                                             if ($totalRevenue > 0 and $totalStaff  > 0)
@@ -1708,9 +1814,9 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                             ?>
                                         </th>
                                     </tr>
-                                    
+
                                 </tbody>
-                                
+
                             </table>
                         </div>
                     </div>
@@ -1718,11 +1824,11 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
             </div>
         </div>
     </div>
-    
+
 </section>
 
 <script type="text/javascript">
-    
+
 function fnExcelReport(){
        var htmltable= document.getElementById('example1');
        var html = htmltable.outerHTML;
