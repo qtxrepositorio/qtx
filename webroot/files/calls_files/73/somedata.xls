@@ -1,0 +1,365 @@
+<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><meta name=ProgId content=Excel.Sheet> <meta name=Generator content="Microsoft Excel 11"><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>Sheet Name Here</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>
+
+                                
+
+                                <thead>
+                                    <tr>
+                                        <th>Centro de custo</th>
+
+                                                                                    <th>Jan</th>
+                                                                                    <th>Fev</th>
+                                                                                    <th>Mar</th>
+                                                                                    <th>Abr</th>
+                                                                                    <th>Mai</th>
+                                                                                    <th>Jun</th>
+                                                                                    <th>Jul</th>
+                                                                                    <th>Ago</th>
+                                                                                    <th>Set</th>
+                                                                                    <th>Out</th>
+                                                                                    <th>Nov</th>
+                                                                                    <th>Dez</th>
+                                        
+                                        <th>Total</th>
+                                    </tr>
+
+                                </thead>
+
+                                <tbody>
+                                    <tr>
+                                                                                <th>01 - ADMINISTRATIVO</th>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <th class="active">0</th>
+                                                                            </tr>
+
+                                    <tr>
+                                                                                <th>03 - LABORATORIO QUALITEX</th>
+                                                                                <td>351.999</td>
+                                                                                <td>223.233</td>
+                                                                                <td>339.598</td>
+                                                                                <td>277.075</td>
+                                                                                <td>273.311</td>
+                                                                                <td>338.201</td>
+                                                                                <td>354.324</td>
+                                                                                <td>59.913</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <th class="active">2.217.654</th>
+                                                                            </tr>
+
+                                    <tr>
+                                                                                <th>06 - LABORATORIO PETROBRAS - SE</th>
+                                                                                <td>297.699</td>
+                                                                                <td>304.860</td>
+                                                                                <td>361.174</td>
+                                                                                <td>261.827</td>
+                                                                                <td>468.250</td>
+                                                                                <td>289.020</td>
+                                                                                <td>617.529</td>
+                                                                                <td>109.572</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <th class="active">2.709.930</th>
+                                                                            </tr>
+
+                                    <tr>
+                                                                                <th>07 - LABORATORIO PETROBRAS - BA</th>
+                                                                                <td>350.819</td>
+                                                                                <td>414.478</td>
+                                                                                <td>338.957</td>
+                                                                                <td>497.851</td>
+                                                                                <td>343.665</td>
+                                                                                <td>349.069</td>
+                                                                                <td>356.854</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <th class="active">2.651.693</th>
+                                                                            </tr>
+
+                                    <tr>
+                                                                                <th>08 - TRANSPETRO - PE</th>
+                                                                                <td>0</td>
+                                                                                <td>43.194</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <th class="active">43.194</th>
+                                                                            </tr>
+
+                                    <tr>
+                                                                                <th>11 - APOIO OPERACIONAL UCS - AL</th>
+                                                                                <td>49.849</td>
+                                                                                <td>37.365</td>
+                                                                                <td>68.942</td>
+                                                                                <td>30.195</td>
+                                                                                <td>52.632</td>
+                                                                                <td>65.861</td>
+                                                                                <td>40.955</td>
+                                                                                <td>52.945</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <th class="active">398.744</th>
+                                                                            </tr>
+
+                                    <tr>
+                                                                                <th>12 - APOIO OPERACIONAL UPVC - AL</th>
+                                                                                <td>20.363</td>
+                                                                                <td>28.021</td>
+                                                                                <td>29.864</td>
+                                                                                <td>21.406</td>
+                                                                                <td>16.795</td>
+                                                                                <td>20.639</td>
+                                                                                <td>56.038</td>
+                                                                                <td>9.175</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <th class="active">202.301</th>
+                                                                            </tr>
+
+                                    <tr>
+                                                                                <th>13 - BRASKEM UCS - BA</th>
+                                                                                <td>24.879</td>
+                                                                                <td>35.243</td>
+                                                                                <td>23.459</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <th class="active">83.582</th>
+                                                                            </tr>
+
+                                    <tr>
+                                                                                <th>14 - BRASKEM UPVC - BA</th>
+                                                                                <td>154.364</td>
+                                                                                <td>143.784</td>
+                                                                                <td>245.146</td>
+                                                                                <td>154.544</td>
+                                                                                <td>184.744</td>
+                                                                                <td>144.192</td>
+                                                                                <td>130.778</td>
+                                                                                <td>221.513</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <th class="active">1.379.066</th>
+                                                                            </tr>
+
+                                    <tr>
+                                                                                <th>15 - PARADA UCS - AL</th>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>10.337</td>
+                                                                                <td>174.459</td>
+                                                                                <td>15.500</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <th class="active">200.296</th>
+                                                                            </tr>
+
+                                    <tr>
+                                                                                <th>16 - PARADA UPVC - AL</th>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <th class="active">0</th>
+                                                                            </tr>
+
+                                    <tr>
+                                                                                <th>18 - BRASKEM CASA DE CELULA</th>
+                                                                                <td>218.476</td>
+                                                                                <td>165.823</td>
+                                                                                <td>201.979</td>
+                                                                                <td>151.171</td>
+                                                                                <td>241.186</td>
+                                                                                <td>112.466</td>
+                                                                                <td>0</td>
+                                                                                <td>284.924</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <th class="active">1.376.025</th>
+                                                                            </tr>
+
+                                    <tr>
+                                                                                <th>20 - PETROBRAS - RN</th>
+                                                                                <td>495.406</td>
+                                                                                <td>451.531</td>
+                                                                                <td>385.534</td>
+                                                                                <td>422.625</td>
+                                                                                <td>396.875</td>
+                                                                                <td>411.909</td>
+                                                                                <td>53.951</td>
+                                                                                <td>65.177</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <th class="active">2.683.007</th>
+                                                                            </tr>
+
+                                    <tr>
+                                                                                <th>22 - CAMINHAO</th>
+                                                                                <td>137.733</td>
+                                                                                <td>94.157</td>
+                                                                                <td>154.523</td>
+                                                                                <td>113.632</td>
+                                                                                <td>126.150</td>
+                                                                                <td>99.805</td>
+                                                                                <td>142.120</td>
+                                                                                <td>61.185</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <th class="active">929.304</th>
+                                                                            </tr>
+
+                                    <tr>
+                                                                                <th>23 - SECADOR - AL</th>
+                                                                                <td>33.421</td>
+                                                                                <td>22.190</td>
+                                                                                <td>30.135</td>
+                                                                                <td>24.298</td>
+                                                                                <td>33.962</td>
+                                                                                <td>24.250</td>
+                                                                                <td>10.725</td>
+                                                                                <td>33.962</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <th class="active">212.944</th>
+                                                                            </tr>
+
+                                    <tr>
+                                                                                <th>28 - LABORATORIO RN</th>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <th class="active">0</th>
+                                                                            </tr>
+
+                                    <tr>
+                                                                                <th>32 - LANXES</th>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>64.537</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <th class="active">64.537</th>
+                                                                            </tr>
+
+                                    <tr>
+                                                                                <th>SEM CENTRO DE CUSTO</th>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <td>0</td>
+                                                                                <th class="active">0</th>
+                                                                            </tr>
+
+                                    <tr>
+                                                                                <th class="active">TOTAL</th>
+                                                                                    <th class="active">
+                                                2.135.009                                            </th>
+                                                                                    <th class="active">
+                                                1.963.879                                            </th>
+                                                                                    <th class="active">
+                                                2.179.311                                            </th>
+                                                                                    <th class="active">
+                                                1.964.961                                            </th>
+                                                                                    <th class="active">
+                                                2.376.567                                            </th>
+                                                                                    <th class="active">
+                                                1.870.911                                            </th>
+                                                                                    <th class="active">
+                                                1.763.273                                            </th>
+                                                                                    <th class="active">
+                                                898.367                                            </th>
+                                                                                    <th class="active">
+                                                0                                            </th>
+                                                                                    <th class="active">
+                                                0                                            </th>
+                                                                                    <th class="active">
+                                                0                                            </th>
+                                                                                    <th class="active">
+                                                0                                            </th>
+                                                                                <th class="success">
+                                            15.152.278                                        </th>
+                                    </tr>
+                                </tbody>
+
+                            </table></body></html>
