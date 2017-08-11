@@ -6,7 +6,7 @@ $x = ['TODOS','01 - ADMINISTRATIVO', '03 - LABORATORIO QUALITEX', '06 - LABORATO
                 '07 - LABORATORIO PETROBRAS - BA', '08 - TRANSPETRO - PE', '11 - APOIO OPERACIONAL UCS - AL',
                 '12 - APOIO OPERACIONAL UPVC - AL', '13 - BRASKEM UCS - BA', '14 - BRASKEM UPVC - BA',
                 '15 - PARADA UCS - AL', '16 - PARADA UPVC - AL','18 - BRASKEM CASA DE CELULA',
-                '20 - PETROBRAS - RN', '22 - CAMINHAO', '23 - SECADOR - AL', '28 - LABORATORIO RN',
+                '20 - PETROBRAS - RN', '22 - CAMINHAO', '23 - SECADOR - AL', '28 - LABORATORIO RN', '29 - ETE QUALITEX AL',
                 '32 - LANXES'];
 $costCenters = [];
 for($i = 0; $i < sizeof($x); $i++){
@@ -43,7 +43,7 @@ for($i = 0; $i < sizeof($x); $i++){
     <h1>
         Painel
         <small>Controladoria - Apuração de resultados</small>
-    </h1>      
+    </h1>
 </section>
 
 <section class="content">
@@ -70,7 +70,7 @@ for($i = 0; $i < sizeof($x); $i++){
                         </li>
                     </ul>
                     <div class="tab-content">
-                        
+
                         <div class="tab-pane" id="panel-01">
                             <br><br>
                             <div class="col-md-4"></div>
@@ -88,8 +88,8 @@ for($i = 0; $i < sizeof($x); $i++){
                                         </div>
                                     </div>
                                     <div class="box-body">
-                                        <div class="chart">          
-                                            <div class="box-body"> 
+                                        <div class="chart">
+                                            <div class="box-body">
                                                 <div class="roles form large-9 medium-8 columns content">
                                                     <fieldset>
                                                         <?php
@@ -97,10 +97,10 @@ for($i = 0; $i < sizeof($x); $i++){
                                                             echo $this->Form->create($x,['url' => ['controller'=>'Controllership','action' => '']]);
                                                             echo $this->Form->input('yearOne', ['default' => $date['year'] - 1 ,'disabled' => FALSE,'label'=>'Informe ano 1:']);
                                                             echo $this->Form->input('yearTwo', ['default' => $date['year'] ,'disabled' => FALSE,'label'=>'Informe ano 2:']);
-                                                            
+
                                                         ?>
-                                                    </fieldset>  
-                                                    
+                                                    </fieldset>
+
                                                     <!--
                                                     <div align="center">
                                                         <button class="btn btn-success" type="submit" formtarget="_blank"><?php echo __('Comparar anos'); ?></button>
@@ -117,7 +117,7 @@ for($i = 0; $i < sizeof($x); $i++){
                             </div>
                             <div class="col-md-4"></div>
                         </div>
-                        
+
                         <div class="tab-pane" id="panel-02">
                             <br><br>
                             <div class="col-md-4"></div>
@@ -135,8 +135,8 @@ for($i = 0; $i < sizeof($x); $i++){
                                         </div>
                                     </div>
                                     <div class="box-body">
-                                        <div class="chart">          
-                                            <div class="box-body"> 
+                                        <div class="chart">
+                                            <div class="box-body">
                                                 <div class="roles form large-9 medium-8 columns content">
                                                     <fieldset>
                                                         <?php
@@ -144,11 +144,11 @@ for($i = 0; $i < sizeof($x); $i++){
                                                             echo $this->Form->create($x,['url' => ['controller'=>'Controllership','action' => '']]);
                                                             echo $this->Form->input('yearOne', ['default' => $date['year'] - 1,'disabled' => FALSE,'label'=>'Informe ano 1:']);
                                                             echo $this->Form->input('yearTwo', ['default' => $date['year'],'disabled' => FALSE,'label'=>'Informe ano 2:']);
-                                                            echo $this->Form->input('semesters', ['id' => 'semesters', 'options' => $semesters, 'label' => 'Selecione o semestre:']); 
-                                                            
+                                                            echo $this->Form->input('semesters', ['id' => 'semesters', 'options' => $semesters, 'label' => 'Selecione o semestre:']);
+
                                                         ?>
-                                                    </fieldset>  
-                                                    
+                                                    </fieldset>
+
                                                     <!--
                                                     <div align="center">
                                                         <button class="btn btn-success" type="submit" formtarget="_blank"><?php echo __('Comparar semestres'); ?></button>
@@ -164,7 +164,7 @@ for($i = 0; $i < sizeof($x); $i++){
                             </div>
                             <div class="col-md-4"></div>
                         </div>
-                        
+
                         <div class="tab-pane" id="panel-03">
                             <br><br>
                             <div class="col-md-4"></div>
@@ -182,8 +182,8 @@ for($i = 0; $i < sizeof($x); $i++){
                                         </div>
                                     </div>
                                     <div class="box-body">
-                                        <div class="chart">          
-                                            <div class="box-body"> 
+                                        <div class="chart">
+                                            <div class="box-body">
                                                 <div class="roles form large-9 medium-8 columns content">
                                                     <fieldset>
                                                         <?php
@@ -191,11 +191,11 @@ for($i = 0; $i < sizeof($x); $i++){
                                                             echo $this->Form->create($x,['url' => ['controller'=>'Controllership','action' => '']]);
                                                             echo $this->Form->input('yearOne', ['default' => $date['year'] - 1,'disabled' => FALSE,'label'=>'Informe ano 1:']);
                                                             echo $this->Form->input('yearTwo', ['default' => $date['year'],'disabled' => FALSE,'label'=>'Informe ano 2:']);
-                                                            echo $this->Form->input('quarters', ['id' => 'quarters', 'options' => $quarters, 'label' => 'Selecione o trimeste:']); 
-                                                            
+                                                            echo $this->Form->input('quarters', ['id' => 'quarters', 'options' => $quarters, 'label' => 'Selecione o trimeste:']);
+
                                                         ?>
-                                                    </fieldset> 
-                                                    
+                                                    </fieldset>
+
                                                     <!--
                                                     <div align="center">
                                                         <button class="btn btn-success" type="submit" formtarget="_blank"><?php echo __('Comparar trimestes'); ?></button>
@@ -208,10 +208,10 @@ for($i = 0; $i < sizeof($x); $i++){
                                         </div>
                                     </div>
                                 </div>
-                            </div>    
+                            </div>
                             <div class="col-md-4"></div>
                         </div>
-                        
+
                         <div class="tab-pane" id="panel-04">
                             <br><br>
                             <div class="col-md-4"></div>
@@ -229,8 +229,8 @@ for($i = 0; $i < sizeof($x); $i++){
                                         </div>
                                     </div>
                                     <div class="box-body">
-                                        <div class="chart">          
-                                            <div class="box-body"> 
+                                        <div class="chart">
+                                            <div class="box-body">
                                                 <div class="roles form large-9 medium-8 columns content">
                                                     <fieldset>
                                                         <?php
@@ -238,11 +238,11 @@ for($i = 0; $i < sizeof($x); $i++){
                                                             echo $this->Form->create($x,['url' => ['controller'=>'Controllership','action' => '']]);
                                                             echo $this->Form->input('yearOne', ['default' => $date['year'] - 1,'disabled' => FALSE,'label'=>'Informe ano 1:']);
                                                             echo $this->Form->input('yearTwo', ['default' => $date['year'],'disabled' => FALSE,'label'=>'Informe ano 2:']);
-                                                            echo $this->Form->input('bimestre', ['id' => 'bimestre', 'options' => $bimestres, 'label' => 'Selecione o bimestre:']); 
-                                                            
+                                                            echo $this->Form->input('bimestre', ['id' => 'bimestre', 'options' => $bimestres, 'label' => 'Selecione o bimestre:']);
+
                                                         ?>
                                                     </fieldset>
-                                                    
+
                                                     <!--
                                                     <div align="center">
                                                         <button class="btn btn-success" type="submit" formtarget="_blank"><?php echo __('Comparar bimestre'); ?></button>
@@ -258,7 +258,7 @@ for($i = 0; $i < sizeof($x); $i++){
                             </div>
                             <div class="col-md-4"></div>
                         </div>
-                        
+
                         <div class="tab-pane active" id="panel-05">
                             <br><br>
                             <div class="col-md-4"></div>
@@ -276,8 +276,8 @@ for($i = 0; $i < sizeof($x); $i++){
                                         </div>
                                     </div>
                                     <div class="box-body">
-                                        <div class="chart">          
-                                            <div class="box-body"> 
+                                        <div class="chart">
+                                            <div class="box-body">
                                                 <div class="roles form large-9 medium-8 columns content">
                                                     <fieldset>
                                                         <?php
@@ -285,11 +285,11 @@ for($i = 0; $i < sizeof($x); $i++){
                                                             echo $this->Form->create($x,['url' => ['controller'=>'Controllership','action' => 'DeterminationOfResultsMonthly']]);
                                                             echo $this->Form->input('yearOne', ['default' => $date['year'] - 1,'disabled' => FALSE,'label'=>'Informe ano 1:']);
                                                             echo $this->Form->input('yearTwo', ['default' => $date['year'],'disabled' => FALSE,'label'=>'Informe ano 2:']);
-                                                            echo $this->Form->input('monthly', ['id' => 'monthly', 'options' => $months, 'label' => 'Selecione o mes:']); 
-                                                            echo $this->Form->input('cc', ['id' => 'cc', 'options' => $costCenters, 'label' => 'Selecione o centro de custo:']); 
-                                                            
+                                                            echo $this->Form->input('monthly', ['id' => 'monthly', 'options' => $months, 'label' => 'Selecione o mes:']);
+                                                            echo $this->Form->input('cc', ['id' => 'cc', 'options' => $costCenters, 'label' => 'Selecione o centro de custo:']);
+
                                                         ?>
-                                                    </fieldset>  
+                                                    </fieldset>
                                                     <div align="center">
                                                         <button class="btn btn-success" type="submit" formtarget="_blank"><?php echo __('Comparar meses'); ?></button>
                                                     </div>
@@ -302,7 +302,7 @@ for($i = 0; $i < sizeof($x); $i++){
                             </div>
                             <div class="col-md-4"></div>
                         </div>
-                        
+
                     </div>
                 </div>
             </div>
@@ -310,5 +310,3 @@ for($i = 0; $i < sizeof($x); $i++){
     </div>
 
 </section>
-
-

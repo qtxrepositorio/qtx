@@ -555,6 +555,8 @@ class CallsController extends AppController {
         $status_id = $this->request->data['status_id'];
         $solution_id = $this->request->data['solution_id'];
 
+        debug($solution_id);
+
         $authenticatedUser = $this->Auth->user();
 
         $call = $this->Calls->get($id, [
@@ -565,7 +567,7 @@ class CallsController extends AppController {
 
         $statusBeforeEdit = $this->findStatus($id);
 
-        if ($status_id == 2 and $solution_id != null) {
+        if ($status_id == 2 and $solution_id != '0') {
             $this->Calls->save($call);
             if ($status_id != $statusBeforeEdit) {
                 $this->saveNewStatus($id, $call['status_id'], $authenticatedUser['id']);
@@ -581,7 +583,7 @@ class CallsController extends AppController {
             }
             $this->Flash->success(__('O chamado foi atualizado com sucesso!'));
             return $this->redirect(['controller' => 'Calls', 'action' => 'view', $id]);
-        } else if ($status_id == 2 and $solution_id == null) {
+        } else if ($status_id == 2 and $solution_id == '0') {
             $this->Flash->error(__('Para solucionar um chamado, é necessário informar a solução utilizada! Informe os dados e tente novamante.'));
             return $this->redirect(['controller' => 'Calls', 'action' => 'view', $id]);
         }
