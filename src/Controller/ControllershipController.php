@@ -18,269 +18,175 @@ class ControllershipController extends AppController {
         $ccpdf = $this->request->data['ccPdf'];
         $cc = substr($cc,0,2);
 
-        if ($cc != 'TO'){
-
-            $icms = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                , [CT2_CCD]
-                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,4) = '$year'
-                    AND [CT2_DEBITO] in ('42103001')
-                    AND D_E_L_E_T_ != '*' AND [CT2_CCD] = '$cc'
-                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
-                            ->fetchAll('assoc');
-
-            $iss = $connection->execute("
-                    SELECT
-                        SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    , [CT2_CCD]
-                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                    FROM [CT2010]
-                                WHERE
-                        SUBSTRING([CT2_DATA],1,4) = '$year'
-                        AND [CT2_DEBITO] in ('42103002')
-                        AND D_E_L_E_T_ != '*' AND [CT2_CCD] = '$cc'
-                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
-                                ->fetchAll('assoc');
-
-            $cofins = $connection->execute("
-                    SELECT
-                        SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    , [CT2_CCD]
-                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                    FROM [CT2010]
-                                WHERE
-                        SUBSTRING([CT2_DATA],1,4) = '$year'
-                        AND [CT2_DEBITO] in ('42103003')
-                        AND D_E_L_E_T_ != '*' AND [CT2_CCD] = '$cc'
-                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
-                                ->fetchAll('assoc');
-
-            $pis = $connection->execute("
-                    SELECT
-                        SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    , [CT2_CCD]
-                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                    FROM [CT2010]
-                                WHERE
-                        SUBSTRING([CT2_DATA],1,4) = '$year'
-                        AND [CT2_DEBITO] in ('42103004')
-                        AND D_E_L_E_T_ != '*' AND [CT2_CCD] = '$cc'
-                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
-                                ->fetchAll('assoc');
-
-            $irpj = $connection->execute("
-                    SELECT
-                        SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    , [CT2_CCD]
-                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                    FROM [CT2010]
-                                WHERE
-                        SUBSTRING([CT2_DATA],1,4) = '$year'
-                        AND [CT2_DEBITO] in ('42103005')
-                        AND D_E_L_E_T_ != '*' AND [CT2_CCD] = '$cc'
-                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
-                                ->fetchAll('assoc');
-
-            $csll = $connection->execute("
-                    SELECT
-                        SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    , [CT2_CCD]
-                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                    FROM [CT2010]
-                                WHERE
-                        SUBSTRING([CT2_DATA],1,4) = '$year'
-                        AND [CT2_DEBITO] in ('42103006')
-                        AND D_E_L_E_T_ != '*' AND [CT2_CCD] = '$cc'
-                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
-                                ->fetchAll('assoc');
-
-            $ipva = $connection->execute("
-                    SELECT
-                        SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    , [CT2_CCD]
-                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                    FROM [CT2010]
-                                WHERE
-                        SUBSTRING([CT2_DATA],1,4) = '$year'
-                        AND [CT2_DEBITO] in ('42103007')
-                        AND D_E_L_E_T_ != '*' AND [CT2_CCD] = '$cc'
-                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
-                                ->fetchAll('assoc');
-
-            $iptu = $connection->execute("
-                    SELECT
-                        SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    , [CT2_CCD]
-                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                    FROM [CT2010]
-                                WHERE
-                        SUBSTRING([CT2_DATA],1,4) = '$year'
-                        AND [CT2_DEBITO] in ('42103008')
-                        AND D_E_L_E_T_ != '*' AND [CT2_CCD] = '$cc'
-                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
-                                ->fetchAll('assoc');
-
-            $itbi = $connection->execute("
-                    SELECT
-                        SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    , [CT2_CCD]
-                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                    FROM [CT2010]
-                                WHERE
-                        SUBSTRING([CT2_DATA],1,4) = '$year'
-                        AND [CT2_DEBITO] in ('42103009')
-                        AND D_E_L_E_T_ != '*' AND [CT2_CCD] = '$cc'
-                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
-                                ->fetchAll('assoc');
-
-            $fecoep = $connection->execute("
-                    SELECT
-                        SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    , [CT2_CCD]
-                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                    FROM [CT2010]
-                                WHERE
-                        SUBSTRING([CT2_DATA],1,4) = '$year'
-                        AND [CT2_DEBITO] in ('42103010')
-                        AND D_E_L_E_T_ != '*' AND [CT2_CCD] = '$cc'
-                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
-                                ->fetchAll('assoc');
-
-        }else{
-            $icms = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                , [CT2_CCD]
-                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,4) = '$year'
-                    AND [CT2_DEBITO] in ('42103001')
-                    AND D_E_L_E_T_ != '*'
-                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
-                            ->fetchAll('assoc');
-
-            $iss = $connection->execute("
-                    SELECT
-                        SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    , [CT2_CCD]
-                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                    FROM [CT2010]
-                                WHERE
-                        SUBSTRING([CT2_DATA],1,4) = '$year'
-                        AND [CT2_DEBITO] in ('42103002')
-                        AND D_E_L_E_T_ != '*'
-                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
-                                ->fetchAll('assoc');
-
-            $cofins = $connection->execute("
-                    SELECT
-                        SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    , [CT2_CCD]
-                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                    FROM [CT2010]
-                                WHERE
-                        SUBSTRING([CT2_DATA],1,4) = '$year'
-                        AND [CT2_DEBITO] in ('42103003')
-                        AND D_E_L_E_T_ != '*'
-                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
-                                ->fetchAll('assoc');
-
-            $pis = $connection->execute("
-                    SELECT
-                        SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    , [CT2_CCD]
-                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                    FROM [CT2010]
-                                WHERE
-                        SUBSTRING([CT2_DATA],1,4) = '$year'
-                        AND [CT2_DEBITO] in ('42103004')
-                        AND D_E_L_E_T_ != '*'
-                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
-                                ->fetchAll('assoc');
-
-            $irpj = $connection->execute("
-                    SELECT
-                        SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    , [CT2_CCD]
-                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                    FROM [CT2010]
-                                WHERE
-                        SUBSTRING([CT2_DATA],1,4) = '$year'
-                        AND [CT2_DEBITO] in ('42103005')
-                        AND D_E_L_E_T_ != '*'
-                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
-                                ->fetchAll('assoc');
-
-            $csll = $connection->execute("
-                    SELECT
-                        SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    , [CT2_CCD]
-                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                    FROM [CT2010]
-                                WHERE
-                        SUBSTRING([CT2_DATA],1,4) = '$year'
-                        AND [CT2_DEBITO] in ('42103006')
-                        AND D_E_L_E_T_ != '*'
-                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
-                                ->fetchAll('assoc');
-
-            $ipva = $connection->execute("
-                    SELECT
-                        SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    , [CT2_CCD]
-                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                    FROM [CT2010]
-                                WHERE
-                        SUBSTRING([CT2_DATA],1,4) = '$year'
-                        AND [CT2_DEBITO] in ('42103007')
-                        AND D_E_L_E_T_ != '*'
-                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
-                                ->fetchAll('assoc');
-
-            $iptu = $connection->execute("
-                    SELECT
-                        SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    , [CT2_CCD]
-                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                    FROM [CT2010]
-                                WHERE
-                        SUBSTRING([CT2_DATA],1,4) = '$year'
-                        AND [CT2_DEBITO] in ('42103008')
-                        AND D_E_L_E_T_ != '*'
-                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
-                                ->fetchAll('assoc');
-
-            $itbi = $connection->execute("
-                    SELECT
-                        SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    , [CT2_CCD]
-                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                    FROM [CT2010]
-                                WHERE
-                        SUBSTRING([CT2_DATA],1,4) = '$year'
-                        AND [CT2_DEBITO] in ('42103009')
-                        AND D_E_L_E_T_ != '*'
-                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
-                                ->fetchAll('assoc');
-
-            $fecoep = $connection->execute("
-                    SELECT
-                        SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    , [CT2_CCD]
-                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                    FROM [CT2010]
-                                WHERE
-                        SUBSTRING([CT2_DATA],1,4) = '$year'
-                        AND [CT2_DEBITO] in ('42103010')
-                        AND D_E_L_E_T_ != '*'
-                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
-                                ->fetchAll('assoc');
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        , [CT2_CCD]
+        , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,4) = '$year'
+        AND [CT2_DEBITO] in ('42103001')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != "TO") {
+            $sql .= "AND [CT2_CCD] = '$cc'";
         }
+        $sql .= " GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)";
+        $icms = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        , [CT2_CCD]
+        , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,4) = '$year'
+        AND [CT2_DEBITO] in ('42103002')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != "TO") {
+            $sql .= "AND [CT2_CCD] = '$cc'";
+        }
+        $sql .= " GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)";
+        $iss = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        , [CT2_CCD]
+        , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,4) = '$year'
+        AND [CT2_DEBITO] in ('42103003')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != "TO") {
+            $sql .= "AND [CT2_CCD] = '$cc'";
+        }
+        $sql .= " GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)";
+        $cofins = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        , [CT2_CCD]
+        , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,4) = '$year'
+        AND [CT2_DEBITO] in ('42103004')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != "TO") {
+            $sql .= "AND [CT2_CCD] = '$cc'";
+        }
+        $sql .= " GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)";
+        $pis = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        , [CT2_CCD]
+        , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,4) = '$year'
+        AND [CT2_DEBITO] in ('42103005')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != "TO") {
+            $sql .= "AND [CT2_CCD] = '$cc'";
+        }
+        $sql .= " GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)";
+        $irpj = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        , [CT2_CCD]
+        , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,4) = '$year'
+        AND [CT2_DEBITO] in ('42103006')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != "TO") {
+            $sql .= "AND [CT2_CCD] = '$cc'";
+        }
+        $sql .= " GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)";
+        $csll = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        , [CT2_CCD]
+        , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,4) = '$year'
+        AND [CT2_DEBITO] in ('42103007')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != "TO") {
+            $sql .= "AND [CT2_CCD] = '$cc'";
+        }
+        $sql .= " GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)";
+        $ipva = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        , [CT2_CCD]
+        , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,4) = '$year'
+        AND [CT2_DEBITO] in ('42103008')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != "TO") {
+            $sql .= "AND [CT2_CCD] = '$cc'";
+        }
+        $sql .= " GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)";
+        $iptu = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        , [CT2_CCD]
+        , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,4) = '$year'
+        AND [CT2_DEBITO] in ('42103009')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != "TO") {
+            $sql .= "AND [CT2_CCD] = '$cc'";
+        }
+        $sql .= " GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)";
+        $itbi = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        , [CT2_CCD]
+        , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,4) = '$year'
+        AND [CT2_DEBITO] in ('42103010')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != "TO") {
+            $sql .= "AND [CT2_CCD] = '$cc'";
+        }
+        $sql .= " GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)";
+        $fecoep = $connection->execute($sql)
+        ->fetchAll('assoc');
 
         $this->set(compact('ccpdf','year','icms','iss','cofins','pis','irpj','csll','ipva','iptu','itbi','fecoep'));
         $this->set('_serialize', ['ccpdf','year','icms','iss','cofins','pis','irpj','csll','ipva','iptu','itbi','fecoep']);
@@ -445,97 +351,62 @@ class ControllershipController extends AppController {
         $ccpdf = $this->request->data['ccPdf'];
         $cc = substr($cc,0,2);
 
-        if ($cc != 'TO'){
-
-            $furnitureAndUtensils = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                , [CT2_CCD]
-                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,4) = '$year'
-                    AND [CT2_DEBITO] in ('13201001')
-                    AND D_E_L_E_T_ != '*' AND [CT2_CCD] = '$cc'
-                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
-                            ->fetchAll('assoc');
-
-            $machinesAndEquipment = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                , [CT2_CCD]
-                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,4) = '$year'
-                    AND [CT2_DEBITO] in ('13201005','13201009','13201010','13201011','13201014')
-                    AND D_E_L_E_T_ != '*' AND [CT2_CCD] = '$cc'
-                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
-                            ->fetchAll('assoc');
-
-            $vehicles = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                , [CT2_CCD]
-                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,4) = '$year'
-                    AND [CT2_DEBITO] in ('13201007','13201008')
-                    AND D_E_L_E_T_ != '*' AND [CT2_CCD] = '$cc'
-                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
-                            ->fetchAll('assoc');
-
-        }else{
-
-            $furnitureAndUtensils = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                , [CT2_CCD]
-                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,4) = '$year'
-                    AND [CT2_DEBITO] in ('13201001')
-                    AND D_E_L_E_T_ != '*'
-                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
-                            ->fetchAll('assoc');
-
-            $machinesAndEquipment = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                , [CT2_CCD]
-                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,4) = '$year'
-                    AND [CT2_DEBITO] in ('13201005','13201009','13201010','13201011','13201014')
-                    AND D_E_L_E_T_ != '*'
-                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
-                            ->fetchAll('assoc');
-
-            $vehicles = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                , [CT2_CCD]
-                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,4) = '$year'
-                    AND [CT2_DEBITO] in ('13201007','13201008')
-                    AND D_E_L_E_T_ != '*'
-                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
-                            ->fetchAll('assoc');
-
-
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        , [CT2_CCD]
+        , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,4) = '$year'
+        AND [CT2_DEBITO] in ('13201001')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = '$cc'";
         }
+        $sql .= " GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)";
+        $furnitureAndUtensils = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        , [CT2_CCD]
+        , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,4) = '$year'
+        AND [CT2_DEBITO] in ('13201005','13201009','13201010','13201011','13201014')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = '$cc'";
+        }
+        $sql .= " GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)";
+        $machinesAndEquipment = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        , [CT2_CCD]
+        , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,4) = '$year'
+        AND [CT2_DEBITO] in ('13201007','13201008')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = '$cc'";
+        }
+        $sql .= " GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)";
+        $vehicles = $connection->execute($sql)
+        ->fetchAll('assoc');
 
         $this->set(compact('ccpdf','year','furnitureAndUtensils','machinesAndEquipment','vehicles'));
         $this->set('_serialize', ['ccpdf','year','furnitureAndUtensils','machinesAndEquipment','vehicles']);
 
         $this->viewBuilder()->layout('ajax');
         $this->response->type('pdf');
-
 
     }
 
@@ -606,271 +477,175 @@ class ControllershipController extends AppController {
 
         $cc = substr($cc,0,2);
 
-        if ($cc != 'TO'){
-
-            $rates = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                , [CT2_CCD]
-                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,4) = '$year'
-                    AND [CT2_DEBITO] in ('41103022','42102022')
-                    AND D_E_L_E_T_ != '*' AND [CT2_CCD] = '$cc'
-                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
-                            ->fetchAll('assoc');
-
-            $interestCosts = $connection->execute("
-                    SELECT
-                        SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    , [CT2_CCD]
-                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                    FROM [CT2010]
-                                WHERE
-                        SUBSTRING([CT2_DATA],1,4) = '$year'
-                        AND [CT2_DEBITO] in ('42104001')
-                        AND D_E_L_E_T_ != '*' AND [CT2_CCD] = '$cc'
-                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
-                                ->fetchAll('assoc');
-
-            $discountsGiven = $connection->execute("
-                    SELECT
-                        SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    , [CT2_CCD]
-                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                    FROM [CT2010]
-                                WHERE
-                        SUBSTRING([CT2_DATA],1,4) = '$year'
-                        AND [CT2_DEBITO] in ('42104002')
-                        AND D_E_L_E_T_ != '*' AND [CT2_CCD] = '$cc'
-                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
-                                ->fetchAll('assoc');
-
-            $bankExpenses = $connection->execute("
-                    SELECT
-                        SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    , [CT2_CCD]
-                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                    FROM [CT2010]
-                                WHERE
-                        SUBSTRING([CT2_DATA],1,4) = '$year'
-                        AND [CT2_DEBITO] in ('42104003')
-                        AND D_E_L_E_T_ != '*' AND [CT2_CCD] = '$cc'
-                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
-                                ->fetchAll('assoc');
-
-            $fines = $connection->execute("
-                    SELECT
-                        SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    , [CT2_CCD]
-                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                    FROM [CT2010]
-                                WHERE
-                        SUBSTRING([CT2_DATA],1,4) = '$year'
-                        AND [CT2_DEBITO] in ('42104004')
-                        AND D_E_L_E_T_ != '*' AND [CT2_CCD] = '$cc'
-                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
-                                ->fetchAll('assoc');
-
-            $iof = $connection->execute("
-                    SELECT
-                        SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    , [CT2_CCD]
-                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                    FROM [CT2010]
-                                WHERE
-                        SUBSTRING([CT2_DATA],1,4) = '$year'
-                        AND [CT2_DEBITO] in ('42104005')
-                        AND D_E_L_E_T_ != '*' AND [CT2_CCD] = '$cc'
-                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
-                                ->fetchAll('assoc');
-
-            $ioc = $connection->execute("
-                    SELECT
-                        SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    , [CT2_CCD]
-                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                    FROM [CT2010]
-                                WHERE
-                        SUBSTRING([CT2_DATA],1,4) = '$year'
-                        AND [CT2_DEBITO] in ('42104006')
-                        AND D_E_L_E_T_ != '*'  AND [CT2_CCD] = '$cc'
-                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
-                                ->fetchAll('assoc');
-
-            $bankInterestRate = $connection->execute("
-                    SELECT
-                        SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    , [CT2_CCD]
-                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                    FROM [CT2010]
-                                WHERE
-                        SUBSTRING([CT2_DATA],1,4) = '$year'
-                        AND [CT2_DEBITO] in ('42104007')
-                        AND D_E_L_E_T_ != '*'  AND [CT2_CCD] = '$cc'
-                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
-                                ->fetchAll('assoc');
-
-            $financialCharges = $connection->execute("
-                    SELECT
-                        SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    , [CT2_CCD]
-                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                    FROM [CT2010]
-                                WHERE
-                        SUBSTRING([CT2_DATA],1,4) = '$year'
-                        AND [CT2_DEBITO] in ('42104008')
-                        AND D_E_L_E_T_ != '*'  AND [CT2_CCD] = '$cc'
-                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
-                                ->fetchAll('assoc');
-
-            $irs = $connection->execute("
-                    SELECT
-                        SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    , [CT2_CCD]
-                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                    FROM [CT2010]
-                                WHERE
-                        SUBSTRING([CT2_DATA],1,4) = '$year'
-                        AND [CT2_DEBITO] in ('42104009')
-                        AND D_E_L_E_T_ != '*'  AND [CT2_CCD] = '$cc'
-                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
-                                ->fetchAll('assoc');
-
-        }else{
-
-           $rates = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                , [CT2_CCD]
-                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,4) = '$year'
-                    AND [CT2_DEBITO] in ('41103022','42102022')
-                    AND D_E_L_E_T_ != '*'
-                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
-                            ->fetchAll('assoc');
-
-            $interestCosts = $connection->execute("
-                    SELECT
-                        SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    , [CT2_CCD]
-                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                    FROM [CT2010]
-                                WHERE
-                        SUBSTRING([CT2_DATA],1,4) = '$year'
-                        AND [CT2_DEBITO] in ('42104001')
-                        AND D_E_L_E_T_ != '*'
-                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
-                                ->fetchAll('assoc');
-
-            $discountsGiven = $connection->execute("
-                    SELECT
-                        SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    , [CT2_CCD]
-                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                    FROM [CT2010]
-                                WHERE
-                        SUBSTRING([CT2_DATA],1,4) = '$year'
-                        AND [CT2_DEBITO] in ('42104002')
-                        AND D_E_L_E_T_ != '*'
-                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
-                                ->fetchAll('assoc');
-
-            $bankExpenses = $connection->execute("
-                    SELECT
-                        SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    , [CT2_CCD]
-                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                    FROM [CT2010]
-                                WHERE
-                        SUBSTRING([CT2_DATA],1,4) = '$year'
-                        AND [CT2_DEBITO] in ('42104003')
-                        AND D_E_L_E_T_ != '*'
-                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
-                                ->fetchAll('assoc');
-
-            $fines = $connection->execute("
-                    SELECT
-                        SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    , [CT2_CCD]
-                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                    FROM [CT2010]
-                                WHERE
-                        SUBSTRING([CT2_DATA],1,4) = '$year'
-                        AND [CT2_DEBITO] in ('42104004')
-                        AND D_E_L_E_T_ != '*'
-                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
-                                ->fetchAll('assoc');
-
-            $iof = $connection->execute("
-                    SELECT
-                        SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    , [CT2_CCD]
-                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                    FROM [CT2010]
-                                WHERE
-                        SUBSTRING([CT2_DATA],1,4) = '$year'
-                        AND [CT2_DEBITO] in ('42104005')
-                        AND D_E_L_E_T_ != '*'
-                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
-                                ->fetchAll('assoc');
-
-            $ioc = $connection->execute("
-                    SELECT
-                        SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    , [CT2_CCD]
-                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                    FROM [CT2010]
-                                WHERE
-                        SUBSTRING([CT2_DATA],1,4) = '$year'
-                        AND [CT2_DEBITO] in ('42104006')
-                        AND D_E_L_E_T_ != '*'
-                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
-                                ->fetchAll('assoc');
-
-            $bankInterestRate = $connection->execute("
-                    SELECT
-                        SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    , [CT2_CCD]
-                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                    FROM [CT2010]
-                                WHERE
-                        SUBSTRING([CT2_DATA],1,4) = '$year'
-                        AND [CT2_DEBITO] in ('42104007')
-                        AND D_E_L_E_T_ != '*'
-                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
-                                ->fetchAll('assoc');
-
-            $financialCharges = $connection->execute("
-                    SELECT
-                        SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    , [CT2_CCD]
-                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                    FROM [CT2010]
-                                WHERE
-                        SUBSTRING([CT2_DATA],1,4) = '$year'
-                        AND [CT2_DEBITO] in ('42104008')
-                        AND D_E_L_E_T_ != '*'
-                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
-                                ->fetchAll('assoc');
-
-            $irs = $connection->execute("
-                    SELECT
-                        SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    , [CT2_CCD]
-                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                    FROM [CT2010]
-                                WHERE
-                        SUBSTRING([CT2_DATA],1,4) = '$year'
-                        AND [CT2_DEBITO] in ('42104009')
-                        AND D_E_L_E_T_ != '*'
-                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
-                                ->fetchAll('assoc');
-
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        , [CT2_CCD]
+        , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,4) = '$year'
+        AND [CT2_DEBITO] in ('41103022','42102022')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = '$cc'";
         }
+        $sql .= " GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)";
+        $rates = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        , [CT2_CCD]
+        , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,4) = '$year'
+        AND [CT2_DEBITO] in ('42104001')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = '$cc'";
+        }
+        $sql .= " GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)";
+        $interestCosts = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        , [CT2_CCD]
+        , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,4) = '$year'
+        AND [CT2_DEBITO] in ('42104002')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = '$cc'";
+        }
+        $sql .= " GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)";
+        $discountsGiven = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        , [CT2_CCD]
+        , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,4) = '$year'
+        AND [CT2_DEBITO] in ('42104003')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = '$cc'";
+        }
+        $sql .= " GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)";
+        $bankExpenses = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        , [CT2_CCD]
+        , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,4) = '$year'
+        AND [CT2_DEBITO] in ('42104004')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = '$cc'";
+        }
+        $sql .= " GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)";
+        $fines = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        , [CT2_CCD]
+        , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,4) = '$year'
+        AND [CT2_DEBITO] in ('42104005')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = '$cc'";
+        }
+        $sql .= " GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)";
+        $iof = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        , [CT2_CCD]
+        , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,4) = '$year'
+        AND [CT2_DEBITO] in ('42104006')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = '$cc'";
+        }
+        $sql .= " GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)";
+        $ioc = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        , [CT2_CCD]
+        , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,4) = '$year'
+        AND [CT2_DEBITO] in ('42104007')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = '$cc'";
+        }
+        $sql .= " GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)";
+        $bankInterestRate = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        , [CT2_CCD]
+        , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,4) = '$year'
+        AND [CT2_DEBITO] in ('42104008')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = '$cc'";
+        }
+        $sql .= " GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)";
+        $financialCharges = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        , [CT2_CCD]
+        , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,4) = '$year'
+        AND [CT2_DEBITO] in ('42104009')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = '$cc'";
+        }
+        $sql .= " GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)";
+        $irs = $connection->execute($sql)
+        ->fetchAll('assoc');
 
         $this->set(compact('ccpdf','rates','interestCosts','discountsGiven','bankExpenses','fines','iof','ioc','bankInterestRate','financialCharges','irs'));
         $this->set('_serialize', ['ccpdf','rates','interestCosts','discountsGiven','bankExpenses','fines','iof','ioc','bankInterestRate','financialCharges','irs']);
@@ -1029,206 +804,132 @@ class ControllershipController extends AppController {
     public function AdministrativeExpensesPdf() {
 
         $year = $this->request->data['yearPdf'];
-
         $connection = ConnectionManager::get('baseProtheus');
-
         $cc = $this->request->data['ccPdf'];
-
         $ccpdf = $this->request->data['ccPdf'];
-
         $cc = substr($cc,0,2);
 
-        if ($cc != 'TO'){
-
-            $rent = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                , [CT2_CCD]
-                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,4) = '$year'
-                    AND [CT2_DEBITO] in ('41103004','42102002')
-                    AND D_E_L_E_T_ != '*' AND [CT2_CCD] = '$cc'
-                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
-                            ->fetchAll('assoc');
-
-            $phoneAndInternet = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                , [CT2_CCD]
-                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,4) = '$year'
-                    AND [CT2_DEBITO] in ('41103003','42102003')
-                    AND D_E_L_E_T_ != '*' AND [CT2_CCD] = '$cc'
-                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
-                            ->fetchAll('assoc');
-
-            $electricity = $connection->execute("
-                SELECT
-                        SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    , [CT2_CCD]
-                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                    FROM [CT2010]
-                                WHERE
-                        SUBSTRING([CT2_DATA],1,4) = '$year'
-                        AND [CT2_DEBITO] in ('41103002','42102029')
-                        AND D_E_L_E_T_ != '*' AND [CT2_CCD] = '$cc'
-                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
-                            ->fetchAll('assoc');
-
-            $waterAndSewage = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                , [CT2_CCD]
-                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,4) = '$year'
-                    AND [CT2_DEBITO] in ('41103001','42102001')
-                    AND D_E_L_E_T_ != '*' AND [CT2_CCD] = '$cc'
-                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
-                            ->fetchAll('assoc');
-
-            $officeSupplies = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                , [CT2_CCD]
-                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,4) = '$year'
-                    AND [CT2_DEBITO] in ('41103015','41103047','42102015','42102048')
-                    AND D_E_L_E_T_ != '*' AND [CT2_CCD] = '$cc'
-                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
-                            ->fetchAll('assoc');
-
-            $cleaningSupplies = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                , [CT2_CCD]
-                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,4) = '$year'
-                    AND [CT2_DEBITO] in ('41103033','42102035')
-                    AND D_E_L_E_T_ != '*' AND [CT2_CCD] = '$cc'
-                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
-                            ->fetchAll('assoc');
-
-            $others = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                , [CT2_CCD]
-                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,4) = '$year'
-                    AND [CT2_DEBITO] in ('41103007','41103016','41103018','41103019','41103024','41103037'
-                                        ,'41103038','42102004','42102016','42102018','42102019','42102024'
-                                        ,'42102039','42102045','42102047')
-                    AND D_E_L_E_T_ != '*' AND [CT2_CCD] = '$cc'
-                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
-            ->fetchAll('assoc');
-
-        }else{
-
-            $rent = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                , [CT2_CCD]
-                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,4) = '$year'
-                    AND [CT2_DEBITO] in ('41103004','42102002')
-                    AND D_E_L_E_T_ != '*'
-                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
-                            ->fetchAll('assoc');
-
-            $phoneAndInternet = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                , [CT2_CCD]
-                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,4) = '$year'
-                    AND [CT2_DEBITO] in ('41103003','42102003')
-                    AND D_E_L_E_T_ != '*'
-                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
-                            ->fetchAll('assoc');
-
-            $electricity = $connection->execute("
-                SELECT
-                        SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    , [CT2_CCD]
-                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                    FROM [CT2010]
-                                WHERE
-                        SUBSTRING([CT2_DATA],1,4) = '$year'
-                        AND [CT2_DEBITO] in ('41103002','42102029')
-                        AND D_E_L_E_T_ != '*'
-                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
-                            ->fetchAll('assoc');
-
-            $waterAndSewage = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                , [CT2_CCD]
-                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,4) = '$year'
-                    AND [CT2_DEBITO] in ('41103001','42102001')
-                    AND D_E_L_E_T_ != '*'
-                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
-                            ->fetchAll('assoc');
-
-            $officeSupplies = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                , [CT2_CCD]
-                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,4) = '$year'
-                    AND [CT2_DEBITO] in ('41103015','41103047','42102015','42102048')
-                    AND D_E_L_E_T_ != '*'
-                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
-                            ->fetchAll('assoc');
-
-            $cleaningSupplies = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                , [CT2_CCD]
-                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,4) = '$year'
-                    AND [CT2_DEBITO] in ('41103033','42102035')
-                    AND D_E_L_E_T_ != '*'
-                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
-                            ->fetchAll('assoc');
-
-            $others = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                , [CT2_CCD]
-                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,4) = '$year'
-                    AND [CT2_DEBITO] in ('41103007','41103016','41103018','41103019','41103024','41103037'
-                                        ,'41103038','42102004','42102016','42102018','42102019','42102024'
-                                        ,'42102039','42102045','42102047')
-                    AND D_E_L_E_T_ != '*'
-                GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")
-            ->fetchAll('assoc');
-
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        , [CT2_CCD]
+        , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,4) = '$year'
+        AND [CT2_DEBITO] in ('41103004','42102002')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = '$cc'";
         }
+        $sql .= " GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)";
+        $rent = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        , [CT2_CCD]
+        , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,4) = '$year'
+        AND [CT2_DEBITO] in ('41103003','42102003')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = '$cc'";
+        }
+        $sql .= " GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)";
+        $phoneAndInternet = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        , [CT2_CCD]
+        , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,4) = '$year'
+        AND [CT2_DEBITO] in ('41103002','42102029')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = '$cc'";
+        }
+        $sql .= " GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)";
+        $electricity = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        , [CT2_CCD]
+        , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,4) = '$year'
+        AND [CT2_DEBITO] in ('41103001','42102001')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = '$cc'";
+        }
+        $sql .= " GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)";
+        $waterAndSewage = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        , [CT2_CCD]
+        , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,4) = '$year'
+        AND [CT2_DEBITO] in ('41103015','41103047','42102015','42102048')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = '$cc'";
+        }
+        $sql .= " GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)";
+        $officeSupplies = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        , [CT2_CCD]
+        , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,4) = '$year'
+        AND [CT2_DEBITO] in ('41103033','42102035')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = '$cc'";
+        }
+        $sql .= " GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)";
+        $cleaningSupplies = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        , [CT2_CCD]
+        , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,4) = '$year'
+        AND [CT2_DEBITO] in ('41103007','41103016','41103018','41103019','41103024','41103037'
+        ,'41103038','42102004','42102016','42102018','42102019','42102024'
+        ,'42102039','42102045','42102047')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = '$cc'";
+        }
+        $sql .= " GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)";
+        $others = $connection->execute($sql)
+        ->fetchAll('assoc');
+
 
         $this->set(compact('ccpdf','year','rent','phoneAndInternet','electricity','waterAndSewage','officeSupplies','cleaningSupplies','others'));
         $this->set('_serialize', ['ccpdf','year','rent','phoneAndInternet','electricity','waterAndSewage','officeSupplies','cleaningSupplies','others']);
@@ -1722,367 +1423,228 @@ class ControllershipController extends AppController {
 
         $cc = substr($cc,0,2);
 
-        if ($cc != 'TO'){
-
-             //quadro de pessoal
-            $staffPerMonth = $connection->execute("
-                SELECT
-                    COUNT([RD_PD]) as CONT
-                    ,[RD_DATARQ]
-                    ,[RD_CC]
-                    FROM [SRD010]
-                        WHERE [SRD010].[D_E_L_E_T_] <> '*'
-                            AND [RD_PD] = '101'
-                            AND SUBSTRING([RD_DATARQ],0,5) = '$year'
-                            AND [RD_CC] = '$cc'
-                        GROUP BY [RD_CC],[RD_DATARQ]
-                        ORDER BY [RD_CC],[RD_DATARQ]")
-                    ->fetchAll('assoc');
-
-            $outehs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    , [CT2_CCD]
-                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                    FROM [CT2010]
-                        WHERE
-                            SUBSTRING([CT2_DATA],1,4) = '$year'
-                            AND [CT2_DEBITO] in ('41101018','41101022','41101023')
-                            AND D_E_L_E_T_ != '*' AND [CT2_CCD] = '$cc'
-                        GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")->fetchAll('assoc');
-
-
-            $coursesAndTraining = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    , [CT2_CCD]
-                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                    FROM [CT2010]
-                        WHERE
-                            SUBSTRING([CT2_DATA],1,4) = '$year'
-                            AND [CT2_DEBITO] in ('41103036','42103036')
-                            AND D_E_L_E_T_ != '*' AND [CT2_CCD] = '$cc'
-                        GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")->fetchAll('assoc');
-
-
-            //meteriais de segurança
-            $safetyEquipment = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    , [CT2_CCD]
-                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                    FROM [CT2010]
-                        WHERE
-                            SUBSTRING([CT2_DATA],1,4) = '$year'
-                            AND [CT2_DEBITO] in ('41101019','41101020')
-                            AND D_E_L_E_T_ != '*' AND [CT2_CCD] = '$cc'
-                        GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")->fetchAll('assoc');
-
-            //assistencia medica
-            $medical = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    , [CT2_CCD]
-                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                    FROM [CT2010]
-                        WHERE
-                            SUBSTRING([CT2_DATA],1,4) = '$year'
-                            AND [CT2_DEBITO] in ('41101016','42101016','41101017','42101017')
-                            AND D_E_L_E_T_ != '*' AND [CT2_CCD] = '$cc'
-                        GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")->fetchAll('assoc');
-
-            //tanstporte
-            $transport = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    , [CT2_CCD]
-                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                    FROM [CT2010]
-                        WHERE
-                            SUBSTRING([CT2_DATA],1,4) = '$year'
-                            AND [CT2_DEBITO] in ('41101014','42101014','41101021','42101021')
-                            AND D_E_L_E_T_ != '*' AND [CT2_CCD] = '$cc'
-                        GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")->fetchAll('assoc');
-
-            // alimentação
-            $feeding = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    , [CT2_CCD]
-                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                    FROM [CT2010]
-                        WHERE
-                            SUBSTRING([CT2_DATA],1,4) = '$year'
-                            AND [CT2_DEBITO] in ('41101015','42101015')
-                            AND D_E_L_E_T_ != '*' AND [CT2_CCD] = '$cc'
-                        GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")->fetchAll('assoc');
-
-            //encargos sociais
-            $socialCharges = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    , [CT2_CCD]
-                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                    FROM [CT2010]
-                        WHERE
-                            SUBSTRING([CT2_DATA],1,4) = '$year'
-                            AND [CT2_DEBITO] in ('41101012','41101013','42101012','42101013')
-                            AND D_E_L_E_T_ != '*' AND [CT2_CCD] = '$cc'
-                        GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")->fetchAll('assoc');
-
-            //premios e gratificações
-            $prizesAndGratuities = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    , [CT2_CCD]
-                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                    FROM [CT2010]
-                        WHERE
-                            SUBSTRING([CT2_DATA],1,4) = '$year'
-                            AND [CT2_DEBITO] in ('41101024','42101024','41101005','42101005')
-                            AND D_E_L_E_T_ != '*' AND [CT2_CCD] = '$cc'
-                        GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")->fetchAll('assoc');
-
-            //hora extra
-            $internshipBag = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    , [CT2_CCD]
-                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                    FROM [CT2010]
-                        WHERE
-                            SUBSTRING([CT2_DATA],1,4) = '$year'
-                            AND [CT2_DEBITO] in ('41101006','42101006')
-                            AND D_E_L_E_T_ != '*' AND [CT2_CCD] = '$cc'
-                        GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)
-                ")->fetchAll('assoc');
-
-            //hora extra
-            $extraHour = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    , [CT2_CCD]
-                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                    FROM [CT2010]
-                        WHERE
-                            SUBSTRING([CT2_DATA],1,4) = '$year'
-                            AND [CT2_DEBITO] in ('41101008','42101008')
-                            AND D_E_L_E_T_ != '*' AND [CT2_CCD] = '$cc'
-                        GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)
-                ")->fetchAll('assoc');
-
-            //prolabore
-            $prolabore = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    , [CT2_CCD]
-                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                    FROM [CT2010]
-                        WHERE
-                            SUBSTRING([CT2_DATA],1,4) = '$year'
-                            AND [CT2_DEBITO] in ('41101004','42101004')
-                            AND D_E_L_E_T_ != '*' AND [CT2_CCD] = '$cc'
-                        GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)
-                ")->fetchAll('assoc');
-
-            //proventos
-            $earnings = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    , [CT2_CCD]
-                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                    FROM [CT2010]
-                        WHERE
-                            SUBSTRING([CT2_DATA],1,4) = '$year'
-                            AND [CT2_DEBITO] in ('41101001','41101002','41101003'
-                                                ,'41101009','41101010','41101011','41101025'
-                                                ,'41101026','42101001','42101002','42101003'
-                                                ,'42101009','42101010','42101011','41101007','42101007')
-                            AND D_E_L_E_T_ != '*' AND [CT2_CCD] = '$cc'
-                        GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)
-                        ")->fetchAll('assoc');
-
-        }else{
-
-            //quadro de pessoal
-            $staffPerMonth = $connection->execute("
-                SELECT
-                    COUNT([RD_PD]) as CONT
-                    ,[RD_DATARQ]
-                    ,[RD_CC]
-                    FROM [SRD010]
-                        WHERE [SRD010].[D_E_L_E_T_] <> '*'
-                            AND [RD_PD] = '101'
-                            AND SUBSTRING([RD_DATARQ],0,5) = '$year'
-                        GROUP BY [RD_CC],[RD_DATARQ]
-                        ORDER BY [RD_CC],[RD_DATARQ]")
-                    ->fetchAll('assoc');
-
-            $outehs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    , [CT2_CCD]
-                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                    FROM [CT2010]
-                        WHERE
-                            SUBSTRING([CT2_DATA],1,4) = '$year'
-                            AND [CT2_DEBITO] in ('41101018','41101022','41101023')
-                            AND D_E_L_E_T_ != '*'
-                        GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")->fetchAll('assoc');
-
-
-            $coursesAndTraining = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    , [CT2_CCD]
-                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                    FROM [CT2010]
-                        WHERE
-                            SUBSTRING([CT2_DATA],1,4) = '$year'
-                            AND [CT2_DEBITO] in ('41103036','42103036')
-                            AND D_E_L_E_T_ != '*'
-                        GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")->fetchAll('assoc');
-
-
-            //meteriais de segurança
-            $safetyEquipment = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    , [CT2_CCD]
-                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                    FROM [CT2010]
-                        WHERE
-                            SUBSTRING([CT2_DATA],1,4) = '$year'
-                            AND [CT2_DEBITO] in ('41101019','41101020')
-                            AND D_E_L_E_T_ != '*'
-                        GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")->fetchAll('assoc');
-
-            //assistencia medica
-            $medical = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    , [CT2_CCD]
-                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                    FROM [CT2010]
-                        WHERE
-                            SUBSTRING([CT2_DATA],1,4) = '$year'
-                            AND [CT2_DEBITO] in ('41101016','42101016','41101017','42101017')
-                            AND D_E_L_E_T_ != '*'
-                        GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")->fetchAll('assoc');
-
-            //tanstporte
-            $transport = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    , [CT2_CCD]
-                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                    FROM [CT2010]
-                        WHERE
-                            SUBSTRING([CT2_DATA],1,4) = '$year'
-                            AND [CT2_DEBITO] in ('41101014','42101014','41101021','42101021')
-                            AND D_E_L_E_T_ != '*'
-                        GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")->fetchAll('assoc');
-
-            // alimentação
-            $feeding = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    , [CT2_CCD]
-                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                    FROM [CT2010]
-                        WHERE
-                            SUBSTRING([CT2_DATA],1,4) = '$year'
-                            AND [CT2_DEBITO] in ('41101015','42101015')
-                            AND D_E_L_E_T_ != '*'
-                        GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")->fetchAll('assoc');
-
-            //encargos sociais
-            $socialCharges = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    , [CT2_CCD]
-                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                    FROM [CT2010]
-                        WHERE
-                            SUBSTRING([CT2_DATA],1,4) = '$year'
-                            AND [CT2_DEBITO] in ('41101012','41101013','42101012','42101013')
-                            AND D_E_L_E_T_ != '*'
-                        GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")->fetchAll('assoc');
-
-            //premios e gratificações
-            $prizesAndGratuities = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    , [CT2_CCD]
-                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                    FROM [CT2010]
-                        WHERE
-                            SUBSTRING([CT2_DATA],1,4) = '$year'
-                            AND [CT2_DEBITO] in ('41101024','42101024','41101005','42101005')
-                            AND D_E_L_E_T_ != '*'
-                        GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)")->fetchAll('assoc');
-
-            //hora extra
-            $internshipBag = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    , [CT2_CCD]
-                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                    FROM [CT2010]
-                        WHERE
-                            SUBSTRING([CT2_DATA],1,4) = '$year'
-                            AND [CT2_DEBITO] in ('41101006','42101006')
-                            AND D_E_L_E_T_ != '*'
-                        GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)
-                ")->fetchAll('assoc');
-
-            //hora extra
-            $extraHour = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    , [CT2_CCD]
-                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                    FROM [CT2010]
-                        WHERE
-                            SUBSTRING([CT2_DATA],1,4) = '$year'
-                            AND [CT2_DEBITO] in ('41101008','42101008')
-                            AND D_E_L_E_T_ != '*'
-                        GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)
-                ")->fetchAll('assoc');
-
-            //prolabore
-            $prolabore = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    , [CT2_CCD]
-                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                    FROM [CT2010]
-                        WHERE
-                            SUBSTRING([CT2_DATA],1,4) = '$year'
-                            AND [CT2_DEBITO] in ('41101004','42101004')
-                            AND D_E_L_E_T_ != '*'
-                        GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)
-                ")->fetchAll('assoc');
-
-            //proventos
-            $earnings = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    , [CT2_CCD]
-                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                    FROM [CT2010]
-                        WHERE
-                            SUBSTRING([CT2_DATA],1,4) = '$year'
-                            AND [CT2_DEBITO] in ('41101001','41101002','41101003'
-                                                ,'41101009','41101010','41101011','41101025'
-                                                ,'41101026','42101001','42101002','42101003'
-                                                ,'42101009','42101010','42101011','41101007','42101007')
-                            AND D_E_L_E_T_ != '*'
-                        GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)
-                        ")->fetchAll('assoc');
-
-
+        //quadro de pessoal
+        $sql = "
+        SELECT
+        COUNT([RD_PD]) as CONT
+        ,[RD_DATARQ]
+        ,[RD_CC]
+        FROM [SRD010]
+        WHERE [SRD010].[D_E_L_E_T_] <> '*'
+        AND [RD_PD] = '101'
+        AND SUBSTRING([RD_DATARQ],0,5) = '$year'";
+        if ($cc != 'TO') {
+            $sql .= "AND [RD_CC] = '$cc'";
         }
+        $sql .= " GROUP BY [RD_CC],[RD_DATARQ]
+        ORDER BY [RD_CC],[RD_DATARQ]";
+        $staffPerMonth = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        , [CT2_CCD]
+        , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,4) = '$year'
+        AND [CT2_DEBITO] in ('41101018','41101022','41101023')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = '$cc'";
+        }
+        $sql .= " GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)";
+        $outehs = $connection->execute($sql)->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        , [CT2_CCD]
+        , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,4) = '$year'
+        AND [CT2_DEBITO] in ('41103036','42103036')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = '$cc'";
+        }
+        $sql .= " GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)";
+        $coursesAndTraining = $connection->execute($sql)->fetchAll('assoc');
+
+        //meteriais de segurança
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        , [CT2_CCD]
+        , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,4) = '$year'
+        AND [CT2_DEBITO] in ('41101019','41101020')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = '$cc'";
+        }
+        $sql .= " GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)";
+        $safetyEquipment = $connection->execute($sql)->fetchAll('assoc');
+
+        //assistencia medica
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        , [CT2_CCD]
+        , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,4) = '$year'
+        AND [CT2_DEBITO] in ('41101016','42101016','41101017','42101017')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = '$cc'";
+        }
+        $sql .= " GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)";
+        $medical = $connection->execute($sql)->fetchAll('assoc');
+
+        //tanstporte
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        , [CT2_CCD]
+        , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,4) = '$year'
+        AND [CT2_DEBITO] in ('41101014','42101014','41101021','42101021')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = '$cc'";
+        }
+        $sql .= " GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)";
+        $transport = $connection->execute($sql)->fetchAll('assoc');
+
+        // alimentação
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        , [CT2_CCD]
+        , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,4) = '$year'
+        AND [CT2_DEBITO] in ('41101015','42101015')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = '$cc'";
+        }
+        $sql .= " GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)";
+        $feeding = $connection->execute($sql)->fetchAll('assoc');
+
+        //encargos sociais
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        , [CT2_CCD]
+        , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,4) = '$year'
+        AND [CT2_DEBITO] in ('41101012','41101013','42101012','42101013')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = '$cc'";
+        }
+        $sql .= " GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)";
+        $socialCharges = $connection->execute($sql)->fetchAll('assoc');
+
+        //premios e gratificações
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        , [CT2_CCD]
+        , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,4) = '$year'
+        AND [CT2_DEBITO] in ('41101024','42101024','41101005','42101005')
+        AND D_E_L_E_T_ != '*";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = '$cc'";
+        }
+        $sql .= " GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)";
+        $prizesAndGratuities = $connection->execute($sql)->fetchAll('assoc');
+
+        //hora extra
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        , [CT2_CCD]
+        , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,4) = '$year'
+        AND [CT2_DEBITO] in ('41101006','42101006')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = '$cc'";
+        }
+        $sql .= " GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)";
+        $internshipBag = $connection->execute($sql)->fetchAll('assoc');
+
+        //hora extra
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        , [CT2_CCD]
+        , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,4) = '$year'
+        AND [CT2_DEBITO] in ('41101008','42101008')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = '$cc'";
+        }
+        $sql .= " GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)";
+        $extraHour = $connection->execute($sql)->fetchAll('assoc');
+
+        //prolabore
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        , [CT2_CCD]
+        , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,4) = '$year'
+        AND [CT2_DEBITO] in ('41101004','42101004')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = '$cc'";
+        }
+        $sql .= " GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)";
+        $prolabore = $connection->execute($sql)->fetchAll('assoc');
+
+        //proventos
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        , [CT2_CCD]
+        , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,4) = '$year'
+        AND [CT2_DEBITO] in ('41101001','41101002','41101003'
+        ,'41101009','41101010','41101011','41101025'
+        ,'41101026','42101001','42101002','42101003'
+        ,'42101009','42101010','42101011','41101007','42101007')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = '$cc'";
+        }
+        $sql .= " GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)";
+        $earnings = $connection->execute($sql)->fetchAll('assoc');
 
         $this->set(compact('ccpdf','year','staffPerMonth','outehs','coursesAndTraining','safetyEquipment','medical','transport','feeding','socialCharges','prizesAndGratuities','internshipBag','extraHour','prolabore','earnings'));
         $this->set('_serialize', ['ccpdf','year','staffPerMonth','outehs','coursesAndTraining','safetyEquipment','medical','transport','feeding','socialCharges','prizesAndGratuities','internshipBag','extraHour','prolabore','earnings']);
@@ -2288,8 +1850,6 @@ class ControllershipController extends AppController {
 
     public function RevenuesPerCapitaPdf() {
 
-        //debug($this->request->data);
-
         $year = $this->request->data['yearPdf'];
 
         $connection = ConnectionManager::get('baseProtheus');
@@ -2395,8 +1955,6 @@ class ControllershipController extends AppController {
     }
 
     public function RevenuesMonthByCcPdf() {
-
-        //debug($this->request->data);
 
         $year = $this->request->data['yearPdf'];
 
@@ -2513,8 +2071,6 @@ class ControllershipController extends AppController {
 
     public function PerCapitaExtraHoursCostFilter() {
 
-        //debug($this->request->data);
-
         $year = $this->request->data['year'];
         $CustoDeHorasExtraPorCentroDeCustoCCS = $this->request->data['CustoDeHorasExtraPorCentroDeCustoCCS'];
 
@@ -2593,8 +2149,6 @@ class ControllershipController extends AppController {
                     ->fetchAll('assoc');
 
         }
-
-
 
         $this->set(compact('extraHour', 'staffPerMonth','ccsNames'));
         $this->set('_serialize', ['extraHour', 'staffPerMonth','ccsNames']);
@@ -2745,7 +2299,8 @@ class ControllershipController extends AppController {
         $yearOne = $this->request->data['yearOne'];
         $yearTwo = $this->request->data['yearTwo'];
         $monthly = $this->request->data['monthly'];
-        $cc = $this->request->data['cc'];
+
+        $cc = substr($this->request->data['cc'], 0,2);
 
         $periodOneForFind = '';
         $periodTwoForFind = '';
@@ -2788,2531 +2343,1705 @@ class ControllershipController extends AppController {
             $periodTwoForFind = $yearTwo . '12';
         }
 
-        if($cc == 'TODOS'){
-            // ==== RECEITAS INI ==== //
-            $revenuesOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    , [CT2_CCC]
-                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                    , [CT2_CREDIT]
-                    FROM [CT2010]
-                        WHERE
-                           SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                           AND [CT2_CREDIT] in ('31101001','31101002','31102001','31102002')
-                           AND D_E_L_E_T_ != '*'
-                        GROUP BY [CT2_CCC], SUBSTRING([CT2_DATA],5,2),[CT2_CREDIT] ")->fetchAll('assoc');
-
-            $revenuesTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    , [CT2_CCC]
-                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                    , [CT2_CREDIT]
-                    FROM [CT2010]
-                        WHERE
-                           SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                           AND [CT2_CREDIT] in ('31101001','31101002','31102001','31102002')
-                           AND D_E_L_E_T_ != '*'
-                        GROUP BY [CT2_CCC], SUBSTRING([CT2_DATA],5,2),[CT2_CREDIT] ")->fetchAll('assoc');
-
-            $revenuesCountDebitOneRs = $connection->execute("
-            SELECT
-                SUM([CT2_VALOR]) AS [CT2_VALOR]
-                , [CT2_CCD]
-                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                FROM [CT2010]
-                    WHERE
-                        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                        AND [CT2_DEBITO] in ('11204005','11204007','11204008','11204009','11204010')
-                        AND D_E_L_E_T_ != '*'
-                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)
-                ")->fetchAll('assoc');
-
-            $revenuesCountDebitTwoRs = $connection->execute("
-            SELECT
-                SUM([CT2_VALOR]) AS [CT2_VALOR]
-                , [CT2_CCD]
-                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                FROM [CT2010]
-                    WHERE
-                        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                        AND [CT2_DEBITO] in ('11204005','11204007','11204008','11204009','11204010')
-                        AND D_E_L_E_T_ != '*'
-                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)
-                ")->fetchAll('assoc');
-
-            $cancellationOfTitlesOneRs = $connection->execute("
-            SELECT
-                SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                    WHERE
-                        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                        AND [CT2_DEBITO] in ('31101001','31101002','31101003','31101004')
-                        AND D_E_L_E_T_ != '*'
-                ")->fetchAll('assoc');
-
-            $cancellationOfTitlesTwoRs = $connection->execute("
-            SELECT
-                SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                    WHERE
-                        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                        AND [CT2_DEBITO] in ('31101001','31101002','31101003','31101004')
-                        AND D_E_L_E_T_ != '*'
-                ")->fetchAll('assoc');
-            // ==== RECEITAS FIM ==== //
-
-            // ============= RECURSOS HUMANOS DESPESAS INI ============= //
-
-            // outras despesas
-            $othersRHOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                        WHERE
-                            SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                            AND [CT2_DEBITO] in ('41101018','41101022','41101023')
-                            AND D_E_L_E_T_ != '*'
-                        ")->fetchAll('assoc');
-
-            $othersRHTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                        WHERE
-                            SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                            AND [CT2_DEBITO] in ('41101018','41101022','41101023')
-                            AND D_E_L_E_T_ != '*'
-                        ")->fetchAll('assoc');
-
-            //higienização
-            $sanitationOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                        WHERE
-                            SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                            AND [CT2_DEBITO] in ('41103012','42102011')
-                            AND D_E_L_E_T_ != '*'")->fetchAll('assoc');
-
-            $sanitationTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                        WHERE
-                            SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                            AND [CT2_DEBITO] in ('41103012','42102011')
-                            AND D_E_L_E_T_ != '*'")->fetchAll('assoc');
-
-            //cursos e treinamentos
-            $coursesAndTrainingOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                        WHERE
-                            SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                            AND [CT2_DEBITO] in ('41103036','42103036')
-                            AND D_E_L_E_T_ != '*'")->fetchAll('assoc');
-
-            $coursesAndTrainingTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                        WHERE
-                            SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                            AND [CT2_DEBITO] in ('41103036','42103036')
-                            AND D_E_L_E_T_ != '*'")->fetchAll('assoc');
-
-            //meteriais de segurança
-            $safetyEquipmentOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                        WHERE
-                            SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                            AND [CT2_DEBITO] in ('41101019','41101020')
-                            AND D_E_L_E_T_ != '*'")->fetchAll('assoc');
-
-            $safetyEquipmentTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                        WHERE
-                            SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                            AND [CT2_DEBITO] in ('41101019','41101020')
-                            AND D_E_L_E_T_ != '*'")->fetchAll('assoc');
-
-            //assistencia medica
-            $medicalOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                        WHERE
-                            SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                            AND [CT2_DEBITO] in ('41101016','42101016','41101017','42101017')
-                            AND D_E_L_E_T_ != '*'")->fetchAll('assoc');
-
-            $medicalTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                        WHERE
-                            SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                            AND [CT2_DEBITO] in ('41101016','42101016','41101017','42101017')
-                            AND D_E_L_E_T_ != '*'")->fetchAll('assoc');
-
-            //tanstporte
-            $transportOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                        WHERE
-                            SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                            AND [CT2_DEBITO] in ('41101014','42101014','41101021','42101021')
-                            AND D_E_L_E_T_ != '*'")->fetchAll('assoc');
-
-            $transportTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                        WHERE
-                            SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                            AND [CT2_DEBITO] in ('41101014','42101014','41101021','42101021')
-                            AND D_E_L_E_T_ != '*'")->fetchAll('assoc');
-
-            // alimentação
-            $feedingOneRs  = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                        WHERE
-                            SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                            AND [CT2_DEBITO] in ('41101015','42101015')
-                            AND D_E_L_E_T_ != '*'")->fetchAll('assoc');
-
-            $feedingTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                        WHERE
-                            SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                            AND [CT2_DEBITO] in ('41101015','42101015')
-                            AND D_E_L_E_T_ != '*'")->fetchAll('assoc');
-
-            //encargos sociais
-            $socialChargesOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                        WHERE
-                            SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                            AND [CT2_DEBITO] in ('41101012','41101013','42101012','42101013')
-                            AND D_E_L_E_T_ != '*'")->fetchAll('assoc');
-
-            $socialChargesTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                        WHERE
-                            SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                            AND [CT2_DEBITO] in ('41101012','41101013','42101012','42101013')
-                            AND D_E_L_E_T_ != '*'")->fetchAll('assoc');
-
-            //premios e gratificações
-            $prizesAndGratuitiesOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                        WHERE
-                            SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                            AND [CT2_DEBITO] in ('41101024','42101024','42101005','41101005')
-                            AND D_E_L_E_T_ != '*'")->fetchAll('assoc');
-
-            $prizesAndGratuitiesTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                        WHERE
-                            SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                            AND [CT2_DEBITO] in ('41101024','42101024','42101005','41101005')
-                            AND D_E_L_E_T_ != '*'")->fetchAll('assoc');
-
-            //bolsa estagio
-            $internshipBagOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                        WHERE
-                            SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                            AND [CT2_DEBITO] in ('41101006','42101006')
-                            AND D_E_L_E_T_ != '*'")->fetchAll('assoc');
-
-            $internshipBagTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                        WHERE
-                            SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                            AND [CT2_DEBITO] in ('41101006','42101006')
-                            AND D_E_L_E_T_ != '*'
-                ")->fetchAll('assoc');
-
-            //hora extra
-            $extraHourOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                        WHERE
-                            SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                            AND [CT2_DEBITO] in ('41101008','42101008')
-                            AND D_E_L_E_T_ != '*'")->fetchAll('assoc');
-
-            $extraHourTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                        WHERE
-                            SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                            AND [CT2_DEBITO] in ('41101008','42101008')
-                            AND D_E_L_E_T_ != '*'")->fetchAll('assoc');
-
-            //prolabore
-            $prolaboreOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                        WHERE
-                            SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                            AND [CT2_DEBITO] in ('41101004','42101004')
-                            AND D_E_L_E_T_ != '*'")->fetchAll('assoc');
-
-            $prolaboreTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                        WHERE
-                            SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                            AND [CT2_DEBITO] in ('41101004','42101004')
-                            AND D_E_L_E_T_ != '*'")->fetchAll('assoc');
-
-            //proventos
-            $earningsOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                        WHERE
-                            SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                            AND [CT2_DEBITO] in ('41101001','41101002','41101003'
-                                                ,'41101009','41101010','41101011','41101025'
-                                                ,'41101026','42101001','42101002','42101003'
-                                                ,'42101009','42101010','42101011','42101007','41101007')
-                            AND D_E_L_E_T_ != '*'")->fetchAll('assoc');
-
-            $earningsTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                        WHERE
-                            SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                            AND [CT2_DEBITO] in ('41101001','41101002','41101003'
-                                                ,'41101009','41101010','41101011','41101025'
-                                                ,'41101026','42101001','42101002','42101003'
-                                                ,'42101009','42101010','42101011','42101007','41101007')
-                            AND D_E_L_E_T_ != '*'")->fetchAll('assoc');
-
-            // ============= RECURSOS HUMANOS DESPESAS FIM ============= //
-
-            // ============= OPERACIONAL DESPESAS INI =============//
-
-            //manuntenções
-            $maintenanceOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                    AND [CT2_DEBITO] in ('41103008','41103035'
-                                        ,'41103031','41103041','41103045'
-                                        ,'42102005','42102027','42102033'
-                                        ,'42103037','42102042')
-                    AND D_E_L_E_T_ != '*'")
-                        ->fetchAll('assoc');
-
-            $maintenanceTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                    AND [CT2_DEBITO] in ('41103008','41103035'
-                                        ,'41103031','41103041','41103045'
-                                        ,'42102005','42102027','42102033'
-                                        ,'42103037','42102042')
-                    AND D_E_L_E_T_ != '*'")
-                        ->fetchAll('assoc');
-
-            //multas de transito
-            $finesOfCarsOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                                WHERE
-                        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                        AND [CT2_DEBITO] in ('41103044','42102044')
-                        AND D_E_L_E_T_ != '*'")
-                        ->fetchAll('assoc');
-
-            $finesOfCarsTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                                WHERE
-                        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                        AND [CT2_DEBITO] in ('41103044','42102044')
-                        AND D_E_L_E_T_ != '*'")
-                        ->fetchAll('assoc');
-
-            //pneus
-            $tiresOneRs = $connection->execute("SELECT
-                SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                    AND [CT2_DEBITO] in ('41103032','42102034')
-                    AND D_E_L_E_T_ != '*'")
-                ->fetchAll('assoc');
-
-            $tiresTwoRs = $connection->execute("SELECT
-                SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                    AND [CT2_DEBITO] in ('41103032','42102034')
-                    AND D_E_L_E_T_ != '*'")
-                ->fetchAll('assoc');
-
-            // oleos e lubricicantes
-            $fuelAndLubricantsOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                                WHERE
-                        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                        AND [CT2_DEBITO] in ('41103023','42102023')
-                        AND D_E_L_E_T_ != '*'")
-                ->fetchAll('assoc');
-
-            $fuelAndLubricantsTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                                WHERE
-                        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                        AND [CT2_DEBITO] in ('41103023','42102023')
-                        AND D_E_L_E_T_ != '*'")
-                ->fetchAll('assoc');
-
-            // alugueis
-            $rentsOprOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                    AND [CT2_DEBITO] in ('41103005','42102008','41103006','42102025')
-                    AND D_E_L_E_T_ != '*'")
-                ->fetchAll('assoc');
-
-            $rentsOprTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                    AND [CT2_DEBITO] in ('41103005','42102008','41103006','42102025')
-                    AND D_E_L_E_T_ != '*'")
-                ->fetchAll('assoc');
-
-            //fretes
-            $freightOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                    AND [CT2_DEBITO] in ('41103009','41103014','41103042','42102006','42102014','42102043')
-                    AND D_E_L_E_T_ != '*'")
-                ->fetchAll('assoc');
-
-            $freightTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                    AND [CT2_DEBITO] in ('41103009','41103014','41103042','42102006','42102014','42102043')
-                    AND D_E_L_E_T_ != '*'")
-                ->fetchAll('assoc');
-
-            $materialsOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                                WHERE
-                        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                        AND [CT2_DEBITO] in ('41103027','41103028','41103040'
-                                            ,'41103043','41201001','42102028'
-                                            ,'42102030','42102041')
-                        AND D_E_L_E_T_ != '*'")
-                ->fetchAll('assoc');
-
-            $materialsTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                                WHERE
-                        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                        AND [CT2_DEBITO] in ('41103027','41103028','41103040'
-                                            ,'41103043','41201001','42102028'
-                                            ,'42102030','42102041')
-                        AND D_E_L_E_T_ != '*'")
-                ->fetchAll('assoc');
-
-            $materialsLabOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                                WHERE
-                        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                        AND [CT2_DEBITO] in ('41103017','42102017')
-                        AND D_E_L_E_T_ != '*'")
-                ->fetchAll('assoc');
-
-            $materialsLabTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                                WHERE
-                        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                        AND [CT2_DEBITO] in ('41103017','42102017')
-                        AND D_E_L_E_T_ != '*'")
-                ->fetchAll('assoc');
-
-            $analisesLabOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                                WHERE
-                        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                        AND [CT2_DEBITO] in ('41103048')
-                        AND D_E_L_E_T_ != '*'")
-                ->fetchAll('assoc');
-
-            $analisesLabTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                                WHERE
-                        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                        AND [CT2_DEBITO] in ('41103048')
-                        AND D_E_L_E_T_ != '*'")
-                ->fetchAll('assoc');
-
-            $descartETratOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                                WHERE
-                        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                        AND [CT2_DEBITO] in ('41103026')
-                        AND D_E_L_E_T_ != '*'")
-                ->fetchAll('assoc');
-
-            $descartETratTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                                WHERE
-                        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                        AND [CT2_DEBITO] in ('41103026')
-                        AND D_E_L_E_T_ != '*'")
-                ->fetchAll('assoc');
-
-            $viagensOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                                WHERE
-                        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                        AND [CT2_DEBITO] in ('41103030','42102032')
-                        AND D_E_L_E_T_ != '*'")
-                ->fetchAll('assoc');
-
-            $viagensTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                                WHERE
-                        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                        AND [CT2_DEBITO] in ('42102032')
-                        AND D_E_L_E_T_ != '*'")
-                ->fetchAll('assoc');
-
-
-            $othersOPROneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                    AND [CT2_DEBITO] in ('41103020','41103021','42102020','42102021')
-                    AND D_E_L_E_T_ != '*'")
-                ->fetchAll('assoc');
-
-            $othersOPRTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                    AND [CT2_DEBITO] in ('41103020','41103021','42102020','42102021')
-                    AND D_E_L_E_T_ != '*'")
-                ->fetchAll('assoc');
-             // ============= OPERACIONAL DESPESAS FIM =============//
-
-            // ============= administrativo DESPESAS INI =============//
-
-            $rentAdmOneRs = $connection->execute("
-            SELECT
-                SUM([CT2_VALOR]) AS [CT2_VALOR]
-            FROM [CT2010]
-                        WHERE
-                SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                AND [CT2_DEBITO] in ('41103004','42102002')
-                AND D_E_L_E_T_ != '*'")
-                        ->fetchAll('assoc');
-
-            $rentAdmTwoRs = $connection->execute("
-            SELECT
-                SUM([CT2_VALOR]) AS [CT2_VALOR]
-            FROM [CT2010]
-                        WHERE
-                SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                AND [CT2_DEBITO] in ('41103004','42102002')
-                AND D_E_L_E_T_ != '*'")
-                        ->fetchAll('assoc');
-
-            $phoneAndInternetOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                    AND [CT2_DEBITO] in ('41103003','42102003')
-                    AND D_E_L_E_T_ != '*'")
-                            ->fetchAll('assoc');
-
-            $phoneAndInternetTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                    AND [CT2_DEBITO] in ('41103003','42102003')
-                    AND D_E_L_E_T_ != '*'")
-                            ->fetchAll('assoc');
-
-            $electricityOneRs = $connection->execute("
-                SELECT
-                        SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                                WHERE
-                        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                        AND [CT2_DEBITO] in ('41103002','42102029')
-                        AND D_E_L_E_T_ != '*'")
-                            ->fetchAll('assoc');
-
-            $electricityTwoRs = $connection->execute("
-                SELECT
-                        SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                                WHERE
-                        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                        AND [CT2_DEBITO] in ('41103002','42102029')
-                        AND D_E_L_E_T_ != '*'")
-                            ->fetchAll('assoc');
-
-            $waterAndSewageOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                    AND [CT2_DEBITO] in ('41103001','42102001')
-                    AND D_E_L_E_T_ != '*'")
-                            ->fetchAll('assoc');
-
-            $waterAndSewageTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                    AND [CT2_DEBITO] in ('41103001','42102001')
-                    AND D_E_L_E_T_ != '*'")
-                            ->fetchAll('assoc');
-
-            $officeSuppliesOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                    AND [CT2_DEBITO] in ('41103015','41103047','42102015','42102048')
-                    AND D_E_L_E_T_ != '*'")
-                            ->fetchAll('assoc');
-
-            $officeSuppliesTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                    AND [CT2_DEBITO] in ('41103015','41103047','42102015','42102048')
-                    AND D_E_L_E_T_ != '*'")
-                            ->fetchAll('assoc');
-
-            $cleaningSuppliesOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                     SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                    AND [CT2_DEBITO] in ('41103033','42102035')
-                    AND D_E_L_E_T_ != '*'")
-                            ->fetchAll('assoc');
-
-            $cleaningSuppliesTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                     SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                    AND [CT2_DEBITO] in ('41103033','42102035')
-                    AND D_E_L_E_T_ != '*'")
-                            ->fetchAll('assoc');
-
-            $othersAdmOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                    AND [CT2_DEBITO] in ('41103007','41103016','41103018','41103019','41103024','41103037'
-                                        ,'41103038','42102004','42102016','42102018','42102019','42102024'
-                                        ,'42102039','42102045','42102047')
-                    AND D_E_L_E_T_ != '*'")
-            ->fetchAll('assoc');
-
-            $othersAdmTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                    AND [CT2_DEBITO] in ('41103007','41103016','41103018','41103019','41103024','41103037'
-                                        ,'41103038','42102004','42102016','42102018','42102019','42102024'
-                                        ,'42102039','42102045','42102047')
-                    AND D_E_L_E_T_ != '*'")
-            ->fetchAll('assoc');
-
-        // ============= administrativo DESPESAS FIM =============//
-
-        // ============= FINANCEIRA DESPESAS INI =============//
-
-        $ratesOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                    AND [CT2_DEBITO] in ('41103022','42102022')
-                    AND D_E_L_E_T_ != '*'")
-                            ->fetchAll('assoc');
-
-        $ratesTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                    AND [CT2_DEBITO] in ('41103022','42102022')
-                    AND D_E_L_E_T_ != '*'")
-                            ->fetchAll('assoc');
-
-        $interestCostsOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                    AND [CT2_DEBITO] in ('42104001')
-                    AND D_E_L_E_T_ != '*'")
-                            ->fetchAll('assoc');
-
-        $interestCostsTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                    AND [CT2_DEBITO] in ('42104001')
-                    AND D_E_L_E_T_ != '*'")
-                            ->fetchAll('assoc');
-
-        $discountsGivenOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                    AND [CT2_DEBITO] in ('42104002')
-                    AND D_E_L_E_T_ != '*'")
-                            ->fetchAll('assoc');
-
-        $discountsGivenTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                    AND [CT2_DEBITO] in ('42104002')
-                    AND D_E_L_E_T_ != '*'")
-                            ->fetchAll('assoc');
-
-        $bankExpensesOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                    AND [CT2_DEBITO] in ('42104003')
-                    AND D_E_L_E_T_ != '*'")
-                            ->fetchAll('assoc');
-
-        $bankExpensesTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                    AND [CT2_DEBITO] in ('42104003')
-                    AND D_E_L_E_T_ != '*'")
-                            ->fetchAll('assoc');
-
-        $finesFinancialOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                    AND [CT2_DEBITO] in ('42104004')
-                    AND D_E_L_E_T_ != '*'")
-                            ->fetchAll('assoc');
-
-        $finesFinancialTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                    AND [CT2_DEBITO] in ('42104004')
-                    AND D_E_L_E_T_ != '*'")
-                            ->fetchAll('assoc');
-
-        $iofOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                    AND [CT2_DEBITO] in ('42104005')
-                    AND D_E_L_E_T_ != '*'")
-                            ->fetchAll('assoc');
-
-        $iofTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                    AND [CT2_DEBITO] in ('42104005')
-                    AND D_E_L_E_T_ != '*'")
-                            ->fetchAll('assoc');
-
-        $iocOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                    AND [CT2_DEBITO] in ('42104006')
-                    AND D_E_L_E_T_ != '*'")
-                            ->fetchAll('assoc');
-
-        $iocTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                    AND [CT2_DEBITO] in ('42104006')
-                    AND D_E_L_E_T_ != '*'")
-                            ->fetchAll('assoc');
-
-        $bankInterestRateOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                    AND [CT2_DEBITO] in ('42104007')
-                    AND D_E_L_E_T_ != '*'")
-                            ->fetchAll('assoc');
-
-        $bankInterestRateTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                    AND [CT2_DEBITO] in ('42104007')
-                    AND D_E_L_E_T_ != '*'")
-                            ->fetchAll('assoc');
-
-        $financialChargesOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                    AND [CT2_DEBITO] in ('42104008')
-                    AND D_E_L_E_T_ != '*'")
-                            ->fetchAll('assoc');
-
-        $financialChargesTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                    AND [CT2_DEBITO] in ('42104008')
-                    AND D_E_L_E_T_ != '*'")
-                            ->fetchAll('assoc');
-
-        $irsOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                    AND [CT2_DEBITO] in ('42104009')
-                    AND D_E_L_E_T_ != '*'")
-                            ->fetchAll('assoc');
-
-        $irsTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                    AND [CT2_DEBITO] in ('42104009')
-                    AND D_E_L_E_T_ != '*'")
-                            ->fetchAll('assoc');
-
-        // ============= FINANCEIRA DESPESAS FIM =============//
-
-        // ============= INVESTIMENTOS DESPESAS INI =============//
-
-        $furnitureAndUtensilsOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                    AND [CT2_DEBITO] in ('13201001')
-                    AND D_E_L_E_T_ != '*'")
-                            ->fetchAll('assoc');
-
-        $furnitureAndUtensilsTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                    AND [CT2_DEBITO] in ('13201001')
-                    AND D_E_L_E_T_ != '*'")
-                            ->fetchAll('assoc');
-
-        $machinesAndEquipmentOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                    AND [CT2_DEBITO] in ('13201005','13201009','13201010','13201011','13201014')
-                    AND D_E_L_E_T_ != '*'")
-                            ->fetchAll('assoc');
-
-        $machinesAndEquipmentTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                    AND [CT2_DEBITO] in ('13201005','13201009','13201010','13201011','13201014')
-                    AND D_E_L_E_T_ != '*'")
-                            ->fetchAll('assoc');
-
-        $vehiclesOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                    AND [CT2_DEBITO] in ('13201007','13201008')
-                    AND D_E_L_E_T_ != '*'")
-                            ->fetchAll('assoc');
-
-        $vehiclesTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                    AND [CT2_DEBITO] in ('13201007','13201008')
-                    AND D_E_L_E_T_ != '*'")
-                            ->fetchAll('assoc');
-
-        // ============= INVESTIMENTOS DESPESAS FIM =============//
-
-        // ============= TRIBUTOS DESPESAS INI =============//
-
-        $icmsOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                    AND [CT2_DEBITO] in ('42103001')
-                    AND D_E_L_E_T_ != '*'")
-                            ->fetchAll('assoc');
-
-        $icmsTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                    AND [CT2_DEBITO] in ('42103001')
-                    AND D_E_L_E_T_ != '*'")
-                            ->fetchAll('assoc');
-
-        $issOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                    AND [CT2_DEBITO] in ('42103002')
-                    AND D_E_L_E_T_ != '*'")
-                            ->fetchAll('assoc');
-
-        $issTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                    AND [CT2_DEBITO] in ('42103002')
-                    AND D_E_L_E_T_ != '*'")
-                            ->fetchAll('assoc');
-
-        $cofinsOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                    AND [CT2_DEBITO] in ('42103003')
-                    AND D_E_L_E_T_ != '*'")
-                            ->fetchAll('assoc');
-
-        $cofinsTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                    AND [CT2_DEBITO] in ('42103003')
-                    AND D_E_L_E_T_ != '*'")
-                            ->fetchAll('assoc');
-
-        $pisOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                    AND [CT2_DEBITO] in ('42103004')
-                    AND D_E_L_E_T_ != '*'")
-                            ->fetchAll('assoc');
-
-        $pisTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                    AND [CT2_DEBITO] in ('42103004')
-                    AND D_E_L_E_T_ != '*'")
-                            ->fetchAll('assoc');
-
-        $irpjOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                    AND [CT2_DEBITO] in ('42103005')
-                    AND D_E_L_E_T_ != '*'")
-                            ->fetchAll('assoc');
-
-        $irpjTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                    AND [CT2_DEBITO] in ('42103005')
-                    AND D_E_L_E_T_ != '*'")
-                            ->fetchAll('assoc');
-
-        $csllOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                    AND [CT2_DEBITO] in ('42103006')
-                    AND D_E_L_E_T_ != '*'")
-                            ->fetchAll('assoc');
-
-        $csllTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                    AND [CT2_DEBITO] in ('42103006')
-                    AND D_E_L_E_T_ != '*'")
-                            ->fetchAll('assoc');
-
-        $ipvaOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                    AND [CT2_DEBITO] in ('42103007')
-                    AND D_E_L_E_T_ != '*'")
-                            ->fetchAll('assoc');
-
-        $ipvaTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                    AND [CT2_DEBITO] in ('42103007')
-                    AND D_E_L_E_T_ != '*'")
-                            ->fetchAll('assoc');
-
-        $iptuOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                    AND [CT2_DEBITO] in ('42103008')
-                    AND D_E_L_E_T_ != '*'")
-                            ->fetchAll('assoc');
-
-        $iptuTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                    AND [CT2_DEBITO] in ('42103008')
-                    AND D_E_L_E_T_ != '*'")
-                            ->fetchAll('assoc');
-
-        $itbiOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                    AND [CT2_DEBITO] in ('42103009')
-                    AND D_E_L_E_T_ != '*'")
-                            ->fetchAll('assoc');
-
-        $itbiTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                    AND [CT2_DEBITO] in ('42103009')
-                    AND D_E_L_E_T_ != '*'")
-                            ->fetchAll('assoc');
-
-        $fecoepOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                    AND [CT2_DEBITO] in ('42103010')
-                    AND D_E_L_E_T_ != '*'")
-                            ->fetchAll('assoc');
-
-        $fecoepTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                    AND [CT2_DEBITO] in ('42103010')
-                    AND D_E_L_E_T_ != '*'")
-                            ->fetchAll('assoc');
-
-         // ============= TRIBUTOS DESPESAS FIM =============//
-
-         // ============= QUANTIDADE DE PESSOAL INI =============//
-
-        $staffPerMonthOneRs = $connection->execute("
-                SELECT
-                    COUNT([RD_PD]) as CONT
-                    FROM [SRD010]
-                        WHERE [SRD010].[D_E_L_E_T_] <> '*'
-                            AND [RD_PD] = '101'
-                            AND SUBSTRING([RD_DATARQ],1,6) = '$periodOneForFind'")
-                    ->fetchAll('assoc');
-
-        $staffPerMonthTwoRs = $connection->execute("
-                SELECT
-                    COUNT([RD_PD]) as CONT
-                    FROM [SRD010]
-                        WHERE [SRD010].[D_E_L_E_T_] <> '*'
-                            AND [RD_PD] = '101'
-                            AND SUBSTRING([RD_DATARQ],1,6) = '$periodTwoForFind'")
-                    ->fetchAll('assoc');
-
-         // ============= QUANTIDADE DE PESSOAL FIM =============//
-
-
-        // 888888888888888888888888888
-        // 888888888888888888888888888
-        // 888888888888888888888888888
-        }else{
-        // 888888888888888888888888888
-        // 888888888888888888888888888
-        // 888888888888888888888888888
-            $ccParte = substr($cc, 0,2);
-            // ==== RECEITAS INI ==== //
-            $revenuesOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    , [CT2_CCC]
-                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                    , [CT2_CREDIT]
-                    FROM [CT2010]
-                        WHERE
-                           SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                           AND [CT2_CREDIT] in ('31101001','31101002','31102001','31102002')
-                           AND D_E_L_E_T_ != '*' AND [CT2_CCC] = '$ccParte'
-                        GROUP BY [CT2_CCC], SUBSTRING([CT2_DATA],5,2),[CT2_CREDIT] ")->fetchAll('assoc');
-
-            $revenuesTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    , [CT2_CCC]
-                    , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                    , [CT2_CREDIT]
-                    FROM [CT2010]
-                        WHERE
-                           SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                           AND [CT2_CREDIT] in ('31101001','31101002','31102001','31102002')
-                           AND D_E_L_E_T_ != '*' AND [CT2_CCC] = '$ccParte'
-                        GROUP BY [CT2_CCC], SUBSTRING([CT2_DATA],5,2),[CT2_CREDIT] ")->fetchAll('assoc');
-
-            $revenuesCountDebitOneRs = $connection->execute("
-            SELECT
-                SUM([CT2_VALOR]) AS [CT2_VALOR]
-                , [CT2_CCD]
-                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                FROM [CT2010]
-                    WHERE
-                        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                        AND [CT2_DEBITO] in ('11204005','11204007','11204008','11204009','11204010')
-                        AND D_E_L_E_T_ != '*' AND [CT2_CCD] = '$ccParte'
-                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)
-                ")->fetchAll('assoc');
-
-            $revenuesCountDebitTwoRs = $connection->execute("
-            SELECT
-                SUM([CT2_VALOR]) AS [CT2_VALOR]
-                , [CT2_CCD]
-                , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
-                FROM [CT2010]
-                    WHERE
-                        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                        AND [CT2_DEBITO] in ('11204005','11204007','11204008','11204009','11204010')
-                        AND D_E_L_E_T_ != '*' AND [CT2_CCD] = '$ccParte'
-                    GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2)
-                ")->fetchAll('assoc');
-
-            $cancellationOfTitlesOneRs = $connection->execute("
-            SELECT
-                SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                    WHERE
-                        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                        AND [CT2_DEBITO] in ('31101001','31101002','31101003','31101004')
-                        AND D_E_L_E_T_ != '*' AND [CT2_CCD] = '$ccParte'
-                ")->fetchAll('assoc');
-
-            $cancellationOfTitlesTwoRs = $connection->execute("
-            SELECT
-                SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                    WHERE
-                        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                        AND [CT2_DEBITO] in ('31101001','31101002','31101003','31101004')
-                        AND D_E_L_E_T_ != '*' AND [CT2_CCD] = '$ccParte'
-                ")->fetchAll('assoc');
-            // ==== RECEITAS FIM ==== //
-
-            // ============= RECURSOS HUMANOS DESPESAS INI ============= //
-            // outras despesas
-            $othersRHOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                        WHERE
-                            SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                            AND [CT2_DEBITO] in ('41101018','41101022','41101023')
-                            AND D_E_L_E_T_ != '*'
-                            AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-            $othersRHTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                        WHERE
-                            SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                            AND [CT2_DEBITO] in ('41101018','41101022','41101023')
-                            AND D_E_L_E_T_ != '*'
-                            AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-                        //higienização
-            $sanitationOneRs  = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                        WHERE
-                            SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                            AND [CT2_DEBITO] in ('41103012','42102011')
-                            AND D_E_L_E_T_ != '*'
-                            AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-            $sanitationTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                        WHERE
-                            SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                            AND [CT2_DEBITO] in ('41103012','42102011')
-                            AND D_E_L_E_T_ != '*'
-                            AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-            //cursos e treinamentos
-            $coursesAndTrainingOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                        WHERE
-                            SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                            AND [CT2_DEBITO] in ('41103036','42103036')
-                            AND D_E_L_E_T_ != '*'
-                            AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-            $coursesAndTrainingTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                        WHERE
-                            SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                            AND [CT2_DEBITO] in ('41103036','42103036')
-                            AND D_E_L_E_T_ != '*'
-                            AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-            //meteriais de segurança
-            $safetyEquipmentOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                        WHERE
-                            SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                            AND [CT2_DEBITO] in ('41101019','41101020')
-                            AND D_E_L_E_T_ != '*'
-                            AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-            $safetyEquipmentTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                        WHERE
-                            SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                            AND [CT2_DEBITO] in ('41101019','41101020')
-                            AND D_E_L_E_T_ != '*'
-                            AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-            //assistencia medica
-            $medicalOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                        WHERE
-                            SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                            AND [CT2_DEBITO] in ('41101016','42101016','41101017','42101017')
-                            AND D_E_L_E_T_ != '*'
-                            AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-            $medicalTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                        WHERE
-                            SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                            AND [CT2_DEBITO] in ('41101016','42101016','41101017','42101017')
-                            AND D_E_L_E_T_ != '*'
-                            AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-            //tanstporte
-            $transportOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                        WHERE
-                            SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                            AND [CT2_DEBITO] in ('41101014','42101014','41101021','42101021')
-                            AND D_E_L_E_T_ != '*'
-                            AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-            $transportTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                        WHERE
-                            SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                            AND [CT2_DEBITO] in ('41101014','42101014','41101021','42101021')
-                            AND D_E_L_E_T_ != '*'
-                            AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-            // alimentação
-            $feedingOneRs  = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                        WHERE
-                            SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                            AND [CT2_DEBITO] in ('41101015','42101015')
-                            AND D_E_L_E_T_ != '*'
-                            AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-            $feedingTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                        WHERE
-                            SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                            AND [CT2_DEBITO] in ('41101015','42101015')
-                            AND D_E_L_E_T_ != '*'
-                            AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-            //encargos sociais
-            $socialChargesOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                        WHERE
-                            SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                            AND [CT2_DEBITO] in ('41101012','41101013','42101012','42101013')
-                            AND D_E_L_E_T_ != '*'
-                            AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-            $socialChargesTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                        WHERE
-                            SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                            AND [CT2_DEBITO] in ('41101012','41101013','42101012','42101013')
-                            AND D_E_L_E_T_ != '*'
-                            AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-            //premios e gratificações
-            $prizesAndGratuitiesOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                        WHERE
-                            SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                            AND [CT2_DEBITO] in ('41101024','42101024','42101005','41101005')
-                            AND D_E_L_E_T_ != '*'
-                            AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-            $prizesAndGratuitiesTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                        WHERE
-                            SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                            AND [CT2_DEBITO] in ('41101024','42101024','42101005','41101005')
-                            AND D_E_L_E_T_ != '*'
-                            AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-            //bolsa estagio
-            $internshipBagOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                        WHERE
-                            SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                            AND [CT2_DEBITO] in ('41101006','42101006')
-                            AND D_E_L_E_T_ != '*'
-                            AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-            $internshipBagTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                        WHERE
-                            SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                            AND [CT2_DEBITO] in ('41101006','42101006')
-                            AND D_E_L_E_T_ != '*'
-                            AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-            //hora extra
-            $extraHourOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                        WHERE
-                            SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                            AND [CT2_DEBITO] in ('41101008','42101008')
-                            AND D_E_L_E_T_ != '*'
-                            AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-            $extraHourTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                        WHERE
-                            SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                            AND [CT2_DEBITO] in ('41101008','42101008')
-                            AND D_E_L_E_T_ != '*'
-                            AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-            //prolabore
-            $prolaboreOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                        WHERE
-                            SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                            AND [CT2_DEBITO] in ('41101004','42101004')
-                            AND D_E_L_E_T_ != '*'
-                            AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-            $prolaboreTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                        WHERE
-                            SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                            AND [CT2_DEBITO] in ('41101004','42101004')
-                            AND D_E_L_E_T_ != '*'
-                            AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-            //proventos
-            $earningsOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                        WHERE
-                            SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                            AND [CT2_DEBITO] in ('41101001','41101002','41101003'
-                                                ,'41101009','41101010','41101011','41101025'
-                                                ,'41101026','42101001','42101002','42101003'
-                                                ,'42101009','42101010','42101011','42101007','41101007')
-                            AND D_E_L_E_T_ != '*'
-                            AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-            $earningsTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                        WHERE
-                            SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                            AND [CT2_DEBITO] in ('41101001','41101002','41101003'
-                                                ,'41101009','41101010','41101011','41101025'
-                                                ,'41101026','42101001','42101002','42101003'
-                                                ,'42101009','42101010','42101011','42101007','41101007')
-                            AND D_E_L_E_T_ != '*'
-                            AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-            // ============= RECURSOS HUMANOS DESPESAS FIM ============= //
-
-            // ============= OPERACIONAL DESPESAS INI =============//
-
-            //manuntenções
-            $maintenanceOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                    AND [CT2_DEBITO] in ('41103008','41103035'
-                                        ,'41103031','41103041','41103045'
-                                        ,'42102005','42102027','42102033'
-                                        ,'42103037','42102042')
-                    AND D_E_L_E_T_ != '*'
-                    AND [CT2_CCD] = " . substr($cc, 0,2) . "")
-                        ->fetchAll('assoc');
-
-            $maintenanceTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                    AND [CT2_DEBITO] in ('41103008','41103035'
-                                        ,'41103031','41103041','41103045'
-                                        ,'42102005','42102027','42102033'
-                                        ,'42103037','42102042')
-                    AND D_E_L_E_T_ != '*'
-                    AND [CT2_CCD] = " . substr($cc, 0,2) . "")
-                        ->fetchAll('assoc');
-
-            //multas de transito
-            $finesOfCarsOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                                WHERE
-                        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                        AND [CT2_DEBITO] in ('41103044','42102044')
-                        AND D_E_L_E_T_ != '*'
-                        AND [CT2_CCD] = " . substr($cc, 0,2) . "")
-                        ->fetchAll('assoc');
-
-            $finesOfCarsTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                                WHERE
-                        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                        AND [CT2_DEBITO] in ('41103044','42102044')
-                        AND D_E_L_E_T_ != '*'")
-                        ->fetchAll('assoc');
-
-            //pneus
-            $tiresOneRs = $connection->execute("SELECT
-                SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                    AND [CT2_DEBITO] in ('41103032','42102034')
-                    AND D_E_L_E_T_ != '*'
-                    AND [CT2_CCD] = " . substr($cc, 0,2) . "")
-                ->fetchAll('assoc');
-
-            $tiresTwoRs = $connection->execute("SELECT
-                SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                    AND [CT2_DEBITO] in ('41103032','42102034')
-                    AND D_E_L_E_T_ != '*'
-                    AND [CT2_CCD] = " . substr($cc, 0,2) . "")
-                ->fetchAll('assoc');
-
-            // oleos e lubricicantes
-            $fuelAndLubricantsOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                                WHERE
-                        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                        AND [CT2_DEBITO] in ('41103023','42102023')
-                        AND D_E_L_E_T_ != '*'
-                        AND [CT2_CCD] = " . substr($cc, 0,2) . "")
-                ->fetchAll('assoc');
-
-            $fuelAndLubricantsTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                                WHERE
-                        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                        AND [CT2_DEBITO] in ('41103023','42102023')
-                        AND D_E_L_E_T_ != '*'
-                        AND [CT2_CCD] = " . substr($cc, 0,2) . "")
-                ->fetchAll('assoc');
-
-            // alugueis
-            $rentsOprOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                    AND [CT2_DEBITO] in ('41103005','42102008','41103006','42102025')
-                    AND D_E_L_E_T_ != '*'
-                    AND [CT2_CCD] = " . substr($cc, 0,2) . "")
-                ->fetchAll('assoc');
-
-            $rentsOprTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                    AND [CT2_DEBITO] in ('41103005','42102008','41103006','42102025')
-                    AND D_E_L_E_T_ != '*'
-                    AND [CT2_CCD] = " . substr($cc, 0,2) . "")
-                ->fetchAll('assoc');
-
-            //fretes
-            $freightOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                    AND [CT2_DEBITO] in ('41103009','41103014','41103042','42102006','42102014','42102043')
-                    AND D_E_L_E_T_ != '*'
-                    AND [CT2_CCD] = " . substr($cc, 0,2) . "")
-                ->fetchAll('assoc');
-
-            $freightTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                    AND [CT2_DEBITO] in ('41103009','41103014','41103042','42102006','42102014','42102043')
-                    AND D_E_L_E_T_ != '*'
-                    AND [CT2_CCD] = " . substr($cc, 0,2) . "")
-                ->fetchAll('assoc');
-
-            $materialsOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                                WHERE
-                        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                        AND [CT2_DEBITO] in ('41103027','41103028','41103040'
-                                            ,'41103043','41201001','42102028'
-                                            ,'42102030','42102041')
-                        AND D_E_L_E_T_ != '*'
-                        AND [CT2_CCD] = " . substr($cc, 0,2) . "")
-                ->fetchAll('assoc');
-
-            $materialsTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                                WHERE
-                        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                        AND [CT2_DEBITO] in ('41103027','41103028','41103040'
-                                            ,'41103043','41201001','42102028'
-                                            ,'42102030','42102041')
-                        AND D_E_L_E_T_ != '*'
-                        AND [CT2_CCD] = " . substr($cc, 0,2) . "")
-                ->fetchAll('assoc');
-
-            $materialsLabOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                                WHERE
-                        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                        AND [CT2_DEBITO] in ('41103017','42102017')
-                        AND D_E_L_E_T_ != '*'
-                        AND [CT2_CCD] = " . substr($cc, 0,2) . "")
-                ->fetchAll('assoc');
-
-            $materialsLabTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                                WHERE
-                        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                        AND [CT2_DEBITO] in ('41103017','42102017')
-                        AND D_E_L_E_T_ != '*'
-                        AND [CT2_CCD] = " . substr($cc, 0,2) . "")
-                ->fetchAll('assoc');
-
-            $analisesLabOneRs  = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                                WHERE
-                        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                        AND [CT2_DEBITO] in ('41103048')
-                        AND D_E_L_E_T_ != '*'
-                        AND [CT2_CCD] = " . substr($cc, 0,2) . "")
-                ->fetchAll('assoc');
-
-            $analisesLabTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                                WHERE
-                        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                        AND [CT2_DEBITO] in ('41103048')
-                        AND D_E_L_E_T_ != '*'
-                        AND [CT2_CCD] = " . substr($cc, 0,2) . "")
-                ->fetchAll('assoc');
-
-            $othersOPROneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                    AND [CT2_DEBITO] in ('41103020','41103021','42102020','42102021')
-                    AND D_E_L_E_T_ != '*'
-                    AND [CT2_CCD] = " . substr($cc, 0,2) . "")
-                ->fetchAll('assoc');
-
-            $descartETratOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                                WHERE
-                        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                        AND [CT2_DEBITO] in ('41103026')
-                        AND D_E_L_E_T_ != '*'
-                        AND [CT2_CCD] = " . substr($cc, 0,2) . "")
-                ->fetchAll('assoc');
-
-            $descartETratTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                                WHERE
-                        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                        AND [CT2_DEBITO] in ('41103026')
-                        AND D_E_L_E_T_ != '*'
-                        AND [CT2_CCD] = " . substr($cc, 0,2) . "")
-                ->fetchAll('assoc');
-
-            $viagensOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                                WHERE
-                        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                        AND [CT2_DEBITO] in ('41103030','42102032')
-                        AND D_E_L_E_T_ != '*'
-                        AND [CT2_CCD] = " . substr($cc, 0,2) . "")
-                ->fetchAll('assoc');
-
-            $viagensTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                                WHERE
-                        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                        AND [CT2_DEBITO] in ('41103030','42102032')
-                        AND D_E_L_E_T_ != '*'
-                        AND [CT2_CCD] = " . substr($cc, 0,2) . "")
-                ->fetchAll('assoc');
-
-            $othersOPRTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                    AND [CT2_DEBITO] in ('41103020','41103021','42102020','42102021')
-                    AND D_E_L_E_T_ != '*'
-                    AND [CT2_CCD] = " . substr($cc, 0,2) . "")
-                ->fetchAll('assoc');
-             // ============= OPERACIONAL DESPESAS FIM =============//
-
-            // ============= administrativo DESPESAS INI =============//
-
-            $rentAdmOneRs = $connection->execute("
-            SELECT
-                SUM([CT2_VALOR]) AS [CT2_VALOR]
-            FROM [CT2010]
-                        WHERE
-                SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                AND [CT2_DEBITO] in ('41103004','42102002')
-                AND D_E_L_E_T_ != '*'
-                AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-            $rentAdmTwoRs = $connection->execute("
-            SELECT
-                SUM([CT2_VALOR]) AS [CT2_VALOR]
-            FROM [CT2010]
-                        WHERE
-                SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                AND [CT2_DEBITO] in ('41103004','42102002')
-                AND D_E_L_E_T_ != '*'
-                AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-            $phoneAndInternetOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                    AND [CT2_DEBITO] in ('41103003','42102003')
-                    AND D_E_L_E_T_ != '*'
-                    AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-            $phoneAndInternetTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                    AND [CT2_DEBITO] in ('41103003','42102003')
-                    AND D_E_L_E_T_ != '*'
-                    AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-            $electricityOneRs = $connection->execute("
-                SELECT
-                        SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                                WHERE
-                        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                        AND [CT2_DEBITO] in ('41103002','42102029')
-                        AND D_E_L_E_T_ != '*'
-                        AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-            $electricityTwoRs = $connection->execute("
-                SELECT
-                        SUM([CT2_VALOR]) AS [CT2_VALOR]
-                    FROM [CT2010]
-                                WHERE
-                        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                        AND [CT2_DEBITO] in ('41103002','42102029')
-                        AND D_E_L_E_T_ != '*'
-                        AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-            $waterAndSewageOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                    AND [CT2_DEBITO] in ('41103001','42102001')
-                    AND D_E_L_E_T_ != '*'
-                    AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-            $waterAndSewageTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                    AND [CT2_DEBITO] in ('41103001','42102001')
-                    AND D_E_L_E_T_ != '*'
-                    AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-            $officeSuppliesOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                    AND [CT2_DEBITO] in ('41103015','41103047','42102015','42102048')
-                    AND D_E_L_E_T_ != '*'
-                    AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-            $officeSuppliesTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                    AND [CT2_DEBITO] in ('41103015','41103047','42102015','42102048')
-                    AND D_E_L_E_T_ != '*'
-                    AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-            $cleaningSuppliesOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                     SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                    AND [CT2_DEBITO] in ('41103033','42102035')
-                    AND D_E_L_E_T_ != '*'
-                    AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-            $cleaningSuppliesTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                     SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                    AND [CT2_DEBITO] in ('41103033','42102035')
-                    AND D_E_L_E_T_ != '*'
-                    AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-            $othersAdmOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                    AND [CT2_DEBITO] in ('41103007','41103016','41103018','41103019','41103024','41103037'
-                                        ,'41103038','42102004','42102016','42102018','42102019','42102024'
-                                        ,'42102039','42102045','42102047')
-                    AND D_E_L_E_T_ != '*'
-                    AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-            $othersAdmTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                    AND [CT2_DEBITO] in ('41103007','41103016','41103018','41103019','41103024','41103037'
-                                        ,'41103038','42102004','42102016','42102018','42102019','42102024'
-                                        ,'42102039','42102045','42102047')
-                    AND D_E_L_E_T_ != '*'
-                    AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-        // ============= administrativo DESPESAS FIM =============//
-
-        // ============= FINANCEIRA DESPESAS INI =============//
-
-        $ratesOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                    AND [CT2_DEBITO] in ('41103022','42102022')
-                    AND D_E_L_E_T_ != '*'
-                    AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-        $ratesTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                    AND [CT2_DEBITO] in ('41103022','42102022')
-                    AND D_E_L_E_T_ != '*'
-                    AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-        $interestCostsOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                    AND [CT2_DEBITO] in ('42104001')
-                    AND D_E_L_E_T_ != '*'
-                    AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-        $interestCostsTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                    AND [CT2_DEBITO] in ('42104001')
-                    AND D_E_L_E_T_ != '*'
-                    AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-        $discountsGivenOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                    AND [CT2_DEBITO] in ('42104002')
-                    AND D_E_L_E_T_ != '*'
-                    AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-        $discountsGivenTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                    AND [CT2_DEBITO] in ('42104002')
-                    AND D_E_L_E_T_ != '*'
-                    AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-        $bankExpensesOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                    AND [CT2_DEBITO] in ('42104003')
-                    AND D_E_L_E_T_ != '*'
-                    AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-        $bankExpensesTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                    AND [CT2_DEBITO] in ('42104003')
-                    AND D_E_L_E_T_ != '*'
-                    AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-        $finesFinancialOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                    AND [CT2_DEBITO] in ('42104004')
-                    AND D_E_L_E_T_ != '*'
-                    AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-        $finesFinancialTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                    AND [CT2_DEBITO] in ('42104004')
-                    AND D_E_L_E_T_ != '*'
-                    AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-        $iofOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                    AND [CT2_DEBITO] in ('42104005')
-                    AND D_E_L_E_T_ != '*'
-                    AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-        $iofTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                    AND [CT2_DEBITO] in ('42104005')
-                    AND D_E_L_E_T_ != '*'
-                    AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-        $iocOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                    AND [CT2_DEBITO] in ('42104006')
-                    AND D_E_L_E_T_ != '*'
-                    AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-        $iocTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                    AND [CT2_DEBITO] in ('42104006')
-                    AND D_E_L_E_T_ != '*'
-                    AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-        $bankInterestRateOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                    AND [CT2_DEBITO] in ('42104007')
-                    AND D_E_L_E_T_ != '*'
-                    AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-        $bankInterestRateTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                    AND [CT2_DEBITO] in ('42104007')
-                    AND D_E_L_E_T_ != '*'
-                    AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-        $financialChargesOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                    AND [CT2_DEBITO] in ('42104008')
-                    AND D_E_L_E_T_ != '*'
-                    AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-        $financialChargesTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                    AND [CT2_DEBITO] in ('42104008')
-                    AND D_E_L_E_T_ != '*'
-                    AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-        $irsOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                    AND [CT2_DEBITO] in ('42104009')
-                    AND D_E_L_E_T_ != '*'
-                    AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-        $irsTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                    AND [CT2_DEBITO] in ('42104009')
-                    AND D_E_L_E_T_ != '*'
-                    AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-        // ============= FINANCEIRA DESPESAS FIM =============//
-
-        // ============= INVESTIMENTOS DESPESAS INI =============//
-
-        $furnitureAndUtensilsOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                    AND [CT2_DEBITO] in ('13201001')
-                    AND D_E_L_E_T_ != '*'
-                    AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-        $furnitureAndUtensilsTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                    AND [CT2_DEBITO] in ('13201001')
-                    AND D_E_L_E_T_ != '*'
-                    AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-        $machinesAndEquipmentOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                    AND [CT2_DEBITO] in ('13201005','13201009','13201010','13201011','13201014')
-                    AND D_E_L_E_T_ != '*'
-                    AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-        $machinesAndEquipmentTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                    AND [CT2_DEBITO] in ('13201005','13201009','13201010','13201011','13201014')
-                    AND D_E_L_E_T_ != '*'
-                    AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-        $vehiclesOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                    AND [CT2_DEBITO] in ('13201007','13201008')
-                    AND D_E_L_E_T_ != '*'
-                    AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-        $vehiclesTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                    AND [CT2_DEBITO] in ('13201007','13201008')
-                    AND D_E_L_E_T_ != '*'
-                    AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-        // ============= INVESTIMENTOS DESPESAS FIM =============//
-
-        // ============= TRIBUTOS DESPESAS INI =============//
-
-        $icmsOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                    AND [CT2_DEBITO] in ('42103001')
-                    AND D_E_L_E_T_ != '*'
-                    AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-        $icmsTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                    AND [CT2_DEBITO] in ('42103001')
-                    AND D_E_L_E_T_ != '*'
-                    AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-        $issOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                    AND [CT2_DEBITO] in ('42103002')
-                    AND D_E_L_E_T_ != '*'
-                    AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-        $issTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                    AND [CT2_DEBITO] in ('42103002')
-                    AND D_E_L_E_T_ != '*'
-                    AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-        $cofinsOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                    AND [CT2_DEBITO] in ('42103003')
-                    AND D_E_L_E_T_ != '*'
-                    AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-        $cofinsTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                    AND [CT2_DEBITO] in ('42103003')
-                    AND D_E_L_E_T_ != '*'
-                    AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-        $pisOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                    AND [CT2_DEBITO] in ('42103004')
-                    AND D_E_L_E_T_ != '*'
-                    AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-        $pisTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                    AND [CT2_DEBITO] in ('42103004')
-                    AND D_E_L_E_T_ != '*'
-                    AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-        $irpjOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                    AND [CT2_DEBITO] in ('42103005')
-                    AND D_E_L_E_T_ != '*'
-                    AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-        $irpjTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                    AND [CT2_DEBITO] in ('42103005')
-                    AND D_E_L_E_T_ != '*'
-                    AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-        $csllOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                    AND [CT2_DEBITO] in ('42103006')
-                    AND D_E_L_E_T_ != '*'
-                    AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-        $csllTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                    AND [CT2_DEBITO] in ('42103006')
-                    AND D_E_L_E_T_ != '*'
-                    AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-        $ipvaOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                    AND [CT2_DEBITO] in ('42103007')
-                    AND D_E_L_E_T_ != '*'
-                    AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-        $ipvaTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                    AND [CT2_DEBITO] in ('42103007')
-                    AND D_E_L_E_T_ != '*'
-                    AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-        $iptuOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                    AND [CT2_DEBITO] in ('42103008')
-                    AND D_E_L_E_T_ != '*'
-                    AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-        $iptuTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                    AND [CT2_DEBITO] in ('42103008')
-                    AND D_E_L_E_T_ != '*'
-                    AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-        $itbiOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                    AND [CT2_DEBITO] in ('42103009')
-                    AND D_E_L_E_T_ != '*'
-                    AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-        $itbiTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                    AND [CT2_DEBITO] in ('42103009')
-                    AND D_E_L_E_T_ != '*'
-                    AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-        $fecoepOneRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
-                    AND [CT2_DEBITO] in ('42103010')
-                    AND D_E_L_E_T_ != '*'
-                    AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-        $fecoepTwoRs = $connection->execute("
-                SELECT
-                    SUM([CT2_VALOR]) AS [CT2_VALOR]
-                FROM [CT2010]
-                            WHERE
-                    SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
-                    AND [CT2_DEBITO] in ('42103010')
-                    AND D_E_L_E_T_ != '*'
-                    AND [CT2_CCD] = " . substr($cc, 0,2) . "")->fetchAll('assoc');
-
-         // ============= TRIBUTOS DESPESAS FIM =============//
-
-         // ============= QUANTIDADE DE PESSOAL INI =============//
-
-        $staffPerMonthOneRs = $connection->execute("
-                SELECT
-                    COUNT([RD_PD]) as CONT
-                    FROM [SRD010]
-                        WHERE [SRD010].[D_E_L_E_T_] <> '*'
-                            AND [RD_PD] = '101'
-                            AND SUBSTRING([RD_DATARQ],1,6) = '$periodOneForFind'
-                            AND [RD_CC] = '$ccParte'")
-                    ->fetchAll('assoc');
-
-        $staffPerMonthTwoRs = $connection->execute("
-                SELECT
-                    COUNT([RD_PD]) as CONT
-                    FROM [SRD010]
-                        WHERE [SRD010].[D_E_L_E_T_] <> '*'
-                            AND [RD_PD] = '101'
-                            AND SUBSTRING([RD_DATARQ],1,6) = '$periodTwoForFind'
-                            AND [RD_CC] = '$ccParte'")
-                    ->fetchAll('assoc');
-
-         // ============= QUANTIDADE DE PESSOAL FIM =============//
-
+        // ==== RECEITAS INI ==== //
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        , [CT2_CCC]
+        , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+        , [CT2_CREDIT]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
+        AND [CT2_CREDIT] in ('31101001','31101002','31102001','31102002')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCC] = '" . substr($cc, 0,2) ."'";
         }
+        $sql .= " GROUP BY [CT2_CCC], SUBSTRING([CT2_DATA],5,2),[CT2_CREDIT] ";
+        $revenuesOneRs = $connection->execute($sql)->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        , [CT2_CCC]
+        , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+        , [CT2_CREDIT]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
+        AND [CT2_CREDIT] in ('31101001','31101002','31102001','31102002')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCC] = '" . substr($cc, 0,2) ."'";
+        }
+        $sql .= " GROUP BY [CT2_CCC], SUBSTRING([CT2_DATA],5,2),[CT2_CREDIT] ";
+        $revenuesTwoRs = $connection->execute($sql)->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        , [CT2_CCD]
+        , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
+        AND [CT2_DEBITO] in ('11204005','11204007','11204008','11204009','11204010')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $sql .= " GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2) ";
+        $revenuesCountDebitOneRs = $connection->execute($sql)->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        , [CT2_CCD]
+        , SUBSTRING([CT2_DATA],5,2) AS [CT2_DATA]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
+        AND [CT2_DEBITO] in ('11204005','11204007','11204008','11204009','11204010')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $sql .= " GROUP BY [CT2_CCD], SUBSTRING([CT2_DATA],5,2) ";
+        $revenuesCountDebitTwoRs = $connection->execute($sql)->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
+        AND [CT2_DEBITO] in ('31101001','31101002','31101003','31101004')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $cancellationOfTitlesOneRs = $connection->execute($sql)->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
+        AND [CT2_DEBITO] in ('31101001','31101002','31101003','31101004')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $cancellationOfTitlesTwoRs = $connection->execute($sql)->fetchAll('assoc');
+        // ==== RECEITAS FIM ==== //
+
+        // ============= RECURSOS HUMANOS DESPESAS INI ============= //
+
+        // outras despesas
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
+        AND [CT2_DEBITO] in ('41101018','41101022','41101023')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $othersRHOneRs = $connection->execute($sql)->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
+        AND [CT2_DEBITO] in ('41101018','41101022','41101023')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $othersRHTwoRs = $connection->execute($sql)->fetchAll('assoc');
+
+        //higienização
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
+        AND [CT2_DEBITO] in ('41103012','42102011')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $sanitationOneRs = $connection->execute($sql)->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
+        AND [CT2_DEBITO] in ('41103012','42102011')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $sanitationTwoRs = $connection->execute($sql)->fetchAll('assoc');
+
+        //cursos e treinamentos
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
+        AND [CT2_DEBITO] in ('41103036','42103036')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $coursesAndTrainingOneRs = $connection->execute($sql)->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
+        AND [CT2_DEBITO] in ('41103036','42103036')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $coursesAndTrainingTwoRs = $connection->execute($sql)->fetchAll('assoc');
+
+        //meteriais de segurança
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
+        AND [CT2_DEBITO] in ('41101019','41101020')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $safetyEquipmentOneRs = $connection->execute($sql)->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
+        AND [CT2_DEBITO] in ('41101019','41101020')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $safetyEquipmentTwoRs = $connection->execute($sql)->fetchAll('assoc');
+
+        //assistencia medica
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
+        AND [CT2_DEBITO] in ('41101016','42101016','41101017','42101017')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $medicalOneRs = $connection->execute($sql)->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
+        AND [CT2_DEBITO] in ('41101016','42101016','41101017','42101017')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $medicalTwoRs = $connection->execute($sql)->fetchAll('assoc');
+
+        //tanstporte
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
+        AND [CT2_DEBITO] in ('41101014','42101014','41101021','42101021')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $transportOneRs = $connection->execute($sql)->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
+        AND [CT2_DEBITO] in ('41101014','42101014','41101021','42101021')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $transportTwoRs = $connection->execute($sql)->fetchAll('assoc');
+
+        // alimentação
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
+        AND [CT2_DEBITO] in ('41101015','42101015')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $feedingOneRs  = $connection->execute($sql)->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
+        AND [CT2_DEBITO] in ('41101015','42101015')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $feedingTwoRs = $connection->execute($sql)->fetchAll('assoc');
+
+        //encargos sociais
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
+        AND [CT2_DEBITO] in ('41101012','41101013','42101012','42101013')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $socialChargesOneRs = $connection->execute($sql)->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
+        AND [CT2_DEBITO] in ('41101012','41101013','42101012','42101013')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $socialChargesTwoRs = $connection->execute($sql)->fetchAll('assoc');
+
+        //premios e gratificações
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
+        AND [CT2_DEBITO] in ('41101024','42101024','42101005','41101005')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $prizesAndGratuitiesOneRs = $connection->execute($sql)->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
+        AND [CT2_DEBITO] in ('41101024','42101024','42101005','41101005')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $prizesAndGratuitiesTwoRs = $connection->execute($sql)->fetchAll('assoc');
+
+        //bolsa estagio
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
+        AND [CT2_DEBITO] in ('41101006','42101006')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $internshipBagOneRs = $connection->execute($sql)->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
+        AND [CT2_DEBITO] in ('41101006','42101006')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $internshipBagTwoRs = $connection->execute($sql)->fetchAll('assoc');
+
+        //hora extra
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
+        AND [CT2_DEBITO] in ('41101008','42101008')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $extraHourOneRs = $connection->execute($sql)->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
+        AND [CT2_DEBITO] in ('41101008','42101008')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $extraHourTwoRs = $connection->execute($sql)->fetchAll('assoc');
+
+        //prolabore
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
+        AND [CT2_DEBITO] in ('41101004','42101004')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $prolaboreOneRs = $connection->execute($sql)->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
+        AND [CT2_DEBITO] in ('41101004','42101004')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $prolaboreTwoRs = $connection->execute($sql)->fetchAll('assoc');
+
+        //proventos
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
+        AND [CT2_DEBITO] in ('41101001','41101002','41101003'
+        ,'41101009','41101010','41101011','41101025'
+        ,'41101026','42101001','42101002','42101003'
+        ,'42101009','42101010','42101011','42101007','41101007')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $earningsOneRs = $connection->execute($sql)->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
+        AND [CT2_DEBITO] in ('41101001','41101002','41101003'
+        ,'41101009','41101010','41101011','41101025'
+        ,'41101026','42101001','42101002','42101003'
+        ,'42101009','42101010','42101011','42101007','41101007')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $earningsTwoRs = $connection->execute($sql)->fetchAll('assoc');
+
+        // ============= RECURSOS HUMANOS DESPESAS FIM ============= //
+
+        // ============= OPERACIONAL DESPESAS INI =============//
+
+        //manuntenções
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
+        AND [CT2_DEBITO] in ('41103008','41103035'
+        ,'41103031','41103041','41103045'
+        ,'42102005','42102027','42102033'
+        ,'42103037','42102042')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $maintenanceOneRs = $connection->execute($sql)->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
+        AND [CT2_DEBITO] in ('41103008','41103035'
+        ,'41103031','41103041','41103045'
+        ,'42102005','42102027','42102033'
+        ,'42103037','42102042')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $maintenanceTwoRs = $connection->execute($sql)->fetchAll('assoc');
+
+        //multas de transito
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
+        AND [CT2_DEBITO] in ('41103044','42102044')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $finesOfCarsOneRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
+        AND [CT2_DEBITO] in ('41103044','42102044')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $finesOfCarsTwoRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        //pneus
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
+        AND [CT2_DEBITO] in ('41103032','42102034')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $tiresOneRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
+        AND [CT2_DEBITO] in ('41103032','42102034')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $tiresTwoRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        // oleos e lubricicantes
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
+        AND [CT2_DEBITO] in ('41103023','42102023')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $fuelAndLubricantsOneRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
+        AND [CT2_DEBITO] in ('41103023','42102023')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $fuelAndLubricantsTwoRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        // alugueis
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
+        AND [CT2_DEBITO] in ('41103005','42102008','41103006','42102025')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $rentsOprOneRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
+        AND [CT2_DEBITO] in ('41103005','42102008','41103006','42102025')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $rentsOprTwoRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        //fretes
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
+        AND [CT2_DEBITO] in ('41103009','41103014','41103042','42102006','42102014','42102043')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $freightOneRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
+        AND [CT2_DEBITO] in ('41103009','41103014','41103042','42102006','42102014','42102043')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $freightTwoRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
+        AND [CT2_DEBITO] in ('41103027','41103028','41103040'
+        ,'41103043','41201001','42102028'
+        ,'42102030','42102041')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $materialsOneRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
+        AND [CT2_DEBITO] in ('41103027','41103028','41103040'
+        ,'41103043','41201001','42102028'
+        ,'42102030','42102041')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $materialsTwoRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
+        AND [CT2_DEBITO] in ('41103017','42102017')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $materialsLabOneRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
+        AND [CT2_DEBITO] in ('41103017','42102017')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $materialsLabTwoRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
+        AND [CT2_DEBITO] in ('41103048')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $analisesLabOneRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
+        AND [CT2_DEBITO] in ('41103048')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $analisesLabTwoRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
+        AND [CT2_DEBITO] in ('41103026')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $descartETratOneRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
+        AND [CT2_DEBITO] in ('41103026')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $descartETratTwoRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
+        AND [CT2_DEBITO] in ('41103030','42102032')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $viagensOneRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
+        AND [CT2_DEBITO] in ('41103030','42102032')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $viagensTwoRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
+        AND [CT2_DEBITO] in ('41103020','41103021','42102020','42102021')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $othersOPROneRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
+        AND [CT2_DEBITO] in ('41103020','41103021','42102020','42102021')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $othersOPRTwoRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+        // ============= OPERACIONAL DESPESAS FIM =============//
+
+        // ============= administrativo DESPESAS INI =============//
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
+        AND [CT2_DEBITO] in ('41103004','42102002')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $rentAdmOneRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
+        AND [CT2_DEBITO] in ('41103004','42102002')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $rentAdmTwoRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
+        AND [CT2_DEBITO] in ('41103003','42102003')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $phoneAndInternetOneRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
+        AND [CT2_DEBITO] in ('41103003','42102003')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $phoneAndInternetTwoRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
+        AND [CT2_DEBITO] in ('41103002','42102029')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $electricityOneRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
+        AND [CT2_DEBITO] in ('41103002','42102029')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $electricityTwoRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
+        AND [CT2_DEBITO] in ('41103001','42102001')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $waterAndSewageOneRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
+        AND [CT2_DEBITO] in ('41103001','42102001')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $waterAndSewageTwoRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
+        AND [CT2_DEBITO] in ('41103015','41103047','42102015','42102048')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $officeSuppliesOneRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
+        AND [CT2_DEBITO] in ('41103015','41103047','42102015','42102048')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $officeSuppliesTwoRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
+        AND [CT2_DEBITO] in ('41103033','42102035')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $cleaningSuppliesOneRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
+        AND [CT2_DEBITO] in ('41103033','42102035')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $cleaningSuppliesTwoRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
+        AND [CT2_DEBITO] in ('41103007','41103016','41103018','41103019','41103024','41103037'
+        ,'41103038','42102004','42102016','42102018','42102019','42102024'
+        ,'42102039','42102045','42102047')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $othersAdmOneRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
+        AND [CT2_DEBITO] in ('41103007','41103016','41103018','41103019','41103024','41103037'
+        ,'41103038','42102004','42102016','42102018','42102019','42102024'
+        ,'42102039','42102045','42102047')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $othersAdmTwoRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        // ============= administrativo DESPESAS FIM =============//
+
+        // ============= FINANCEIRA DESPESAS INI =============//
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
+        AND [CT2_DEBITO] in ('41103022','42102022')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $ratesOneRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
+        AND [CT2_DEBITO] in ('41103022','42102022')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $ratesTwoRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
+        AND [CT2_DEBITO] in ('42104001')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $interestCostsOneRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
+        AND [CT2_DEBITO] in ('42104001')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $interestCostsTwoRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
+        AND [CT2_DEBITO] in ('42104002')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $discountsGivenOneRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
+        AND [CT2_DEBITO] in ('42104002')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $discountsGivenTwoRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
+        AND [CT2_DEBITO] in ('42104003')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $bankExpensesOneRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
+        AND [CT2_DEBITO] in ('42104003')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $bankExpensesTwoRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
+        AND [CT2_DEBITO] in ('42104004')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $finesFinancialOneRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
+        AND [CT2_DEBITO] in ('42104004')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $finesFinancialTwoRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
+        AND [CT2_DEBITO] in ('42104005')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $iofOneRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
+        AND [CT2_DEBITO] in ('42104005')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $iofTwoRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
+        AND [CT2_DEBITO] in ('42104006')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $iocOneRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
+        AND [CT2_DEBITO] in ('42104006')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $iocTwoRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
+        AND [CT2_DEBITO] in ('42104007')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $bankInterestRateOneRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
+        AND [CT2_DEBITO] in ('42104007')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $bankInterestRateTwoRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
+        AND [CT2_DEBITO] in ('42104008')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $financialChargesOneRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
+        AND [CT2_DEBITO] in ('42104008')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $financialChargesTwoRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
+        AND [CT2_DEBITO] in ('42104009')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $irsOneRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
+        AND [CT2_DEBITO] in ('42104009')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $irsTwoRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        // ============= FINANCEIRA DESPESAS FIM =============//
+
+        // ============= INVESTIMENTOS DESPESAS INI =============//
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
+        AND [CT2_DEBITO] in ('13201001')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $furnitureAndUtensilsOneRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
+        AND [CT2_DEBITO] in ('13201001')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $furnitureAndUtensilsTwoRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
+        AND [CT2_DEBITO] in ('13201005','13201009','13201010','13201011','13201014')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $machinesAndEquipmentOneRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
+        AND [CT2_DEBITO] in ('13201005','13201009','13201010','13201011','13201014')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $machinesAndEquipmentTwoRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
+        AND [CT2_DEBITO] in ('13201007','13201008')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $vehiclesOneRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
+        AND [CT2_DEBITO] in ('13201007','13201008')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $vehiclesTwoRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        // ============= INVESTIMENTOS DESPESAS FIM =============//
+
+        // ============= TRIBUTOS DESPESAS INI =============//
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
+        AND [CT2_DEBITO] in ('42103001')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $icmsOneRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
+        AND [CT2_DEBITO] in ('42103001')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $icmsTwoRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
+        AND [CT2_DEBITO] in ('42103002')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $issOneRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
+        AND [CT2_DEBITO] in ('42103002')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $issTwoRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
+        AND [CT2_DEBITO] in ('42103003')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $cofinsOneRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
+        AND [CT2_DEBITO] in ('42103003')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $cofinsTwoRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
+        AND [CT2_DEBITO] in ('42103004')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $pisOneRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
+        AND [CT2_DEBITO] in ('42103004')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $pisTwoRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
+        AND [CT2_DEBITO] in ('42103005')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $irpjOneRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
+        AND [CT2_DEBITO] in ('42103005')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $irpjTwoRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
+        AND [CT2_DEBITO] in ('42103006')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $csllOneRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
+        AND [CT2_DEBITO] in ('42103006')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $csllTwoRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
+        AND [CT2_DEBITO] in ('42103007')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $ipvaOneRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
+        AND [CT2_DEBITO] in ('42103007')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $ipvaTwoRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
+        AND [CT2_DEBITO] in ('42103008')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $iptuOneRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
+        AND [CT2_DEBITO] in ('42103008')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $iptuTwoRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
+        AND [CT2_DEBITO] in ('42103009')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $itbiOneRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
+        AND [CT2_DEBITO] in ('42103009')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $itbiTwoRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodOneForFind'
+        AND [CT2_DEBITO] in ('42103010')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $fecoepOneRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        SUM([CT2_VALOR]) AS [CT2_VALOR]
+        FROM [CT2010]
+        WHERE
+        SUBSTRING([CT2_DATA],1,6) = '$periodTwoForFind'
+        AND [CT2_DEBITO] in ('42103010')
+        AND D_E_L_E_T_ != '*'";
+        if ($cc != 'TO') {
+            $sql .= "AND [CT2_CCD] = " . substr($cc, 0,2) ."";
+        }
+        $fecoepTwoRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        // ============= TRIBUTOS DESPESAS FIM =============//
+
+        // ============= QUANTIDADE DE PESSOAL INI =============//
+
+        $sql = "
+        SELECT
+        COUNT([RD_PD]) as CONT
+        FROM [SRD010]
+        WHERE [SRD010].[D_E_L_E_T_] <> '*'
+        AND [RD_PD] = '101'
+        AND SUBSTRING([RD_DATARQ],1,6) = '$periodOneForFind'";
+        if ($cc != 'TO') {
+            $sql .= "AND [RD_CC] = '" . substr($cc, 0,2) ."'";
+        }
+        $staffPerMonthOneRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        $sql = "
+        SELECT
+        COUNT([RD_PD]) as CONT
+        FROM [SRD010]
+        WHERE [SRD010].[D_E_L_E_T_] <> '*'
+        AND [RD_PD] = '101'
+        AND SUBSTRING([RD_DATARQ],1,6) = '$periodTwoForFind'";
+        if ($cc != 'TO') {
+            $sql .= "AND [RD_CC] = '" . substr($cc, 0,2) ."'";
+        }
+        $staffPerMonthTwoRs = $connection->execute($sql)
+        ->fetchAll('assoc');
+
+        // ============= QUANTIDADE DE PESSOAL FIM =============//
+
+        $cc = $this->request->data['cc'];
 
         $this->set(compact('cc','monthly','yearOne','yearTwo','revenuesOneRs','revenuesTwoRs'
                                 ,'revenuesCountDebitTwoRs','revenuesCountDebitOneRs'

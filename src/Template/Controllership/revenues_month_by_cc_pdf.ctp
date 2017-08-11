@@ -518,7 +518,7 @@ $html .= '<table class="table" align="center">'
             //LINHA PARA VALORES SEM CENTRO DE CUSTO
              . '<tr bgcolor="#F5F5F5">';
                 $total = 0;
-                $html .= '<th>'.substr($semCCarryCCC[0],0,2).'</th>';
+                $html .= '<th>S/cc</th>';
                  for ($i = 1; $i <= 12; $i++) {
                     $html .= '<td>'. number_format($semCCarryCCC[$i],0,',','.') .'</td>';
                     $total += $semCCarryCCC[$i]; }
@@ -544,6 +544,8 @@ $html .= '<table class="table" align="center">'
 //$pdf->AddPage();
 
 $totalyear = 0;
+
+$html .= '<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>';
 
 $html .= '<h3 align="center">Receita líquida mensal por centro de custo: ano '.$year.'.</h3>';
 
@@ -729,16 +731,16 @@ $html .= '<table class="table" align="center">'
                  $totalyear += $total;
             $html .= '</tr>'
 
-            /* LINHA PARA VALORES SEM CENTRO DE CUSTO
-             * . '<tr bgcolor="#F5F5F5">';
+            // LINHA PARA VALORES SEM CENTRO DE CUSTO
+             . '<tr bgcolor="#F5F5F5">';
                 $total = 0;
-                $html .= '<th>'.substr($semCCarryCCC[0],0,2).'</th>';
+                $html .= '<th>S/cc</th>';
                  for ($i = 1; $i <= 12; $i++) {
                     $html .= '<td>'. number_format($semCCarryCCC[$i]-$semCCarryCCD[$i],0,',','.') .'</td>';
                     $total += $semCCarryCCC[$i]-$semCCarryCCD[$i]; }
                  $html .= '<th class="active">'.number_format($total,0,',','.').'</th>';
                  $totalyear += $total;
-            $html .= '</tr>'*/
+            $html .= '</tr>'
 
             .'<tr>';
                 $total = 0;
