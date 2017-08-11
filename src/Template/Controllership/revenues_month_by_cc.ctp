@@ -24,6 +24,7 @@ $cc20arryCCC[] = '20 - PETROBRAS - RN';
 $cc22arryCCC[] = '22 - CAMINHAO';
 $cc23arryCCC[] = '23 - SECADOR - AL';
 $cc28arryCCC[] = '28 - LABORATORIO RN';
+$cc29arryCCC[] = '29 - ETE QUALITEX AL';
 $cc32arryCCC[] = '32 - LANXES';
 $semCCarryCCC[] = 'SEM CENTRO DE CUSTO';
 
@@ -44,6 +45,7 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
     $cc22CCC = 0;
     $cc23CCC = 0;
     $cc28CCC = 0;
+    $cc29CCC = 0;
     $cc32CCC = 0;
     $semCC_CCC = 0;
     for ($i = 0; $i < count($revenuesCountCredit); $i++) {
@@ -80,6 +82,8 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                 $cc23CCC = $revenuesCountCredit[$i]['CT2_VALOR'];
             } else if (substr($revenuesCountCredit[$i]['CT2_CCC'], 0, 2) == '28') {
                 $cc28CCC = $revenuesCountCredit[$i]['CT2_VALOR'];
+            } else if (substr($revenuesCountCredit[$i]['CT2_CCC'], 0, 2) == '29') {
+                $cc29CCC = $revenuesCountCredit[$i]['CT2_VALOR'];
             } else if (substr($revenuesCountCredit[$i]['CT2_CCC'], 0, 2) == '32') {
                 $cc32CCC = $revenuesCountCredit[$i]['CT2_VALOR'];
             } else if (substr($revenuesCountCredit[$i]['CT2_CCC'], 0, 2) == '  ') {
@@ -103,6 +107,7 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
     $cc22arryCCC[] = $cc22CCC;
     $cc23arryCCC[] = $cc23CCC;
     $cc28arryCCC[] = $cc28CCC;
+    $cc29arryCCC[] = $cc29CCC;
     $cc32arryCCC[] = $cc32CCC;
     $semCCarryCCC[] = $semCC_CCC;
 }
@@ -124,6 +129,7 @@ $cc20arryCCD[] = '20 - PETROBRAS - RN';
 $cc22arryCCD[] = '22 - CAMINHAO';
 $cc23arryCCD[] = '23 - SECADOR - AL';
 $cc28arryCCD[] = '28 - LABORATORIO RN';
+$cc29arryCCD[] = '29 - ETE QUALITEX AL';
 $cc32arryCCD[] = '32 - LANXES';
 $semCCarryCCD[] = 'SEM CENTRO DE CUSTO';
 
@@ -144,6 +150,7 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
     $cc22CCD = 0;
     $cc23CCD = 0;
     $cc28CCD = 0;
+    $cc29CCD = 0;
     $cc32CCD = 0;
     $semCC_CCD = 0;
     for ($i = 0; $i < count($revenuesCountDebit); $i++) {
@@ -180,6 +187,8 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                 $cc23CCD = $revenuesCountDebit[$i]['CT2_VALOR'];
             } else if (substr($revenuesCountDebit[$i]['CT2_CCD'], 0, 2) == '28') {
                 $cc28CCD = $revenuesCountDebit[$i]['CT2_VALOR'];
+            } else if (substr($revenuesCountDebit[$i]['CT2_CCD'], 0, 2) == '29') {
+                $cc29CCD = $revenuesCountDebit[$i]['CT2_VALOR'];
             } else if (substr($revenuesCountDebit[$i]['CT2_CCD'], 0, 2) == '32') {
                 $cc32CCD = $revenuesCountDebit[$i]['CT2_VALOR'];
             } else if (substr($revenuesCountDebit[$i]['CT2_CCD'], 0, 2) == '  ') {
@@ -203,6 +212,7 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
     $cc22arryCCD[] = $cc22CCD;
     $cc23arryCCD[] = $cc23CCD;
     $cc28arryCCD[] = $cc28CCD;
+    $cc29arryCCD[] = $cc29CCD;
     $cc32arryCCD[] = $cc32CCD;
     $semCCarryCCD[] = $semCC_CCD;
 }
@@ -225,8 +235,8 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                     </div>
                 </div>
                 <div class="box-body">
-                    <div class="chart">          
-                        <div class="box-body"> 
+                    <div class="chart">
+                        <div class="box-body">
                             <div class="roles form large-9 medium-8 columns content">
                                 <fieldset>
                                     <legend><?= __('Informar o ano desejado:') ?></legend>
@@ -237,14 +247,14 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                             echo $this->Form->create($x,['url' => ['controller'=>'Controllership','action' => 'RevenuesMonthByCc']]);
                                             echo $this->Form->input('year', ['default' => '2017' ,'disabled' => FALSE,'label'=>' ']);
                                         ?>
-                                    </div> 
+                                    </div>
                                     <div class="col-md-4"></div>
-                                    
-                                </fieldset>  
+
+                                </fieldset>
                                 <div align="center">
                                     <?= $this->Form->button(__('Refinar')) ?>
                                 </div>
-                                
+
                                 <?php echo $this->Form->end();   ?>
                             </div>
                         </div>
@@ -266,8 +276,8 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                     </div>
                 </div>
                 <div class="box-body">
-                    <div class="chart">          
-                        <div class="box-body"> 
+                    <div class="chart">
+                        <div class="box-body">
                             <div class="roles form large-9 medium-8 columns content">
                                 <fieldset>
                                     <legend><?= __('Opções:') ?></legend>
@@ -278,13 +288,13 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                             echo $this->Form->create($x,['url' => ['controller'=>'Controllership','action' => 'RevenuesMonthByCcPdf']]);
                                             echo $this->Form->input('yearPdf', ['default' => '2017' ,'disabled' => FALSE,'label'=>'Informe o ano desejado:']);
                                         ?>
-                                    </div> 
-                                    <div class="col-md-3"></div>                                    
-                                </fieldset>  
+                                    </div>
+                                    <div class="col-md-3"></div>
+                                </fieldset>
                                 <div align="center">
                                     <button class="btn btn-success" type="submit" formtarget="_blank"><?php echo __('Gerar Relatório'); ?></button>
                                 </div>
-                                
+
                                 <?php echo $this->Form->end();   ?>
                             </div>
                         </div>
@@ -292,13 +302,13 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                 </div>
             </div>
         </div>
-    </div>  
-     
+    </div>
+
     <div class="row">
         <div class="col-md-12">
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Tabela de receitas - <b> Bruta </b> - Mês/Centro de custo. <b> Ano: <?php echo $date['year']?></b></h3>
+                    <h3 class="box-title">Tabela de receitas - <b> Bruta </b> - Mês/Centro de custo. <b> Ano: <?php echo $year ?> </b></h3>
                     <div class="box-tools pull-right">
                         <button type="button" class="btn btn-box-tool" data-widget="collapse">
                             <i class="fa fa-minus"></i>
@@ -309,29 +319,29 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                     </div>
                 </div>
                 <div class="box-body">
-                    <div class="chart">          
-                        <div class="box-body">                 
+                    <div class="chart">
+                        <div class="box-body">
                             <table id="example1" class="table table-bordered table-hover">
-                                
+
                                 <div align="right">
                                     <a class="btn btn-primary" download="somedata.xls" href="#" onclick="return ExcellentExport.excel(this, 'example1', 'Sheet Name Here');">Exportar para Excel</a>
                                 </div>
-                                
-                                <thead>                                    
-                                    <tr>           
+
+                                <thead>
+                                    <tr>
                                         <th>Centro de custo</th>
-                                        
+
                                         <?php foreach ($monthsLabels as $key => $value): ?>
                                             <th><?php echo $value; ?></th>
-                                        <?php endforeach ?>                                        
-                                        
+                                        <?php endforeach ?>
+
                                         <th>Total</th>
-                                    </tr>  
-                                        
+                                    </tr>
+
                                 </thead>
 
-                                <tbody>                                    
-                                    <tr> 
+                                <tbody>
+                                    <tr>
                                         <?php $total = 0; ?>
                                         <th><?php echo $cc01arryCCC[0]; ?></th>
                                         <?php for ($i = 1; $i <= 12; $i++) { ?>
@@ -339,9 +349,9 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <?php $total += $cc01arryCCC[$i]; } ?>
                                         <th class="active"><?php echo number_format($total,0,',','.'); ?></th>
                                         <?php $totalyear += $total;  ?>
-                                    </tr> 
-                                    
-                                    <tr> 
+                                    </tr>
+
+                                    <tr>
                                         <?php $total = 0; ?>
                                         <th><?php echo $cc03arryCCC[0]; ?></th>
                                         <?php for ($i = 1; $i <= 12; $i++) { ?>
@@ -349,9 +359,9 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <?php $total += $cc03arryCCC[$i]; } ?>
                                         <th class="active"><?php echo number_format($total,0,',','.'); ?></th>
                                         <?php $totalyear += $total;  ?>
-                                    </tr>  
-                                    
-                                    <tr> 
+                                    </tr>
+
+                                    <tr>
                                         <?php $total = 0; ?>
                                         <th><?php echo $cc06arryCCC[0]; ?></th>
                                         <?php for ($i = 1; $i <= 12; $i++) {?>
@@ -359,9 +369,9 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <?php $total += $cc06arryCCC[$i]; } ?>
                                         <th class="active"><?php echo number_format($total,0,',','.'); ?></th>
                                         <?php $totalyear += $total;  ?>
-                                    </tr> 
-                                    
-                                    <tr> 
+                                    </tr>
+
+                                    <tr>
                                         <?php $total = 0; ?>
                                         <th><?php echo $cc07arryCCC[0]; ?></th>
                                         <?php for ($i = 1; $i <= 12; $i++) { ?>
@@ -370,8 +380,8 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <th class="active"><?php echo number_format($total,0,',','.'); ?></th>
                                         <?php $totalyear += $total;  ?>
                                     </tr>
-                                    
-                                    <tr> 
+
+                                    <tr>
                                         <?php $total = 0; ?>
                                         <th><?php echo $cc08arryCCC[0]; ?></th>
                                         <?php for ($i = 1; $i <= 12; $i++) { ?>
@@ -379,9 +389,9 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <?php $total += $cc08arryCCC[$i]; } ?>
                                         <th class="active"><?php echo number_format($total,0,',','.'); ?></th>
                                         <?php $totalyear += $total;  ?>
-                                    </tr> 
-                                    
-                                    <tr> 
+                                    </tr>
+
+                                    <tr>
                                         <?php $total = 0; ?>
                                         <th><?php echo $cc11arryCCC[0]; ?></th>
                                         <?php for ($i = 1; $i <= 12; $i++) { ?>
@@ -389,9 +399,9 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <?php $total += $cc11arryCCC[$i]; } ?>
                                         <th class="active"><?php echo number_format($total,0,',','.'); ?></th>
                                         <?php $totalyear += $total;  ?>
-                                    </tr> 
-                                    
-                                    <tr> 
+                                    </tr>
+
+                                    <tr>
                                         <?php $total = 0; ?>
                                         <th><?php echo $cc12arryCCC[0]; ?></th>
                                         <?php for ($i = 1; $i <= 12; $i++) { ?>
@@ -399,9 +409,9 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <?php $total += $cc12arryCCC[$i]; } ?>
                                         <th class="active"><?php echo number_format($total,0,',','.'); ?></th>
                                         <?php $totalyear += $total;  ?>
-                                    </tr> 
-                                    
-                                    <tr> 
+                                    </tr>
+
+                                    <tr>
                                         <?php $total = 0; ?>
                                         <th><?php echo $cc13arryCCC[0]; ?></th>
                                         <?php for ($i = 1; $i <= 12; $i++) { ?>
@@ -409,9 +419,9 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <?php $total += $cc13arryCCC[$i]; } ?>
                                         <th class="active"><?php echo number_format($total,0,',','.'); ?></th>
                                         <?php $totalyear += $total;  ?>
-                                    </tr> 
-                                    
-                                    <tr> 
+                                    </tr>
+
+                                    <tr>
                                         <?php $total = 0; ?>
                                         <th><?php echo $cc14arryCCC[0]; ?></th>
                                         <?php for ($i = 1; $i <= 12; $i++) { ?>
@@ -419,9 +429,9 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <?php $total += $cc14arryCCC[$i]; } ?>
                                         <th class="active"><?php echo number_format($total,0,',','.'); ?></th>
                                         <?php $totalyear += $total;  ?>
-                                    </tr> 
-                                    
-                                    <tr> 
+                                    </tr>
+
+                                    <tr>
                                         <?php $total = 0; ?>
                                         <th><?php echo $cc15arryCCC[0]; ?></th>
                                         <?php for ($i = 1; $i <= 12; $i++) { ?>
@@ -430,8 +440,8 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <th class="active"><?php echo number_format($total,0,',','.'); ?></th>
                                         <?php $totalyear += $total;  ?>
                                     </tr>
-                                    
-                                    <tr> 
+
+                                    <tr>
                                         <?php $total = 0; ?>
                                         <th><?php echo $cc16arryCCC[0]; ?></th>
                                         <?php for ($i = 1; $i <= 12; $i++) { ?>
@@ -440,8 +450,8 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <th class="active"><?php echo number_format($total,0,',','.'); ?></th>
                                         <?php $totalyear += $total;  ?>
                                     </tr>
-                                    
-                                    <tr> 
+
+                                    <tr>
                                         <?php $total = 0; ?>
                                         <th><?php echo $cc18arryCCC[0]; ?></th>
                                         <?php for ($i = 1; $i <= 12; $i++) { ?>
@@ -450,8 +460,8 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <th class="active"><?php echo number_format($total,0,',','.'); ?></th>
                                         <?php $totalyear += $total;  ?>
                                     </tr>
-                                    
-                                    <tr> 
+
+                                    <tr>
                                         <?php $total = 0; ?>
                                         <th><?php echo $cc20arryCCC[0]; ?></th>
                                         <?php for ($i = 1; $i <= 12; $i++) { ?>
@@ -460,8 +470,8 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <th class="active"><?php echo number_format($total,0,',','.'); ?></th>
                                         <?php $totalyear += $total;  ?>
                                     </tr>
-                                    
-                                    <tr> 
+
+                                    <tr>
                                         <?php $total = 0; ?>
                                         <th><?php echo $cc22arryCCC[0]; ?></th>
                                         <?php for ($i = 1; $i <= 12; $i++) { ?>
@@ -470,8 +480,8 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <th class="active"><?php echo number_format($total,0,',','.'); ?></th>
                                         <?php $totalyear += $total;  ?>
                                     </tr>
-                                    
-                                    <tr> 
+
+                                    <tr>
                                         <?php $total = 0; ?>
                                         <th><?php echo $cc23arryCCC[0]; ?></th>
                                         <?php for ($i = 1; $i <= 12; $i++) { ?>
@@ -480,8 +490,8 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <th class="active"><?php echo number_format($total,0,',','.'); ?></th>
                                         <?php $totalyear += $total;  ?>
                                     </tr>
-                                    
-                                    <tr> 
+
+                                    <tr>
                                         <?php $total = 0; ?>
                                         <th><?php echo $cc28arryCCC[0]; ?></th>
                                         <?php for ($i = 1; $i <= 12; $i++) { ?>
@@ -490,8 +500,18 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <th class="active"><?php echo number_format($total,0,',','.'); ?></th>
                                         <?php $totalyear += $total;  ?>
                                     </tr>
-                                    
-                                    <tr> 
+
+                                    <tr>
+                                        <?php $total = 0; ?>
+                                        <th><?php echo $cc29arryCCC[0]; ?></th>
+                                        <?php for ($i = 1; $i <= 12; $i++) { ?>
+                                        <td><?php echo number_format($cc29arryCCC[$i],0,',','.'); ?></td>
+                                        <?php $total += $cc29arryCCC[$i]; } ?>
+                                        <th class="active"><?php echo number_format($total,0,',','.'); ?></th>
+                                        <?php $totalyear += $total;  ?>
+                                    </tr>
+
+                                    <tr>
                                         <?php $total = 0; ?>
                                         <th><?php echo $cc32arryCCC[0]; ?></th>
                                         <?php for ($i = 1; $i <= 12; $i++) { ?>
@@ -500,8 +520,8 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <th class="active"><?php echo number_format($total,0,',','.'); ?></th>
                                         <?php $totalyear += $total;  ?>
                                     </tr>
-                                    
-                                    <tr> 
+
+                                    <tr>
                                         <?php $total = 0; ?>
                                         <th><?php echo $semCCarryCCC[0]; ?></th>
                                         <?php for ($i = 1; $i <= 12; $i++) { ?>
@@ -510,19 +530,23 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <th class="active"><?php echo number_format($total,0,',','.'); ?></th>
                                         <?php $totalyear += $total;  ?>
                                     </tr>
-                                    
-                                    <tr>                                         
+
+                                    <tr>
                                         <?php $total = 0; ?>
-                                        <th class="active"><?php echo 'TOTAL'; ?></th>                                        
-                                        <?php for ($i = 1; $i <= 12; $i++) { ?>                                       
+                                        <th class="active"><?php echo 'TOTAL'; ?></th>
+                                        <?php for ($i = 1; $i <= 12; $i++) { ?>
                                             <th class="active">
-                                                <?php 
-                                                    $revenue = $cc01arryCCC[$i]+$cc03arryCCC[$i]+$cc06arryCCC[$i]+$cc07arryCCC[$i]+$cc08arryCCC[$i]+$cc11arryCCC[$i]+$cc12arryCCC[$i]+$cc13arryCCC[$i]+$cc14arryCCC[$i]+$cc15arryCCC[$i]+$cc16arryCCC[$i]+$cc18arryCCC[$i]+$cc20arryCCC[$i]+$cc22arryCCC[$i]+$cc23arryCCC[$i]+$cc28arryCCC[$i]+$cc32arryCCC[$i]+$semCCarryCCC[$i];
-                                                    
-                                                    echo number_format($revenue,0,',','.'); 
+                                                <?php
+                                                    $revenue = $cc01arryCCC[$i]+$cc03arryCCC[$i]+$cc06arryCCC[$i]+$cc07arryCCC[$i]
+                                                                +$cc08arryCCC[$i]+$cc11arryCCC[$i]+$cc12arryCCC[$i]+$cc13arryCCC[$i]
+                                                                +$cc14arryCCC[$i]+$cc15arryCCC[$i]+$cc16arryCCC[$i]+$cc18arryCCC[$i]
+                                                                +$cc20arryCCC[$i]+$cc22arryCCC[$i]+$cc23arryCCC[$i]+$cc28arryCCC[$i]
+                                                                +$cc29arryCCC[$i]+$cc32arryCCC[$i]+$semCCarryCCC[$i];
+
+                                                    echo number_format($revenue,0,',','.');
                                                 ?>
-                                            </th>                                        
-                                        <?php } ?>                                        
+                                            </th>
+                                        <?php } ?>
                                         <th class="success">
                                             <?php
                                             echo number_format($totalyear, 0, ',', '.');
@@ -530,7 +554,7 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         </th>
                                     </tr>
                                 </tbody>
-                                
+
                             </table>
                         </div>
                     </div>
@@ -538,15 +562,15 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
             </div>
         </div>
     </div>
-    
-    
+
+
     <?php $totalyear = 0; ?>
-    
+
     <div class="row">
         <div class="col-md-12">
             <div class="box box-success">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Tabela de receitas - <b> Líquida </b> - Mês/Centro de custo. <b> Ano: <?php echo $date['year']?></b></h3>
+                    <h3 class="box-title">Tabela de receitas - <b> Líquida </b> - Mês/Centro de custo. <b> Ano: <?php echo $year ?> </b></h3>
                     <div class="box-tools pull-right">
                         <button type="button" class="btn btn-box-tool" data-widget="collapse">
                             <i class="fa fa-minus"></i>
@@ -557,29 +581,29 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                     </div>
                 </div>
                 <div class="box-body">
-                    <div class="chart">          
-                        <div class="box-body">                 
+                    <div class="chart">
+                        <div class="box-body">
                             <table id="example2" class="table table-bordered table-hover">
-                                
+
                                 <div align="right">
                                     <a class="btn btn-primary" download="somedata.xls" href="#" onclick="return ExcellentExport.excel(this, 'example2', 'Sheet Name Here');">Exportar para Excel</a>
                                 </div>
-                                
-                                <thead>                                    
-                                    <tr>           
+
+                                <thead>
+                                    <tr>
                                         <th>Centro de custo</th>
-                                        
+
                                         <?php foreach ($monthsLabels as $key => $value): ?>
                                             <th><?php echo $value; ?></th>
-                                        <?php endforeach ?>                                        
-                                        
+                                        <?php endforeach ?>
+
                                         <th>Total</th>
-                                    </tr>  
-                                        
+                                    </tr>
+
                                 </thead>
 
-                                <tbody>                                    
-                                    <tr> 
+                                <tbody>
+                                    <tr>
                                         <?php $total = 0; ?>
                                         <th><?php echo $cc01arryCCC[0]; ?></th>
                                         <?php for ($i = 1; $i <= 12; $i++) { ?>
@@ -587,9 +611,9 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <?php $total += $cc01arryCCC[$i]-$cc01arryCCD[$i]; } ?>
                                         <th class="active"><?php echo number_format($total,0,',','.'); ?></th>
                                         <?php $totalyear += $total;  ?>
-                                    </tr> 
-                                    
-                                    <tr> 
+                                    </tr>
+
+                                    <tr>
                                         <?php $total = 0; ?>
                                         <th><?php echo $cc03arryCCC[0]; ?></th>
                                         <?php for ($i = 1; $i <= 12; $i++) { ?>
@@ -597,9 +621,9 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <?php $total += $cc03arryCCC[$i]-$cc03arryCCD[$i]; } ?>
                                         <th class="active"><?php echo number_format($total,0,',','.'); ?></th>
                                         <?php $totalyear += $total;  ?>
-                                    </tr>  
-                                    
-                                    <tr> 
+                                    </tr>
+
+                                    <tr>
                                         <?php $total = 0; ?>
                                         <th><?php echo $cc06arryCCC[0]; ?></th>
                                         <?php for ($i = 1; $i <= 12; $i++) {?>
@@ -607,9 +631,9 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <?php $total += $cc06arryCCC[$i]-$cc06arryCCD[$i]; } ?>
                                         <th class="active"><?php echo number_format($total,0,',','.'); ?></th>
                                         <?php $totalyear += $total;  ?>
-                                    </tr> 
-                                    
-                                    <tr> 
+                                    </tr>
+
+                                    <tr>
                                         <?php $total = 0; ?>
                                         <th><?php echo $cc07arryCCC[0]; ?></th>
                                         <?php for ($i = 1; $i <= 12; $i++) { ?>
@@ -618,8 +642,8 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <th class="active"><?php echo number_format($total,0,',','.'); ?></th>
                                         <?php $totalyear += $total;  ?>
                                     </tr>
-                                    
-                                    <tr> 
+
+                                    <tr>
                                         <?php $total = 0; ?>
                                         <th><?php echo $cc08arryCCC[0]; ?></th>
                                         <?php for ($i = 1; $i <= 12; $i++) { ?>
@@ -627,9 +651,9 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <?php $total += $cc08arryCCC[$i]-$cc08arryCCD[$i]; } ?>
                                         <th class="active"><?php echo number_format($total,0,',','.'); ?></th>
                                         <?php $totalyear += $total;  ?>
-                                    </tr> 
-                                    
-                                    <tr> 
+                                    </tr>
+
+                                    <tr>
                                         <?php $total = 0; ?>
                                         <th><?php echo $cc11arryCCC[0]; ?></th>
                                         <?php for ($i = 1; $i <= 12; $i++) { ?>
@@ -637,9 +661,9 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <?php $total += $cc11arryCCC[$i]-$cc11arryCCD[$i]; } ?>
                                         <th class="active"><?php echo number_format($total,0,',','.'); ?></th>
                                         <?php $totalyear += $total;  ?>
-                                    </tr> 
-                                    
-                                    <tr> 
+                                    </tr>
+
+                                    <tr>
                                         <?php $total = 0; ?>
                                         <th><?php echo $cc12arryCCC[0]; ?></th>
                                         <?php for ($i = 1; $i <= 12; $i++) { ?>
@@ -647,9 +671,9 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <?php $total += $cc12arryCCC[$i]-$cc12arryCCD[$i]; } ?>
                                         <th class="active"><?php echo number_format($total,0,',','.'); ?></th>
                                         <?php $totalyear += $total;  ?>
-                                    </tr> 
-                                    
-                                    <tr> 
+                                    </tr>
+
+                                    <tr>
                                         <?php $total = 0; ?>
                                         <th><?php echo $cc13arryCCC[0]; ?></th>
                                         <?php for ($i = 1; $i <= 12; $i++) { ?>
@@ -657,9 +681,9 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <?php $total += $cc13arryCCC[$i]-$cc13arryCCD[$i]; } ?>
                                         <th class="active"><?php echo number_format($total,0,',','.'); ?></th>
                                         <?php $totalyear += $total;  ?>
-                                    </tr> 
-                                    
-                                    <tr> 
+                                    </tr>
+
+                                    <tr>
                                         <?php $total = 0; ?>
                                         <th><?php echo $cc14arryCCC[0]; ?></th>
                                         <?php for ($i = 1; $i <= 12; $i++) { ?>
@@ -667,9 +691,9 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <?php $total += $cc14arryCCC[$i]-$cc14arryCCD[$i]; } ?>
                                         <th class="active"><?php echo number_format($total,0,',','.'); ?></th>
                                         <?php $totalyear += $total;  ?>
-                                    </tr> 
-                                    
-                                    <tr> 
+                                    </tr>
+
+                                    <tr>
                                         <?php $total = 0; ?>
                                         <th><?php echo $cc15arryCCC[0]; ?></th>
                                         <?php for ($i = 1; $i <= 12; $i++) { ?>
@@ -678,8 +702,8 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <th class="active"><?php echo number_format($total,0,',','.'); ?></th>
                                         <?php $totalyear += $total;  ?>
                                     </tr>
-                                    
-                                    <tr> 
+
+                                    <tr>
                                         <?php $total = 0; ?>
                                         <th><?php echo $cc16arryCCC[0]; ?></th>
                                         <?php for ($i = 1; $i <= 12; $i++) { ?>
@@ -688,8 +712,8 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <th class="active"><?php echo number_format($total,0,',','.'); ?></th>
                                         <?php $totalyear += $total;  ?>
                                     </tr>
-                                    
-                                    <tr> 
+
+                                    <tr>
                                         <?php $total = 0; ?>
                                         <th><?php echo $cc18arryCCC[0]; ?></th>
                                         <?php for ($i = 1; $i <= 12; $i++) { ?>
@@ -698,8 +722,8 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <th class="active"><?php echo number_format($total,0,',','.'); ?></th>
                                         <?php $totalyear += $total;  ?>
                                     </tr>
-                                    
-                                    <tr> 
+
+                                    <tr>
                                         <?php $total = 0; ?>
                                         <th><?php echo $cc20arryCCC[0]; ?></th>
                                         <?php for ($i = 1; $i <= 12; $i++) { ?>
@@ -708,8 +732,8 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <th class="active"><?php echo number_format($total,0,',','.'); ?></th>
                                         <?php $totalyear += $total;  ?>
                                     </tr>
-                                    
-                                    <tr> 
+
+                                    <tr>
                                         <?php $total = 0; ?>
                                         <th><?php echo $cc22arryCCC[0]; ?></th>
                                         <?php for ($i = 1; $i <= 12; $i++) { ?>
@@ -718,8 +742,8 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <th class="active"><?php echo number_format($total,0,',','.'); ?></th>
                                         <?php $totalyear += $total;  ?>
                                     </tr>
-                                    
-                                    <tr> 
+
+                                    <tr>
                                         <?php $total = 0; ?>
                                         <th><?php echo $cc23arryCCC[0]; ?></th>
                                         <?php for ($i = 1; $i <= 12; $i++) { ?>
@@ -728,8 +752,8 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <th class="active"><?php echo number_format($total,0,',','.'); ?></th>
                                         <?php $totalyear += $total;  ?>
                                     </tr>
-                                    
-                                    <tr> 
+
+                                    <tr>
                                         <?php $total = 0; ?>
                                         <th><?php echo $cc28arryCCC[0]; ?></th>
                                         <?php for ($i = 1; $i <= 12; $i++) { ?>
@@ -738,8 +762,18 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <th class="active"><?php echo number_format($total,0,',','.'); ?></th>
                                         <?php $totalyear += $total;  ?>
                                     </tr>
-                                    
-                                    <tr> 
+
+                                    <tr>
+                                        <?php $total = 0; ?>
+                                        <th><?php echo $cc29arryCCC[0]; ?></th>
+                                        <?php for ($i = 1; $i <= 12; $i++) { ?>
+                                        <td><?php echo number_format($cc29arryCCC[$i]-$cc29arryCCD[$i],0,',','.'); ?></td>
+                                        <?php $total += $cc29arryCCC[$i]-$cc29arryCCD[$i]; } ?>
+                                        <th class="active"><?php echo number_format($total,0,',','.'); ?></th>
+                                        <?php $totalyear += $total;  ?>
+                                    </tr>
+
+                                    <tr>
                                         <?php $total = 0; ?>
                                         <th><?php echo $cc32arryCCC[0]; ?></th>
                                         <?php for ($i = 1; $i <= 12; $i++) { ?>
@@ -748,8 +782,8 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <th class="active"><?php echo number_format($total,0,',','.'); ?></th>
                                         <?php $totalyear += $total;  ?>
                                     </tr>
-                                    
-                                    <tr> 
+
+                                    <tr>
                                         <?php $total = 0; ?>
                                         <th><?php echo $semCCarryCCC[0]; ?></th>
                                         <?php for ($i = 1; $i <= 12; $i++) { ?>
@@ -758,19 +792,30 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         <th class="active"><?php echo number_format($total,0,',','.'); ?></th>
                                         <?php $totalyear += $total;  ?>
                                     </tr>
-                                    
-                                    <tr>                                         
+
+                                    <tr>
                                         <?php $total = 0; ?>
-                                        <th class="active"><?php echo 'TOTAL'; ?></th>                                        
-                                        <?php for ($i = 1; $i <= 12; $i++) { ?>                                       
+                                        <th class="active"><?php echo 'TOTAL'; ?></th>
+                                        <?php for ($i = 1; $i <= 12; $i++) { ?>
                                             <th class="active">
-                                                <?php 
-                                                    $revenue = $cc01arryCCC[$i]+$cc03arryCCC[$i]+$cc06arryCCC[$i]+$cc07arryCCC[$i]+$cc08arryCCC[$i]+$cc11arryCCC[$i]+$cc12arryCCC[$i]+$cc13arryCCC[$i]+$cc14arryCCC[$i]+$cc15arryCCC[$i]+$cc16arryCCC[$i]+$cc18arryCCC[$i]+$cc20arryCCC[$i]+$cc22arryCCC[$i]+$cc23arryCCC[$i]+$cc28arryCCC[$i]+$cc32arryCCC[$i]+$semCCarryCCC[$i];
-                                                    $retention = $cc01arryCCD[$i]+$cc03arryCCD[$i]+$cc06arryCCD[$i]+$cc07arryCCD[$i]+$cc08arryCCD[$i]+$cc11arryCCD[$i]+$cc12arryCCD[$i]+$cc13arryCCD[$i]+$cc14arryCCD[$i]+$cc15arryCCD[$i]+$cc16arryCCD[$i]+$cc18arryCCD[$i]+$cc20arryCCD[$i]+$cc22arryCCD[$i]+$cc23arryCCD[$i]+$cc28arryCCD[$i]+$cc32arryCCD[$i]+$semCCarryCCD[$i];
-                                                    echo number_format($revenue-$retention,0,',','.'); 
+                                                <?php
+                                                    $revenue = $cc01arryCCC[$i]+$cc03arryCCC[$i]+$cc06arryCCC[$i]
+                                                        +$cc07arryCCC[$i]+$cc08arryCCC[$i]+$cc11arryCCC[$i]
+                                                        +$cc12arryCCC[$i]+$cc13arryCCC[$i]+$cc14arryCCC[$i]
+                                                        +$cc15arryCCC[$i]+$cc16arryCCC[$i]+$cc18arryCCC[$i]
+                                                        +$cc20arryCCC[$i]+$cc22arryCCC[$i]+$cc23arryCCC[$i]
+                                                        +$cc28arryCCC[$i]+$cc29arryCCC[$i]+$cc32arryCCC[$i]+$semCCarryCCC[$i];
+
+                                                    $retention = $cc01arryCCD[$i]+$cc03arryCCD[$i]+$cc06arryCCD[$i]
+                                                        +$cc07arryCCD[$i]+$cc08arryCCD[$i]+$cc11arryCCD[$i]
+                                                        +$cc12arryCCD[$i]+$cc13arryCCD[$i]+$cc14arryCCD[$i]
+                                                        +$cc15arryCCD[$i]+$cc16arryCCD[$i]+$cc18arryCCD[$i]
+                                                        +$cc20arryCCD[$i]+$cc22arryCCD[$i]+$cc23arryCCD[$i]
+                                                        +$cc28arryCCD[$i]+$cc29arryCCD[$i]+$cc32arryCCD[$i]+$semCCarryCCD[$i];
+                                                    echo number_format($revenue-$retention,0,',','.');
                                                 ?>
-                                            </th>                                        
-                                        <?php } ?>                                        
+                                            </th>
+                                        <?php } ?>
                                         <th class="success">
                                             <?php
                                             echo number_format($totalyear, 0, ',', '.');
@@ -778,7 +823,7 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                                         </th>
                                     </tr>
                                 </tbody>
-                                
+
                             </table>
                         </div>
                     </div>
@@ -786,7 +831,7 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
             </div>
         </div>
     </div>
-    
+
 </section>
 
 <?php $this->Html->script(['AdminLTE./plugins/excellentexport/excellentexport.min.js',], ['block' => 'script']); ?>

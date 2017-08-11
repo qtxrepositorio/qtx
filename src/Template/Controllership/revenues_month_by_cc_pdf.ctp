@@ -24,6 +24,7 @@ $cc20arryCCC[] = '20 - PETROBRAS - RN';
 $cc22arryCCC[] = '22 - CAMINHAO';
 $cc23arryCCC[] = '23 - SECADOR - AL';
 $cc28arryCCC[] = '28 - LABORATORIO RN';
+$cc29arryCCC[] = '29 - ETE QUALITEX AL';
 $cc32arryCCC[] = '32 - LANXES';
 $semCCarryCCC[] = 'SEM CENTRO DE CUSTO';
 
@@ -44,6 +45,7 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
     $cc22CCC = 0;
     $cc23CCC = 0;
     $cc28CCC = 0;
+    $cc29CCC = 0;
     $cc32CCC = 0;
     $semCC_CCC = 0;
     for ($i = 0; $i < count($revenuesCountCredit); $i++) {
@@ -80,6 +82,8 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                 $cc23CCC = $revenuesCountCredit[$i]['CT2_VALOR'];
             } else if (substr($revenuesCountCredit[$i]['CT2_CCC'], 0, 2) == '28') {
                 $cc28CCC = $revenuesCountCredit[$i]['CT2_VALOR'];
+            } else if (substr($revenuesCountCredit[$i]['CT2_CCC'], 0, 2) == '29') {
+                $cc29CCC = $revenuesCountCredit[$i]['CT2_VALOR'];
             } else if (substr($revenuesCountCredit[$i]['CT2_CCC'], 0, 2) == '32') {
                 $cc32CCC = $revenuesCountCredit[$i]['CT2_VALOR'];
             } else if (substr($revenuesCountCredit[$i]['CT2_CCC'], 0, 2) == '  ') {
@@ -103,6 +107,7 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
     $cc22arryCCC[] = $cc22CCC;
     $cc23arryCCC[] = $cc23CCC;
     $cc28arryCCC[] = $cc28CCC;
+    $cc29arryCCC[] = $cc29CCC;
     $cc32arryCCC[] = $cc32CCC;
     $semCCarryCCC[] = $semCC_CCC;
 }
@@ -124,6 +129,7 @@ $cc20arryCCD[] = '20 - PETROBRAS - RN';
 $cc22arryCCD[] = '22 - CAMINHAO';
 $cc23arryCCD[] = '23 - SECADOR - AL';
 $cc28arryCCD[] = '28 - LABORATORIO RN';
+$cc29arryCCD[] = '29 - ETE QUALITEX AL';
 $cc32arryCCD[] = '32 - LANXES';
 $semCCarryCCD[] = 'SEM CENTRO DE CUSTO';
 
@@ -144,6 +150,7 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
     $cc22CCD = 0;
     $cc23CCD = 0;
     $cc28CCD = 0;
+    $cc29CCD = 0;
     $cc32CCD = 0;
     $semCC_CCD = 0;
     for ($i = 0; $i < count($revenuesCountDebit); $i++) {
@@ -180,6 +187,8 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
                 $cc23CCD = $revenuesCountDebit[$i]['CT2_VALOR'];
             } else if (substr($revenuesCountDebit[$i]['CT2_CCD'], 0, 2) == '28') {
                 $cc28CCD = $revenuesCountDebit[$i]['CT2_VALOR'];
+            } else if (substr($revenuesCountDebit[$i]['CT2_CCD'], 0, 2) == '29') {
+                $cc29CCD = $revenuesCountDebit[$i]['CT2_VALOR'];
             } else if (substr($revenuesCountDebit[$i]['CT2_CCD'], 0, 2) == '32') {
                 $cc32CCD = $revenuesCountDebit[$i]['CT2_VALOR'];
             } else if (substr($revenuesCountDebit[$i]['CT2_CCD'], 0, 2) == '  ') {
@@ -203,6 +212,7 @@ for ($x = 0; $x < count($monthsNumbers); $x++) {
     $cc22arryCCD[] = $cc22CCD;
     $cc23arryCCD[] = $cc23CCD;
     $cc28arryCCD[] = $cc28CCD;
+    $cc29arryCCD[] = $cc29CCD;
     $cc32arryCCD[] = $cc32CCD;
     $semCCarryCCD[] = $semCC_CCD;
 }
@@ -216,7 +226,7 @@ class MYPDF extends TCPDF {
         $image_file = K_PATH_IMAGES.'logo.jpg';
 
         $this->Image($image_file, 8, 8, 30, '', 'JPG', '', 'T', false, 300, '', false, false, 0, false, false, false);
-       
+
         // Set font
         $this->SetFont('times', 'B', 10);
 
@@ -296,16 +306,16 @@ $pdf->AddPage();
 $html = '';
 
 $html .= '
-<style> 
+<style>
 
 table {
-    
-    width: 100%;    
-    
+
+    width: 100%;
+
 }
 
 td, th {
-       
+
 }
 
 </style>';
@@ -317,14 +327,14 @@ $html .= '<table class="table" align="center">'
         . '<thead>'
             . '<tr>'
                 . '<th>Centro de custo</th>';
-                foreach ($monthsLabels as $key => $value): 
+                foreach ($monthsLabels as $key => $value):
                     $html .= '<th>' .$value.'</th>';
-                endforeach; 
+                endforeach;
                 $html .=  '<th>Total</th>'
             . '</tr>'
         . '</thead>'
        . '<tbody>'
-                        
+
             . '<tr bgcolor="#F5F5F5">';
                 $total = 0;
                 $html .= '<th>'.substr($cc01arryCCC[0],0,2).'</th>';
@@ -334,7 +344,7 @@ $html .= '<table class="table" align="center">'
                  $html .= '<th class="active">'.number_format($total,0,',','.').'</th>';
                  $totalyear += $total;
             $html .= '</tr>'
-                 
+
             . '<tr>';
                 $total = 0;
                 $html .= '<th>'.substr($cc03arryCCC[0],0,2).'</th>';
@@ -344,7 +354,7 @@ $html .= '<table class="table" align="center">'
                  $html .= '<th class="active">'.number_format($total,0,',','.').'</th>';
                  $totalyear += $total;
             $html .= '</tr>'
-                 
+
             . '<tr bgcolor="#F5F5F5">';
                 $total = 0;
                 $html .= '<th>'.substr($cc06arryCCC[0],0,2).'</th>';
@@ -353,8 +363,8 @@ $html .= '<table class="table" align="center">'
                     $total += $cc06arryCCC[$i]; }
                  $html .= '<th class="active">'.number_format($total,0,',','.').'</th>';
                  $totalyear += $total;
-            $html .= '</tr>'  
-            
+            $html .= '</tr>'
+
             . '<tr>';
                 $total = 0;
                 $html .= '<th>'.substr($cc07arryCCC[0],0,2).'</th>';
@@ -364,7 +374,7 @@ $html .= '<table class="table" align="center">'
                  $html .= '<th class="active">'.number_format($total,0,',','.').'</th>';
                  $totalyear += $total;
             $html .= '</tr>'
-                 
+
             . '<tr bgcolor="#F5F5F5">';
                 $total = 0;
                 $html .= '<th>'.substr($cc08arryCCC[0],0,2).'</th>';
@@ -374,7 +384,7 @@ $html .= '<table class="table" align="center">'
                  $html .= '<th class="active">'.number_format($total,0,',','.').'</th>';
                  $totalyear += $total;
             $html .= '</tr>'
-                 
+
             . '<tr>';
                 $total = 0;
                 $html .= '<th>'.substr($cc11arryCCC[0],0,2).'</th>';
@@ -384,7 +394,7 @@ $html .= '<table class="table" align="center">'
                  $html .= '<th class="active">'.number_format($total,0,',','.').'</th>';
                  $totalyear += $total;
             $html .= '</tr>'
-                 
+
             . '<tr bgcolor="#F5F5F5">';
                 $total = 0;
                 $html .= '<th>'.substr($cc12arryCCC[0],0,2).'</th>';
@@ -394,7 +404,7 @@ $html .= '<table class="table" align="center">'
                  $html .= '<th class="active">'.number_format($total,0,',','.').'</th>';
                  $totalyear += $total;
             $html .= '</tr>'
-                 
+
             . '<tr>';
                 $total = 0;
                 $html .= '<th>'.substr($cc13arryCCC[0],0,2).'</th>';
@@ -404,7 +414,7 @@ $html .= '<table class="table" align="center">'
                  $html .= '<th class="active">'.number_format($total,0,',','.').'</th>';
                  $totalyear += $total;
             $html .= '</tr>'
-            
+
             . '<tr bgcolor="#F5F5F5">';
                 $total = 0;
                 $html .= '<th>'.substr($cc14arryCCC[0],0,2).'</th>';
@@ -414,7 +424,7 @@ $html .= '<table class="table" align="center">'
                  $html .= '<th class="active">'.number_format($total,0,',','.').'</th>';
                  $totalyear += $total;
             $html .= '</tr>'
-                 
+
             . '<tr>';
                 $total = 0;
                 $html .= '<th>'.substr($cc15arryCCC[0],0,2).'</th>';
@@ -424,7 +434,7 @@ $html .= '<table class="table" align="center">'
                  $html .= '<th class="active">'.number_format($total,0,',','.').'</th>';
                  $totalyear += $total;
             $html .= '</tr>'
-            
+
             . '<tr bgcolor="#F5F5F5">';
                 $total = 0;
                 $html .= '<th>'.substr($cc16arryCCC[0],0,2).'</th>';
@@ -434,7 +444,7 @@ $html .= '<table class="table" align="center">'
                  $html .= '<th class="active">'.number_format($total,0,',','.').'</th>';
                  $totalyear += $total;
             $html .= '</tr>'
-                 
+
             . '<tr>';
                 $total = 0;
                 $html .= '<th>'.substr($cc18arryCCC[0],0,2).'</th>';
@@ -444,7 +454,7 @@ $html .= '<table class="table" align="center">'
                  $html .= '<th class="active">'.number_format($total,0,',','.').'</th>';
                  $totalyear += $total;
             $html .= '</tr>'
-            
+
             . '<tr bgcolor="#F5F5F5">';
                 $total = 0;
                 $html .= '<th>'.substr($cc20arryCCC[0],0,2).'</th>';
@@ -454,7 +464,7 @@ $html .= '<table class="table" align="center">'
                  $html .= '<th class="active">'.number_format($total,0,',','.').'</th>';
                  $totalyear += $total;
             $html .= '</tr>'
-                 
+
             . '<tr>';
                 $total = 0;
                 $html .= '<th>'.substr($cc22arryCCC[0],0,2).'</th>';
@@ -464,7 +474,7 @@ $html .= '<table class="table" align="center">'
                  $html .= '<th class="active">'.number_format($total,0,',','.').'</th>';
                  $totalyear += $total;
             $html .= '</tr>'
-                 
+
             . '<tr bgcolor="#F5F5F5">';
                 $total = 0;
                 $html .= '<th>'.substr($cc23arryCCC[0],0,2).'</th>';
@@ -474,7 +484,7 @@ $html .= '<table class="table" align="center">'
                  $html .= '<th class="active">'.number_format($total,0,',','.').'</th>';
                  $totalyear += $total;
             $html .= '</tr>'
-                 
+
             . '<tr>';
                 $total = 0;
                 $html .= '<th>'.substr($cc28arryCCC[0],0,2).'</th>';
@@ -484,8 +494,18 @@ $html .= '<table class="table" align="center">'
                  $html .= '<th class="active">'.number_format($total,0,',','.').'</th>';
                  $totalyear += $total;
             $html .= '</tr>'
-                 
+
             . '<tr bgcolor="#F5F5F5">';
+                $total = 0;
+                $html .= '<th>'.substr($cc29arryCCC[0],0,2).'</th>';
+                 for ($i = 1; $i <= 12; $i++) {
+                    $html .= '<td>'. number_format($cc29arryCCC[$i],0,',','.') .'</td>';
+                    $total += $cc29arryCCC[$i]; }
+                 $html .= '<th class="active">'.number_format($total,0,',','.').'</th>';
+                 $totalyear += $total;
+            $html .= '</tr>'
+
+            . '<tr>';
                 $total = 0;
                 $html .= '<th>'.substr($cc32arryCCC[0],0,2).'</th>';
                  for ($i = 1; $i <= 12; $i++) {
@@ -494,9 +514,9 @@ $html .= '<table class="table" align="center">'
                  $html .= '<th class="active">'.number_format($total,0,',','.').'</th>';
                  $totalyear += $total;
             $html .= '</tr>'
-                 
-            /* LINHA PARA VALORES SEM CENTRO DE CUSTO
-             * . '<tr bgcolor="#F5F5F5">';
+
+            //LINHA PARA VALORES SEM CENTRO DE CUSTO
+             . '<tr bgcolor="#F5F5F5">';
                 $total = 0;
                 $html .= '<th>'.substr($semCCarryCCC[0],0,2).'</th>';
                  for ($i = 1; $i <= 12; $i++) {
@@ -504,18 +524,19 @@ $html .= '<table class="table" align="center">'
                     $total += $semCCarryCCC[$i]; }
                  $html .= '<th class="active">'.number_format($total,0,',','.').'</th>';
                  $totalyear += $total;
-            $html .= '</tr>'*/            
-            .'<tr>';                                        
-                $total = 0; 
-                $html .= '<th>TOTAL</th>';                                      
-                    for ($i = 1; $i <= 12; $i++) {  
+            $html .= '</tr>'
+
+            .'<tr>';
+                $total = 0;
+                $html .= '<th>TOTAL</th>';
+                    for ($i = 1; $i <= 12; $i++) {
                         $revenue = $cc01arryCCC[$i]+$cc03arryCCC[$i]+$cc06arryCCC[$i]+$cc07arryCCC[$i]+$cc08arryCCC[$i]+$cc11arryCCC[$i]+$cc12arryCCC[$i]+$cc13arryCCC[$i]+$cc14arryCCC[$i]+$cc15arryCCC[$i]+$cc16arryCCC[$i]+$cc18arryCCC[$i]+$cc20arryCCC[$i]+$cc22arryCCC[$i]+$cc23arryCCC[$i]+$cc28arryCCC[$i]+$cc32arryCCC[$i]+$semCCarryCCC[$i];
-                           
-                        $html .= '<th class="active">'. number_format($revenue,0,',','.') .'</th>';                                       
-                    }                                        
+
+                        $html .= '<th class="active">'. number_format($revenue,0,',','.') .'</th>';
+                    }
                     $html .= '<th>'.number_format($totalyear, 0, ',', '.').'</th>'
                  .'</tr>'
-                 
+
        . '</tbody>'
     . '</table>';
 
@@ -523,21 +544,21 @@ $html .= '<table class="table" align="center">'
 //$pdf->AddPage();
 
 $totalyear = 0;
-                    
+
 $html .= '<h3 align="center">Receita líquida mensal por centro de custo: ano '.$year.'.</h3>';
 
 $html .= '<table class="table" align="center">'
         . '<thead>'
             . '<tr>'
                 . '<th>Centro de custo</th>';
-                foreach ($monthsLabels as $key => $value): 
+                foreach ($monthsLabels as $key => $value):
                     $html .= '<th>' .$value.'</th>';
-                endforeach; 
+                endforeach;
                 $html .=  '<th>Total</th>'
             . '</tr>'
         . '</thead>'
        . '<tbody>'
-                        
+
             . '<tr bgcolor="#F5F5F5">';
                 $total = 0;
                 $html .= '<th>'.substr($cc01arryCCC[0],0,2).'</th>';
@@ -547,7 +568,7 @@ $html .= '<table class="table" align="center">'
                  $html .= '<th class="active">'.number_format($total,0,',','.').'</th>';
                  $totalyear += $total;
             $html .= '</tr>'
-                 
+
             . '<tr>';
                 $total = 0;
                 $html .= '<th>'.substr($cc03arryCCC[0],0,2).'</th>';
@@ -557,7 +578,7 @@ $html .= '<table class="table" align="center">'
                  $html .= '<th class="active">'.number_format($total,0,',','.').'</th>';
                  $totalyear += $total;
             $html .= '</tr>'
-                 
+
             . '<tr bgcolor="#F5F5F5">';
                 $total = 0;
                 $html .= '<th>'.substr($cc06arryCCC[0],0,2).'</th>';
@@ -566,8 +587,8 @@ $html .= '<table class="table" align="center">'
                     $total += $cc06arryCCC[$i]-$cc06arryCCD[$i]; }
                  $html .= '<th class="active">'.number_format($total,0,',','.').'</th>';
                  $totalyear += $total;
-            $html .= '</tr>'  
-            
+            $html .= '</tr>'
+
             . '<tr>';
                 $total = 0;
                 $html .= '<th>'.substr($cc07arryCCC[0],0,2).'</th>';
@@ -577,7 +598,7 @@ $html .= '<table class="table" align="center">'
                  $html .= '<th class="active">'.number_format($total,0,',','.').'</th>';
                  $totalyear += $total;
             $html .= '</tr>'
-                 
+
             . '<tr bgcolor="#F5F5F5">';
                 $total = 0;
                 $html .= '<th>'.substr($cc08arryCCC[0],0,2).'</th>';
@@ -587,7 +608,7 @@ $html .= '<table class="table" align="center">'
                  $html .= '<th class="active">'.number_format($total,0,',','.').'</th>';
                  $totalyear += $total;
             $html .= '</tr>'
-                 
+
             . '<tr>';
                 $total = 0;
                 $html .= '<th>'.substr($cc11arryCCC[0],0,2).'</th>';
@@ -597,7 +618,7 @@ $html .= '<table class="table" align="center">'
                  $html .= '<th class="active">'.number_format($total,0,',','.').'</th>';
                  $totalyear += $total;
             $html .= '</tr>'
-                 
+
             . '<tr bgcolor="#F5F5F5">';
                 $total = 0;
                 $html .= '<th>'.substr($cc12arryCCC[0],0,2).'</th>';
@@ -607,7 +628,7 @@ $html .= '<table class="table" align="center">'
                  $html .= '<th class="active">'.number_format($total,0,',','.').'</th>';
                  $totalyear += $total;
             $html .= '</tr>'
-                 
+
             . '<tr>';
                 $total = 0;
                 $html .= '<th>'.substr($cc13arryCCC[0],0,2).'</th>';
@@ -617,7 +638,7 @@ $html .= '<table class="table" align="center">'
                  $html .= '<th class="active">'.number_format($total,0,',','.').'</th>';
                  $totalyear += $total;
             $html .= '</tr>'
-            
+
             . '<tr bgcolor="#F5F5F5">';
                 $total = 0;
                 $html .= '<th>'.substr($cc14arryCCC[0],0,2).'</th>';
@@ -627,7 +648,7 @@ $html .= '<table class="table" align="center">'
                  $html .= '<th class="active">'.number_format($total,0,',','.').'</th>';
                  $totalyear += $total;
             $html .= '</tr>'
-                 
+
             . '<tr>';
                 $total = 0;
                 $html .= '<th>'.substr($cc15arryCCC[0],0,2).'</th>';
@@ -637,7 +658,7 @@ $html .= '<table class="table" align="center">'
                  $html .= '<th class="active">'.number_format($total,0,',','.').'</th>';
                  $totalyear += $total;
             $html .= '</tr>'
-            
+
             . '<tr bgcolor="#F5F5F5">';
                 $total = 0;
                 $html .= '<th>'.substr($cc16arryCCC[0],0,2).'</th>';
@@ -647,7 +668,7 @@ $html .= '<table class="table" align="center">'
                  $html .= '<th class="active">'.number_format($total,0,',','.').'</th>';
                  $totalyear += $total;
             $html .= '</tr>'
-                 
+
             . '<tr>';
                 $total = 0;
                 $html .= '<th>'.substr($cc18arryCCC[0],0,2).'</th>';
@@ -657,7 +678,7 @@ $html .= '<table class="table" align="center">'
                  $html .= '<th class="active">'.number_format($total,0,',','.').'</th>';
                  $totalyear += $total;
             $html .= '</tr>'
-            
+
             . '<tr bgcolor="#F5F5F5">';
                 $total = 0;
                 $html .= '<th>'.substr($cc20arryCCC[0],0,2).'</th>';
@@ -667,7 +688,7 @@ $html .= '<table class="table" align="center">'
                  $html .= '<th class="active">'.number_format($total,0,',','.').'</th>';
                  $totalyear += $total;
             $html .= '</tr>'
-                 
+
             . '<tr>';
                 $total = 0;
                 $html .= '<th>'.substr($cc22arryCCC[0],0,2).'</th>';
@@ -677,7 +698,7 @@ $html .= '<table class="table" align="center">'
                  $html .= '<th class="active">'.number_format($total,0,',','.').'</th>';
                  $totalyear += $total;
             $html .= '</tr>'
-                 
+
             . '<tr bgcolor="#F5F5F5">';
                 $total = 0;
                 $html .= '<th>'.substr($cc23arryCCC[0],0,2).'</th>';
@@ -687,7 +708,7 @@ $html .= '<table class="table" align="center">'
                  $html .= '<th class="active">'.number_format($total,0,',','.').'</th>';
                  $totalyear += $total;
             $html .= '</tr>'
-                 
+
             . '<tr>';
                 $total = 0;
                 $html .= '<th>'.substr($cc28arryCCC[0],0,2).'</th>';
@@ -697,7 +718,7 @@ $html .= '<table class="table" align="center">'
                  $html .= '<th class="active">'.number_format($total,0,',','.').'</th>';
                  $totalyear += $total;
             $html .= '</tr>'
-                 
+
             . '<tr bgcolor="#F5F5F5">';
                 $total = 0;
                 $html .= '<th>'.substr($cc32arryCCC[0],0,2).'</th>';
@@ -707,7 +728,7 @@ $html .= '<table class="table" align="center">'
                  $html .= '<th class="active">'.number_format($total,0,',','.').'</th>';
                  $totalyear += $total;
             $html .= '</tr>'
-                 
+
             /* LINHA PARA VALORES SEM CENTRO DE CUSTO
              * . '<tr bgcolor="#F5F5F5">';
                 $total = 0;
@@ -717,21 +738,21 @@ $html .= '<table class="table" align="center">'
                     $total += $semCCarryCCC[$i]-$semCCarryCCD[$i]; }
                  $html .= '<th class="active">'.number_format($total,0,',','.').'</th>';
                  $totalyear += $total;
-            $html .= '</tr>'*/ 
-                 
-            .'<tr>';                                        
-                $total = 0; 
-                $html .= '<th>TOTAL</th>';                                      
-                    for ($i = 1; $i <= 12; $i++) {  
+            $html .= '</tr>'*/
+
+            .'<tr>';
+                $total = 0;
+                $html .= '<th>TOTAL</th>';
+                    for ($i = 1; $i <= 12; $i++) {
                         $revenue = $cc01arryCCC[$i]+$cc03arryCCC[$i]+$cc06arryCCC[$i]+$cc07arryCCC[$i]+$cc08arryCCC[$i]+$cc11arryCCC[$i]+$cc12arryCCC[$i]+$cc13arryCCC[$i]+$cc14arryCCC[$i]+$cc15arryCCC[$i]+$cc16arryCCC[$i]+$cc18arryCCC[$i]+$cc20arryCCC[$i]+$cc22arryCCC[$i]+$cc23arryCCC[$i]+$cc28arryCCC[$i]+$cc32arryCCC[$i]+$semCCarryCCC[$i];
-                        
-                        $retention = $cc01arryCCD[$i]+$cc03arryCCD[$i]+$cc06arryCCD[$i]+$cc07arryCCD[$i]+$cc08arryCCD[$i]+$cc11arryCCD[$i]+$cc12arryCCD[$i]+$cc13arryCCD[$i]+$cc14arryCCD[$i]+$cc15arryCCD[$i]+$cc16arryCCD[$i]+$cc18arryCCD[$i]+$cc20arryCCD[$i]+$cc22arryCCD[$i]+$cc23arryCCD[$i]+$cc28arryCCD[$i]+$cc32arryCCD[$i]+$semCCarryCCD[$i];   
-                        
-                        $html .= '<th class="active">' . number_format($revenue-$retention,0,',','.') . '</th>';                                       
-                    }                                        
+
+                        $retention = $cc01arryCCD[$i]+$cc03arryCCD[$i]+$cc06arryCCD[$i]+$cc07arryCCD[$i]+$cc08arryCCD[$i]+$cc11arryCCD[$i]+$cc12arryCCD[$i]+$cc13arryCCD[$i]+$cc14arryCCD[$i]+$cc15arryCCD[$i]+$cc16arryCCD[$i]+$cc18arryCCD[$i]+$cc20arryCCD[$i]+$cc22arryCCD[$i]+$cc23arryCCD[$i]+$cc28arryCCD[$i]+$cc32arryCCD[$i]+$semCCarryCCD[$i];
+
+                        $html .= '<th class="active">' . number_format($revenue-$retention,0,',','.') . '</th>';
+                    }
                     $html .= '<th>'.number_format($totalyear, 0, ',', '.').'</th>'
                  .'</tr>'
-                 
+
        . '</tbody>'
     . '</table>';
 
@@ -749,4 +770,4 @@ $pdf->Output('Receitas mensal/cc.pdf', 'I');
 //============================================================+
 // END OF FILE
 //============================================================+
-?>  
+?>
