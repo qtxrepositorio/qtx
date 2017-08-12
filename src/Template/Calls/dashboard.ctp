@@ -160,7 +160,7 @@ var labels = [];
 
 for (var i = 0; i < forCategories.length; i++) {
     data.push(forCategories[i]['count']);
-    labels.push(forCategories[i]['calls_categories_name'] +' - '+ forCategories[i]['calls_areas_name']);
+    labels.push(forCategories[i]['calls_categories_name']);
 }
 
 data = {
