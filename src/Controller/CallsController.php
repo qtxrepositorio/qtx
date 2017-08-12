@@ -854,7 +854,7 @@ class CallsController extends AppController {
                         [calls_categories].name as calls_categories_name,
                         [calls_areas].name as calls_areas_name
                       FROM [calls]
-                        INNER JOIN [calls_categories] ON [calls_categories].id = [calls].area_id
+                        INNER JOIN [calls_categories] ON [calls_categories].id = [calls].category_id
                         INNER JOIN [calls_areas] ON [calls_areas].id = [calls].area_id
                         WHERE year([calls].created) = '$year'
                         GROUP BY [calls_categories].name, [calls_areas].name")->fetchAll('assoc');
@@ -896,7 +896,7 @@ class CallsController extends AppController {
                         [calls_categories].name as calls_categories_name,
                         [calls_areas].name as calls_areas_name
                       FROM [calls]
-                        INNER JOIN [calls_categories] ON [calls_categories].id = [calls].area_id
+                        INNER JOIN [calls_categories] ON [calls_categories].id = [calls].category_id
                         INNER JOIN [calls_areas] ON [calls_areas].id = [calls].area_id
                         WHERE year([calls].created) = '$year' and month([calls].created) = '$month'
                         GROUP BY [calls_categories].name, [calls_areas].name")->fetchAll('assoc');
