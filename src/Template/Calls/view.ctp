@@ -329,7 +329,7 @@ foreach ($call['callsSolutions'] as $key => $value) {
                             <?= $this->Form->create($x, ['type' => 'file','url' => ['controller' => 'CallsFiles', 'action' => 'add']]) ?>
                                 <fieldset>
                                     <?php
-                                        echo $this->Form->input('text', ['label'=>'Descrição:']);
+                                        echo $this->Form->input('text', ['required','label'=>'Descrição:']);
                                         echo $this->Form->file('files');
                                         echo $this->Form->input('call_id', ['type'=>'hidden','default' => $call->id]);
                                     ?>
@@ -367,9 +367,9 @@ foreach ($call['callsSolutions'] as $key => $value) {
                             <?= $this->Form->create($x, ['type'=>'file','multiple'=>'multiple','url' => ['controller' => 'CallsSolutions', 'action' => 'addIntoCall']]) ?>
                             <fieldset>
                                 <?php
-                                    echo $this->Form->input('call_id',['type'=>'hidden','label'=>'Título:', 'default'=> $call->id]);
-                                    echo $this->Form->input('title',['label'=>'Título:']);
-                                    echo $this->Form->input('description',['label'=>'Descrição:', 'type'=>'textarea']);
+                                    echo $this->Form->input('call_id',['required','type'=>'hidden','label'=>'Título:', 'default'=> $call->id]);
+                                    echo $this->Form->input('title',['required','label'=>'Título:']);
+                                    echo $this->Form->input('description',['required','label'=>'Descrição:', 'type'=>'textarea']);
                                     echo $this->Form->input('changeStatus',['label'=>'Mudar o status do chamado para solucionado?','options'=> ['Sim','Não']]);
                                 ?>
                                 <p><b>Incluir arquivos:</b></p>
@@ -416,7 +416,7 @@ foreach ($call['callsSolutions'] as $key => $value) {
                                 <fieldset>
                                     <?php
                                         echo $this->Form->input('call_id', ['type'=>'hidden', 'default'=>$call->id]);
-                                        echo $this->Form->input('text', ['label'=>'Descrição:']);
+                                        echo $this->Form->input('text', ['required','label'=>'Descrição:']);
                                         echo $this->Form->file('archive');
                                         echo $this->Form->input('solution_id', ['type'=>'hidden','default' => $call->solution_id]);
                                     ?>
