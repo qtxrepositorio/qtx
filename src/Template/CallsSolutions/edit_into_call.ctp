@@ -11,7 +11,7 @@
                             <?php
                                 echo $this->Form->input('title',['label'=>'Título:']);
                                 echo $this->Form->input('description',['label'=>'Descrição:', 'type' => 'textarea']);
-                                echo $this->Form->input('subcategorie_id', ['label'=>'Sub Categoria:','options' => $callsSubcategories]);
+                                echo $this->Form->input('subcategorie_id', ['disabled' => true,'label'=>'Sub Categoria:','options' => $callsSubcategories]);
                             ?>
                         </fieldset>
 
