@@ -166,7 +166,8 @@ class RolesController extends AppController
         }
         else
         {
-            $this->redirect($this->Auth->logout());
+			$this->Flash->error(__('Usuário desativado, favor procurar o setor TI.'));
+			$this->redirect($this->Auth->logout());
         }
         return parent::isAuthorized($user);
     }

@@ -12,17 +12,17 @@ use Cake\Controller\Component\FlashComponent;
 use Cake\Mailer\MailerAwareTrait;
 
 /**
- * Calls Controller
- *
- * @property \App\Model\Table\CallsTable $Calls
- */
+* Calls Controller
+*
+* @property \App\Model\Table\CallsTable $Calls
+*/
 class CallsController extends AppController {
 
     /**
-     * Index method
-     *
-     * @return \Cake\Network\Response|null
-     */
+    * Index method
+    *
+    * @return \Cake\Network\Response|null
+    */
     public function index() {
 
         $this->loadModel('RolesUsers');
@@ -33,31 +33,31 @@ class CallsController extends AppController {
 
             if ($this->request->data['area_id'] == 0) {
                 $calls = $this->Calls->find()
-                    ->select(['CALLS.id', 'CALLS.SUBJECT', 'CALLS_URGENCY.title', 'CALLS_STATUS.title', 'CALLS.created', 'CALLS_SUBCATEGORIES.name'])
-                    ->innerJoin('CALLS_URGENCY', 'CALLS_URGENCY.id = CALLS.urgency_id')
-                    ->innerJoin('CALLS_STATUS', 'CALLS_STATUS.id = CALLS.status_id')
-                    ->innerJoin('CALLS_CATEGORIES', 'CALLS_CATEGORIES.id = CALLS.category_id')
-                    ->innerJoin('CALLS_SUBCATEGORIES', 'CALLS_SUBCATEGORIES.id = CALLS.subcategory_id')
-                    ->order(['Calls.id' => 'DESC']);
-            }else{
-                $calls = $this->Calls->find()
-                    ->select(['CALLS.id', 'CALLS.SUBJECT', 'CALLS_URGENCY.title', 'CALLS_STATUS.title', 'CALLS.created', 'CALLS_SUBCATEGORIES.name'])
-                    ->innerJoin('CALLS_URGENCY', 'CALLS_URGENCY.id = CALLS.urgency_id')
-                    ->innerJoin('CALLS_STATUS', 'CALLS_STATUS.id = CALLS.status_id')
-                    ->innerJoin('CALLS_CATEGORIES', 'CALLS_CATEGORIES.id = CALLS.category_id')
-                    ->innerJoin('CALLS_SUBCATEGORIES', 'CALLS_SUBCATEGORIES.id = CALLS.subcategory_id')
-                    ->where(['CALLS.area_id' => $this->request->data['area_id']])
-                    ->order(['Calls.id' => 'DESC']);
-            }
-
-        }else {
-            $calls = $this->Calls->find()
                 ->select(['CALLS.id', 'CALLS.SUBJECT', 'CALLS_URGENCY.title', 'CALLS_STATUS.title', 'CALLS.created', 'CALLS_SUBCATEGORIES.name'])
                 ->innerJoin('CALLS_URGENCY', 'CALLS_URGENCY.id = CALLS.urgency_id')
                 ->innerJoin('CALLS_STATUS', 'CALLS_STATUS.id = CALLS.status_id')
                 ->innerJoin('CALLS_CATEGORIES', 'CALLS_CATEGORIES.id = CALLS.category_id')
                 ->innerJoin('CALLS_SUBCATEGORIES', 'CALLS_SUBCATEGORIES.id = CALLS.subcategory_id')
                 ->order(['Calls.id' => 'DESC']);
+            }else{
+                $calls = $this->Calls->find()
+                ->select(['CALLS.id', 'CALLS.SUBJECT', 'CALLS_URGENCY.title', 'CALLS_STATUS.title', 'CALLS.created', 'CALLS_SUBCATEGORIES.name'])
+                ->innerJoin('CALLS_URGENCY', 'CALLS_URGENCY.id = CALLS.urgency_id')
+                ->innerJoin('CALLS_STATUS', 'CALLS_STATUS.id = CALLS.status_id')
+                ->innerJoin('CALLS_CATEGORIES', 'CALLS_CATEGORIES.id = CALLS.category_id')
+                ->innerJoin('CALLS_SUBCATEGORIES', 'CALLS_SUBCATEGORIES.id = CALLS.subcategory_id')
+                ->where(['CALLS.area_id' => $this->request->data['area_id']])
+                ->order(['Calls.id' => 'DESC']);
+            }
+
+        }else {
+            $calls = $this->Calls->find()
+            ->select(['CALLS.id', 'CALLS.SUBJECT', 'CALLS_URGENCY.title', 'CALLS_STATUS.title', 'CALLS.created', 'CALLS_SUBCATEGORIES.name'])
+            ->innerJoin('CALLS_URGENCY', 'CALLS_URGENCY.id = CALLS.urgency_id')
+            ->innerJoin('CALLS_STATUS', 'CALLS_STATUS.id = CALLS.status_id')
+            ->innerJoin('CALLS_CATEGORIES', 'CALLS_CATEGORIES.id = CALLS.category_id')
+            ->innerJoin('CALLS_SUBCATEGORIES', 'CALLS_SUBCATEGORIES.id = CALLS.subcategory_id')
+            ->order(['Calls.id' => 'DESC']);
         }
 
         $callsAreas = $this->Calls->CallsAreas->find('list', ['limit' => 200]);
@@ -80,23 +80,23 @@ class CallsController extends AppController {
             }
 
             $calls = $this->Calls->find()
-                ->select(['CALLS.id', 'CALLS.SUBJECT', 'CALLS_URGENCY.title', 'CALLS_STATUS.title', 'CALLS.created', 'CALLS_SUBCATEGORIES.name'])
-                ->innerJoin('CALLS_URGENCY', 'CALLS_URGENCY.id = CALLS.urgency_id')
-                ->innerJoin('CALLS_STATUS', 'CALLS_STATUS.id = CALLS.status_id')
-                ->innerJoin('CALLS_CATEGORIES', 'CALLS_CATEGORIES.id = CALLS.category_id')
-                ->innerJoin('CALLS_SUBCATEGORIES', 'CALLS_SUBCATEGORIES.id = CALLS.subcategory_id')
-                ->where(['Calls.area_id' => $this->request->data['area_id']])
-                ->order(['Calls.id' => 'DESC']);
+            ->select(['CALLS.id', 'CALLS.SUBJECT', 'CALLS_URGENCY.title', 'CALLS_STATUS.title', 'CALLS.created', 'CALLS_SUBCATEGORIES.name'])
+            ->innerJoin('CALLS_URGENCY', 'CALLS_URGENCY.id = CALLS.urgency_id')
+            ->innerJoin('CALLS_STATUS', 'CALLS_STATUS.id = CALLS.status_id')
+            ->innerJoin('CALLS_CATEGORIES', 'CALLS_CATEGORIES.id = CALLS.category_id')
+            ->innerJoin('CALLS_SUBCATEGORIES', 'CALLS_SUBCATEGORIES.id = CALLS.subcategory_id')
+            ->where(['Calls.area_id' => $this->request->data['area_id']])
+            ->order(['Calls.id' => 'DESC']);
 
         }else{
 
             $calls = $this->Calls->find()
-                ->select(['CALLS.id', 'CALLS.SUBJECT', 'CALLS_URGENCY.title', 'CALLS_STATUS.title', 'CALLS.created', 'CALLS_SUBCATEGORIES.name'])
-                ->innerJoin('CALLS_URGENCY', 'CALLS_URGENCY.id = CALLS.urgency_id')
-                ->innerJoin('CALLS_STATUS', 'CALLS_STATUS.id = CALLS.status_id')
-                ->innerJoin('CALLS_CATEGORIES', 'CALLS_CATEGORIES.id = CALLS.category_id')
-                ->innerJoin('CALLS_SUBCATEGORIES', 'CALLS_SUBCATEGORIES.id = CALLS.subcategory_id')
-                ->order(['Calls.id' => 'DESC']);
+            ->select(['CALLS.id', 'CALLS.SUBJECT', 'CALLS_URGENCY.title', 'CALLS_STATUS.title', 'CALLS.created', 'CALLS_SUBCATEGORIES.name'])
+            ->innerJoin('CALLS_URGENCY', 'CALLS_URGENCY.id = CALLS.urgency_id')
+            ->innerJoin('CALLS_STATUS', 'CALLS_STATUS.id = CALLS.status_id')
+            ->innerJoin('CALLS_CATEGORIES', 'CALLS_CATEGORIES.id = CALLS.category_id')
+            ->innerJoin('CALLS_SUBCATEGORIES', 'CALLS_SUBCATEGORIES.id = CALLS.subcategory_id')
+            ->order(['Calls.id' => 'DESC']);
 
         }
 
@@ -107,12 +107,12 @@ class CallsController extends AppController {
     }
 
     /**
-     * View method
-     *
-     * @param string|null $id Call id.
-     * @return \Cake\Network\Response|null
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
+    * View method
+    *
+    * @param string|null $id Call id.
+    * @return \Cake\Network\Response|null
+    * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+    */
     public function view($id = null) {
 
         $this->loadModel('Users');
@@ -132,14 +132,14 @@ class CallsController extends AppController {
         ]);
 
         $query = $this->RolesUsers->find()
-                ->where([
+        ->where([
             'user_id' => $authenticatedUser['id']
         ]);
         $currentUserGroups = $query->all();
         $release = null;
         foreach ($currentUserGroups as $key) {
             $query = $this->Roles->find()
-                    ->where([
+            ->where([
                 'id' => $key['role_id']
             ]);
             $correspondingFunction = $query->all();
@@ -151,102 +151,102 @@ class CallsController extends AppController {
         }
 
 
-            $connection = ConnectionManager::get('default');
+        $connection = ConnectionManager::get('default');
 
-            $area = $connection->execute("
-                SELECT * FROM CALLS_AREAS WHERE ID = " . $call['area_id']);
-            foreach ($area as $key => $value) {
-                $call['area'] = $value['name'];
-            }
+        $area = $connection->execute("
+        SELECT * FROM CALLS_AREAS WHERE ID = " . $call['area_id']);
+        foreach ($area as $key => $value) {
+            $call['area'] = $value['name'];
+        }
 
-            $category = $connection->execute("
-                SELECT * FROM CALLS_CATEGORIES WHERE ID = " . $call['category_id']);
-            foreach ($category as $key => $value) {
-                $call['category'] = $value['name'];
-            }
+        $category = $connection->execute("
+        SELECT * FROM CALLS_CATEGORIES WHERE ID = " . $call['category_id']);
+        foreach ($category as $key => $value) {
+            $call['category'] = $value['name'];
+        }
 
-            $subcategory = $connection->execute("
-                SELECT * FROM CALLS_SUBCATEGORIES WHERE ID = " . $call['subcategory_id']);
-            foreach ($subcategory as $key => $value) {
-                $call['subcategory'] = $value['name'];
-                $call['sla'] = substr($value['sla'], 0, 5);
-                ;
-            }
+        $subcategory = $connection->execute("
+        SELECT * FROM CALLS_SUBCATEGORIES WHERE ID = " . $call['subcategory_id']);
+        foreach ($subcategory as $key => $value) {
+            $call['subcategory'] = $value['name'];
+            $call['sla'] = substr($value['sla'], 0, 5);
+            ;
+        }
 
-            $status = $connection->execute("
-                SELECT * FROM CALLS_STATUS WHERE ID = " . $call['status_id']);
-            foreach ($status as $key => $value) {
-                $call['status'] = $value['title'];
-            }
+        $status = $connection->execute("
+        SELECT * FROM CALLS_STATUS WHERE ID = " . $call['status_id']);
+        foreach ($status as $key => $value) {
+            $call['status'] = $value['title'];
+        }
 
-            $urgency = $connection->execute("
-                SELECT title FROM CALLS_URGENCY WHERE ID = " . $call['urgency_id']);
-            foreach ($urgency as $key) {
-                $call['urgency'] = $key['title'];
-            }
+        $urgency = $connection->execute("
+        SELECT title FROM CALLS_URGENCY WHERE ID = " . $call['urgency_id']);
+        foreach ($urgency as $key) {
+            $call['urgency'] = $key['title'];
+        }
 
-            $call['authenticatedUser'] = $authenticatedUser;
+        $call['authenticatedUser'] = $authenticatedUser;
 
-            foreach ($call['calls_responses'] as $key => $value) {
-
-                $query = $this->Users->find()
-                        ->where([
-                    'id' => $value['created_by']
-                ]);
-
-                $created_by = $query->all();
-
-                foreach ($created_by as $key => $x) {
-                    $value['created_by'] = $x['name'];
-                }
-            }
+        foreach ($call['calls_responses'] as $key => $value) {
 
             $query = $this->Users->find()
-                    ->where([
-                'id' => $call['created_by']
+            ->where([
+                'id' => $value['created_by']
             ]);
+
             $created_by = $query->all();
-            foreach ($created_by as $key) {
-                $created_by_name = $key['name'];
+
+            foreach ($created_by as $key => $x) {
+                $value['created_by'] = $x['name'];
             }
-            $call['created_by'] = $created_by_name;
+        }
 
-            $query = $this->Users->find()
-                    ->where([
-                'id' => $call['attributed_to']
-            ]);
-            $attributed_to = $query->all();
-            foreach ($attributed_to as $key) {
-                $attributed_to = $key['name'];
-            }
-            $call['attributed_to'] = $attributed_to;
+        $query = $this->Users->find()
+        ->where([
+            'id' => $call['created_by']
+        ]);
+        $created_by = $query->all();
+        foreach ($created_by as $key) {
+            $created_by_name = $key['name'];
+        }
+        $call['created_by'] = $created_by_name;
 
-            $callFiles = $this->CallsFiles->find()
-                    ->where([
-                'call_id' => $call['id']
-            ]);
+        $query = $this->Users->find()
+        ->where([
+            'id' => $call['attributed_to']
+        ]);
+        $attributed_to = $query->all();
+        foreach ($attributed_to as $key) {
+            $attributed_to = $key['name'];
+        }
+        $call['attributed_to'] = $attributed_to;
 
-            $call['files'] = $callFiles;
+        $callFiles = $this->CallsFiles->find()
+        ->where([
+            'call_id' => $call['id']
+        ]);
+
+        $call['files'] = $callFiles;
 
         $callsStatus = $this->Calls->CallsStatus->find('list', ['limit' => 200]);
         $call['callsStatus'] = $callsStatus;
 
         $callsSolutions = $this->Calls->CallsSolutions->find('list')
-                ->where(['subcategorie_id' => $call['subcategory_id']]);
+        ->where(['subcategorie_id' => $call['subcategory_id']]);
         $call['callsSolutions'] = $callsSolutions;
 
         if ($call['solution_id']) {
             $callSolutionView = $this->Calls->CallsSolutions->find()
-                    ->where(['id' => $call['solution_id']]);
+            ->where(['id' => $call['solution_id']]);
             $call['callSolutionView'] = $callSolutionView;
         }
 
         $callSolutionFiles = $this->SolutionsFiles->find()
-                ->where(['solution_id' => $call['solution_id']]);
+        ->where(['solution_id' => $call['solution_id']]);
         $call['callSolutionFiles'] = $callSolutionFiles;
 
         $callsSubcategories = $this->Calls->CallsSubcategories->find('list')
-                ->where(['category_id' => $call['category_id']]);
+        ->where(['category_id' => $call['category_id']]);
         $call['callsSubcategories'] = $callsSubcategories;
 
         $this->visualized($call['id']);
@@ -255,11 +255,11 @@ class CallsController extends AppController {
         $this->set('_serialize', ['call']);
     }
 
-/**
-     * Add method
-     *
-     * @return \Cake\Network\Response|void Redirects on successful add, renders view otherwise.
-     */
+    /**
+    * Add method
+    *
+    * @return \Cake\Network\Response|void Redirects on successful add, renders view otherwise.
+    */
     use MailerAwareTrait;
 
     public function add() {
@@ -275,8 +275,8 @@ class CallsController extends AppController {
 
                 $this->loadModel('Users');
                 $query = $this->Users->find()
-                        ->where(['id' => $call['created_by']])
-                        ->orWhere(['id' => $call['attributed_to']]);
+                ->where(['id' => $call['created_by']])
+                ->orWhere(['id' => $call['attributed_to']]);
                 $emails = $query->all();
 
                 foreach ($emails as $key => $value) {
@@ -290,19 +290,19 @@ class CallsController extends AppController {
                 $connection = ConnectionManager::get('default');
 
                 $area = $connection->execute("
-                            SELECT * FROM CALLS_AREAS WHERE ID = " . $call['area_id']);
+                SELECT * FROM CALLS_AREAS WHERE ID = " . $call['area_id']);
                 foreach ($area as $key => $value) {
                     $call['area'] = $value['name'];
                 }
 
                 $category = $connection->execute("
-                            SELECT * FROM CALLS_CATEGORIES WHERE ID = " . $call['category_id']);
+                SELECT * FROM CALLS_CATEGORIES WHERE ID = " . $call['category_id']);
                 foreach ($category as $key => $value) {
                     $call['category'] = $value['name'];
                 }
 
                 $subcategory = $connection->execute("
-                            SELECT * FROM CALLS_SUBCATEGORIES WHERE ID = " . $call['subcategory_id']);
+                SELECT * FROM CALLS_SUBCATEGORIES WHERE ID = " . $call['subcategory_id']);
                 foreach ($subcategory as $key => $value) {
                     $call['subcategory'] = $value['name'];
                     $call['sla'] = substr($value['sla'], 0, 5);
@@ -310,13 +310,13 @@ class CallsController extends AppController {
                 }
 
                 $status = $connection->execute("
-                            SELECT * FROM CALLS_STATUS WHERE ID = " . $call['status_id']);
+                SELECT * FROM CALLS_STATUS WHERE ID = " . $call['status_id']);
                 foreach ($status as $key => $value) {
                     $call['status'] = $value['title'];
                 }
 
                 $urgency = $connection->execute("
-                            SELECT * FROM CALLS_URGENCY WHERE ID = " . $call['urgency_id']);
+                SELECT * FROM CALLS_URGENCY WHERE ID = " . $call['urgency_id']);
                 foreach ($urgency as $key => $value) {
                     $call['urgency'] = $value['title'];
                 }
@@ -346,10 +346,10 @@ class CallsController extends AppController {
         $callsUrgency = $this->Calls->CallsUrgency->find('list', ['limit' => 200]);
         $callsSolutions = $this->Calls->CallsSolutions->find('list', ['limit' => 200]);
         $callsUsers = $this->Calls->Users->find('list', ['limit' => 200])
-                ->select(['users.id', 'users.name'])
-                ->innerJoin('roles_users', 'users.id = roles_users.user_id')
-                ->where(['roles_users.role_id' => 26])
-                ->order(['users.name' => 'ASC']);
+        ->select(['users.id', 'users.name'])
+        ->innerJoin('roles_users', 'users.id = roles_users.user_id')
+        ->where(['roles_users.role_id' => 26])
+        ->order(['users.name' => 'ASC']);
 
         $callsCategoriesForJs = $this->Calls->CallsCategories->find();
         $callsSubcategoriesForJs = $this->Calls->CallsSubcategories->find();
@@ -374,8 +374,8 @@ class CallsController extends AppController {
             }
 
             $existFind = $this->CallsFiles->find()
-                    ->where(['call_id' => $callsFile['call_id']])
-                    ->andWhere(['archive' => $callsFile['archive']]);
+            ->where(['call_id' => $callsFile['call_id']])
+            ->andWhere(['archive' => $callsFile['archive']]);
 
             $exist = false;
             foreach ($existFind as $key => $value) {
@@ -397,9 +397,9 @@ class CallsController extends AppController {
                         mkdir(getcwd() . '/files/calls_files/' . strval($callsFile['call_id']) . '/', 0777, true);
 
                         $filepath = getcwd()
-                                . '/files/calls_files/'
-                                . strval($callsFile['call_id'])
-                                . '/' . $archive['name'];
+                        . '/files/calls_files/'
+                        . strval($callsFile['call_id'])
+                        . '/' . $archive['name'];
 
                         $filename = $archive['name'];
 
@@ -421,12 +421,12 @@ class CallsController extends AppController {
     }
 
     /**
-     * Edit method
-     *
-     * @param string|null $id Call id.
-     * @return \Cake\Network\Response|void Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
-     */
+    * Edit method
+    *
+    * @param string|null $id Call id.
+    * @return \Cake\Network\Response|void Redirects on successful edit, renders view otherwise.
+    * @throws \Cake\Network\Exception\NotFoundException When record not found.
+    */
     public function edit($id = null) {
 
         $this->loadModel('RolesUsers');
@@ -439,14 +439,14 @@ class CallsController extends AppController {
         $authenticatedUser = $this->Auth->user();
 
         $query = $this->RolesUsers->find()
-                ->where([
+        ->where([
             'user_id' => $authenticatedUser['id']
         ]);
         $currentUserGroups = $query->all();
         $release = null;
         foreach ($currentUserGroups as $key) {
             if ($key['id'] == 26 or $key['id'] == 01) {
-                    $release = true;
+                $release = true;
             }
         }
 
@@ -465,8 +465,8 @@ class CallsController extends AppController {
 
                         $this->loadModel('Users');
                         $query = $this->Users->find()
-                                ->where(['id' => $call['created_by']])
-                                ->orWhere(['id' => $call['attributed_to']]);
+                        ->where(['id' => $call['created_by']])
+                        ->orWhere(['id' => $call['attributed_to']]);
                         $emails = $query->all();
 
                         foreach ($emails as $key => $value) {
@@ -480,19 +480,19 @@ class CallsController extends AppController {
                         $connection = ConnectionManager::get('default');
 
                         $area = $connection->execute("
-                            SELECT * FROM CALLS_AREAS WHERE ID = " . $call['area_id']);
+                        SELECT * FROM CALLS_AREAS WHERE ID = " . $call['area_id']);
                         foreach ($area as $key => $value) {
                             $call['area'] = $value['name'];
                         }
 
                         $category = $connection->execute("
-                            SELECT * FROM CALLS_CATEGORIES WHERE ID = " . $call['category_id']);
+                        SELECT * FROM CALLS_CATEGORIES WHERE ID = " . $call['category_id']);
                         foreach ($category as $key => $value) {
                             $call['category'] = $value['name'];
                         }
 
                         $subcategory = $connection->execute("
-                            SELECT * FROM CALLS_SUBCATEGORIES WHERE ID = " . $call['subcategory_id']);
+                        SELECT * FROM CALLS_SUBCATEGORIES WHERE ID = " . $call['subcategory_id']);
                         foreach ($subcategory as $key => $value) {
                             $call['subcategory'] = $value['name'];
                             $call['sla'] = substr($value['sla'], 0, 5);
@@ -500,13 +500,13 @@ class CallsController extends AppController {
                         }
 
                         $status = $connection->execute("
-                            SELECT * FROM CALLS_STATUS WHERE ID = " . $call['status_id']);
+                        SELECT * FROM CALLS_STATUS WHERE ID = " . $call['status_id']);
                         foreach ($status as $key => $value) {
                             $call['status'] = $value['title'];
                         }
 
                         $urgency = $connection->execute("
-                            SELECT * FROM CALLS_URGENCY WHERE ID = " . $call['urgency_id']);
+                        SELECT * FROM CALLS_URGENCY WHERE ID = " . $call['urgency_id']);
                         foreach ($urgency as $key => $value) {
                             $call['urgency'] = $value['title'];
                         }
@@ -538,10 +538,10 @@ class CallsController extends AppController {
         $callsSolutions = $this->Calls->CallsSolutions->find('list', ['limit' => 200]);
         $callsUsers = $this->Calls->Users->find('list', ['limit' => 500]);
         $callsUsersTech = $this->Calls->Users->find('list', ['limit' => 200])
-                ->select(['users.id', 'users.name'])
-                ->innerJoin('roles_users', 'users.id = roles_users.user_id')
-                ->where(['roles_users.role_id' => 26])
-                ->order(['users.name' => 'ASC']);
+        ->select(['users.id', 'users.name'])
+        ->innerJoin('roles_users', 'users.id = roles_users.user_id')
+        ->where(['roles_users.role_id' => 26])
+        ->order(['users.name' => 'ASC']);
 
         $callsCategoriesForJs = $this->Calls->CallsCategories->find();
         $callsSubcategoriesForJs = $this->Calls->CallsSubcategories->find();
@@ -593,8 +593,8 @@ class CallsController extends AppController {
 
         $this->loadModel('Users');
         $query = $this->Users->find()
-                ->where(['id' => $call['created_by']])
-                ->orWhere(['id' => $call['attributed_to']]);
+        ->where(['id' => $call['created_by']])
+        ->orWhere(['id' => $call['attributed_to']]);
         $emails = $query->all();
 
         foreach ($emails as $key => $value) {
@@ -608,19 +608,19 @@ class CallsController extends AppController {
         $connection = ConnectionManager::get('default');
 
         $area = $connection->execute("
-                                SELECT * FROM CALLS_AREAS WHERE ID = " . $call['area_id']);
+        SELECT * FROM CALLS_AREAS WHERE ID = " . $call['area_id']);
         foreach ($area as $key => $value) {
             $call['area'] = $value['name'];
         }
 
         $category = $connection->execute("
-                                SELECT * FROM CALLS_CATEGORIES WHERE ID = " . $call['category_id']);
+        SELECT * FROM CALLS_CATEGORIES WHERE ID = " . $call['category_id']);
         foreach ($category as $key => $value) {
             $call['category'] = $value['name'];
         }
 
         $subcategory = $connection->execute("
-                                SELECT * FROM CALLS_SUBCATEGORIES WHERE ID = " . $call['subcategory_id']);
+        SELECT * FROM CALLS_SUBCATEGORIES WHERE ID = " . $call['subcategory_id']);
         foreach ($subcategory as $key => $value) {
             $call['subcategory'] = $value['name'];
             $call['sla'] = substr($value['sla'], 0, 5);
@@ -628,13 +628,13 @@ class CallsController extends AppController {
         }
 
         $status = $connection->execute("
-                                SELECT * FROM CALLS_STATUS WHERE ID = " . $call['status_id']);
+        SELECT * FROM CALLS_STATUS WHERE ID = " . $call['status_id']);
         foreach ($status as $key => $value) {
             $call['status'] = $value['title'];
         }
 
         $urgency = $connection->execute("
-                                SELECT * FROM CALLS_URGENCY WHERE ID = " . $call['urgency_id']);
+        SELECT * FROM CALLS_URGENCY WHERE ID = " . $call['urgency_id']);
         foreach ($urgency as $key => $value) {
             $call['urgency'] = $value['title'];
         }
@@ -648,12 +648,12 @@ class CallsController extends AppController {
     }
 
     /**
-     * Delete method
-     *
-     * @param string|null $id Call id.
-     * @return \Cake\Network\Response|null Redirects to index.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
+    * Delete method
+    *
+    * @param string|null $id Call id.
+    * @return \Cake\Network\Response|null Redirects to index.
+    * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+    */
     public function delete($id = null) {
 
         $this->request->allowMethod(['post', 'delete']);
@@ -676,8 +676,8 @@ class CallsController extends AppController {
 
                     $this->loadModel('Users');
                     $query = $this->Users->find()
-                            ->where(['id' => $call['created_by']])
-                            ->orWhere(['id' => $call['attributed_to']]);
+                    ->where(['id' => $call['created_by']])
+                    ->orWhere(['id' => $call['attributed_to']]);
                     $emails = $query->all();
 
                     foreach ($emails as $key => $value) {
@@ -691,19 +691,19 @@ class CallsController extends AppController {
                     $connection = ConnectionManager::get('default');
 
                     $area = $connection->execute("
-                                SELECT * FROM CALLS_AREAS WHERE ID = " . $call['area_id']);
+                    SELECT * FROM CALLS_AREAS WHERE ID = " . $call['area_id']);
                     foreach ($area as $key => $value) {
                         $call['area'] = $value['name'];
                     }
 
                     $category = $connection->execute("
-                                SELECT * FROM CALLS_CATEGORIES WHERE ID = " . $call['category_id']);
+                    SELECT * FROM CALLS_CATEGORIES WHERE ID = " . $call['category_id']);
                     foreach ($category as $key => $value) {
                         $call['category'] = $value['name'];
                     }
 
                     $subcategory = $connection->execute("
-                                SELECT * FROM CALLS_SUBCATEGORIES WHERE ID = " . $call['subcategory_id']);
+                    SELECT * FROM CALLS_SUBCATEGORIES WHERE ID = " . $call['subcategory_id']);
                     foreach ($subcategory as $key => $value) {
                         $call['subcategory'] = $value['name'];
                         $call['sla'] = substr($value['sla'], 0, 5);
@@ -711,13 +711,13 @@ class CallsController extends AppController {
                     }
 
                     $status = $connection->execute("
-                                SELECT * FROM CALLS_STATUS WHERE ID = " . $call['status_id']);
+                    SELECT * FROM CALLS_STATUS WHERE ID = " . $call['status_id']);
                     foreach ($status as $key => $value) {
                         $call['status'] = $value['title'];
                     }
 
                     $urgency = $connection->execute("
-                                SELECT * FROM CALLS_URGENCY WHERE ID = " . $call['urgency_id']);
+                    SELECT * FROM CALLS_URGENCY WHERE ID = " . $call['urgency_id']);
                     foreach ($urgency as $key => $value) {
                         $call['urgency'] = $value['title'];
                     }
@@ -755,187 +755,187 @@ class CallsController extends AppController {
 
         $connection = ConnectionManager::get('default');
         $callsCountCategory = $connection
-                ->execute("
-                UPDATE[calls_responses]
-                    SET
-                        visualized = 1
-                    WHERE call_id = $id
-                        AND created_by != " . $authenticatedUser['id']
-        );
+        ->execute("
+        UPDATE[calls_responses]
+        SET
+        visualized = 1
+        WHERE call_id = $id
+        AND created_by != " . $authenticatedUser['id']
+    );
+}
+
+public function findStatus($id = null) {
+
+    $calls = $this->Calls->find()
+    ->where(['id' => $id]);
+
+    $status = '';
+
+    foreach ($calls as $key => $value) {
+        $status = $value['status_id'];
     }
 
-    public function findStatus($id = null) {
+    return $status;
+}
 
-        $calls = $this->Calls->find()
-                ->where(['id' => $id]);
+public function saveNewStatus($call_id = null, $status_id = null, $created_by = null) {
 
-        $status = '';
+    $call = $this->Calls->get($call_id, [
+        'contain' => []
+    ]);
 
-        foreach ($calls as $key => $value) {
-            $status = $value['status_id'];
-        }
+    $call['status_id'] = $status_id;
 
-        return $status;
+    $this->Calls->save($call);
+
+    $this->loadModel('CallsResponses');
+
+    $callsResponse = $this->CallsResponses->newEntity();
+
+    $connection = ConnectionManager::get('default');
+    $status = $connection->execute("
+    SELECT title FROM CALLS_STATUS WHERE ID = " . $status_id);
+    foreach ($status as $key => $value) {
+        $status = $value['title'];
     }
 
-    public function saveNewStatus($call_id = null, $status_id = null, $created_by = null) {
+    if ($status != 2) {
+        $callsResponse['text'] = 'O status do chamado foi alterado para: ' . $status . '.';
+    } else {
+        $callsResponse['text'] = 'O chamado foi solucionado!';
+    }
 
-        $call = $this->Calls->get($call_id, [
-            'contain' => []
+    $callsResponse['created_by'] = $created_by;
+    $callsResponse['call_id'] = $call_id;
+    $callsResponse['visualized'] = 0;
+
+    if ($this->CallsResponses->save($callsResponse)) {
+        return; //$this->redirect(['controller' => 'Calls', 'action' => 'view', $call_id]);
+    }
+}
+
+public function dashboard() {
+
+
+
+    $connection = ConnectionManager::get('default');
+
+    if ($this->request->is('post')) {
+        $year = $this->request->data['year'];
+        $month = $this->request->data['month'];
+    }else{
+        $date = getdate();
+        $year = $date['year'];
+        $month = strval($date['mon']);
+    }
+
+    $sql = "
+    SELECT TOP 5 COUNT([calls].id) as count
+    ,[users].username as users_username
+    FROM [calls]
+    INNER JOIN [users] on calls.[attributed_to] = [users].id
+    INNER JOIN [calls_status] on [calls].status_id = [calls_status].id
+    WHERE year([calls].created) = '$year'";
+    if ($month != '0') {
+        $sql .= "and month([calls].created) = '$month'";
+    }
+    $sql .= "and [calls].status_id = 2
+    GROUP BY [users].username
+    ORDER BY count";
+    $quantStatusFinished = $connection->execute($sql)->fetchAll('assoc');
+
+    $sql = "
+    SELECT TOP 5 COUNT([calls].id) as count, [calls_areas].name
+    FROM [calls]
+    INNER JOIN [calls_areas] ON [calls_areas].id = [calls].area_id
+    WHERE year([calls].created) = '$year'";
+    if ($month != '0') {
+        $sql .= "and month([calls].created) = '$month'";
+    }
+    $sql .= "GROUP BY [calls_areas].name";
+    $forArea = $connection->execute($sql)->fetchAll('assoc');
+
+    $sql = "
+    SELECT TOP 5
+    COUNT([calls].id) as count,
+    [calls_categories].name as calls_categories_name,
+    [calls_areas].name as calls_areas_name
+    FROM [calls]
+    INNER JOIN [calls_categories] ON [calls_categories].id = [calls].category_id
+    INNER JOIN [calls_areas] ON [calls_areas].id = [calls].area_id
+    WHERE year([calls].created) = '$year'";
+    if ($month != '0') {
+        $sql .= "and month([calls].created) = '$month'";
+    }
+    $sql .= "GROUP BY [calls_categories].name, [calls_areas].name";
+    $forCategories = $connection->execute($sql)->fetchAll('assoc');
+
+    $sql = "
+    SELECT TOP 5 COUNT([calls].id) as count
+    ,[users].username as users_username
+    FROM [calls]
+    INNER JOIN [users] on calls.[attributed_to] = [users].id
+    WHERE year([calls].created) = '$year'";
+    if ($month != '0') {
+        $sql .= "and month([calls].created) = '$month'";
+    }
+    $sql .= "GROUP BY [users].username
+    ORDER BY count";
+    $forTech = $connection->execute($sql)->fetchAll('assoc');
+
+    $this->set(compact('quantStatusFinished', 'forArea', 'forCategories', 'forTech', 'year', 'month'));
+    $this->set('_serialize', ['quantStatusFinished', 'forArea', 'forCategories', 'forTech', 'year', 'month']);
+}
+
+public function beforeFilter(Event $event) {
+    parent::beforeFilter($event);
+    // Allow users to register and logout.
+    // You should not add the "login" action to allow list. Doing so would
+    // cause problems with normal functioning of AuthComponent.
+    // $this->Auth->allow(['index', 'add', 'edit', 'delete', 'view']);
+}
+
+public function isAuthorized($user) {
+
+    $this->loadModel('Users');
+    $this->loadModel('Roles');
+    $this->loadModel('RolesUsers');
+    $authenticatedUserId = $this->Auth->user('id');
+    $query = $this->Users->find()
+    ->where([
+        'id' => $authenticatedUserId
+    ]);
+    $statusArray = $query->all();
+    $status = null;
+    foreach ($statusArray as $key) {
+        $status = $key['status'];
+    }
+    if ($status == true) {
+        $query = $this->RolesUsers->find()
+        ->where([
+            'user_id' => $authenticatedUserId
         ]);
-
-        $call['status_id'] = $status_id;
-
-        $this->Calls->save($call);
-
-        $this->loadModel('CallsResponses');
-
-        $callsResponse = $this->CallsResponses->newEntity();
-
-        $connection = ConnectionManager::get('default');
-        $status = $connection->execute("
-            SELECT title FROM CALLS_STATUS WHERE ID = " . $status_id);
-        foreach ($status as $key => $value) {
-            $status = $value['title'];
-        }
-
-        if ($status != 2) {
-            $callsResponse['text'] = 'O status do chamado foi alterado para: ' . $status . '.';
-        } else {
-            $callsResponse['text'] = 'O chamado foi solucionado!';
-        }
-
-        $callsResponse['created_by'] = $created_by;
-        $callsResponse['call_id'] = $call_id;
-        $callsResponse['visualized'] = 0;
-
-        if ($this->CallsResponses->save($callsResponse)) {
-            return; //$this->redirect(['controller' => 'Calls', 'action' => 'view', $call_id]);
-        }
-    }
-
-    public function dashboard() {
-
-
-
-        $connection = ConnectionManager::get('default');
-
-        if ($this->request->is('post')) {
-            $year = $this->request->data['year'];
-            $month = $this->request->data['month'];
-        }else{
-            $date = getdate();
-            $year = $date['year'];
-            $month = strval($date['mon']);
-        }
-
-        $sql = "
-        SELECT TOP 5 COUNT([calls].id) as count
-        ,[users].username as users_username
-        FROM [calls]
-        INNER JOIN [users] on calls.[attributed_to] = [users].id
-        INNER JOIN [calls_status] on [calls].status_id = [calls_status].id
-        WHERE year([calls].created) = '$year'";
-        if ($month != '0') {
-            $sql .= "and month([calls].created) = '$month'";
-        }
-        $sql .= "and [calls].status_id = 2
-        GROUP BY [users].username
-        ORDER BY count";
-        $quantStatusFinished = $connection->execute($sql)->fetchAll('assoc');
-
-        $sql = "
-        SELECT TOP 5 COUNT([calls].id) as count, [calls_areas].name
-        FROM [calls]
-        INNER JOIN [calls_areas] ON [calls_areas].id = [calls].area_id
-        WHERE year([calls].created) = '$year'";
-        if ($month != '0') {
-            $sql .= "and month([calls].created) = '$month'";
-        }
-        $sql .= "GROUP BY [calls_areas].name";
-        $forArea = $connection->execute($sql)->fetchAll('assoc');
-
-        $sql = "
-        SELECT TOP 5
-        COUNT([calls].id) as count,
-        [calls_categories].name as calls_categories_name,
-        [calls_areas].name as calls_areas_name
-        FROM [calls]
-        INNER JOIN [calls_categories] ON [calls_categories].id = [calls].category_id
-        INNER JOIN [calls_areas] ON [calls_areas].id = [calls].area_id
-        WHERE year([calls].created) = '$year'";
-        if ($month != '0') {
-            $sql .= "and month([calls].created) = '$month'";
-        }
-        $sql .= "GROUP BY [calls_categories].name, [calls_areas].name";
-        $forCategories = $connection->execute($sql)->fetchAll('assoc');
-
-        $sql = "
-        SELECT TOP 5 COUNT([calls].id) as count
-        ,[users].username as users_username
-        FROM [calls]
-        INNER JOIN [users] on calls.[attributed_to] = [users].id
-        WHERE year([calls].created) = '$year'";
-        if ($month != '0') {
-            $sql .= "and month([calls].created) = '$month'";
-        }
-        $sql .= "GROUP BY [users].username
-        ORDER BY count";
-        $forTech = $connection->execute($sql)->fetchAll('assoc');
-
-        $this->set(compact('quantStatusFinished', 'forArea', 'forCategories', 'forTech', 'year', 'month'));
-        $this->set('_serialize', ['quantStatusFinished', 'forArea', 'forCategories', 'forTech', 'year', 'month']);
-    }
-
-    public function beforeFilter(Event $event) {
-        parent::beforeFilter($event);
-        // Allow users to register and logout.
-        // You should not add the "login" action to allow list. Doing so would
-        // cause problems with normal functioning of AuthComponent.
-        // $this->Auth->allow(['index', 'add', 'edit', 'delete', 'view']);
-    }
-
-    public function isAuthorized($user) {
-
-        $this->loadModel('Users');
-        $this->loadModel('Roles');
-        $this->loadModel('RolesUsers');
-        $authenticatedUserId = $this->Auth->user('id');
-        $query = $this->Users->find()
-                ->where([
-            'id' => $authenticatedUserId
-        ]);
-        $statusArray = $query->all();
-        $status = null;
-        foreach ($statusArray as $key) {
-            $status = $key['status'];
-        }
-        if ($status == true) {
-            $query = $this->RolesUsers->find()
-                    ->where([
-                'user_id' => $authenticatedUserId
-            ]);
-            $currentUserGroups = $query->all();
-            $release = null;
-            foreach ($currentUserGroups as $key) {
-                if ($key['role_id'] == 25 or $key['role_id'] == 26 or $key['role_id'] == 01) {
-                        $release = true;
-                }
+        $currentUserGroups = $query->all();
+        $release = null;
+        foreach ($currentUserGroups as $key) {
+            if ($key['role_id'] == 25 or $key['role_id'] == 26 or $key['role_id'] == 01) {
+                $release = true;
             }
-            if ($release == false) {
-                if (in_array($this->request->params['action'], array('view', 'add', 'edit', 'index', 'delete'))) {
-                    return true;
-                } else {
-                    $this->Flash->error(__('Você não tem autorização para acessar esta área do sistema. Caso necessário, favor entrar em contato com o setor TI.'));
-                    return false;
-                }
-            } else {
+        }
+        if ($release == false) {
+            if (in_array($this->request->params['action'], array('view', 'add', 'edit', 'index', 'delete'))) {
                 return true;
+            } else {
+                $this->Flash->error(__('Você não tem autorização para acessar esta área do sistema. Caso necessário, favor entrar em contato com o setor TI.'));
+                return false;
             }
         } else {
-            $this->redirect($this->Auth->logout());
+            return true;
         }
-        return parent::isAuthorized($user);
+    } else {
+        $this->redirect($this->Auth->logout());
     }
+    return parent::isAuthorized($user);
+}
 
 }

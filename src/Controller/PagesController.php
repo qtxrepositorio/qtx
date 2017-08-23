@@ -80,20 +80,22 @@ class PagesController extends AppController
             ->where(['notices_users.user_id'=> $authenticatedUserId])
             ->order(['notices.id'=>'DESC']);
 
-        $connection = ConnectionManager::get('default');
-        $noticesRoles = $connection->execute("
-        SELECT DISTINCT TOP 4
-             [notices].[id]
-            ,[notices].[subject]
-            ,[notices].[text]
-            ,[notices].[created]
-            ,[notices].[modified]
-            ,[users].[name]
-        FROM [integratedSystemQualitex].[dbo].[notices]
-        INNER JOIN [integratedSystemQualitex].[dbo].[notices_roles] ON [notices].[id] = [notices_roles].[notice_id]
-        INNER JOIN [integratedSystemQualitex].[dbo].[users] ON [users].[id] = [notices].[user_id]
-        WHERE [notices_roles].[role_id] IN (SELECT [role_id] FROM [integratedSystemQualitex].[dbo].[roles_users] WHERE [user_id] = ".$authenticatedUserId.")
-          ORDER BY [id] DESC");
+        if ($authenticatedUserId) {
+            $connection = ConnectionManager::get('default');
+            $noticesRoles = $connection->execute('
+            SELECT DISTINCT TOP 4
+                 [notices].[id]
+                ,[notices].[subject]
+                ,[notices].[text]
+                ,[notices].[created]
+                ,[notices].[modified]
+                ,[users].[name]
+            FROM [integratedSystemQualitex].[dbo].[notices]
+            INNER JOIN [integratedSystemQualitex].[dbo].[notices_roles] ON [notices].[id] = [notices_roles].[notice_id]
+            INNER JOIN [integratedSystemQualitex].[dbo].[users] ON [users].[id] = [notices].[user_id]
+            WHERE [notices_roles].[role_id] IN (SELECT [role_id] FROM [integratedSystemQualitex].[dbo].[roles_users] WHERE [user_id] = '.$authenticatedUserId.')
+            ORDER BY [id] DESC');
+            }
 
         $this->set(compact('page', 'subpage','birthdaysOfTheMonth','noticesUsers','noticesRoles','calls','authenticatedUserId'));
 
@@ -106,4 +108,41 @@ class PagesController extends AppController
             throw new NotFoundException();
         }
     }
+
+    public function beforeFilter(Event $event)
+    {
+        parent::beforeFilter($event);
+        // Allow users to register and logout.
+        // You should not add the "login" action to allow list. Doing so would
+        // cause problems with normal functioning of AuthComponent.
+
+        //$this->Auth->allow(['logout','login']);
+    }
+
+    public function isAuthorized($user)
+    {
+        $this->loadModel('Users');
+        $this->loadModel('Roles');
+        $this->loadModel('RolesUsers');
+        $authenticatedUserId = $this->Auth->user('id');
+        $query = $this->Users->find()
+            ->where([
+                'id'=> $authenticatedUserId
+            ]);
+        $statusArray = $query->all();
+        $status = null;
+        foreach ($statusArray as $key) {
+            $status = $key['status'];
+        }
+
+        if ($status == false) {
+            $this->Flash->error(__('Usuário desativado, favor procurar o setor TI.'));
+			$this->redirect($this->Auth->logout());
+        }else{
+            return true;
+        }
+        return parent::isAuthorized($user);
+
+    }
+
 }
