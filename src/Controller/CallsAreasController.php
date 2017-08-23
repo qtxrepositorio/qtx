@@ -154,8 +154,10 @@ class CallsAreasController extends AppController
                 return true;
             }
         }
-        else {
-            $this->redirect($this->Auth->logout());
+        else
+        {
+			$this->Flash->error(__('Usuário desativado, favor procurar o setor TI.'));
+			$this->redirect($this->Auth->logout());
         }
         return parent::isAuthorized($user);
     }
